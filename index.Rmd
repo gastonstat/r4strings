@@ -1,0 +1,30 @@
+--- 
+title: "Handling Strings in R"
+author: "Gaston Sanchez"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: gastonstat/r4strings
+---
+
+# Handling Strings in R {-}
+
+This book aims to help you get started with manipulating strings in R. 
+Although there are a few issues with R about string processing, some of us 
+argue that R can be very well used for computing with character strings and 
+text. R may not be as rich and diverse as other scripting languages when it 
+comes to string manipulation, but it can take you very far if you know how. 
+Hopefully this text will provide you enough material to do more advanced 
+string and text processing operations.
+
+
+I am assuming two things about you. In decreasing order of importance:
+
+1. You already know R---this is not an introductory text on R.
+2. You already use R for handling quantitative and qualitative data, but not (necessarily) for processing strings. 
+
+
