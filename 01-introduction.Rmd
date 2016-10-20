@@ -1,0 +1,35 @@
+# Introduction {#intro}
+
+At its heart, computing involves working with numbers. That's the main reason 
+why computers were invented: to facilitate mathematical operations around
+numbers: from basic arithmetic to more complex operations (e.g. trigonometry, 
+algebra, calculus, etc.) Nowadays, however, computers are used to work with 
+data that are not just numbers. We use them to write a variety of documents, 
+we use them to create and edit images and videos, to manipulate sound, among 
+many other tasks. Learning to manipulate those data types is fundamental to 
+programming.
+
+Today, there is a considerable amount of information and data in the form 
+of text. Look at any website: pretty much the contents are text and images, 
+with some videos here and there, and maybe some tables or list of numbers. 
+We cannot deny the omnipresence of text. We are surrounded by text. 
+At the end of the day all the data that is passed to the computer is converted 
+to binary format (zeros and ones) so computers can process it. But on one can
+deny the fact that a lot of what we with computers is working with text.
+
+
+Likewise, we work with text files. All the  R script files that you use are 
+essentially plain text files. I bet you have a csv file with some fileds 
+containing characters. And then inside  R we also have text. Things like row
+names and column names of matrices, data frames, tables, and any other 
+rectangular data structure. Lists may contain names, vectors may also have 
+names. And what about the text in graphics? Things like titles, subtitles, axis 
+labels, legends, colors, displayed text in a plot, etc.
+
+Most of the times we are going to be working with text files: script files, 
+reports, data, source files, etc. If you have data in csv or any other field 
+delimited format (or even in HTML, XML, JSON, etc), what you are working with 
+is essentially with a bunch of characters.
+
+Overall we're going to be working with strings. Strings are just several 
+characters that have been strung together. 
