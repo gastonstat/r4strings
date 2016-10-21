@@ -1,3 +1,5 @@
+# (PART) Formatting {-}
+
 # Formatting Text and Numbers {#formatting}
 
 ## Introduction
