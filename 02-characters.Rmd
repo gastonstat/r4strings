@@ -3,7 +3,7 @@
 ## Introduction
 
 This chapter introduces you to the basic concepts for creating character
-vectors and character strings in R/ You will also learn how R treats objects 
+vectors and character strings in R. You will also learn how R treats objects 
 with characters.
 
 In R, a piece of text is represented as a sequence of characters (letters, 
@@ -459,5 +459,23 @@ paste(..., sep = "", collapse)
 # collapsing with paste0
 paste0("let's", "collapse", "all", "these", "words")
 ```
+
+
+## Exercises
+
+1. What is the difference between the empty character `""` and the output 
+of invoking `character()`?
+
+2. When you combine logical values, numeric values, and character
+values in one single vector, what will be the mode of the resulting vector?
+
+3. Using `rep()`, how would you obtain the following character vectors:
+
+```{r echo = FALSE}
+rep(c("a", "b"), times = 4)
+rep(c("a", "b"), each = 4)
+rep(c("a", "b"), each = 2, times = 2)
+```
+
 
 
