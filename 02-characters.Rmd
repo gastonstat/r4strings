@@ -1,89 +1,94 @@
 # Character Strings in R {#chars}
 
+## Introduction
+
+This chapter introduces you to the basic concepts for creating character
+vectors and character strings in R/ You will also learn how R treats objects 
+with characters.
+
 In R, a piece of text is represented as a sequence of characters (letters, 
 numbers, and symbols). The data type R provides for storing sequences of 
-characters is _character_. Formally, the class of object that holds 
+characters is _character_. Formally, the __mode__ of object that holds 
 character strings in R is `"character"`.
 
-We express character strings by surrounding text within single quotes:
-
-```{r eval=FALSE}
-'a character string using single quotes'
-```
-
-or we can also surround text within double quotes:
+You express character strings by surrounding text within double quotes:
 
 ```{r eval=FALSE}
 "a character string using double quotes"
 ```
 
-The important thing is that we must match the type of quotes that we are using. 
-A starting single quote must have an ending single quote. Likewise, a string 
-with an opening double quote must be closed with a double quote. 
+or you can also surround text within single quotes:
+
+```{r eval=FALSE}
+'a character string using single quotes'
+```
+
+The important thing is that you must match the type of quotes that your are 
+using. A starting double quote must have an ending double quote. Likewise, a 
+string with an opening single quote must be closed with a single quote. 
 
 Typing characters in R like in above examples is not very useful. Typically, 
-we are going to create objects or variables containing some strings. For 
-example, we can create a variable `string` that stores some string:
+you are going to create objects or variables containing some strings. For 
+example, you can create a variable `string` that stores some string:
 
 ```{r}
-string <- 'string'
+string <- 'do more with less'
 string
 ```
 
-Notice that when you print a character object, R displays it using double quotes 
-(regardless of whether the string was created using single or double quotes). 
-This allows us to quickly identify when an object contains character strings.
+Notice that when you print a character object, R displays it using double 
+quotes (regardless of whether the string was created using single or double 
+quotes). This allows you to quickly identify when an object contains character 
+values.
 
-When writing strings, we can insert single quotes in a string with double 
+When writing strings, you can insert single quotes in a string with double 
 quotes, and vice versa:
 
-```{r eval=FALSE}
+```{r}
 # single quotes within double quotes
-"The 'R' project for statistical computing"
+ex1 <- "The 'R' project for statistical computing"
 ```
 
-```{r eval = FALSE}
+```{r}
 # double quotes within single quotes
-'The "R" project for statistical computing'
+ex2 <- 'The "R" project for statistical computing'
 ```
 
-However, we cannot directly insert single quotes in a string with single 
-quotes, neither we can insert double quotes in a string with double quotes 
+However, you cannot directly insert single quotes in a string with single 
+quotes, neither you can insert double quotes in a string with double quotes 
 (Don't do this!):
 
 ```{r eval=FALSE}
-"This "is" totally unacceptable"
+ex3 <- "This "is" totally unacceptable"
 ```
 
 ```{r eval=FALSE}
-'This 'is' absolutely wrong'
+ex4 <- 'This 'is' absolutely wrong'
 ```
 
 In both cases R will give you an error due to the unexpected presence of 
 either a double quote within double quotes, or a single quote within single 
 quotes.
 
-If we really want to include a double quote as part of the string, we need 
+If you really want to include a double quote as part of the string, you need 
 to _escape_ the double quote using a backslash `\` before it:
 
 ```{r eval = FALSE}
 "The \"R\" project for statistical computing"
 ```
 
-We will talk more about escaping characters in the following chapters.
 
-
-## Getting started with strings
+## Common use of strings in R
 
 Perhaps the most common use of character strings in R have to do with:
 
 - names of files
 - names of data objects
-- text displayed in plots
+- text elements displayed in plots
   
-When we read a file, for instance a data table stored in a csv file, 
-we typically use the `read.table()` function and friends---e.g. `read.csv()`, 
-`read.delim()`. Assuming that the file is in the working directory:
+When you read a file, for instance a data table stored in a csv file, 
+you typically use the `read.table()` function and friends---e.g. `read.csv()`, 
+`read.delim()`. Assuming that the file is in your working directory:
 
 ```{r eval = FALSE}
 dat <- read.csv(file = 'dataset.csv')
@@ -92,12 +97,14 @@ dat <- read.csv(file = 'dataset.csv')
 The main parameter for the function `read.csv()` is `file` which requires a 
 character string with the pathname of the file.
 
-Another example of a basic use of characters is when we assign names to the 
-elements of some data structure in R. For instance, if we have a (numeric) 
-vector and we want to name its elements:
+Another example of a basic use of characters is when you assign names to the 
+elements of some data structure in R. For instance, if you want to name the 
+elements of a (numeric) vector:
 
 ```{r eval = FALSE}
-names(num_vec) <- str_vec
+num_vec <- 1:5
+names(num_vec) <- c('uno', 'dos', 'tres', 'cuatro', 'cinco')
+num_vec
 ```
 
 Likewise, many of the parameters in the plotting functions require some sort 
@@ -123,10 +130,53 @@ Besides the single quotes `''` or double quotes `""`, R provides the function
 `character()` to create character strings. More specifically, `character()` 
 is the function that creates vector objects of type `"character"`. 
 
+When using `character()` you just have to specify the length of the vector. 
+The output will be a character vector filled of empty strings:
+
+```{r character_function}
+# character vector with 5 empty strings
+char_vector <- character(5)
+char_vector
+```
+
+When would you use `character()`? A typical usage case is when you want to 
+initialize an _empty_ character vector of a given length. The idea is to 
+create an object that you will modify later with some computation.
+
+As with any other vector, once an empty character vector has been created, 
+you can add new components to it by simply giving it an index value outside 
+its previous range: 
+
+```{r empty_vector_ex1}
+# another example
+example <- character(0)
+example
+# check its length
+length(example)
+
+# add first element
+example[1] <- "first"
+example
+# check its length again
+length(example)
+```
+
+You can add more elements without the need to follow a consecutive index range:
+
+```{r empty_vector_ex2}
+example[4] <- "fourth"
+example
+length(example)
+```
+
+Notice that the vector `example` went from containing one-element to contain 
+four-elements without specifying the second and third elements. R fills this 
+gap with missing values `NA`.
+
 
 ### Empty string
 
-Let's start with the most basic string: the __empty string__ produced by 
+The most basic type of string is the __empty string__ produced by 
 consecutive quotation marks: `""`. Technically, `""` is a string with 
 no characters in it, hence the name "empty string":
 
@@ -169,15 +219,15 @@ length(empty_chr)
 Notice that the empty string `empty_str` has length 1, while the empty 
 character vector `empty_chr` has length 0.
 
-Also, `character(0)` occurs when we have a character vector with one or 
-more elements, and we attempt to subset the position 0:
+Also, `character(0)` occurs when you have a character vector with one or 
+more elements, and you attempt to subset the position 0:
 
 ```{r sunny}
 string <- c('sun', 'sky', 'clouds')
 string
 ```
 
-If we try to retrieve the element in position 0 we get:
+If you try to retrieve the element in position 0 you get:
 
 ```{r sunny0}
 string[0]
@@ -186,7 +236,7 @@ string[0]
 
 ### Function `c()`
 
-There is also the generic function `c()` (concatenate or combine) that we 
+There is also the generic function `c()` (concatenate or combine) that you 
 can use to create character vectors. Simply pass any number of elements 
 separated by commas:
 
@@ -195,7 +245,7 @@ string <- c('sun', 'sky', 'clouds')
 string
 ```
 
-Again, notice that we can use single or double quotes to define the character 
+Again, notice that you can use single or double quotes to define the character 
 elements inside `c()`
 
 ```{r}
@@ -204,60 +254,12 @@ planets
 ```
 
 
-### Function `character()`
-
-As we already mentioned, `character()` is a function to create character 
-vectors. We just have to specify the length of the vector, and 
-`character()` will produce a character vector with as many empty strings. 
-For instance, to produce a character vector with five elements simply use 
-`character(5)`:
-
-```{r character_function}
-# character vector with 5 empty strings
-char_vector <- character(5)
-char_vector
-```
-
-When would we use `character()`? A typical usage case is when we want to 
-initialize a character vector of a given length. The idea is to create an 
-object that we will modify later with some computation, but we require to have 
-an object initialized already. 
-
-Once an empty character object has been created, new components may be added to 
-it simply by giving it an index value outside its previous range. 
-
-```{r empty_vector_ex1}
-# another example
-example <- character(0)
-example
-# check its length
-length(example)
-
-# add first element
-example[1] <- "first"
-example
-# check its length again
-length(example)
-```
-
-We can add more elements without the need to follow a consecutive index range:
-
-```{r empty_vector_ex2}
-example[4] <- "fourth"
-example
-length(example)
-```
-
-Notice that we went from a one-element vector to a four-element vector without 
-specifying the second and third elements. R fills this gap with missing 
-values `NA`.
-
 
 ### `is.character()` and `as.character()`
 
-Related to `character()` we have its two sister functions: 
-`as.character()` and `is.character()`. These two functions are generic 
-methos for creating objects of type `"character"` and testing whether an 
+Related to `character()` R provides two related functions: 
+`as.character()` and `is.character()`. These two functions are methods for 
+creating objects of type `"character"` and testing whether an 
 R object is of type `"character"`. For instance, let's define two 
 objects `a` and `b` as follows:
 
@@ -305,7 +307,7 @@ must be unambiguously either logical, numeric, complex, character or raw.
 In R we say that vectors are __atomic__ structures, with their elements 
 having all the same type or mode. 
 
-So what happens when we mix different types of data in a vector?
+So what happens when you mix different types of data in a vector?
 
 ```{r mixed_vector}
 # vector with numbers and characters
@@ -314,9 +316,9 @@ c(1:5, pi, "text")
 
 As you can tell, the resulting vector from combining integers `1:5`, the 
 number `pi`, and some `"text"` is a vector with all its elements 
-treated as character strings. In other words, when we combine mixed data in 
+treated as character strings. In other words, when you combine mixed data in 
 vectors, strings will dominate. This means that the mode of the vector will be 
-`"character"`, even if we mix logical values:
+`"character"`, even if you mix logical values:
 
 ```{r mixed_vector2}
 # vector with numbers, logicals, and characters
@@ -335,7 +337,7 @@ useful ways.
 
 
 __Matrices.__
-The same behavior of vectors happens when we mix characters and numbers in 
+The same behavior of vectors happens when you mix characters and numbers in 
 matrices. Again, everything will be treated as characters:
 
 ```{r mixed_matrix}
@@ -375,7 +377,7 @@ different. While `df1$letters` is stored as a `"factor"`, `df2$letters` is
 stored as a `"character"`.
 
 __Lists.__
-With lists, we can combine whatever type of data we want. The type of data in 
+With lists, you can combine any type of data objects. The type of data in 
 each element of the list will maintain its corresponding mode:
 
 ```{r mixed_list}
@@ -384,5 +386,78 @@ list(1:5, letters[1:5], rnorm(5))
 ```
 
 
+
+
+## The workhorse function `paste()`
+
+The function `paste()` is perhaps one of the most important functions that you
+can use to create and build strings. `paste()` takes one or more R objects, 
+converts them to `"character"`, and then it concatenates (pastes) them to form 
+one or several character strings. Its usage has the following form:
+
+```
+paste(..., sep = " ", collapse = NULL)
+```
+
+The argument `...` means that it takes any number of objects. The argument 
+`sep` is a character string that is used as a separator. The argument 
+`collapse` is an optional string to indicate if you want all the terms to be 
+collapsed into a single string. Here is a simple example with `paste()`:
+
+```{r paste_string_ex1}
+# paste
+PI <- paste("The life of", pi)
+
+PI
+```
+
+As you can see, the default separator is a blank space (`sep = " "`). But you 
+can select another character, for example `sep = "-"`:
+
+```{r paste_string_ex2}
+# paste
+IloveR <- paste("I", "love", "R", sep = "-")
+
+IloveR
+```
+
+If we give `paste()` objects of different length, then it will apply a 
+recycling rule. For example, if we paste a single character `"X"` with the
+sequence `1:5`, and separator `sep = "."` this is what you get:
+
+```{r paste_string_ex3}
+# paste with objects of different lengths
+paste("X", 1:5, sep = ".")
+```
+
+To see the effect of the `collapse` argument, let's compare the difference with
+collapsing and without it:
+
+```{r paste_string_ex4}
+# paste with collapsing
+paste(1:3, c("!","?","+"), sep = '', collapse = "")
+# paste without collapsing
+paste(1:3, c("!","?","+"), sep = '')
+```
+
+One of the potential problems with `paste()` is that it coerces missing values `NA` into the character `"NA"`:
+
+```{r paste_string_ex5}
+# with missing values NA
+evalue <- paste("the value of 'e' is", exp(1), NA)
+
+evalue
+```
+
+In addition to `paste()`, there's also the function `paste0()` which is the equivalent of
+
+```
+paste(..., sep = "", collapse)
+```
+
+```{r paste0}
+# collapsing with paste0
+paste0("let's", "collapse", "all", "these", "words")
+```
 
 
