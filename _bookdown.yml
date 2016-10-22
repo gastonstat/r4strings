@@ -1,1 +1,8 @@
-book_filename: "r4strings"
+rmd_files: [
+  "index.rmd",
+  "01-introduction.Rmd",
+  "02-characters.Rmd",
+  "03-printing.Rmd"
+]
+
+before_chapter_script: "_common.R"
