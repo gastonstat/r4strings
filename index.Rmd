@@ -11,48 +11,21 @@ link-citations: yes
 github-repo: gastonstat/r4strings
 ---
 
-# Handling Strings in R {-}
+# Preface {-}
 
-This book aims to help you get started with manipulating strings in R. 
 
-The content is divided in five major parts:
-
-1. Getting started with character strings
-2. Formatting and printing text and numbers
-3. Input and output
-4. Basic manipulations
-5. Working with Regular Expressions
-
-If you have minimal or none experience with R, the best place to start is 
-[Chapter 1: Introduction](#intro). If you are already familiar with the basics
-of vectors and character objects, you can quickly skim this chapter, or skip it, 
-and then go to the another chapter.
-
-Chapter 2 describes different ways to format text and numbers. These are 
-useful tools for when you want to produce output that will either be displayed
-on screen, or that ill be exported to a file.
-
-The third major component of the book has to do with reading in information from
-text files, as well as exporting output to text to files.
-
-The fourth part of the book deals with _basic_ string manipulations. By "basic"
-we mean any type of manipulation and transformation that does not require
-the use of regular expressions.
-
-The fifth part comprises working with regular expressions. Here you will learn
-about the basic concepts around regular expressions (regex), the intricacies 
-when working with regex in R, and becoming familiar with the regex functions 
-in the R package __stringr__.
-
-Last but not least, the last chapters of the book present a couple of case 
-studies and extended practical examples that cover the main topics covered
-in the book.
+This book aims to provide a panoramic perspective of the wide array of 
+string manipulations that you can perform with R. If you are new to R, or 
+lack experience working with character data, this book will help you get 
+started with the basics of handling strings. Likewise, if you are already
+familiar with R, you will find material that shows you how to do more 
+advanced string and text processing operations.
 
 Despite the fact that R may not be as rich and diverse as other scripting 
 languages when it comes to string manipulation, it can take you very far if 
-you know how. Hopefully this text will provide you enough material to do more 
-advanced string and text processing operations.
-
+you know how. Sadly, documentation on how to manipulate strings and text data 
+in R is very scarce. This work is my two cents to increase the number of 
+available resources about this indispensable topic for any data scientist.
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
