@@ -1,3 +1,5 @@
+# (PART) Basics {-}
+
 # Character Strings in R {#chars}
 
 ## Introduction
