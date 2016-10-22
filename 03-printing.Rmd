@@ -7,7 +7,7 @@
 In this chapter you will learn about the different functions and options 
 to print strings in a variety of formats. A common task when working with
 character strings involves printing and displaying them on the screen or on
-a file. R allows you to achieve these task using a handful of printing
+a file. R allows you to achieve these tasks using a handful of printing
 and formatting functions.
 
 
@@ -15,8 +15,8 @@ and formatting functions.
 
 R provides a series of functions for printing strings. Some of the printing 
 functions are useful when creating `print` methods for programmed 
-objects' classes. Other functions are useful for printing outputs either in the 
-R console or in a given file. In this section we will describe the following 
+objects' classes. Other functions are useful for printing output either in the 
+R console or to a given file. In this chapter we will describe the following 
 print-related functions:
 
 | Function     | Description          |
@@ -46,42 +46,47 @@ should use this function when creating printing methods for programmed classes.
 
 As you can see from the previous example, `print()` displays text in 
 quoted form by default. If you want to print character strings with no quotes 
-we can set the argument `quote = FALSE` 
+you can set the argument `quote = FALSE` 
 
 ```{r print_noquote}
 # print without quotes
 print(my_string, quote = FALSE)
 ```
 
-The output produced by `print()` can be customized with various optional
-arguments. However, the way in which `print()` displays objects is
-rather limited. To get more printing variety there is a number of more flexible
-functions that we can use.
 
+### When to use `print()`?
 
-Here's one basic example:
+When you type the name of an obbject in the R console, R calls the corresponding
+`print` method associated to the class of the object. If the object is a 
+`"data.frame"`, then R will dispatch the method `print.data.frame` and display 
+the output on screen accordingly.
 
-```{r good_morning}
-print("Good morning!")
+Most of the times you don't really need to invoke `print()`. Usually, simply 
+typing the name of the object will suffice. So when do you actually call 
+`print()`? You use `print()` when your code is inside an __R expression__ 
+(i.e. code inside curly braces `{ }`) and you want to see the results of one
+or more computational steps. Typical examples that require an explicit call to
+`print()` is when you are interested in looking at some value within a loop, 
+or a conditional structure.
+
+Consider the following dummy `for` loop. It iterates five times, each 
+time adding 1 to the value of the iterator `i`:
+
+```{r}
+for (i in 1:5) {
+  i + 1
+}
 ```
 
-The object is the character string `"Good morning!"`. In fact, this is
-a vector of one element. So the behavior of `print()` is the default
-behavior when printing any type of character vector.
+The code works and R executes the additions, but nothing is displayed on 
+the consoloe. This is because the command `i + 1` forms part of an R expression,
+that is, is within theTo be able to see the actual computations you should use `print()`
 
-What about trying to print two vectors?
-
-```{r good_morning_vectors, error = TRUE}
-good <- 'good'
-morning <- 'morning'
-print(good, morning)
+```{r}
+for (i in 1:5) {
+  print(i + 1)
+}
 ```
-
-R throws an error. `print()` is taking the first argument `good` as the object 
-to be printed. And then it is taking `morning` as A second argument. Since the 
-function that is call is actually the default method `printf.default()`, this 
-function attempts to treat the second parameter as the `digits` parameter 
-(which is what the error message is showing).
 
 
 
@@ -89,10 +94,43 @@ function attempts to treat the second parameter as the `digits` parameter
 
 R comes with the `sprintf()` function that provides string formatting
 like in the __C__ language. To be more precise, this function is a wrapper
-for the C library function of the same name. Simply put, `sprintf()` allows 
-you to create strings as output using formatted data.
+for the C library function of the same name. In many other programming
+languages, this type of printing is known as _printf_ whish stands for 
+__print formatting__. Simply put, 
+`sprintf()` allows you to create strings as output using formatted data.
 
-Outputs can be obtained in different formats according to the following table:
+The function `sprintf()` requires using a special syntax that may look
+awkward the first time you use it. Here is one example:
+
+```{r}
+sprintf("I woke up at %s:%s%s a.m.", 8, 0, 5)
+```
+
+How does `sprintf()` work? The first argument of this function is a character
+vector of one element that contains the text to be formatted. Observe that 
+inside the text there are various percent symbols `%` followed by the letter 
+`s`. Each `%` is referred to as a __slot__, which is basically a placeholder 
+for a variable that will be formatted. The rest of the inputs passed to
+`sprintf()` are the values that will be used in each of the slots.
+
+The string in the previous example contains three slots of the same type, `%s`,
+and the subsequent arguments are numbers `8`, `0`, and `5`. Each number is used 
+as a value for each slot. The letter `s` indicates that the formatted variable
+is specified as a string.
+
+Most of the times you won't use `sprintf()` like in the example above. 
+Instead, what you will pass are variables containing different values:
+
+```{}
+hour <- 8
+mins1 <- 0
+mins2 <- 5
+sprintf("I woke up at %s:%s%s a.m.", hour, mins1, mins2)
+```
+
+
+The string format `%s` is just one of a larger list of available formatting
+options. The following table show the most common specifications:
 
 | Notation | Description                                       |
 |:---------|:--------------------------------------------------|
@@ -106,7 +144,75 @@ Outputs can be obtained in different formats according to the following table:
 | `%g`     | compact decimal or scientific notation (with `e`) |
 
 
-Basic Example
+The full syntax for a format slot is defined by:
+```
+%[parameter][flags][width][.precision][length]type
+```
+
+- `%` indicates a placeholder
+- `parameter` 
+
+
+
+The `parameter` field is an optional field that can take the value `n$` in which 
+`n` is the number of the variable to display, allowing the variables provided 
+to be used multiple times, using varying format specifiers or in different 
+orders.
+
+```{r}
+sprintf("The second number is %2$d, the first number is %1$d", 2, 1)
+```
+
+
+The `flags` field can be zero or more (in any order) of:
+
+- `-` (minus) Left-align the output of this placeholder.
+- `+` (plus) Prepends a plus for positive signed-numeric types.
+- ` ` (space) Prepends a space for positive signed-numeric types.
+- `0` (zero) When the 'width' option is specified, prepends zeros for numeric types.
+- `#` (hash) Alternate form:
+    + for `g` and `G` types, trailing zeros are not removed.
+    + for `f, F, e, E, g, G` types, the output always contain a decimal point.
+    + for `o, x, X` types, the text `0`, `0x`, `0X`, respectively, is 
+    prepended to non-zero numbers.
+    
+
+The `width` field is an optional field that you use to specify a minimum number
+of characters to output, and is typically used to pad fixed-width fields in 
+tabulated output, where the fields would otherwise be smaller, although it 
+does not cause truncation of oversized fields.
+
+```{r}
+sprintf("%*d", 5, 10)
+```
+
+
+The `precision` field usually specifies a maximum limit on the output, 
+depending on the particular formatting type.
+
+```{r}
+sprintf("%.*s", 3, "abcdef")
+```
+
+The `length` field is also optional, and can be any of:
+
+
+The most important field is the `type` field.
+
+- `%`: Prints a literal `%` character (this type doesn't accept any flags, 
+width, precision, length fields).
+- `d, i`: integer value as signed decimal number.
+- `f`: double value in normal fixed-point notation.
+- `e, E`: double value in standard form.
+- `g, G`: double value in either normal or exponential notation.
+- `x, X`: unsigned integer as a hexadecimal number. `x` uses lower case, while
+`X` uses upper case.
+- `o`: unsigned integer in octal notation.
+- `s`: null terminated string.
+- `a, A`: double value in hexadecimal notation
+
+
+### Example: basic `sprintf()`
 
 Let's begin with a minimal example to explore the different formatting options
 of `sprintf()`. Consider a real fraction like `1/6`; in R the default output 
