@@ -1,5 +1,3 @@
-# (PART) Basics {-}
-
 # Introduction {#intro}
 
 At its heart, computing involves working with numbers. That's the main reason 
@@ -19,7 +17,6 @@ At the end of the day all the data that is passed to the computer is converted
 to binary format (zeros and ones) so computers can process it. But on one can
 deny the fact that a lot of what we with computers is working with text.
 
-
 Likewise, we work with text files. All the  R script files that you use are 
 essentially plain text files. I bet you have a csv file with some fileds 
 containing characters. And then inside  R we also have text. Things like row
@@ -33,5 +30,167 @@ reports, data, source files, etc. If you have data in csv or any other field
 delimited format (or even in HTML, XML, JSON, etc), what you are working with 
 is essentially with a bunch of characters.
 
-Overall we're going to be working with strings. Strings are just several 
-characters that have been strung together. 
+
+
+## About this book
+
+This book aims to help you get started with handling strings in R. It provides 
+an overview of several resources that you can use for string manipulation. It 
+covers useful functions, general topics, common operations, and other tricks.
+
+This book is NOT about textual data analysis, linguistic analysis, text mining, 
+or natural language processing (NLP). For those purposes, I highly recommend 
+you to take a look at the CRAN Task View on Natural Language Processing (NLP):
+
+[http://cran.r-project.org/web/views/NaturalLanguageProcessing.html](http://cran.r-project.org/web/views/NaturalLanguageProcessing.html)
+
+However, even if you don't plan to do text analysis, text mining, or natural 
+language processing, I bet you have some dataset that contains data as 
+characters: names of rows, names of columns, dates, monetary quantities, 
+longitude and latitude, etc. I'm sure that you have encountered one or more of 
+the following cases:
+
+- You want to remove a given character in the names of your variables
+- You want to replace a given character in your data
+- Maybe you wanted to convert labels to upper case (or lower case)
+- You've been struggling with xml (or html) files
+- You've been modifying text files in excel changing labels, categories, one cell at a time, or doing one thousand copy-paste operations 
+
+
+Hopefully after reading this book, you will have the necessary tools in your 
+toolbox for dealing with these (and many) other situations that involve 
+handling and processing strings in R.
+
+
+## Structure of the book
+
+The content of the book is divided in five major parts:
+
+1. Getting started with character strings
+2. Formatting and printing text and numbers
+3. Input and output
+4. Basic manipulations
+5. Working with Regular Expressions
+
+If you have minimal or none experience with R, the best place to start is 
+[Chapter 2: Characters](#intro). If you are already familiar with the basics
+of vectors and character objects, you can quickly skim this chapter, or skip it, 
+and then go to the another chapter.
+
+Chapter 2 describes different ways to format text and numbers. These are 
+useful tools for when you want to produce output that will either be displayed
+on screen, or that ill be exported to a file.
+
+The third major component of the book has to do with reading in information from
+text files, as well as exporting output to text to files.
+
+The fourth part of the book deals with _basic_ string manipulations. By "basic"
+we mean any type of manipulation and transformation that does not require
+the use of regular expressions.
+
+The fifth part comprises working with regular expressions. Here you will learn
+about the basic concepts around regular expressions (regex), the intricacies 
+when working with regex in R, and becoming familiar with the regex functions 
+in the R package __stringr__.
+
+Last but not least, the last chapters of the book present a couple of case 
+studies and extended practical examples that cover the main topics covered
+in the book.
+
+
+## Main Resources
+
+Documentation on how to manipulate strings and text data in R is very scarce. 
+This is mostly because R is not perceived as a scripting language (like Python 
+or Java, among others). However, I seriously think that we need to have more 
+available resources about this indispensable topic. 
+
+There is not much documentation on how to manipulate character strings and text 
+data in R. There are great R books for an enormous variety of statistical 
+methods, graphics and data visualization, as well as applications in a wide 
+range of fields such as ecology, genetics, psychology, finance, economics, etc. 
+But not for manipulating strings and text data. 
+
+Perhaps the main reason for this lack of resources is that R is not considered 
+to be qualified as a "scripting" language: R is primarily perceived as a 
+language for computing and programming with (mostly numeric) data. Quoting 
+[Hadley Wickham](http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Wickham.pdf)
+
+> "R provides a solid set of string operations, but because they have grown 
+> organically over time, they can be inconsistent and a little hard to learn. 
+> Additionally, they lag behind the string operations in other programming 
+> languages, so that some things that are easy to do in languages like Ruby or 
+> Python are rather hard to do in R"
+
+Most introductory books about R have small sections that briefly cover string 
+manipulation without going further down. That is why I don't have many books 
+for recommendation, if anything the book by Phil Spector 
+__Data Manipulation with R__. 
+
+If published material is not abundant, we still have the online world. The good 
+news is that the web is full of hundreds of references about processing 
+character strings. The bad news is that they are very spread and uncategorized. 
+
+For specific topics and tasks, a good place to start with is _Stack Overflow_. 
+This is a questions-and-answers site for programmers that has a lot of 
+questions related with R. Just look for those questions tagged with `"r"`: 
+[http://stackoverflow.com/questions/tagged/r](http://stackoverflow.com/questions/tagged/r). 
+There is a good number of posts related with handling characters and text, and 
+they can give you a hint on how to solve a particular problem. There is also 
+_R-bloggers_, [http://www.r-bloggers.com](http://www.r-bloggers.com), a blog 
+aggregator for R enthusiasts in which is also possible to find contributed 
+material about processing strings as well as text data analysis.
+
+You can also check the following resources that have to do with string 
+manipulations. It is a very short list of resources but I've found them very 
+useful:
+
+- __R Wikibook: Programming and Text Processing__
+[http://en.wikibooks.org/wiki/R_Programming/Text_Processing](http://en.wikibooks.org/wiki/R_Programming/Text_Processing)
+ R wikibook has a section dedicated to text processing that is worth check it out.
+
+- __stringr: modern, consisting string processing__ by Hadley Wickham
+[http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Wickham.pdf](http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Wickham.pdf)
+Article from the R journal introducing the package `"stringr"` by Hadley Wickham.
+ 
+- __Introduction to String Matching and Modification in R Using Regular Expressions__ by Svetlana Eden
+[http://biostat.mc.vanderbilt.edu/wiki/pub/Main/SvetlanaEdenRFiles/regExprTalk.pdf](http://biostat.mc.vanderbilt.edu/wiki/pub/Main/SvetlanaEdenRFiles/regExprTalk.pdf)
+
+
+
+## Acknowledgements
+
+This book is a major iteration on a previous ebook that I wrote in 2013:
+__Handling and Processing Strings in R__. As you can tell, I've shorten the
+title to just _Handling Strings in R_. I've also expanded the content to
+include many more examples, code snippets, and material about regular 
+expressions.
+
+I've also benefitted from my experience as a lecturer in the Statistics 
+Department at the University of California, Berkeley. Much of the content 
+in this book derives from the examples and problems I have created to teach
+hundreds of students in the fall editions of Concepts in Computing with Data.
+This book wouldn't have been possible without the feedback and capacity of
+students to withstand my torturing them with data cleaning, wrangling and
+string manipulations.
+
+As always, many thanks to Jessica who patiently accepts my occupying of the
+dinning table as my workbench.
+
+
+## Colophon
+
+The source of the book is available in the github repository:
+
+[https://github.com/gastonstat/r4strings](https://github.com/gastonstat/r4strings).
+
+The book is powered by [https://bookdown.org](https://bookdown.org).
+
+This book was built with:
+
+```{r}
+sessionInfo()
+```
+
+
+
