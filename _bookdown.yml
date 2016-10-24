@@ -2,7 +2,10 @@ rmd_files: [
   "index.rmd",
   "01-introduction.Rmd",
   "02-characters.Rmd",
-  "03-printing.Rmd"
+  "03-printing.Rmd",
+  "basic-manipulations.Rmd",
+  "stringr-basics.Rmd",
+  "regex1.Rmd"
 ]
 
 before_chapter_script: "_common.R"
