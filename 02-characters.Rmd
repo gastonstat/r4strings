@@ -84,8 +84,8 @@ to _escape_ the double quote using a backslash `\` before it:
 
 Perhaps the most common use of character strings in R have to do with:
 
-- names of files
-- names of data objects
+- names of files and directories
+- names of elements in data objects
 - text elements displayed in plots
   
 When you read a file, for instance a data table stored in a csv file, 
@@ -423,9 +423,9 @@ IloveR <- paste("I", "love", "R", sep = "-")
 IloveR
 ```
 
-If we give `paste()` objects of different length, then it will apply a 
-recycling rule. For example, if we paste a single character `"X"` with the
-sequence `1:5`, and separator `sep = "."` this is what you get:
+If you give `paste()` objects of different length, then it will apply a 
+recycling rule. For example, if you paste a single character `"X"` with the
+sequence `1:5`, and separator `sep = "."`, this is what you get:
 
 ```{r paste_string_ex3}
 # paste with objects of different lengths
@@ -438,6 +438,7 @@ collapsing and without it:
 ```{r paste_string_ex4}
 # paste with collapsing
 paste(1:3, c("!","?","+"), sep = '', collapse = "")
+
 # paste without collapsing
 paste(1:3, c("!","?","+"), sep = '')
 ```
