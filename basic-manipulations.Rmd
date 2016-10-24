@@ -3,8 +3,8 @@
 ## Introduction
 
 In this chapter you will learn about the different functions to do what I call
-basic manipulations. By "basic" I mean transforming and processing strings
-in such way that do not require the use of regular expressions. More 
+_basic manipulations_. By "basic" I mean transforming and processing strings
+in such way that do not require the use of [regular expressions](#intro). More 
 advanced manipulations involve defining patterns of text and matching such
 patterns. This is the essential idea behind regular expressions, which is 
 the content of part 5 in this book.
@@ -94,8 +94,9 @@ case):
 ```{r casefold_ex}
 # lower case folding
 casefold("aLL ChaRacterS in LoweR caSe")
+
 # upper case folding
-casefold("All ChaRacterS in Upper Case", upper=TRUE)
+casefold("All ChaRacterS in Upper Case", upper = TRUE)
 ```
 
 I've found the case-folding functions to be very helpful when I write functions
