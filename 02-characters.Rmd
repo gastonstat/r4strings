@@ -1,4 +1,4 @@
-# (PART) Basics {-}
+# (PART) Characters {-}
 
 # Character Strings in R {#chars}
 
