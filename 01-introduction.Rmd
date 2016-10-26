@@ -62,7 +62,7 @@ toolbox for dealing with these (and many) other situations that involve
 handling and processing strings in R.
 
 
-## Structure of the book
+### Structure of the book
 
 The content of the book is divided in five major parts:
 
@@ -75,7 +75,7 @@ The content of the book is divided in five major parts:
 If you have minimal or none experience with R, the best place to start is 
 [Chapter 2: Characters](#intro). If you are already familiar with the basics
 of vectors and character objects, you can quickly skim this chapter, or skip it, 
-and then go to the another chapter.
+and then go to another chapter of your interest.
 
 Chapter 2 describes different ways to format text and numbers. These are 
 useful tools for when you want to produce output that will either be displayed
@@ -98,7 +98,7 @@ studies and extended practical examples that cover the main topics covered
 in the book.
 
 
-## Main Resources
+### Main Resources
 
 Documentation on how to manipulate strings and text data in R is very scarce. 
 This is mostly because R is not perceived as a scripting language (like Python 
@@ -158,7 +158,7 @@ Article from the R journal introducing the package `"stringr"` by Hadley Wickham
 
 
 
-## Acknowledgements
+### Acknowledgements
 
 This book is a major iteration on a previous ebook that I wrote in 2013:
 __Handling and Processing Strings in R__. As you can tell, I've shorten the
@@ -178,7 +178,7 @@ As always, many thanks to Jessica who patiently accepts my occupying of the
 dinning table as my workbench.
 
 
-## Colophon
+### Colophon
 
 The source of the book is available in the github repository:
 
