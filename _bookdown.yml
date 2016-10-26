@@ -3,8 +3,10 @@ rmd_files: [
   "01-introduction.Rmd",
   "02-characters.Rmd",
   "03-printing.Rmd",
+  "input-output.Rmd",
   "basic-manipulations.Rmd",
   "stringr-basics.Rmd",
+  "basic-examples.Rmd",
   "regex1.Rmd"
 ]
 
