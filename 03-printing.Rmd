@@ -11,7 +11,7 @@ a file. R allows you to achieve these tasks using a handful of printing
 and formatting functions.
 
 
-## Functions for printing and formatting strings
+## Printing and formatting
 
 R provides a series of functions for printing strings. Some of the printing 
 functions are useful when creating `print` methods for programmed 
@@ -29,7 +29,8 @@ print-related functions:
 | `sprintf()`  | C-style printing     |
 
 
-## Generic printing with `print()`
+
+## Generic printing
 
 The _workhorse_ printing function in R is `print()`. As its 
 names indicates, this function prints its argument on the R console:
@@ -90,7 +91,7 @@ for (i in 1:5) {
 
 
 
-## C-style Formatting with `sprintf()`
+## C-style Formatting
 
 R comes with the `sprintf()` function that provides string formatting
 like in the __C__ language. To be more precise, this function is a wrapper
@@ -121,7 +122,7 @@ is specified as a string.
 Most of the times you won't use `sprintf()` like in the example above. 
 Instead, what you will pass are variables containing different values:
 
-```{}
+```{r}
 hour <- 8
 mins1 <- 0
 mins2 <- 5
@@ -481,7 +482,7 @@ prices <- c(
   'capuccino' = 3.25)
 ```
 
-What type of vector is `prices}? Is it a character vector? Is it numeric 
+What type of vector is `prices`? Is it a character vector? Is it numeric 
 vector? Or is it some sort of vector with mix-data? We have seen that vectors 
 are _atomic_ structures, meaning that all their elements must be of the
 same class. So `prices` is definitely not a vector with mix-data. 
