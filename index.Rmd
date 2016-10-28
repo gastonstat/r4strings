@@ -8,6 +8,7 @@ documentclass: book
 bibliography: [book.bib]
 biblio-style: apalike
 link-citations: yes
+always_allow_html: yes
 github-repo: gastonstat/r4strings
 ---
 
