@@ -5,7 +5,7 @@ This repository contains the text and code of the book __Handling Strings in R__
 
 ## Author
 
-Gaston Sanchez 
+[Gaston Sanchez](http://gastonsanchez.com)
 
 
 ## License
