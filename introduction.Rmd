@@ -166,16 +166,8 @@ title to just _Handling Strings in R_. I've also expanded the content to
 include many more examples, code snippets, and material about regular 
 expressions.
 
-I've also benefitted from my experience as a lecturer in the Statistics 
-Department at the University of California, Berkeley. Much of the content 
-in this book derives from the examples and problems I have created to teach
-hundreds of students in the fall editions of Concepts in Computing with Data.
-This book wouldn't have been possible without the feedback and capacity of
-students to withstand my torturing them with data cleaning, wrangling and
-string manipulations.
-
-As always, many thanks to Jessica who patiently accepts my occupying of the
-dinning table as my workbench.
+As always, many thanks to Jessica who patiently accepted my occupying of the
+dinning table as my workbench (that's over now).
 
 
 ### Colophon
