@@ -1,7 +1,12 @@
+# R and Rstudio hidden files
 .Rproj.user
 .Rhistory
 .RData
+.Rapp.history
+
+.DS_Store
 _publish.R
 _book
 _bookdown_files
+_main*
 rsconnect
