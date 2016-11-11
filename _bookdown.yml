@@ -7,7 +7,8 @@ rmd_files: [
   "basic-manipulations.Rmd",
   "stringr-basics.Rmd",
   "basic-examples.Rmd",
-  "regex1.Rmd"
+  "regex1.Rmd",
+  "character-sets.Rmd"
 ]
 
 before_chapter_script: "_common.R"
