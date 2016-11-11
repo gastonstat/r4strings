@@ -1,0 +1,93 @@
+# Character Sets
+
+In this chapter we will talk about character sets. You will learn about 
+a couple of more metacharacters, the opening and closing brackets `[ ]`, that 
+will help you define a character set.
+
+These square brackets indicate a character set which will match any one of 
+the various characters that are inside the set. Keep in mind that a character 
+set will match only one character. The order of the character inside the set 
+does not matter; what matter is just the presence of the characters inside the
+brackets. So for example if you have a set defined by `"[AEIOU]"`, that will 
+match any one upper case vowel. 
+
+
+## Defining character sets
+
+Consider the following pattern that includes a character set: `"p[aeiou]n"`, 
+and a vector with the words _pan_, _pen_, and _pin_:
+
+```{r results='hide'}
+pns <- c('pan', 'pen', 'pin', 'pon', 'pun')
+
+str_view(pns, "p[aeiou]n")
+```
+
+The set `"p[aeiou]n"` matches all elements in `pns`. Now let's use the same 
+set with another vector `pnx`:
+
+```{r results='hide'}
+pnx <- c('pan', 'pen', 'pin', 'p0n', 'p.n', 'p1n', 'paun')
+
+str_view(pnx, "p[aeiou]n")
+``` 
+
+As you can tell, this time only the first three elements in `pnx` are matched.
+Notice also that _paun_ is not matched. This is because the character set
+matches only one character, either _a_ or _u_ but not _au_.
+
+If you are interested in matching all capital letters, you can defined a set
+formed as:
+
+```
+[ABCDEFGHIJKLMNOPQRSTUVWXYZ]
+```
+
+Likewise, you can define a set with only lower case letters:
+
+```
+[abcdefghijklmnopqrstuvwxyz]
+```
+
+If you are interested in matching any digit, you can also specify a character
+set like this:
+
+```
+[0123456789]
+```
+
+
+
+## Character ranges
+
+The previous examples that show character sets containing all the capital 
+letters or all lower case letters are very convenient but require a lot typing.
+Character ranges are going to help you solve that problem, by giving you a 
+convenient shortcut by using the dash metacharacter `"-"` to indicate a range 
+of characters. The use of the dash inside a character set represents all 
+characters that are between a starting character and an ending character. 
+
+Let's see how you can reexpress the examples in the previous section as
+character ranges. The set of all digits can be expressed as a character range
+using the following pattern:
+
+```
+[0-9]
+```
+
+Likewise, the set of all lower case letters _abcd...xyz_ is compactly 
+represented with the character range:
+
+```
+[a-z]
+```
+
+And the character set of all upper case letters _ABD...XYZ_ is formed by
+
+```
+[A-Z]
+```
+
+It is important to note that the dash is only a metacharacter when it's inside 
+a character set; outside the character set it's just a literal dash.
+
