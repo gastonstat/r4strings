@@ -118,7 +118,7 @@ combine smaller expressions.
 
 We're going to start with the simplest match of all: a literal character.
 A literal character match is one in which a given character such as the letter
-`"A"` matches the letter _A_. This type of match is the most basic 
+`"R"` matches the letter _R_. This type of match is the most basic 
 type of regular expression operation: just matching plain text.
 
 The following examples are extremely basic but they will help you get a 
@@ -135,9 +135,10 @@ This pattern is formed by a letter _b_, followed by a letter _o_, followed by
 another letter _o_, followed by a letter _k_. As you may guess, this pattern 
 matches the word _book_ in the character vector `this_book`. 
 To have a visual representation of the actual pattern that is matched, you
-should use the function `str_view()` from the package `"stringr"`:
+should use the function `str_view()` from the package `"stringr"` 
+(you may need to upgrade to a recent version of RStudio):
 
-```{r}
+```{r eval = FALSE}
 str_view(this_book, 'book')
 ```
 
@@ -148,7 +149,7 @@ It may seem really simple but there are a couple of details to be highlighted.
 The first is that regex searches are case sensitive by default. This means 
 that the pattern `"Book"` would not match _book_ in ``this_book``.
 
-```{r}
+```{r eval = FALSE}
 str_view("This Book is mine.", 'book')
 ```
 
@@ -162,19 +163,23 @@ this_book <- 'This book is mine. I wrote this book with bookdown.'
 ```
 
 Let's use `str_view()` to see what pieces of text are matched in `this_book` 
+with the pattern `"book"`:
 
-```{r grep_book}
+```{r grep_book, eval = FALSE}
 str_view(this_book, "book")
 ```
 
-As you can tell, only the first occurrence of _book_ was matched. This is a 
-minor but important detail and we will come back to this behavior of regular
-expressions.
+As you can tell, only the first occurrence of _book_ was matched. This is
+a common behavior of regular expressions in which they return a match as fast
+possible. You can think of this behavior as the "eager principle", that is,
+regular expressions are eager and they will give preference to an early match.
+This is a minor but important detail and we will come back to this behavior of r
+egular expressions.
 
 All the letters and digits in the English alphabet are considered literal 
 characters. They are called _literal_ because they match themselves.
 
-```{r}
+```{r eval = FALSE}
 str_view <- c("I had 3 quesadillas for lunch", "3")
 ```
 
@@ -195,4 +200,88 @@ letter `"a"` is highlighted in the words _car_, _boat_ and _airplane_.
 
 
 
+## Metacharacters
 
+As you just learned, the most basic type of regular expressions are the
+literal characters which are characters that match themselves. However,
+not all characters match themselves. Any character that is not a literal
+character is a metacharacter. This type of characters have a special meaning
+and they allow you to transform literal characters in very powerful ways.
+
+Simply put, everything else that you need to know about regular expressions 
+besides literal characters is how do these metacharacters all work. That is
+the simple part. The complication lies in the fact that most metacharacters 
+have more than one meaning. And learning those meanings takes time.
+The meaning of the metacharacters greatly depend on the context in which you
+use them. 
+
+
+### The Wild Metacharacter
+
+The first metacharacter you should learn about is the dot or period `"."`, 
+better known as the __wild__ metacharacter. This metacharacter is used to
+match __ANY__ character except for a new line.
+
+For example, consider the vector `c("not", "note", "knot", "nut")` and the 
+pattern `"n.t"`
+
+```{r eval = FALSE}
+not <- c("not", "note", "knot", "nut")
+
+str_view(not, "n.t")
+```
+
+the pattern `"n.t"` matches _not_ in the first three elements, and _nut_
+in the last element.
+
+If you specify a pattern `"no."`, then just the first three elements
+in `not` will be matched. 
+
+```{r eval = FALSE}
+str_view(not, "no.")
+```
+
+And if you define a pattern `"kn."`, then only the third element is matched.
+
+```{r eval = FALSE}
+str_view(not, "kn.")
+```
+
+The wild metacharacter is probably the most used metacharacter, and it is 
+also the most abused one, being the source of many mistakes. Here is a basic
+example: a regular expression formed by `"5.00"`. If you think that this 
+pattern will match five with two decimal places after it, you will be 
+surprised to find out that it not only matches _5.00_ but also _5100_ and _5-00_. 
+Why? Because `"."` is the metacharacter that matches absolutely anything.
+
+
+### Escaping metacharacters
+
+What if you you just want to match the character dot? For example, say you 
+have the following vector:
+
+```{r}
+fives <- c("5.00", "5100", "5-00", "5 00")
+```
+
+If you try the pattern `"5.00"`, it will match all of the elements in `fives`.
+
+```{r eval = FALSE}
+str_view(fives, "5.00")
+```
+
+To actually match the dot character, what you need to do is __escape__ the
+metacharacter. In most languages, the way to escape a metacharacter is by 
+adding a backslash character in front of the metacharacter: `"\."`. 
+When you use a backslash in front of a metacharacter you are "escaping" the
+character, this means that the character no longer has a special meaning, 
+and it will match itself.
+
+However, R is a bit different. Ins tead of using a backslash you have to use
+two backslashes: `"5\\.00"`. This is because the backslash `"\"`, which is
+another metacharacter, has a special meaning in R. Therefore, to match just
+the element _5.00_ in `fives` in R, you do it like so:
+
+```{r eval = FALSE}
+str_view(fives, "5\\.00")
+```
