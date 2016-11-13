@@ -73,7 +73,7 @@ The content of the book is divided in five major parts:
 5. Working with Regular Expressions
 
 If you have minimal or none experience with R, the best place to start is 
-[Chapter 2: Characters](#intro). If you are already familiar with the basics
+[Chapter 2: Characters](#chars). If you are already familiar with the basics
 of vectors and character objects, you can quickly skim this chapter, or skip it, 
 and then go to another chapter of your interest.
 
@@ -180,7 +180,7 @@ The book is powered by [https://bookdown.org](https://bookdown.org).
 
 This book was built with:
 
-```{r}
+```{r echo = FALSE}
 sessionInfo()
 ```
 
