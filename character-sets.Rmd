@@ -62,10 +62,10 @@ set like this:
 
 The previous examples that show character sets containing all the capital 
 letters or all lower case letters are very convenient but require a lot of 
-typing. Character ranges are going to help you solve that problem, by giving 
-you a convenient shortcut based on the dash metacharacter `"-"` to indicate 
-a range of characters. The use of the dash inside a character set represents 
-all characters that are between a starting character and an ending character. 
+typing. __Character ranges__ are going to help you solve that problem, by 
+giving you a convenient shortcut based on the dash metacharacter `"-"` to 
+indicate a range of characters. A character range consists of a character set
+with two characters separated by a dash or minus `"-"` sign.
 
 Let's see how you can reexpress the examples in the previous section as
 character ranges. The set of all digits can be expressed as a character range
@@ -88,8 +88,8 @@ And the character set of all upper case letters _ABD...XYZ_ is formed by
 [A-Z]
 ```
 
-It is important to note that the dash is only a metacharacter when it's inside 
-a character set; outside the character set it's just a literal dash.
+Note that the dash is only a metacharacter when it is inside a character set; 
+outside the character set it is just a literal dash.
 
 So how do you use character range? To illustrate the concept of character 
 ranges let's create a `basic` vector with some simple strings, and see 
@@ -125,7 +125,7 @@ a certain type of character. For example, to match three consecutive digits
 you can define a pattern `"[0-9][0-9][0-9]"`; to match three consecutive
 lower case letters you can use the pattern `"[a-z][a-z][a-z]"`; and the
 same idea applies to a pattern that matches three consecutive upper case
-letters `"[A-Z][A-Z][A-Z]". 
+letters `"[A-Z][A-Z][A-Z]"`. 
 
 ```{r results='hide'}
 str_view(triplets, '[0-9][0-9][0-9]')
@@ -212,7 +212,7 @@ that, in general, the period is the wildcard metacharacter and it matches
 any type of character. However, the period in this example is inside a 
 character set, and because of that, it loses its wildcard behavior.
 
-```
+```{r, results='hide'}
 str_view(pnx, "p[ae.io]n")
 ``` 
 
@@ -230,11 +230,99 @@ want to use a literal right bracket inside a character set you must escape it:
 purposes. This is also why the backslash `\`, or double backslash in R, 
 does not become a literal character. 
 
-Another interesting case has to do with the dash or hyphen `-`. As you 
-know, the dash inside a character set is used to define a range of 
+Another interesting case has to do with the dash or hyphen `-` character. As 
+you know, the dash inside a character set is used to define a range of 
 characters: e.g. `[0-9]`, `[x-z]`, and `[K-P]`. As a general rule, if you
 want to include a literal dash as part of a range, you should escape it:
 `"[a-z\\-]"`. 
 
+Let's modify the `basic` vector by adding an opening and ending brackets:
+
+```{r}
+basic <- c('1', 'a', 'A', '&', '-', '^', '[', ']')
+```
+
+How do match each of the characters that have a special meaning inside a 
+character set?
+
+```{r, results='hide'}
+# matching a literal caret
+str_view(basic, "[a\\^]")
+``` 
+
+```{r, results='hide'}
+# matching a literal dash
+str_view(basic, "[a\\-]")
+``` 
+
+```{r, results='hide'}
+# matching a literal opening bracket
+str_view(basic, "[a\\[]")
+``` 
+
+```{r, results='hide'}
+# matching a literal closing bracket
+str_view(basic, "[a\\]]")
+``` 
+
+## Character Classes
+
+Closely related with character sets and character ranges, regular expressions
+provide another useful construct called __character classes__ which, as their
+name indicates, are used to match a certain class of characters. The most
+common character classes in most regex engines are:
+
+| Character | Matches                                     | Same as         |
+|:----------|:--------------------------------------------|:----------------|
+| `\\d`     | any digit                                   | `[0-9]`         |
+| `\\D`     | any nondigit                                | `[^0-9]`        |
+| `\\w`     | any character considered part of a word     | `[a-zA-Z0-9_]`  |
+| `\\W`     | any character not considered part of a word | `[^a-zA-Z0-9_]` |
+| `\\s`     | any whitespace character                    | `[\f\n\r\t\v]`  |
+| `\\S`     | any nonwhitespace character                 | `[^\f\n\r\t\v]` |
 
 
+You can think of character classes as another type of metacharacters, or aq 
+shortcuts for special character sets. 
+
+The following table whows the characters that represent whitespaces:
+
+| Character | Description     |
+|:----------|:----------------|
+| `\f`      | form feed       |
+| `\n`      | line feed       |
+| `\r`      | carriage return |
+| `\t`      | tab             |
+| `\v`      | vertical tab    |
+
+Sometimes you have to deal with nonprinting whitespace characters. In these
+situations you probably will end up using the whitespace character class `\\s`.
+A common example is when you have to match tab characters, or line breaks. 
+
+The operating system Windows uses `\r\n` as an end-of-line marker. In contrast,
+Unix-like operating systems (including Mac OS) use `\n`.
+
+Tab characters `\t` are commonly as a field-separator for data files. But 
+most text editors render them as whitespaces.
+
+
+
+## POSIX Character Classes
+
+We finish this chapter with the introduction of another type of character
+classes known as __POSIX character classes__. These are yet another class
+construct that is supported by the regex engine in R.
+
+| Class        | Description                | Same as         |
+|:-------------|:---------------------------|:----------------|
+| `[:alnum:]`  | any letter or digit        | `[a-zA-Z0-9]`   |
+| `[:alpha:]`  | any letter                 | `[a-zA-Z]`      |
+| `[:digit:]`  | any digit                  | `[0-9]`         |
+| `[:lower:]`  | any lower case letter      | `[a-z]`         |
+| `[:upper:]`  | any upper case letter      | `[A-Z]`         |
+| `[:space:]`  | any whitespace inluding space | `[\f\n\r\t\v ]` | 
+| `[:punct:]`  | any punctuation symbol     |                 |
+| `[:print:]`  | any printable character    |                 |
+| `[:graph:]`  | any printable character excluding space |    |
+| `[:xdigit:]` | any hexadecimal digit      | `[a-fA-F0-9]`   |
+| `[:cntrl:]`  | ASCII control characters   |                 |
