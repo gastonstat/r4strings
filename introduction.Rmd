@@ -3,7 +3,7 @@
 At its heart, computing involves working with numbers. That's the main reason 
 why computers were invented: to facilitate mathematical operations around
 numbers: from basic arithmetic to more complex operations (e.g. trigonometry, 
-algebra, calculus, etc.) Nowadays, however, computers are used to work with 
+algebra, calculus, etc.) Nowadays, however, we use computers to work with 
 data that are not just numbers. We use them to write a variety of documents, 
 we use them to create and edit images and videos, to manipulate sound, among 
 many other tasks. Learning to manipulate those data types is fundamental to 
@@ -11,25 +11,27 @@ programming.
 
 Today, there is a considerable amount of information and data in the form 
 of text. Look at any website: pretty much the contents are text and images, 
-with some videos here and there, and maybe some tables or list of numbers. 
-We cannot deny the omnipresence of text. We are surrounded by text. 
+with some videos here and there, and maybe some tables and/or a list of numbers. 
+
+Likewise, most of the times you are going to be working with text files: 
+script files, reports, data files, source code files, etc. 
+All the  R script files that you use are essentially plain text files. 
+I bet you have a csv file or any other field delimited format 
+(or even in HTML, XML, JSON, etc), with some fields containing characters. 
+In all of these cases what you are working with is essentially 
+a bunch of characters.
+
 At the end of the day all the data that is passed to the computer is converted 
-to binary format (zeros and ones) so computers can process it. But on one can
-deny the fact that a lot of what we with computers is working with text.
+to binary format (zeros and ones) so computers can process it. But no one can
+deny the fact that a lot of what we do with computers is working with text and 
+character strings. 
 
-Likewise, we work with text files. All the  R script files that you use are 
-essentially plain text files. I bet you have a csv file with some fileds 
-containing characters. And then inside  R we also have text. Things like row
+And then inside R you also have text. Things like row
 names and column names of matrices, data frames, tables, and any other 
-rectangular data structure. Lists may contain names, vectors may also have 
-names. And what about the text in graphics? Things like titles, subtitles, axis 
-labels, legends, colors, displayed text in a plot, etc.
-
-Most of the times we are going to be working with text files: script files, 
-reports, data, source files, etc. If you have data in csv or any other field 
-delimited format (or even in HTML, XML, JSON, etc), what you are working with 
-is essentially with a bunch of characters.
-
+rectangular data structure. Lists and vectors may also contain names. 
+And what about the text in graphics? Things like titles, subtitles, 
+axis labels, legends, colors, displayed text in a plot, etc.
+Text is omnipresent: whether you are we are surrounded by it.
 
 
 ## About this book
@@ -69,7 +71,7 @@ The content of the book is divided in five major parts:
 1. Getting started with character strings
 2. Formatting and printing text and numbers
 3. Input and output
-4. Basic manipulations
+4. Basic string manipulations
 5. Working with Regular Expressions
 
 If you have minimal or none experience with R, the best place to start is 
@@ -79,13 +81,13 @@ and then go to another chapter of your interest.
 
 Chapter 2 describes different ways to format text and numbers. These are 
 useful tools for when you want to produce output that will either be displayed
-on screen, or that ill be exported to a file.
+on screen, or that will be exported to a file.
 
 The third major component of the book has to do with reading in information from
 text files, as well as exporting output to text to files.
 
 The fourth part of the book deals with _basic_ string manipulations. By "basic"
-we mean any type of manipulation and transformation that does not require
+I mean any type of manipulation and transformation that does not require
 the use of regular expressions.
 
 The fifth part comprises working with regular expressions. Here you will learn
