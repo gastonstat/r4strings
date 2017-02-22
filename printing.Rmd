@@ -79,9 +79,10 @@ for (i in 1:5) {
 }
 ```
 
-The code works and R executes the additions, but nothing is displayed on 
+The above code works and R executes the additions, but nothing is displayed on 
 the consoloe. This is because the command `i + 1` forms part of an R expression,
-that is, is within theTo be able to see the actual computations you should use `print()`
+that is, is within the braces `{ }`.
+To be able to see the actual computations you should call `print()` like so:
 
 ```{r}
 for (i in 1:5) {
@@ -96,7 +97,7 @@ for (i in 1:5) {
 R comes with the `sprintf()` function that provides string formatting
 like in the __C__ language. To be more precise, this function is a wrapper
 for the C library function of the same name. In many other programming
-languages, this type of printing is known as _printf_ whish stands for 
+languages, this type of printing is known as _printf_ which stands for 
 __print formatting__. Simply put, 
 `sprintf()` allows you to create strings as output using formatted data.
 
@@ -131,7 +132,7 @@ sprintf("I woke up at %s:%s%s a.m.", hour, mins1, mins2)
 
 
 The string format `%s` is just one of a larger list of available formatting
-options. The following table show the most common specifications:
+options. The following table shows the most common formatting specifications:
 
 | Notation | Description                                       |
 |:---------|:--------------------------------------------------|
@@ -150,9 +151,7 @@ The full syntax for a format slot is defined by:
 %[parameter][flags][width][.precision][length]type
 ```
 
-- `%` indicates a placeholder
-- `parameter` 
-
+The percent symbol, `%`, as we said, indicates a placeholder or slot.
 
 
 The `parameter` field is an optional field that can take the value `n$` in which 
@@ -299,7 +298,7 @@ file_names <- c(files1, files2)
 ```
 
 Instead of using `paste0()` to create two vectors, you can use `sprintf()` 
-with the `%0xd` option to indicate the an integer should be padded with `x` 
+with the `%0xd` option to indicate that an integer should be padded with `x` 
 leading zeros. For instance, the first nine file names can be generated as:
 
 ```{r file_names4}
