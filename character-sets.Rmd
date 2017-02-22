@@ -6,7 +6,7 @@ will help you define a character set.
 
 These square brackets indicate a character set which will match any one of 
 the various characters that are inside the set. Keep in mind that a character 
-set will match only one character. The order of the character inside the set 
+set will match only one character. The order of the characters inside the set 
 does not matter; what matter is just the presence of the characters inside the
 brackets. So for example if you have a set defined by `"[AEIOU]"`, that will 
 match any one upper case vowel. 
@@ -36,14 +36,14 @@ As you can tell, this time only the first three elements in `pnx` are matched.
 Notice also that _paun_ is not matched. This is because the character set
 matches only one character, either _a_ or _u_ but not _au_.
 
-If you are interested in matching all capital letters, you can defined a set
-formed as:
+If you are interested in matching all capital letters in English, 
+you can define a set formed as:
 
 ```
 [ABCDEFGHIJKLMNOPQRSTUVWXYZ]
 ```
 
-Likewise, you can define a set with only lower case letters:
+Likewise, you can define a set with only lower case letters in English:
 
 ```
 [abcdefghijklmnopqrstuvwxyz]
@@ -242,7 +242,7 @@ Let's modify the `basic` vector by adding an opening and ending brackets:
 basic <- c('1', 'a', 'A', '&', '-', '^', '[', ']')
 ```
 
-How do match each of the characters that have a special meaning inside a 
+How do you match each of the characters that have a special meaning inside a 
 character set?
 
 ```{r, results='hide'}
@@ -282,10 +282,10 @@ common character classes in most regex engines are:
 | `\\S`     | any nonwhitespace character                 | `[^\f\n\r\t\v]` |
 
 
-You can think of character classes as another type of metacharacters, or aq 
+You can think of character classes as another type of metacharacters, or as 
 shortcuts for special character sets. 
 
-The following table whows the characters that represent whitespaces:
+The following table shows the characters that represent whitespaces:
 
 | Character | Description     |
 |:----------|:----------------|
@@ -302,7 +302,7 @@ A common example is when you have to match tab characters, or line breaks.
 The operating system Windows uses `\r\n` as an end-of-line marker. In contrast,
 Unix-like operating systems (including Mac OS) use `\n`.
 
-Tab characters `\t` are commonly as a field-separator for data files. But 
+Tab characters `\t` are commonly used as a field-separator for data files. But 
 most text editors render them as whitespaces.
 
 
@@ -326,3 +326,30 @@ construct that is supported by the regex engine in R.
 | `[:graph:]`  | any printable character excluding space |    |
 | `[:xdigit:]` | any hexadecimal digit      | `[a-fA-F0-9]`   |
 | `[:cntrl:]`  | ASCII control characters   |                 |
+
+
+Notice that a POSIX character class is formed by an opening bracket `[`, 
+followed by a colon `:`, followed by some keyword, followed by another 
+colon `:`, and finally a closing bracket `]`.
+
+In order to use them in R, you have to wrap a POSIX class inside a regex
+character class. That is, you have to surround a POSIX class with brackets.
+
+Once again, refer to the `pnx` vector to illustrate the use of POSIX classes:
+
+```{r results='hide'}
+pnx <- c('pan', 'pen', 'pin', 'p0n', 'p.n', 'p1n', 'paun')
+```
+
+Let's start with the `[:alpha:]` class, and see what does it match in `pnx`:
+
+```{r, results='hide'}
+str_view(pnx, "[[:alpha:]]")
+``` 
+
+Now let's test it with `[:digit:]`
+
+```{r, results='hide'}
+str_view(pnx, "[[:digit:]]")
+``` 
+
