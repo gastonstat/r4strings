@@ -6,11 +6,11 @@
 
 This chapter introduces you to the basic concepts for creating character
 vectors and character strings in R. You will also learn how R treats objects 
-with characters.
+containing characters.
 
 In R, a piece of text is represented as a sequence of characters (letters, 
 numbers, and symbols). The data type R provides for storing sequences of 
-characters is _character_. Formally, the __mode__ of object that holds 
+characters is _character_. Formally, the __mode__ of an object that holds 
 character strings in R is `"character"`.
 
 You express character strings by surrounding text within double quotes:
@@ -82,15 +82,15 @@ to _escape_ the double quote using a backslash `\` before it:
 
 ## Common use of strings in R
 
-Perhaps the most common use of character strings in R have to do with:
+Perhaps the most common use of character strings in R has to do with:
 
 - names of files and directories
 - names of elements in data objects
-- text elements displayed in plots
+- text elements displayed in plots and graphs
   
 When you read a file, for instance a data table stored in a csv file, 
 you typically use the `read.table()` function and friends---e.g. `read.csv()`, 
-`read.delim()`. Assuming that the file is in your working directory:
+`read.delim()`. Assuming that the file `dataset.csv` is in your working directory:
 
 ```{r eval = FALSE}
 dat <- read.csv(file = 'dataset.csv')
@@ -101,7 +101,7 @@ character string with the pathname of the file.
 
 Another example of a basic use of characters is when you assign names to the 
 elements of some data structure in R. For instance, if you want to name the 
-elements of a (numeric) vector:
+elements of a (numeric) vector, you can use the function `names()` as follows:
 
 ```{r eval = FALSE}
 num_vec <- 1:5
@@ -113,7 +113,7 @@ Likewise, many of the parameters in the plotting functions require some sort
 of input string. Below is a hypothetical example of a scatterplot that includes 
 several graphical elements like the main title (`main`), subtitle (`sub`), 
 labels for both x-axis and y-axis (`xlab`, `ylab`), the name of the color
-(`col`), and the symbol for the point character (`pch`)
+(`col`), and the symbol for the point character (`pch`).
 
 ```{r eval = FALSE}
 plot(x, y, 
@@ -129,7 +129,7 @@ plot(x, y,
 ## Creating Character Strings
 
 Besides the single quotes `''` or double quotes `""`, R provides the function 
-`character()` to create character strings. More specifically, `character()` 
+`character()` to create character vectors. More specifically, `character()` 
 is the function that creates vector objects of type `"character"`. 
 
 When using `character()` you just have to specify the length of the vector. 
@@ -153,12 +153,14 @@ its previous range:
 # another example
 example <- character(0)
 example
+
 # check its length
 length(example)
 
 # add first element
 example[1] <- "first"
 example
+
 # check its length again
 length(example)
 ```
@@ -239,8 +241,8 @@ string[0]
 ### Function `c()`
 
 There is also the generic function `c()` (concatenate or combine) that you 
-can use to create character vectors. Simply pass any number of elements 
-separated by commas:
+can use to create character vectors. Simply pass any number of character 
+elements separated by commas:
 
 ```{r}
 string <- c('sun', 'sky', 'clouds')
@@ -261,7 +263,7 @@ planets
 
 Related to `character()` R provides two related functions: 
 `as.character()` and `is.character()`. These two functions are methods for 
-creating objects of type `"character"` and testing whether an 
+coercing objects to type `"character"`, and testing whether an 
 R object is of type `"character"`. For instance, let's define two 
 objects `a` and `b` as follows:
 
@@ -480,5 +482,20 @@ rep(c("a", "b"), each = 4)
 rep(c("a", "b"), each = 2, times = 2)
 ```
 
+4. Given the following vectors `go`, `bears`, and `bang`:
 
+```{r}
+go = 'Go'
+bears = 'Bears'
+bang = '!'
+```
 
+how would you use `paste()` and `paste0()` to get the following strings:
+
+```
+"Go Bears !"
+"GoBears!"
+"Go Bears!"
+"Go-Bears!"
+"Go Bears!!!"
+```
