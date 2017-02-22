@@ -46,7 +46,7 @@ testing if a phone number has the correct number of digits, if a date follows a
 specifc format (e.g. mm/dd/yy), if an email address is in a valid format, or if 
 a password has numbers and special characters. You could also use regular 
 expressions to search a document for _gray_ spelt either as "gray" or 
-"grey". You could search a document and replace all occurrences of Will, Bill, 
+"grey". You could search a document and replace all occurrences of "Will", "Bill", 
 or "W." with William. Or you could count the number of times in a document 
 that the word "analysis" is immediately preceded by the words "data", 
 "computer" or "statistical" only in those cases. You could use it to 
@@ -202,8 +202,8 @@ letter `"a"` is highlighted in the words _car_, _boat_ and _airplane_.
 
 ## Metacharacters
 
-The next topic that should learn about regular expressions has to do with 
-\textbf{metacharacters}. As you just learned, the most basic type of regular 
+The next topic that you should learn about regular expressions has to do with 
+__metacharacters__. As you just learned, the most basic type of regular 
 expressions are the literal characters which are characters that match 
 themselves. However, not all characters match themselves. Any character that 
 is not a literal character is a metacharacter. This type of characters have a 
@@ -251,7 +251,7 @@ The first metacharacter you should learn about is the dot or period `"."`,
 better known as the __wild__ metacharacter. This metacharacter is used to
 match __ANY__ character except for a new line.
 
-For example, consider the pattern `"p.n"`, that is, the _p wildcard n_. This
+For example, consider the pattern `"p.n"`, that is, _p wildcard n_. This
 pattern will match _pan_, _pen_, and _pin_, but it will not match _prun_ 
 or _plan_. The dot only matches one single character. 
 
@@ -295,7 +295,7 @@ looking for, but only that thing.
 
 ### Escaping metacharacters
 
-What if you you just want to match the character dot? For example, say you 
+What if you just want to match the character dot? For example, say you 
 have the following vector:
 
 ```{r}
