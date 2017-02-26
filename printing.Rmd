@@ -91,461 +91,149 @@ for (i in 1:5) {
 ```
 
 
+## Concatenate and print with `cat()`
 
-## C-style Formatting
+Another very useful function is `cat()` which allows us to concatenate objects 
+and print them either on screen or to a file. Its usage has the following 
+structure:
 
-R comes with the `sprintf()` function that provides string formatting
-like in the __C__ language. To be more precise, this function is a wrapper
-for the C library function of the same name. In many other programming
-languages, this type of printing is known as _printf_ which stands for 
-__print formatting__. Simply put, 
-`sprintf()` allows you to create strings as output using formatted data.
-
-The function `sprintf()` requires using a special syntax that may look
-awkward the first time you use it. Here is one example:
-
-```{r}
-sprintf("I woke up at %s:%s%s a.m.", 8, 0, 5)
+```
+cat(..., file = "", sep = " ", fill = FALSE, labels = NULL, append = FALSE)
 ```
 
-How does `sprintf()` work? The first argument of this function is a character
-vector of one element that contains the text to be formatted. Observe that 
-inside the text there are various percent symbols `%` followed by the letter 
-`s`. Each `%` is referred to as a __slot__, which is basically a placeholder 
-for a variable that will be formatted. The rest of the inputs passed to
-`sprintf()` are the values that will be used in each of the slots.
+The argument `...` implies that `cat()` accepts several types of data. However, 
+when we pass numeric and/or complex elements they are automatically converted 
+to character strings by `cat()`. By default, the strings are concatenated with 
+a space character as separator. This can be modified with the `sep` argument.
 
-The string in the previous example contains three slots of the same type, `%s`,
-and the subsequent arguments are numbers `8`, `0`, and `5`. Each number is used 
-as a value for each slot. The letter `s` indicates that the formatted variable
-is specified as a string.
+If we use `cat()` with only one single string, you get a similar 
+(although not identical) result as `noquote()`:
 
-Most of the times you won't use `sprintf()` like in the example above. 
-Instead, what you will pass are variables containing different values:
-
-```{r}
-hour <- 8
-mins1 <- 0
-mins2 <- 5
-sprintf("I woke up at %s:%s%s a.m.", hour, mins1, mins2)
+```{r cat_ex1}
+# simply print with 'cat()'
+cat(my_string)
 ```
 
+As you can see, `cat()` prints its arguments without quotes. In essence, `cat()` 
+simply displays its content (on screen or in a file). Compared to `noquote()`, 
+`cat()` does not print the numeric line indicator (`[1]` in this case). 
 
-The string format `%s` is just one of a larger list of available formatting
-options. The following table shows the most common formatting specifications:
+The usefulness of `cat()` is when we have two or more strings that we want 
+to concatenate:
 
-| Notation | Description                                       |
-|:---------|:--------------------------------------------------|
-| `%s`     | a string                                          |
-| `%d`     | an integer                                        |
-| `%0xd`   | an integer padded with `x` leading zeros          |
-| `%f`     | decimal notation with six decimals                |
-| `%.xf`   | floating point number with `x` digits after decimal point | 
-| `%e`     | compact scientific notation, `e` in the exponent  |
-| `%E`     | compact scientific notation, `E` in the exponent  |
-| `%g`     | compact decimal or scientific notation (with `e`) |
-
-
-The full syntax for a format slot is defined by:
-```
-%[parameter][flags][width][.precision][length]type
+```{r cat_ex2}
+# concatenate and print
+cat(my_string, "with R")
 ```
 
-The percent symbol, `%`, as we said, indicates a placeholder or slot.
+You can use the argument `sep` to indicate a chacracter vector that will be 
+included to separate the concatenated elements:
 
+```{r cat_ex3}
+# especifying 'sep'
+cat(my_string, "with R", sep=" =) ")
 
-The `parameter` field is an optional field that can take the value `n$` in which 
-`n` is the number of the variable to display, allowing the variables provided 
-to be used multiple times, using varying format specifiers or in different 
-orders.
-
-```{r}
-sprintf("The second number is %2$d, the first number is %1$d", 2, 1)
+# another example
+cat(1:10, sep = "-")
 ```
 
+When we pass vectors to `cat()`, each of the elements are treated as though 
+they were separate arguments:
 
-The `flags` field can be zero or more (in any order) of:
-
-- `-` (minus) Left-align the output of this placeholder.
-- `+` (plus) Prepends a plus for positive signed-numeric types.
-- ` ` (space) Prepends a space for positive signed-numeric types.
-- `0` (zero) When the 'width' option is specified, prepends zeros for numeric types.
-- `#` (hash) Alternate form:
-    + for `g` and `G` types, trailing zeros are not removed.
-    + for `f, F, e, E, g, G` types, the output always contain a decimal point.
-    + for `o, x, X` types, the text `0`, `0x`, `0X`, respectively, is 
-    prepended to non-zero numbers.
-    
-
-The `width` field is an optional field that you use to specify a minimum number
-of characters to output, and is typically used to pad fixed-width fields in 
-tabulated output, where the fields would otherwise be smaller, although it 
-does not cause truncation of oversized fields.
-
-```{r}
-sprintf("%*d", 5, 10)
+```{r cat_ex4}
+# first four months
+cat(month.name[1:4], sep = " ")
 ```
 
+The argument `fill` allows us to break long strings; this is achieved when we 
+specify the string width with an integer number:
 
-The `precision` field usually specifies a maximum limit on the output, 
-depending on the particular formatting type.
-
-```{r}
-sprintf("%.*s", 3, "abcdef")
+```{r cat_ex5}
+# fill = 30
+cat("Loooooooooong strings", "can be displayed", "in a nice format", 
+    "by using the 'fill' argument", fill = 30)
 ```
 
-The `length` field is also optional, and can be any of:
+Last but not least, we can specify a file output in `cat()`. For instance, 
+let's suppose that we want to save the output in the file `output.txt` 
+located in our working directory:
 
-
-The most important field is the `type` field.
-
-- `%`: Prints a literal `%` character (this type doesn't accept any flags, 
-width, precision, length fields).
-- `d, i`: integer value as signed decimal number.
-- `f`: double value in normal fixed-point notation.
-- `e, E`: double value in standard form.
-- `g, G`: double value in either normal or exponential notation.
-- `x, X`: unsigned integer as a hexadecimal number. `x` uses lower case, while
-`X` uses upper case.
-- `o`: unsigned integer in octal notation.
-- `s`: null terminated string.
-- `a, A`: double value in hexadecimal notation
-
-
-### Example: basic `sprintf()`
-
-Let's begin with a minimal example to explore the different formatting options
-of `sprintf()`. Consider a real fraction like `1/6`; in R the default output 
-of this fraction will be:
-
-```{r}
-1 / 6
-```
-
-Notice that `1/6` is printed with seven decimal digits. The number `1/6` is 
-actually an irrational number and so the computer needs to round it to some 
-number of decimal digits. You can modify the default printing format in several 
-ways. One option is to display only six decimal digits with the `%f` option:
-
-```{r}
-# print 6 decimals
-sprintf('%f', 1/6)
-```
-
-But you can also specify a different number of decimal digits, say 3. This can 
-be achieved specifying an option of `%.3f`:
-
-```{r}
-# print 3 decimals
-sprintf('%.3f', 1/6)
-```
-
-The table below shows six different outputs for `1/6`
-
-| Notation | Output                   |
-|:---------|:-------------------------|
-| `%s`    | `r sprintf('%s', 1/6)`   |
-| `%f`    | `r sprintf('%f', 1/6)`   |
-| `%.3f`  | `r sprintf('%.3f', 1/6)` |
-| `%e`    | `r sprintf('%e', 1/6)`   |
-| `%E`    | `r sprintf('%E', 1/6)`   |
-| `%g`    | `r sprintf('%g', 1/6)`   |
-
-
-When would you use `sprintf()`? Everytime you produce output text. Some 
-cases include: 
-
-1) exporting output to some file.
-2) printing output on console.
-3) forming new strings.
-
-
-### Example: File Names
-
-When working on data analysis projects, it is common to generate different 
-files with similar names (e.g. either for creating images, or data files, or 
-documents). Imagine that you need to generate the names of 3 data files 
-(with .csv extension). All the files have the same prefix name but each of them
-has a different number: `data01.csv`, `data02.csv`, and `data03.csv`. 
-One naive solution to generate a character vector with these names in R would 
-be to write something like this:
-
-```{r file_names1}
-file_names <- c('data01.csv', 'data02.csv', 'data03.csv')
-```
-
-Instead of writing each file name, you can generate the vector `file_names`
-in a more efficient way taking advantage of the vectorized nature of 
-`paste0()`:
-
-```{r file_names2}
-file_names <- paste0('data0', 1:3, '.csv')
-
-file_names
-```
-
-Now imagine that you need to generate 100 file names numbered from 01, 02, 03, 
-to 100. You could write a vector with 100 file names but it's going to take 
-you a while. A preferable solution is to use `paste0()` like in the approach 
-of the previous example. In this case however, you would need to create two 
-separate vectors---one with numbers 01 to 09, and another one with numbers 
-10 to 100---and then concatenate them in one single vector:
-
-```{r file_names3}
-files1 <- paste0('data0', 1:9, '.csv')
-files2 <- paste0('data', 10:100, '.csv')
-file_names <- c(files1, files2)
-```
-
-Instead of using `paste0()` to create two vectors, you can use `sprintf()` 
-with the `%0xd` option to indicate that an integer should be padded with `x` 
-leading zeros. For instance, the first nine file names can be generated as:
-
-```{r file_names4}
-sprintf('data%02d.csv', 1:9)
-```
-
-To generate the 100 file names do:
-
-```{r file_names5}
-file_names <- sprintf('data%02d.csv', 1:100)
-```
-
-The first nine elements in `file_names` will include a leading zero before 
-the integer; the following elements will not include the leading zero.
-
-
-### Example: Fahrenheit to Celsius
-
-This example involves working on a function to convert Fahrenheit degrees
-into Celsius degrees. The conversion formula is:
-
-$$
-Celsius = (Fahrenheit - 32) \times \frac{5}{9}
-$$
-
-You can define a simple function `to_celsius()` that takes one argument,
-`temp`, which is a number representing temperature in Fahrenheit degrees. 
-This function will return the temperature in Celsius degrees:
-
-```{r to_celsius}
-to_celsius <- function(temp = 1) {
-  (temp - 32) * 5/9
-}
-```
-
-You can use `to_celsius()` as any other function in R. Say you want to 
-know how many Celsius degrees are 95 Fahrenheit degrees:
-
-```{r to_celsius1}
-to_celsius(95)
-```
-
-To make things more interesting, let's create another function that not only 
-computes the temperature conversion but also prints a more informative message, something like: `95 Fahrenheit degrees = 35 Celsius degrees`. 
-
-We'll name this function `fahrenheit2celsius()`:
-
-```{r fahrenheit2celsius}
-fahrenheit2celsius <- function(temp = 1) {
-  celsius <- to_celsius(temp)
-  sprintf('%.2f Fahrenheit degrees = %.2f Celsius degrees', temp, celsius)
-}
-```
-
-Notice that `fahrenheit2celsius()` makes use of `to_celsius()` to
-compute the Celsius degrees. And then `sprintf()` is used with the options
-`%.2f` to display the temperatures with two decimal digits. Try it out:
-
-```{r fah2celsius}
-fahrenheit2celsius(95)
-fahrenheit2celsius(50)
+```{r cat_ex6, eval=FALSE}
+# cat with output in a given file
+cat(my_string, "with R", file = "output.txt")
 ```
 
 
 
-### Example: Car Traveled Distance
 
-Our third example is a little bit more sophisticated. The idea is to construct
-an object of class `"car"` that contains characteristics like the name 
-of the car, its make, its year, and its fuel consumption in _city_, 
-_highway_ and _combined_.
+## Encoding strings with `format()`
 
-Let's consider a _Mazda 3_ for this example. One possible way to define
-a `"car"` object is to use a list with the following elements:
+The function `format()` allows us to format an R object for pretty printing. 
+Essentially, `format()` treats the elements of a vector as character strings 
+using a common format. This is especially useful when printing numbers and 
+quantities under different formats.
 
-```{r mazda3}
-mazda3 <- list(
-  name = 'mazda3', # car name
-  make = 'mazda',  # car make
-  year = 2015,     # year model
-  city = 30,       # fuel consumption in city
-  highway = 40,    # fuel consumption in highway
-  combined = 33)   # fuel consumption combined (city-and-hwy)
-```
+```{r format_string_default}
+# default usage
+format(13.7)
 
-So far we have an object `mazda3` that is essentially a list. Because we
-want to create a `print()` method for objects of class `"car"` we
-need to assign this class to our `mazda3`:
-
-```{r mazda3_car}
-class(mazda3) <- "car"
-```
-
-Now that we have our `"car"` object, we can create a `print.car()` function. 
-In this way, everytime we type `mazda3`, instead of getting the typical list 
-output, we will get a customized display:
-
-```{r print_car}
-print.car <- function(x) {
-  cat("Car\n")
-  cat(sprintf('name: %s\n', x$name))
-  cat(sprintf('make: %s\n', x$make))
-  cat(sprintf('year: %s\n', x$year))
-  invisible(x)
-}
-```
-
-Next time you type `mazda3` in your console, R will display these lines:
-
-```{r print_mazda3}
-mazda3
-```
-
-It would be nice to have a function `miles()` that allows you to calculate the 
-traveled distance for a given amount of gas (in gallons), taking into account 
-the type of fuel consumption (e.g. city, highway, combined):
-
-```{r miles_function}
-miles <- function(car, fuel = 1, mpg = 'city') {
-  stopifnot(class(car) == 'car')
-  switch(mpg,
-         'city' = car$city * fuel,
-         'highway' = car$highway * fuel,
-         'combined' = car$combined * fuel,
-         car$city * fuel)
-}
+# another example
+format(13.12345678)
 ```
 
 
-The `miles()` function takes three parameters: `car` is an object of
-class `"car"`, `fuel` is the number of gallons, and `mpg` is the
-type of fuel consumption (`'city', `highway', `combined'`). The first
-command checks whether the first parameter is an object of class `"car"`.
-If it is not, then the function will stop the execution raising an error. 
-The second command involves using the function `switch()` to compute the 
-traveled miles. It switches to the corresponding consumption depending on the
-provided value of `mpg`. Note that the very last switch condition is a
-_safety_ condition in case the user mispecifies `mpg`.
+Some useful arguments:
 
-Let's say you want to know how many miles the `mazda3` could
-travel with 4 gallons of gas depending on the different types of consumption:
+- `width` the (minimum) width of strings produced
+- `trim` if set to `TRUE` there is no padding with spaces
+- `justify` controls how padding takes place for strings. 
+Takes the values `"left", "right", "centre", "none"`
 
-```{r miles_test}
-miles(mazda3, fuel = 4, 'city')
-miles(mazda3, fuel = 4, 'highway')
-miles(mazda3, fuel = 4, 'combined')
+
+For controling the printing of numbers, use these arguments:
+
+- `digits` The number of digits to the right of the decimal place.
+- `scientific` use `TRUE` for scientific notation, `FALSE` for standard notation
+
+
+Keep in mind that \code{justify} does not apply to numeric values. 
+
+```{r format_string}
+# use of 'nsmall'
+format(13.7, nsmall = 3)
+
+# use of 'digits'
+format(c(6.0, 13.1), digits = 2)
+
+# use of 'digits' and 'nsmall'
+format(c(6.0, 13.1), digits = 2, nsmall = 1)
 ```
 
-Again, to make things more user friendly, we are going to create a function
-`get_distance()` that prints a more informative message about the
-traveled distance:
+By default, `format()` pads the strings with spaces so that they are all the 
+same length.
 
-```{r get_distance_function}
-get_distance <- function(car, fuel = 1, mpg = 'city') {
-  distance <- miles(car, fuel = fuel, mpg = mpg) 
-  cat(sprintf('A %s can travel %s miles\n',
-              car$name, distance))
-  cat(sprintf('with %s gallons of gas\n', fuel))
-  cat(sprintf('using %s consumption', mpg))
-}
+```{r format_strings_ihaka}
+# justify options
+format(c("A", "BB", "CCC"), width = 5, justify = "centre")
+
+format(c("A", "BB", "CCC"), width = 5, justify = "left")
+
+format(c("A", "BB", "CCC"), width = 5, justify = "right")
+
+format(c("A", "BB", "CCC"), width = 5, justify = "none")
+
+# digits
+format(1/1:5, digits = 2)
+
+# use of 'digits', widths and justify
+format(format(1/1:5, digits = 2), width = 6, justify = "c")
 ```
 
-And this is how the output when calling `get_distance` looks like:
+For printing large quantities with a sequenced format we can use the arguments 
+`big.mark` or `big.interval`. For instance, here is how we can print a number 
+with sequences separated by a comma `","`
 
-```{r get_distance_test}
-get_distance(mazda3, 4, 'city')
+```{r format_bigmark}
+# big.mark
+format(123456789, big.mark = ",")
 ```
-
-
-### Example: Coffee Prices
-
-Consider some coffee drinks and their prices. We'll put this information in a 
-vector like this:
-
-```{r coffee_prices}
-prices <- c(
-  'americano' = 2, 
-  'latte' = 2.75, 
-  'mocha' = 3.45, 
-  'capuccino' = 3.25)
-```
-
-What type of vector is `prices`? Is it a character vector? Is it numeric 
-vector? Or is it some sort of vector with mix-data? We have seen that vectors 
-are _atomic_ structures, meaning that all their elements must be of the
-same class. So `prices` is definitely not a vector with mix-data. 
-From the code chunk we can observe that each element of the vector is formed 
-by a string, followed by the `=` sign, followed by some number. 
-This way of defining a vector is not very common in R but it is perfectly 
-valid. Each string represents the name of an element, while 
-the numbers are the actual elements. Therefore `prices` is in reality 
-a numeric vector. You can confirm this by looking at the mode (or data type):
-
-```{r mode_prices}
-mode(prices)
-```
-
-Let's say you want to list the names of the coffees and their prices. If you 
-just simply try to `print()` the prices, the output will be the entire 
-vector `prices`:
-
-```{r print_prices}
-print(prices)
-```
-
-Alternatively, you can use a for loop to `print()` each individual element of 
-the vector `prices`, but again the output is displayed in an awkward fashion:
-
-```{r for_loop_print_prices}
-for (p in seq_along(prices)) {
-  print(prices[p])
-}
-```
-
-To list the names of the coffees and their prices, it would be nicer to use
-a combination of `paste0()` and `print()`. In addition, you can be
-more descriptive adding some auxiliary text such that the output prints
-something like: _"americano has a price of $2"_.
-
-```{r paste_prices}
-for (p in seq_along(prices)) {
-  print(paste0(names(prices)[p], ' has price of $', prices[p]))
-}
-```
-
-Another possible solution consists of combining `print()` and `sprintf()`:
-
-```{r sprintf_prices}
-for (p in seq_along(prices)) {
-  print(sprintf('%s has price of $%s', names(prices)[p], prices[p]))
-}
-```
-
-One limitation of `quote()` is that it won't work inside a for loop:
-
-```{r noquote_prices}
-for (p in seq_along(prices)) {
-  noquote(sprintf('%s has price of $%s', names(prices)[p], prices[p]))
-}
-```
-
-If what you want is to print the output wihtout quotes, then you need to 
-use `cat()`; just make sure to add a newline character `"\n"`:
-
-```{r cat_prices}
-for (p in seq_along(prices)) {
-  cat(sprintf('%s has price of $%s\n', names(prices)[p], prices[p]))
-}
-```
-
