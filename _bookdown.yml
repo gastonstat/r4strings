@@ -3,6 +3,7 @@ rmd_files: [
   "introduction.Rmd",
   "characters.Rmd",
   "printing.Rmd",
+  "sprintf.Rmd",
   "input-output.Rmd",
   "basic-manipulations.Rmd",
   "stringr-basics.Rmd",
