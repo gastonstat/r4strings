@@ -28,7 +28,7 @@ we will review the following functions:
 | `abbreviate()` | abbreviation                     |
 | `substring()`  | substrings of a character vector |
 | `substr()`     | substrings of a character vector |
- 
+
  
 ## Counting characters
 
