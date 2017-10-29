@@ -79,6 +79,8 @@ to _escape_ the double quote using a backslash `\` before it:
 "The \"R\" project for statistical computing"
 ```
 
+We will talk more about escaping characters in the following chapters.
+
 
 ## Common use of strings in R
 
@@ -485,9 +487,9 @@ rep(c("a", "b"), each = 2, times = 2)
 4. Given the following vectors `go`, `bears`, and `bang`:
 
 ```{r}
-go = 'Go'
-bears = 'Bears'
-bang = '!'
+go <- 'Go'
+bears <- 'Bears'
+bang <- '!'
 ```
 
 how would you use `paste()` and `paste0()` to get the following strings:
@@ -498,4 +500,5 @@ how would you use `paste()` and `paste0()` to get the following strings:
 "Go Bears!"
 "Go-Bears!"
 "Go Bears!!!"
+"Go Bears! Go Bears! Go Bears!"
 ```
