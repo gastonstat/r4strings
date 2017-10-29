@@ -2,7 +2,7 @@
 
 At its heart, computing involves working with numbers. That's the main reason 
 why computers were invented: to facilitate mathematical operations around
-numbers: from basic arithmetic to more complex operations (e.g. trigonometry, 
+numbers; from basic arithmetic to more complex operations (e.g. trigonometry, 
 algebra, calculus, etc.) Nowadays, however, we use computers to work with 
 data that are not just numbers. We use them to write a variety of documents, 
 we use them to create and edit images and videos, to manipulate sound, among 
@@ -42,7 +42,7 @@ covers useful functions, general topics, common operations, and other tricks.
 
 This book is NOT about textual data analysis, linguistic analysis, text mining, 
 or natural language processing (NLP). For those purposes, I highly recommend 
-you to take a look at the CRAN Task View on Natural Language Processing (NLP):
+taking a look at the CRAN Task View on Natural Language Processing (NLP):
 
 [http://cran.r-project.org/web/views/NaturalLanguageProcessing.html](http://cran.r-project.org/web/views/NaturalLanguageProcessing.html)
 
