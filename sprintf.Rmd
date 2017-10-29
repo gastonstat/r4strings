@@ -37,6 +37,8 @@ sprintf("I woke up at %s:%s%s a.m.", hour, mins1, mins2)
 ```
 
 
+## C-style formatting options
+
 The string format `%s` is just one of a larger list of available formatting
 options. The following table shows the most common formatting specifications:
 
