@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Handling Strings in R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Handling Strings in R">
+  <meta name="generator" content="bookdown 0.1.16 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Handling Strings in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="gastonstat/r4strings" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Handling Strings in R" />
+  
+  
+  
+
+<meta name="author" content="Gaston Sanchez">
+
+  
+<meta name="date" content="2017-10-28">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="input-and-output.html">
+<link rel="next" href="stringr-basics.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Handling Strings in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#about-this-book"><i class="fa fa-check"></i><b>1.1</b> About this book</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="intro.html"><a href="intro.html#structure-of-the-book"><i class="fa fa-check"></i><b>1.1.1</b> Structure of the book</a></li>
+<li class="chapter" data-level="1.1.2" data-path="intro.html"><a href="intro.html#main-resources"><i class="fa fa-check"></i><b>1.1.2</b> Main Resources</a></li>
+<li class="chapter" data-level="1.1.3" data-path="intro.html"><a href="intro.html#acknowledgements"><i class="fa fa-check"></i><b>1.1.3</b> Acknowledgements</a></li>
+<li class="chapter" data-level="1.1.4" data-path="intro.html"><a href="intro.html#colophon"><i class="fa fa-check"></i><b>1.1.4</b> Colophon</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Characters</b></span></li>
+<li class="chapter" data-level="2" data-path="chars.html"><a href="chars.html"><i class="fa fa-check"></i><b>2</b> Character Strings in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="chars.html"><a href="chars.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="chars.html"><a href="chars.html#common-use-of-strings-in-r"><i class="fa fa-check"></i><b>2.2</b> Common use of strings in R</a></li>
+<li class="chapter" data-level="2.3" data-path="chars.html"><a href="chars.html#creating-character-strings"><i class="fa fa-check"></i><b>2.3</b> Creating Character Strings</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chars.html"><a href="chars.html#empty-string"><i class="fa fa-check"></i><b>2.3.1</b> Empty string</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chars.html"><a href="chars.html#empty-character-vector"><i class="fa fa-check"></i><b>2.3.2</b> Empty character vector</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chars.html"><a href="chars.html#function-c"><i class="fa fa-check"></i><b>2.3.3</b> Function <code>c()</code></a></li>
+<li class="chapter" data-level="2.3.4" data-path="chars.html"><a href="chars.html#is.character-and-as.character"><i class="fa fa-check"></i><b>2.3.4</b> <code>is.character()</code> and <code>as.character()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="chars.html"><a href="chars.html#behavior-of-r-objects-with-character-strings"><i class="fa fa-check"></i><b>2.4</b> Behavior of R objects with character strings</a></li>
+<li class="chapter" data-level="2.5" data-path="chars.html"><a href="chars.html#the-workhorse-function-paste"><i class="fa fa-check"></i><b>2.5</b> The workhorse function <code>paste()</code></a></li>
+<li class="chapter" data-level="2.6" data-path="chars.html"><a href="chars.html#exercises"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="part"><span><b>Formatting</b></span></li>
+<li class="chapter" data-level="3" data-path="formatting.html"><a href="formatting.html"><i class="fa fa-check"></i><b>3</b> Formatting Text and Numbers</a><ul>
+<li class="chapter" data-level="3.1" data-path="formatting.html"><a href="formatting.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="formatting.html"><a href="formatting.html#printing-and-formatting"><i class="fa fa-check"></i><b>3.2</b> Printing and formatting</a></li>
+<li class="chapter" data-level="3.3" data-path="formatting.html"><a href="formatting.html#generic-printing"><i class="fa fa-check"></i><b>3.3</b> Generic printing</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="formatting.html"><a href="formatting.html#when-to-use-print"><i class="fa fa-check"></i><b>3.3.1</b> When to use <code>print()</code>?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="formatting.html"><a href="formatting.html#concatenate-and-print-with-cat"><i class="fa fa-check"></i><b>3.4</b> Concatenate and print with <code>cat()</code></a></li>
+<li class="chapter" data-level="3.5" data-path="formatting.html"><a href="formatting.html#encoding-strings-with-format"><i class="fa fa-check"></i><b>3.5</b> Encoding strings with <code>format()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="c-style-formatting.html"><a href="c-style-formatting.html"><i class="fa fa-check"></i><b>4</b> C-style Formatting</a><ul>
+<li class="chapter" data-level="4.1" data-path="c-style-formatting.html"><a href="c-style-formatting.html#c-style-formatting-options"><i class="fa fa-check"></i><b>4.1</b> C-style formatting options</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-basic-sprintf"><i class="fa fa-check"></i><b>4.1.1</b> Example: basic <code>sprintf()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-file-names"><i class="fa fa-check"></i><b>4.1.2</b> Example: File Names</a></li>
+<li class="chapter" data-level="4.1.3" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-fahrenheit-to-celsius"><i class="fa fa-check"></i><b>4.1.3</b> Example: Fahrenheit to Celsius</a></li>
+<li class="chapter" data-level="4.1.4" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-car-traveled-distance"><i class="fa fa-check"></i><b>4.1.4</b> Example: Car Traveled Distance</a></li>
+<li class="chapter" data-level="4.1.5" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-coffee-prices"><i class="fa fa-check"></i><b>4.1.5</b> Example: Coffee Prices</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="input-and-output.html"><a href="input-and-output.html"><i class="fa fa-check"></i><b>5</b> Input and Output</a><ul>
+<li class="chapter" data-level="5.1" data-path="input-and-output.html"><a href="input-and-output.html#output"><i class="fa fa-check"></i><b>5.1</b> Output</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="input-and-output.html"><a href="input-and-output.html#concatenating-output"><i class="fa fa-check"></i><b>5.1.1</b> Concatenating output</a></li>
+<li class="chapter" data-level="5.1.2" data-path="input-and-output.html"><a href="input-and-output.html#sinking-output"><i class="fa fa-check"></i><b>5.1.2</b> Sinking output</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="input-and-output.html"><a href="input-and-output.html#exporting-tables"><i class="fa fa-check"></i><b>5.2</b> Exporting tables</a></li>
+</ul></li>
+<li class="part"><span><b>Manipulations</b></span></li>
+<li class="chapter" data-level="6" data-path="manip.html"><a href="manip.html"><i class="fa fa-check"></i><b>6</b> Basic String Manipulations</a><ul>
+<li class="chapter" data-level="6.1" data-path="manip.html"><a href="manip.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="manip.html"><a href="manip.html#basic-manipulations"><i class="fa fa-check"></i><b>6.2</b> Basic Manipulations</a></li>
+<li class="chapter" data-level="6.3" data-path="manip.html"><a href="manip.html#counting-characters"><i class="fa fa-check"></i><b>6.3</b> Counting characters</a></li>
+<li class="chapter" data-level="6.4" data-path="manip.html"><a href="manip.html#casefolding"><i class="fa fa-check"></i><b>6.4</b> Casefolding</a></li>
+<li class="chapter" data-level="6.5" data-path="manip.html"><a href="manip.html#translating-characters"><i class="fa fa-check"></i><b>6.5</b> Translating characters</a></li>
+<li class="chapter" data-level="6.6" data-path="manip.html"><a href="manip.html#abbreviating-strings"><i class="fa fa-check"></i><b>6.6</b> Abbreviating strings</a></li>
+<li class="chapter" data-level="6.7" data-path="manip.html"><a href="manip.html#replacing-strings"><i class="fa fa-check"></i><b>6.7</b> Replacing strings</a></li>
+<li class="chapter" data-level="6.8" data-path="manip.html"><a href="manip.html#set-operations"><i class="fa fa-check"></i><b>6.8</b> Set Operations</a><ul>
+<li class="chapter" data-level="6.8.1" data-path="manip.html"><a href="manip.html#set-union-with-union"><i class="fa fa-check"></i><b>6.8.1</b> Set union with <code>union()</code></a></li>
+<li class="chapter" data-level="6.8.2" data-path="manip.html"><a href="manip.html#set-intersection-with-intersect"><i class="fa fa-check"></i><b>6.8.2</b> Set intersection with <code>intersect()</code></a></li>
+<li class="chapter" data-level="6.8.3" data-path="manip.html"><a href="manip.html#set-difference-with-setdiff"><i class="fa fa-check"></i><b>6.8.3</b> Set difference with <code>setdiff()</code></a></li>
+<li class="chapter" data-level="6.8.4" data-path="manip.html"><a href="manip.html#set-equality-with-setequal"><i class="fa fa-check"></i><b>6.8.4</b> Set equality with <code>setequal()</code></a></li>
+<li class="chapter" data-level="6.8.5" data-path="manip.html"><a href="manip.html#exact-equality-with-identical"><i class="fa fa-check"></i><b>6.8.5</b> Exact equality with <code>identical()</code></a></li>
+<li class="chapter" data-level="6.8.6" data-path="manip.html"><a href="manip.html#element-contained-with-is.element"><i class="fa fa-check"></i><b>6.8.6</b> Element contained with <code>is.element()</code></a></li>
+<li class="chapter" data-level="6.8.7" data-path="manip.html"><a href="manip.html#sorting-with-sort"><i class="fa fa-check"></i><b>6.8.7</b> Sorting with <code>sort()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="stringr-basics.html"><a href="stringr-basics.html"><i class="fa fa-check"></i><b>7</b> Stringr Basics</a><ul>
+<li class="chapter" data-level="7.1" data-path="stringr-basics.html"><a href="stringr-basics.html#introduction-3"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="stringr-basics.html"><a href="stringr-basics.html#package-stringr"><i class="fa fa-check"></i><b>7.2</b> Package <code>stringr</code></a></li>
+<li class="chapter" data-level="7.3" data-path="stringr-basics.html"><a href="stringr-basics.html#basic-string-operations"><i class="fa fa-check"></i><b>7.3</b> Basic String Operations</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="stringr-basics.html"><a href="stringr-basics.html#concatenating-with-str_c"><i class="fa fa-check"></i><b>7.3.1</b> Concatenating with <code>str_c()</code></a></li>
+<li class="chapter" data-level="7.3.2" data-path="stringr-basics.html"><a href="stringr-basics.html#number-of-characters-with-str_length"><i class="fa fa-check"></i><b>7.3.2</b> Number of characters with <code>str_length()</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="stringr-basics.html"><a href="stringr-basics.html#substring-with-str_sub"><i class="fa fa-check"></i><b>7.3.3</b> Substring with <code>str_sub()</code></a></li>
+<li class="chapter" data-level="7.3.4" data-path="stringr-basics.html"><a href="stringr-basics.html#duplication-with-str_dup"><i class="fa fa-check"></i><b>7.3.4</b> Duplication with <code>str_dup()</code></a></li>
+<li class="chapter" data-level="7.3.5" data-path="stringr-basics.html"><a href="stringr-basics.html#padding-with-str_pad"><i class="fa fa-check"></i><b>7.3.5</b> Padding with <code>str_pad()</code></a></li>
+<li class="chapter" data-level="7.3.6" data-path="stringr-basics.html"><a href="stringr-basics.html#wrapping-with-str_wrap"><i class="fa fa-check"></i><b>7.3.6</b> Wrapping with <code>str_wrap()</code></a></li>
+<li class="chapter" data-level="7.3.7" data-path="stringr-basics.html"><a href="stringr-basics.html#trimming-with-str_trim"><i class="fa fa-check"></i><b>7.3.7</b> Trimming with <code>str_trim()</code></a></li>
+<li class="chapter" data-level="7.3.8" data-path="stringr-basics.html"><a href="stringr-basics.html#word-extraction-with-word"><i class="fa fa-check"></i><b>7.3.8</b> Word extraction with <code>word()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html"><i class="fa fa-check"></i><b>8</b> Basic Manipulation Examples</a><ul>
+<li class="chapter" data-level="8.1" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#introduction-4"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-names-of-files"><i class="fa fa-check"></i><b>8.1.1</b> Example: Names of files</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-valid-color-names"><i class="fa fa-check"></i><b>8.1.2</b> Example: Valid Color Names</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-me-and-you-plot"><i class="fa fa-check"></i><b>8.1.3</b> Example: Me and You plot</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Regex</b></span></li>
+<li class="chapter" data-level="9" data-path="regex1.html"><a href="regex1.html"><i class="fa fa-check"></i><b>9</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="9.1" data-path="regex1.html"><a href="regex1.html#introduction-5"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="regex1.html"><a href="regex1.html#what-are-regular-expressions"><i class="fa fa-check"></i><b>9.2</b> What are Regular Expressions?</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="regex1.html"><a href="regex1.html#what-are-regular-expressions-used-for"><i class="fa fa-check"></i><b>9.2.1</b> What are Regular Expressions used for?</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regex1.html"><a href="regex1.html#a-word-of-caution-about-regex"><i class="fa fa-check"></i><b>9.2.2</b> A word of caution about regex</a></li>
+<li class="chapter" data-level="9.2.3" data-path="regex1.html"><a href="regex1.html#regular-expressions-in-r"><i class="fa fa-check"></i><b>9.2.3</b> Regular Expressions in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regex1.html"><a href="regex1.html#regex-basics"><i class="fa fa-check"></i><b>9.3</b> Regex Basics</a></li>
+<li class="chapter" data-level="9.4" data-path="regex1.html"><a href="regex1.html#matching-literal-characters"><i class="fa fa-check"></i><b>9.4</b> Matching Literal Characters</a></li>
+<li class="chapter" data-level="9.5" data-path="regex1.html"><a href="regex1.html#metacharacters"><i class="fa fa-check"></i><b>9.5</b> Metacharacters</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="regex1.html"><a href="regex1.html#the-wild-metacharacter"><i class="fa fa-check"></i><b>9.5.1</b> The Wild Metacharacter</a></li>
+<li class="chapter" data-level="9.5.2" data-path="regex1.html"><a href="regex1.html#escaping-metacharacters"><i class="fa fa-check"></i><b>9.5.2</b> Escaping metacharacters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="character-sets.html"><a href="character-sets.html"><i class="fa fa-check"></i><b>10</b> Character Sets</a><ul>
+<li class="chapter" data-level="10.1" data-path="character-sets.html"><a href="character-sets.html#defining-character-sets"><i class="fa fa-check"></i><b>10.1</b> Defining character sets</a></li>
+<li class="chapter" data-level="10.2" data-path="character-sets.html"><a href="character-sets.html#character-ranges"><i class="fa fa-check"></i><b>10.2</b> Character ranges</a></li>
+<li class="chapter" data-level="10.3" data-path="character-sets.html"><a href="character-sets.html#negative-character-sets"><i class="fa fa-check"></i><b>10.3</b> Negative Character Sets</a></li>
+<li class="chapter" data-level="10.4" data-path="character-sets.html"><a href="character-sets.html#metacharacters-inside-character-sets"><i class="fa fa-check"></i><b>10.4</b> Metacharacters inside character sets</a></li>
+<li class="chapter" data-level="10.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>10.5</b> Character Classes</a></li>
+<li class="chapter" data-level="10.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>10.6</b> POSIX Character Classes</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Handling Strings in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="manip" class="section level1">
+<h1><span class="header-section-number">6</span> Basic String Manipulations</h1>
+<div id="introduction-2" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introduction</h2>
+<p>In this chapter you will learn about the different functions to do what I call <em>basic manipulations</em>. By “basic” I mean transforming and processing strings in such way that do not require the use of <a href="intro.html#intro">regular expressions</a>. More advanced manipulations involve defining patterns of text and matching such patterns. This is the essential idea behind regular expressions, which is the content of part 5 in this book.</p>
+</div>
+<div id="basic-manipulations" class="section level2">
+<h2><span class="header-section-number">6.2</span> Basic Manipulations</h2>
+<p>Besides creating and printing strings, there are a number of very handy functions in R for doing some basic manipulation of strings. In this chapter<br />
+we will review the following functions:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Function</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>nchar()</code></td>
+<td align="left">number of characters</td>
+</tr>
+<tr class="even">
+<td align="left"><code>tolower()</code></td>
+<td align="left">convert to lower case</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>toupper()</code></td>
+<td align="left">convert to upper case</td>
+</tr>
+<tr class="even">
+<td align="left"><code>casefold()</code></td>
+<td align="left">case folding</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>chartr()</code></td>
+<td align="left">character translation</td>
+</tr>
+<tr class="even">
+<td align="left"><code>abbreviate()</code></td>
+<td align="left">abbreviation</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>substring()</code></td>
+<td align="left">substrings of a character vector</td>
+</tr>
+<tr class="even">
+<td align="left"><code>substr()</code></td>
+<td align="left">substrings of a character vector</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="counting-characters" class="section level2">
+<h2><span class="header-section-number">6.3</span> Counting characters</h2>
+<p>One of the main functions for manipulating character strings is <code>nchar()</code> which counts the number of characters in a string. In other words, <code>nchar()</code> provides the length of a string:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># how many characters?</span>
+<span class="kw">nchar</span>(<span class="kw">c</span>(<span class="st">&quot;How&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;characters?&quot;</span>))
+<span class="co">#&gt; [1]  3  4 11</span>
+
+<span class="co"># how many characters?</span>
+<span class="kw">nchar</span>(<span class="st">&quot;How many characters?&quot;</span>)
+<span class="co">#&gt; [1] 20</span></code></pre></div>
+<p>Notice that the white spaces between words in the second example are also counted as characters.</p>
+<p>It is important not to confuse <code>nchar()</code> with <code>length()</code>. While the former gives us the <strong>number of characters</strong>, the later only gives the number of elements in a vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># how many elements?</span>
+<span class="kw">length</span>(<span class="kw">c</span>(<span class="st">&quot;How&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;characters?&quot;</span>))
+<span class="co">#&gt; [1] 3</span>
+
+<span class="co"># how many elements?</span>
+<span class="kw">length</span>(<span class="st">&quot;How many characters?&quot;</span>)
+<span class="co">#&gt; [1] 1</span></code></pre></div>
+</div>
+<div id="casefolding" class="section level2">
+<h2><span class="header-section-number">6.4</span> Casefolding</h2>
+<p>R comes with three functions for text casefolding.</p>
+<ol style="list-style-type: decimal">
+<li><code>tolower()</code></li>
+<li><code>toupper()</code></li>
+<li><code>casefold()</code></li>
+</ol>
+<p>The function <code>tolower()</code> converts any upper case characters into lower case:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to lower case</span>
+<span class="kw">tolower</span>(<span class="kw">c</span>(<span class="st">&quot;aLL ChaRacterS in LoweR caSe&quot;</span>, <span class="st">&quot;ABCDE&quot;</span>))
+<span class="co">#&gt; [1] &quot;all characters in lower case&quot; &quot;abcde&quot;</span></code></pre></div>
+<p>The opposite function of <code>tolower()</code> is <code>toupper</code>. As you may guess, this function converts any lower case characters into upper case:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to upper case</span>
+<span class="kw">toupper</span>(<span class="kw">c</span>(<span class="st">&quot;All ChaRacterS in Upper Case&quot;</span>, <span class="st">&quot;abcde&quot;</span>))
+<span class="co">#&gt; [1] &quot;ALL CHARACTERS IN UPPER CASE&quot; &quot;ABCDE&quot;</span></code></pre></div>
+<p>The third function for case-folding is <code>casefold()</code> which is a wrapper for both <code>tolower()</code> and <code>toupper()</code>. Its uasge has the following form:</p>
+<pre><code>casefold(x, upper = FALSE)</code></pre>
+<p>By default, <code>casefold()</code> converts all characters to lower case, but you can use the argument <code>upper = TRUE</code> to indicate the opposite (characters in upper case):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lower case folding</span>
+<span class="kw">casefold</span>(<span class="st">&quot;aLL ChaRacterS in LoweR caSe&quot;</span>)
+<span class="co">#&gt; [1] &quot;all characters in lower case&quot;</span>
+
+<span class="co"># upper case folding</span>
+<span class="kw">casefold</span>(<span class="st">&quot;All ChaRacterS in Upper Case&quot;</span>, <span class="dt">upper =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; [1] &quot;ALL CHARACTERS IN UPPER CASE&quot;</span></code></pre></div>
+<p>I’ve found the case-folding functions to be very helpful when I write functions that take a character input which may be specified in lower or upper case, or perhaps as a mix of both cases. For instance, consider the function <code>temp_convert()</code> that takes a temperature value in Fahrenheit degress, and a character string indicating the name of the scale to be converted.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp_convert &lt;-<span class="st"> </span>function(<span class="dt">deg =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="st">&quot;celsius&quot;</span>) {
+  switch(to,
+         <span class="st">&quot;celsius&quot;</span> =<span class="st"> </span>(deg -<span class="st"> </span><span class="dv">32</span>) *<span class="st"> </span>(<span class="dv">5</span>/<span class="dv">9</span>),
+         <span class="st">&quot;kelvin&quot;</span> =<span class="st"> </span>(deg +<span class="st"> </span><span class="fl">459.67</span>) *<span class="st"> </span>(<span class="dv">5</span>/<span class="dv">9</span>),
+         <span class="st">&quot;reaumur&quot;</span> =<span class="st"> </span>(deg -<span class="st"> </span><span class="dv">32</span>) *<span class="st"> </span>(<span class="dv">4</span>/<span class="dv">9</span>),
+         <span class="st">&quot;rankine&quot;</span> =<span class="st"> </span>deg +<span class="st"> </span><span class="fl">459.67</span>)
+}</code></pre></div>
+<p>Here is how you call <code>temp_convert()</code> to convert 10 Fahrenheit degrees into celsius degrees:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">temp_convert</span>(<span class="dt">deg =</span> <span class="dv">10</span>, <span class="dt">to =</span> <span class="st">&quot;celsius&quot;</span>)
+<span class="co">#&gt; [1] -12.22222</span></code></pre></div>
+<p><code>temp_convert()</code> works fine when the argument <code>to = 'celsius'</code>. But what happens if you try <code>temp_convert(30, 'Celsius')</code> or <code>temp_convert(30, 'CELSIUS')</code>?</p>
+<p>To have a more flexible function <code>temp_convert()</code> you can apply <code>tolower()</code> to the argument <code>to</code>, and in this way guarantee that the provided string by the user is always in lower case:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp_convert &lt;-<span class="st"> </span>function(<span class="dt">deg =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="st">&quot;celsius&quot;</span>) {
+  switch(<span class="kw">tolower</span>(to),
+         <span class="st">&quot;celsius&quot;</span> =<span class="st"> </span>(deg -<span class="st"> </span><span class="dv">32</span>) *<span class="st"> </span>(<span class="dv">5</span>/<span class="dv">9</span>),
+         <span class="st">&quot;kelvin&quot;</span> =<span class="st"> </span>(deg +<span class="st"> </span><span class="fl">459.67</span>) *<span class="st"> </span>(<span class="dv">5</span>/<span class="dv">9</span>),
+         <span class="st">&quot;reaumur&quot;</span> =<span class="st"> </span>(deg -<span class="st"> </span><span class="dv">32</span>) *<span class="st"> </span>(<span class="dv">4</span>/<span class="dv">9</span>),
+         <span class="st">&quot;rankine&quot;</span> =<span class="st"> </span>deg +<span class="st"> </span><span class="fl">459.67</span>)
+}</code></pre></div>
+<p>Now all the following three calls are equivalent:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">temp_convert</span>(<span class="dv">30</span>, <span class="st">&#39;celsius&#39;</span>)
+<span class="kw">temp_convert</span>(<span class="dv">30</span>, <span class="st">&#39;Celsius&#39;</span>)
+<span class="kw">temp_convert</span>(<span class="dv">30</span>, <span class="st">&#39;CELSIUS&#39;</span>)</code></pre></div>
+</div>
+<div id="translating-characters" class="section level2">
+<h2><span class="header-section-number">6.5</span> Translating characters</h2>
+<p>There’s also the function <code>chartr()</code> which stands for <em>character translation</em>. <code>chartr()</code> takes three arguments: an <code>old</code> string, a <code>new</code> string, and a character vector <code>x</code>:</p>
+<pre><code>chartr(old, new, x)</code></pre>
+<p>The way <code>chartr()</code> works is by replacing the characters in <code>old</code> that appear in <code>x</code> by those indicated in <code>new</code>. For example, suppose we want to translate the letter <code>&quot;a&quot;</code> (lower case) with <code>&quot;A&quot;</code> (upper case) in the sentence <code>&quot;This is a boring string&quot;</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># replace &#39;a&#39; by &#39;A&#39;</span>
+<span class="kw">chartr</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;This is a boring string&quot;</span>)
+<span class="co">#&gt; [1] &quot;This is A boring string&quot;</span></code></pre></div>
+<p>It is important to note that <code>old</code> and <code>new</code> must have the same number of characters, otherwise you will get a nasty error message like this one:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># incorrect use</span>
+<span class="kw">chartr</span>(<span class="st">&quot;ai&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;This is a bad example&quot;</span>)
+<span class="co">#&gt; Error in chartr(&quot;ai&quot;, &quot;X&quot;, &quot;This is a bad example&quot;): &#39;old&#39; is longer than &#39;new&#39;</span></code></pre></div>
+<p>Here’s a more interesting example with <code>old = &quot;aei&quot;</code> and <code>new = &quot;\#!?&quot;</code>. This implies that any <code>'a'</code> in <code>'x'</code> will be replaced by <code>'\#'</code>, any <code>'e'</code> in <code>'x'</code> will be replaced by <code>'?'</code>, and any <code>'i'</code> in <code>'x'</code> will be replaced by <code>'?'</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># multiple replacements</span>
+crazy &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Here&#39;s to the crazy ones&quot;</span>, <span class="st">&quot;The misfits&quot;</span>, <span class="st">&quot;The rebels&quot;</span>)
+<span class="kw">chartr</span>(<span class="st">&quot;aei&quot;</span>, <span class="st">&quot;#!?&quot;</span>, crazy)
+<span class="co">#&gt; [1] &quot;H!r!&#39;s to th! cr#zy on!s&quot; &quot;Th! m?sf?ts&quot;             </span>
+<span class="co">#&gt; [3] &quot;Th! r!b!ls&quot;</span></code></pre></div>
+</div>
+<div id="abbreviating-strings" class="section level2">
+<h2><span class="header-section-number">6.6</span> Abbreviating strings</h2>
+<p>Another useful function for basic manipulation of character strings is <code>abbreviate()</code>. Its usage has the following structure:</p>
+<pre><code>abbreviate(names.org, minlength = 4, dot = FALSE, strict = FALSE,
+            method = c(&quot;left.keep&quot;, &quot;both.sides&quot;))</code></pre>
+<p>Although there are several arguments, the main parameter is the character vector (<code>names.org</code>) which will contain the names that we want to abbreviate:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># some color names</span>
+some_colors &lt;-<span class="st"> </span><span class="kw">colors</span>()[<span class="dv">1</span>:<span class="dv">4</span>]
+some_colors
+<span class="co">#&gt; [1] &quot;white&quot;         &quot;aliceblue&quot;     &quot;antiquewhite&quot;  &quot;antiquewhite1&quot;</span>
+
+<span class="co"># abbreviate (default usage)</span>
+colors1 &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(some_colors)
+colors1
+<span class="co">#&gt;         white     aliceblue  antiquewhite antiquewhite1 </span>
+<span class="co">#&gt;        &quot;whit&quot;        &quot;alcb&quot;        &quot;antq&quot;        &quot;ant1&quot;</span>
+
+<span class="co"># abbreviate with &#39;minlength&#39;</span>
+colors2 &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(some_colors, <span class="dt">minlength =</span> <span class="dv">5</span>)
+colors2
+<span class="co">#&gt;         white     aliceblue  antiquewhite antiquewhite1 </span>
+<span class="co">#&gt;       &quot;white&quot;       &quot;alcbl&quot;       &quot;antqw&quot;       &quot;antq1&quot;</span>
+
+<span class="co"># abbreviate</span>
+colors3 &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(some_colors, <span class="dt">minlength =</span> <span class="dv">3</span>, <span class="dt">method =</span> <span class="st">&quot;both.sides&quot;</span>)
+colors3
+<span class="co">#&gt;         white     aliceblue  antiquewhite antiquewhite1 </span>
+<span class="co">#&gt;         &quot;wht&quot;         &quot;alc&quot;         &quot;ant&quot;         &quot;an1&quot;</span></code></pre></div>
+<p>A common use for <code>abbreviate()</code> is when plotting names of objects or variables in a graphic. I will use the built-in data set <code>mtcars</code> to show you a simple example with a scatterplot between variables <code>mpg</code> and <code>disp</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(mtcars$mpg, mtcars$disp, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)
+<span class="kw">text</span>(mtcars$mpg, mtcars$disp, <span class="kw">rownames</span>(mtcars))</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The names of the cars are all over the plot. In this situation you may want to consider using <code>abbreviate()</code> to shrink the names of the cars and produce a less “crowded” plot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(mtcars$mpg, mtcars$disp, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)
+<span class="kw">text</span>(mtcars$mpg, mtcars$disp, <span class="kw">abbreviate</span>(<span class="kw">rownames</span>(mtcars)))</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="replacing-strings" class="section level2">
+<h2><span class="header-section-number">6.7</span> Replacing strings</h2>
+<p>One common operation when working with strings is the extraction and replacement of some characters. There a various ways in which characters can be replaced. If the replacement is based on the positions that characters occupy in the string, you can use the functions <code>substr()</code> and <code>substring()</code></p>
+<p><code>substr()</code> extracts or replaces substrings in a character vector. Its usage has the following form:</p>
+<pre><code>substr(x, start, stop)</code></pre>
+<p><code>x</code> is a character vector, <code>start</code> indicates the first element to be replaced, and <code>stop</code> indicates the last element to be replaced:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract &#39;bcd&#39;</span>
+<span class="kw">substr</span>(<span class="st">&quot;abcdef&quot;</span>, <span class="dv">2</span>, <span class="dv">4</span>)
+<span class="co">#&gt; [1] &quot;bcd&quot;</span>
+
+<span class="co"># replace 2nd letter with hash symbol</span>
+x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;may&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;force&quot;</span>, <span class="st">&quot;be&quot;</span>, <span class="st">&quot;with&quot;</span>, <span class="st">&quot;you&quot;</span>)
+<span class="kw">substr</span>(x, <span class="dv">2</span>, <span class="dv">2</span>) &lt;-<span class="st"> &quot;#&quot;</span>
+x
+<span class="co">#&gt; [1] &quot;m#y&quot;   &quot;t#e&quot;   &quot;f#rce&quot; &quot;b#&quot;    &quot;w#th&quot;  &quot;y#u&quot;</span>
+
+<span class="co"># replace 2nd and 3rd letters with happy face</span>
+y =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;may&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;force&quot;</span>, <span class="st">&quot;be&quot;</span>, <span class="st">&quot;with&quot;</span>, <span class="st">&quot;you&quot;</span>)
+<span class="kw">substr</span>(y, <span class="dv">2</span>, <span class="dv">3</span>) &lt;-<span class="st"> &quot;:)&quot;</span>
+y
+<span class="co">#&gt; [1] &quot;m:)&quot;   &quot;t:)&quot;   &quot;f:)ce&quot; &quot;b:&quot;    &quot;w:)h&quot;  &quot;y:)&quot;</span>
+
+<span class="co"># replacement with recycling</span>
+z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;may&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;force&quot;</span>, <span class="st">&quot;be&quot;</span>, <span class="st">&quot;with&quot;</span>, <span class="st">&quot;you&quot;</span>)
+<span class="kw">substr</span>(z, <span class="dv">2</span>, <span class="dv">3</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#&quot;</span>, <span class="st">&quot;```&quot;</span>)
+z
+<span class="co">#&gt; [1] &quot;m#y&quot;   &quot;t``&quot;   &quot;f#rce&quot; &quot;b`&quot;    &quot;w#th&quot;  &quot;y``&quot;</span></code></pre></div>
+<p>Closely related to <code>substr()</code> is the function <code>substring()</code> which extracts or replaces substrings in a character vector. Its usage has the following form:</p>
+<pre><code>substring(text, first, last = 1000000L)</code></pre>
+<p><code>text</code> is a character vector, <code>first</code> indicates the first element to be replaced, and <code>last</code> indicates the last element to be replaced:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># same as &#39;substr&#39;</span>
+<span class="kw">substring</span>(<span class="st">&quot;ABCDEF&quot;</span>, <span class="dv">2</span>, <span class="dv">4</span>)
+<span class="co">#&gt; [1] &quot;BCD&quot;</span>
+<span class="kw">substr</span>(<span class="st">&quot;ABCDEF&quot;</span>, <span class="dv">2</span>, <span class="dv">4</span>)
+<span class="co">#&gt; [1] &quot;BCD&quot;</span>
+
+<span class="co"># extract each letter</span>
+<span class="kw">substring</span>(<span class="st">&quot;ABCDEF&quot;</span>, <span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">1</span>:<span class="dv">6</span>)
+<span class="co">#&gt; [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span>
+
+<span class="co"># multiple replacement with recycling</span>
+text6 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;more&quot;</span>, <span class="st">&quot;emotions&quot;</span>, <span class="st">&quot;are&quot;</span>, <span class="st">&quot;better&quot;</span>, <span class="st">&quot;than&quot;</span>, <span class="st">&quot;less&quot;</span>)
+<span class="kw">substring</span>(text6, <span class="dv">1</span>:<span class="dv">3</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;zzz&quot;</span>)
+text6
+<span class="co">#&gt; [1] &quot; ore&quot;     &quot;ezzzions&quot; &quot;ar &quot;      &quot;zzzter&quot;   &quot;t an&quot;     &quot;lezz&quot;</span></code></pre></div>
+</div>
+<div id="set-operations" class="section level2">
+<h2><span class="header-section-number">6.8</span> Set Operations</h2>
+<p>R has dedicated functions for performing set operations on two given vectors. This implies that we can apply functions such as set union, intersection, difference, equality and membership, on <code>&quot;character&quot;</code> vectors.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Function</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>union()</code></td>
+<td align="left">set union</td>
+</tr>
+<tr class="even">
+<td align="left"><code>intersect()</code></td>
+<td align="left">intersection</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>setdiff()</code></td>
+<td align="left">set difference</td>
+</tr>
+<tr class="even">
+<td align="left"><code>setequal()</code></td>
+<td align="left">equal sets</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>identical()</code></td>
+<td align="left">exact equality</td>
+</tr>
+<tr class="even">
+<td align="left"><code>is.element()</code></td>
+<td align="left">is element</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>%in%()</code></td>
+<td align="left">contains</td>
+</tr>
+<tr class="even">
+<td align="left"><code>sort()</code></td>
+<td align="left">sorting</td>
+</tr>
+</tbody>
+</table>
+<div id="set-union-with-union" class="section level3">
+<h3><span class="header-section-number">6.8.1</span> Set union with <code>union()</code></h3>
+<p>Let’s start our reviewing of set functions with <code>union()</code>. As its name indicates, you can use `union()} when you want to obtain the elements of the union between two character vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># two character vectors</span>
+set1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;words&quot;</span>, <span class="st">&quot;some&quot;</span>)
+set2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)
+
+<span class="co"># union of set1 and set2</span>
+<span class="kw">union</span>(set1, set2)
+<span class="co">#&gt; [1] &quot;some&quot;   &quot;random&quot; &quot;words&quot;  &quot;many&quot;   &quot;none&quot;   &quot;few&quot;</span></code></pre></div>
+<p>Notice that <code>union()</code> discards any duplicated values in the provided vectors. In the previous example the word <code>&quot;some&quot;</code> appears twice inside <code>set1</code> but it appears only once in the union. In fact all the set operation functions will discard any duplicated values.</p>
+</div>
+<div id="set-intersection-with-intersect" class="section level3">
+<h3><span class="header-section-number">6.8.2</span> Set intersection with <code>intersect()</code></h3>
+<p>Set intersection is performed with the function <code>intersect()</code>. You can use this function when you wish to get those elements that are common to both vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># two character vectors</span>
+set3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;few&quot;</span>, <span class="st">&quot;words&quot;</span>)
+set4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)
+
+<span class="co"># intersect of set3 and set4</span>
+<span class="kw">intersect</span>(set3, set4)
+<span class="co">#&gt; [1] &quot;some&quot; &quot;few&quot;</span></code></pre></div>
+</div>
+<div id="set-difference-with-setdiff" class="section level3">
+<h3><span class="header-section-number">6.8.3</span> Set difference with <code>setdiff()</code></h3>
+<p>Related to the intersection, you might be interested in getting the difference of the elements between two character vectors. This can be done with <code>setdiff()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># two character vectors</span>
+set5 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;few&quot;</span>, <span class="st">&quot;words&quot;</span>)
+set6 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)
+
+<span class="co"># difference between set5 and set6</span>
+<span class="kw">setdiff</span>(set5, set6)
+<span class="co">#&gt; [1] &quot;random&quot; &quot;words&quot;</span></code></pre></div>
+</div>
+<div id="set-equality-with-setequal" class="section level3">
+<h3><span class="header-section-number">6.8.4</span> Set equality with <code>setequal()</code></h3>
+<p>The function <code>setequal()</code> allows you to test the equality of two character vectors. If the vectors contain the same elements, <code>setequal()</code> returns <code>TRUE</code> (<code>FALSE</code> otherwise)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># three character vectors</span>
+set7 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;strings&quot;</span>)
+set8 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)
+set9 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;strings&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;some&quot;</span>)
+
+<span class="co"># set7 == set8?</span>
+<span class="kw">setequal</span>(set7, set8)
+<span class="co">#&gt; [1] FALSE</span>
+
+<span class="co"># set7 == set9?</span>
+<span class="kw">setequal</span>(set7, set9)
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+</div>
+<div id="exact-equality-with-identical" class="section level3">
+<h3><span class="header-section-number">6.8.5</span> Exact equality with <code>identical()</code></h3>
+<p>Sometimes <code>setequal()</code> is not always what we want to use. It might be the case that you want to test whether two vectors are <em>exactly equal</em> (element by element). For instance, testing if <code>set7</code> is exactly equal to <code>set9</code>. Although both vectors contain the same set of elements, they are not exactly the same vector. Such test can be performed with the function <code>identical()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set7 identical to set7?</span>
+<span class="kw">identical</span>(set7, set7)
+<span class="co">#&gt; [1] TRUE</span>
+
+<span class="co"># set7 identical to set9?</span>
+<span class="kw">identical</span>(set7, set9)
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>If you consult the help documentation of <code>identical()</code>, you will see that this function is the “safe and reliable way to test two objects for being exactly equal”.</p>
+</div>
+<div id="element-contained-with-is.element" class="section level3">
+<h3><span class="header-section-number">6.8.6</span> Element contained with <code>is.element()</code></h3>
+<p>If you wish to test if an element is contained in a given set of character strings you can do so with <code>is.element()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># three vectors</span>
+set10 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;stuff&quot;</span>, <span class="st">&quot;to&quot;</span>, <span class="st">&quot;play&quot;</span>, <span class="st">&quot;with&quot;</span>)
+elem1 &lt;-<span class="st"> &quot;play&quot;</span>
+elem2 &lt;-<span class="st"> &quot;crazy&quot;</span>
+
+<span class="co"># elem1 in set10?</span>
+<span class="kw">is.element</span>(elem1, set10)
+<span class="co">#&gt; [1] TRUE</span>
+
+<span class="co"># elem2 in set10?</span>
+<span class="kw">is.element</span>(elem2, set10)
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>Alternatively, you can use the binary operator <code>%in%</code> to test if an element is contained in a given set. The function <code>%in%</code> returns <code>TRUE</code> if the first operand is contained in the second, and it returns <code>FALSE</code> otherwise:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># elem1 in set10?</span>
+elem1 %in%<span class="st"> </span>set10
+<span class="co">#&gt; [1] TRUE</span>
+
+<span class="co"># elem2 in set10?</span>
+elem2 %in%<span class="st"> </span>set10
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+</div>
+<div id="sorting-with-sort" class="section level3">
+<h3><span class="header-section-number">6.8.7</span> Sorting with <code>sort()</code></h3>
+<p>The function <code>sort()</code> allows you to sort the elements of a vector, either in increasing order (by default) or in decreasing order using the argument <code>decreasing</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">set11 =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;today&quot;</span>, <span class="st">&quot;produced&quot;</span>, <span class="st">&quot;example&quot;</span>, <span class="st">&quot;beautiful&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;nicely&quot;</span>)
+
+<span class="co"># sort (decreasing order)</span>
+<span class="kw">sort</span>(set11)
+<span class="co">#&gt; [1] &quot;a&quot;         &quot;beautiful&quot; &quot;example&quot;   &quot;nicely&quot;    &quot;produced&quot;  &quot;today&quot;</span>
+
+<span class="co"># sort (increasing order)</span>
+<span class="kw">sort</span>(set11, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; [1] &quot;today&quot;     &quot;produced&quot;  &quot;nicely&quot;    &quot;example&quot;   &quot;beautiful&quot; &quot;a&quot;</span></code></pre></div>
+<p>If you have alpha-numeric strings, <code>sort()</code> will put the numbers first when sorting in increasing order:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">set12 =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;today&quot;</span>, <span class="st">&quot;produced&quot;</span>, <span class="st">&quot;example&quot;</span>, <span class="st">&quot;beautiful&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;nicely&quot;</span>)
+
+<span class="co"># sort (decreasing order)</span>
+<span class="kw">sort</span>(set12)
+<span class="co">#&gt; [1] &quot;1&quot;         &quot;beautiful&quot; &quot;example&quot;   &quot;nicely&quot;    &quot;produced&quot;  &quot;today&quot;</span>
+
+<span class="co"># sort (increasing order)</span>
+<span class="kw">sort</span>(set12, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; [1] &quot;today&quot;     &quot;produced&quot;  &quot;nicely&quot;    &quot;example&quot;   &quot;beautiful&quot; &quot;1&quot;</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="input-and-output.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="stringr-basics.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gastonstat/r4strings/edit/master/basic-manipulations.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

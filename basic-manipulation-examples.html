@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Handling Strings in R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Handling Strings in R">
+  <meta name="generator" content="bookdown 0.1.16 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Handling Strings in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="gastonstat/r4strings" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Handling Strings in R" />
+  
+  
+  
+
+<meta name="author" content="Gaston Sanchez">
+
+  
+<meta name="date" content="2017-10-28">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="stringr-basics.html">
+<link rel="next" href="regex1.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Handling Strings in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#about-this-book"><i class="fa fa-check"></i><b>1.1</b> About this book</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="intro.html"><a href="intro.html#structure-of-the-book"><i class="fa fa-check"></i><b>1.1.1</b> Structure of the book</a></li>
+<li class="chapter" data-level="1.1.2" data-path="intro.html"><a href="intro.html#main-resources"><i class="fa fa-check"></i><b>1.1.2</b> Main Resources</a></li>
+<li class="chapter" data-level="1.1.3" data-path="intro.html"><a href="intro.html#acknowledgements"><i class="fa fa-check"></i><b>1.1.3</b> Acknowledgements</a></li>
+<li class="chapter" data-level="1.1.4" data-path="intro.html"><a href="intro.html#colophon"><i class="fa fa-check"></i><b>1.1.4</b> Colophon</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Characters</b></span></li>
+<li class="chapter" data-level="2" data-path="chars.html"><a href="chars.html"><i class="fa fa-check"></i><b>2</b> Character Strings in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="chars.html"><a href="chars.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="chars.html"><a href="chars.html#common-use-of-strings-in-r"><i class="fa fa-check"></i><b>2.2</b> Common use of strings in R</a></li>
+<li class="chapter" data-level="2.3" data-path="chars.html"><a href="chars.html#creating-character-strings"><i class="fa fa-check"></i><b>2.3</b> Creating Character Strings</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chars.html"><a href="chars.html#empty-string"><i class="fa fa-check"></i><b>2.3.1</b> Empty string</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chars.html"><a href="chars.html#empty-character-vector"><i class="fa fa-check"></i><b>2.3.2</b> Empty character vector</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chars.html"><a href="chars.html#function-c"><i class="fa fa-check"></i><b>2.3.3</b> Function <code>c()</code></a></li>
+<li class="chapter" data-level="2.3.4" data-path="chars.html"><a href="chars.html#is.character-and-as.character"><i class="fa fa-check"></i><b>2.3.4</b> <code>is.character()</code> and <code>as.character()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="chars.html"><a href="chars.html#behavior-of-r-objects-with-character-strings"><i class="fa fa-check"></i><b>2.4</b> Behavior of R objects with character strings</a></li>
+<li class="chapter" data-level="2.5" data-path="chars.html"><a href="chars.html#the-workhorse-function-paste"><i class="fa fa-check"></i><b>2.5</b> The workhorse function <code>paste()</code></a></li>
+<li class="chapter" data-level="2.6" data-path="chars.html"><a href="chars.html#exercises"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="part"><span><b>Formatting</b></span></li>
+<li class="chapter" data-level="3" data-path="formatting.html"><a href="formatting.html"><i class="fa fa-check"></i><b>3</b> Formatting Text and Numbers</a><ul>
+<li class="chapter" data-level="3.1" data-path="formatting.html"><a href="formatting.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="formatting.html"><a href="formatting.html#printing-and-formatting"><i class="fa fa-check"></i><b>3.2</b> Printing and formatting</a></li>
+<li class="chapter" data-level="3.3" data-path="formatting.html"><a href="formatting.html#generic-printing"><i class="fa fa-check"></i><b>3.3</b> Generic printing</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="formatting.html"><a href="formatting.html#when-to-use-print"><i class="fa fa-check"></i><b>3.3.1</b> When to use <code>print()</code>?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="formatting.html"><a href="formatting.html#concatenate-and-print-with-cat"><i class="fa fa-check"></i><b>3.4</b> Concatenate and print with <code>cat()</code></a></li>
+<li class="chapter" data-level="3.5" data-path="formatting.html"><a href="formatting.html#encoding-strings-with-format"><i class="fa fa-check"></i><b>3.5</b> Encoding strings with <code>format()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="c-style-formatting.html"><a href="c-style-formatting.html"><i class="fa fa-check"></i><b>4</b> C-style Formatting</a><ul>
+<li class="chapter" data-level="4.1" data-path="c-style-formatting.html"><a href="c-style-formatting.html#c-style-formatting-options"><i class="fa fa-check"></i><b>4.1</b> C-style formatting options</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-basic-sprintf"><i class="fa fa-check"></i><b>4.1.1</b> Example: basic <code>sprintf()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-file-names"><i class="fa fa-check"></i><b>4.1.2</b> Example: File Names</a></li>
+<li class="chapter" data-level="4.1.3" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-fahrenheit-to-celsius"><i class="fa fa-check"></i><b>4.1.3</b> Example: Fahrenheit to Celsius</a></li>
+<li class="chapter" data-level="4.1.4" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-car-traveled-distance"><i class="fa fa-check"></i><b>4.1.4</b> Example: Car Traveled Distance</a></li>
+<li class="chapter" data-level="4.1.5" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-coffee-prices"><i class="fa fa-check"></i><b>4.1.5</b> Example: Coffee Prices</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="input-and-output.html"><a href="input-and-output.html"><i class="fa fa-check"></i><b>5</b> Input and Output</a><ul>
+<li class="chapter" data-level="5.1" data-path="input-and-output.html"><a href="input-and-output.html#output"><i class="fa fa-check"></i><b>5.1</b> Output</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="input-and-output.html"><a href="input-and-output.html#concatenating-output"><i class="fa fa-check"></i><b>5.1.1</b> Concatenating output</a></li>
+<li class="chapter" data-level="5.1.2" data-path="input-and-output.html"><a href="input-and-output.html#sinking-output"><i class="fa fa-check"></i><b>5.1.2</b> Sinking output</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="input-and-output.html"><a href="input-and-output.html#exporting-tables"><i class="fa fa-check"></i><b>5.2</b> Exporting tables</a></li>
+</ul></li>
+<li class="part"><span><b>Manipulations</b></span></li>
+<li class="chapter" data-level="6" data-path="manip.html"><a href="manip.html"><i class="fa fa-check"></i><b>6</b> Basic String Manipulations</a><ul>
+<li class="chapter" data-level="6.1" data-path="manip.html"><a href="manip.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="manip.html"><a href="manip.html#basic-manipulations"><i class="fa fa-check"></i><b>6.2</b> Basic Manipulations</a></li>
+<li class="chapter" data-level="6.3" data-path="manip.html"><a href="manip.html#counting-characters"><i class="fa fa-check"></i><b>6.3</b> Counting characters</a></li>
+<li class="chapter" data-level="6.4" data-path="manip.html"><a href="manip.html#casefolding"><i class="fa fa-check"></i><b>6.4</b> Casefolding</a></li>
+<li class="chapter" data-level="6.5" data-path="manip.html"><a href="manip.html#translating-characters"><i class="fa fa-check"></i><b>6.5</b> Translating characters</a></li>
+<li class="chapter" data-level="6.6" data-path="manip.html"><a href="manip.html#abbreviating-strings"><i class="fa fa-check"></i><b>6.6</b> Abbreviating strings</a></li>
+<li class="chapter" data-level="6.7" data-path="manip.html"><a href="manip.html#replacing-strings"><i class="fa fa-check"></i><b>6.7</b> Replacing strings</a></li>
+<li class="chapter" data-level="6.8" data-path="manip.html"><a href="manip.html#set-operations"><i class="fa fa-check"></i><b>6.8</b> Set Operations</a><ul>
+<li class="chapter" data-level="6.8.1" data-path="manip.html"><a href="manip.html#set-union-with-union"><i class="fa fa-check"></i><b>6.8.1</b> Set union with <code>union()</code></a></li>
+<li class="chapter" data-level="6.8.2" data-path="manip.html"><a href="manip.html#set-intersection-with-intersect"><i class="fa fa-check"></i><b>6.8.2</b> Set intersection with <code>intersect()</code></a></li>
+<li class="chapter" data-level="6.8.3" data-path="manip.html"><a href="manip.html#set-difference-with-setdiff"><i class="fa fa-check"></i><b>6.8.3</b> Set difference with <code>setdiff()</code></a></li>
+<li class="chapter" data-level="6.8.4" data-path="manip.html"><a href="manip.html#set-equality-with-setequal"><i class="fa fa-check"></i><b>6.8.4</b> Set equality with <code>setequal()</code></a></li>
+<li class="chapter" data-level="6.8.5" data-path="manip.html"><a href="manip.html#exact-equality-with-identical"><i class="fa fa-check"></i><b>6.8.5</b> Exact equality with <code>identical()</code></a></li>
+<li class="chapter" data-level="6.8.6" data-path="manip.html"><a href="manip.html#element-contained-with-is.element"><i class="fa fa-check"></i><b>6.8.6</b> Element contained with <code>is.element()</code></a></li>
+<li class="chapter" data-level="6.8.7" data-path="manip.html"><a href="manip.html#sorting-with-sort"><i class="fa fa-check"></i><b>6.8.7</b> Sorting with <code>sort()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="stringr-basics.html"><a href="stringr-basics.html"><i class="fa fa-check"></i><b>7</b> Stringr Basics</a><ul>
+<li class="chapter" data-level="7.1" data-path="stringr-basics.html"><a href="stringr-basics.html#introduction-3"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="stringr-basics.html"><a href="stringr-basics.html#package-stringr"><i class="fa fa-check"></i><b>7.2</b> Package <code>stringr</code></a></li>
+<li class="chapter" data-level="7.3" data-path="stringr-basics.html"><a href="stringr-basics.html#basic-string-operations"><i class="fa fa-check"></i><b>7.3</b> Basic String Operations</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="stringr-basics.html"><a href="stringr-basics.html#concatenating-with-str_c"><i class="fa fa-check"></i><b>7.3.1</b> Concatenating with <code>str_c()</code></a></li>
+<li class="chapter" data-level="7.3.2" data-path="stringr-basics.html"><a href="stringr-basics.html#number-of-characters-with-str_length"><i class="fa fa-check"></i><b>7.3.2</b> Number of characters with <code>str_length()</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="stringr-basics.html"><a href="stringr-basics.html#substring-with-str_sub"><i class="fa fa-check"></i><b>7.3.3</b> Substring with <code>str_sub()</code></a></li>
+<li class="chapter" data-level="7.3.4" data-path="stringr-basics.html"><a href="stringr-basics.html#duplication-with-str_dup"><i class="fa fa-check"></i><b>7.3.4</b> Duplication with <code>str_dup()</code></a></li>
+<li class="chapter" data-level="7.3.5" data-path="stringr-basics.html"><a href="stringr-basics.html#padding-with-str_pad"><i class="fa fa-check"></i><b>7.3.5</b> Padding with <code>str_pad()</code></a></li>
+<li class="chapter" data-level="7.3.6" data-path="stringr-basics.html"><a href="stringr-basics.html#wrapping-with-str_wrap"><i class="fa fa-check"></i><b>7.3.6</b> Wrapping with <code>str_wrap()</code></a></li>
+<li class="chapter" data-level="7.3.7" data-path="stringr-basics.html"><a href="stringr-basics.html#trimming-with-str_trim"><i class="fa fa-check"></i><b>7.3.7</b> Trimming with <code>str_trim()</code></a></li>
+<li class="chapter" data-level="7.3.8" data-path="stringr-basics.html"><a href="stringr-basics.html#word-extraction-with-word"><i class="fa fa-check"></i><b>7.3.8</b> Word extraction with <code>word()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html"><i class="fa fa-check"></i><b>8</b> Basic Manipulation Examples</a><ul>
+<li class="chapter" data-level="8.1" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#introduction-4"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-names-of-files"><i class="fa fa-check"></i><b>8.1.1</b> Example: Names of files</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-valid-color-names"><i class="fa fa-check"></i><b>8.1.2</b> Example: Valid Color Names</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-me-and-you-plot"><i class="fa fa-check"></i><b>8.1.3</b> Example: Me and You plot</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Regex</b></span></li>
+<li class="chapter" data-level="9" data-path="regex1.html"><a href="regex1.html"><i class="fa fa-check"></i><b>9</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="9.1" data-path="regex1.html"><a href="regex1.html#introduction-5"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="regex1.html"><a href="regex1.html#what-are-regular-expressions"><i class="fa fa-check"></i><b>9.2</b> What are Regular Expressions?</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="regex1.html"><a href="regex1.html#what-are-regular-expressions-used-for"><i class="fa fa-check"></i><b>9.2.1</b> What are Regular Expressions used for?</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regex1.html"><a href="regex1.html#a-word-of-caution-about-regex"><i class="fa fa-check"></i><b>9.2.2</b> A word of caution about regex</a></li>
+<li class="chapter" data-level="9.2.3" data-path="regex1.html"><a href="regex1.html#regular-expressions-in-r"><i class="fa fa-check"></i><b>9.2.3</b> Regular Expressions in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regex1.html"><a href="regex1.html#regex-basics"><i class="fa fa-check"></i><b>9.3</b> Regex Basics</a></li>
+<li class="chapter" data-level="9.4" data-path="regex1.html"><a href="regex1.html#matching-literal-characters"><i class="fa fa-check"></i><b>9.4</b> Matching Literal Characters</a></li>
+<li class="chapter" data-level="9.5" data-path="regex1.html"><a href="regex1.html#metacharacters"><i class="fa fa-check"></i><b>9.5</b> Metacharacters</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="regex1.html"><a href="regex1.html#the-wild-metacharacter"><i class="fa fa-check"></i><b>9.5.1</b> The Wild Metacharacter</a></li>
+<li class="chapter" data-level="9.5.2" data-path="regex1.html"><a href="regex1.html#escaping-metacharacters"><i class="fa fa-check"></i><b>9.5.2</b> Escaping metacharacters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="character-sets.html"><a href="character-sets.html"><i class="fa fa-check"></i><b>10</b> Character Sets</a><ul>
+<li class="chapter" data-level="10.1" data-path="character-sets.html"><a href="character-sets.html#defining-character-sets"><i class="fa fa-check"></i><b>10.1</b> Defining character sets</a></li>
+<li class="chapter" data-level="10.2" data-path="character-sets.html"><a href="character-sets.html#character-ranges"><i class="fa fa-check"></i><b>10.2</b> Character ranges</a></li>
+<li class="chapter" data-level="10.3" data-path="character-sets.html"><a href="character-sets.html#negative-character-sets"><i class="fa fa-check"></i><b>10.3</b> Negative Character Sets</a></li>
+<li class="chapter" data-level="10.4" data-path="character-sets.html"><a href="character-sets.html#metacharacters-inside-character-sets"><i class="fa fa-check"></i><b>10.4</b> Metacharacters inside character sets</a></li>
+<li class="chapter" data-level="10.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>10.5</b> Character Classes</a></li>
+<li class="chapter" data-level="10.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>10.6</b> POSIX Character Classes</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Handling Strings in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basic-manipulation-examples" class="section level1">
+<h1><span class="header-section-number">8</span> Basic Manipulation Examples</h1>
+<div id="introduction-4" class="section level2">
+<h2><span class="header-section-number">8.1</span> Introduction</h2>
+<p>This chapter provides more elaborated examples than the simple demos presented so far. The idea is to show you less abstract scenarios and cases where you could apply the functions and concepts covered so far.</p>
+<div id="example-names-of-files" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Example: Names of files</h3>
+<p>Imagine that you need to generate the names of 10 data <code>.csv</code> files. All the files have the same prefix name but each of them has a different number: <code>file1.csv</code>, <code>file2.csv</code>, … , <code>file10.csv</code>.</p>
+<p>There are several ways in which you could generate a character vector with these names. One naive option is to manually type those names and form a vector with <code>c()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&#39;file1.csv&#39;</span>, <span class="st">&#39;file2.csv&#39;</span>, <span class="st">&#39;file3.csv&#39;</span>)
+<span class="co">#&gt; [1] &quot;file1.csv&quot; &quot;file2.csv&quot; &quot;file3.csv&quot;</span></code></pre></div>
+<p>But that’s not very efficient. Just think about the time it would take you to create a vector with 100 files. A better alternative is to use the vectorized nature of <code>paste()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(<span class="st">&#39;file&#39;</span>, <span class="dv">1</span>:<span class="dv">10</span>, <span class="st">&#39;.csv&#39;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
+<span class="co">#&gt;  [1] &quot;file1.csv&quot;  &quot;file2.csv&quot;  &quot;file3.csv&quot;  &quot;file4.csv&quot;  &quot;file5.csv&quot; </span>
+<span class="co">#&gt;  [6] &quot;file6.csv&quot;  &quot;file7.csv&quot;  &quot;file8.csv&quot;  &quot;file9.csv&quot;  &quot;file10.csv&quot;</span></code></pre></div>
+<p>Or similarly with <code>paste0()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste0</span>(<span class="st">&#39;file&#39;</span>, <span class="dv">1</span>:<span class="dv">10</span>, <span class="st">&#39;.csv&#39;</span>)
+<span class="co">#&gt;  [1] &quot;file1.csv&quot;  &quot;file2.csv&quot;  &quot;file3.csv&quot;  &quot;file4.csv&quot;  &quot;file5.csv&quot; </span>
+<span class="co">#&gt;  [6] &quot;file6.csv&quot;  &quot;file7.csv&quot;  &quot;file8.csv&quot;  &quot;file9.csv&quot;  &quot;file10.csv&quot;</span></code></pre></div>
+</div>
+<div id="example-valid-color-names" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> Example: Valid Color Names</h3>
+<p>R comes with the function <code>colors()</code> that returns a vector with the names (in English) of 657 colors available in R. How would you write a function <code>is_color()</code> to test if a given name—in English—is a valid R color. If the provided name is a valid R color, <code>is_color()</code> should return <code>TRUE</code>. If the provided name is not a valid R color <code>is_color()</code> should return <code>FALSE</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_color &lt;-<span class="st"> </span>function(x) {
+  x %in%<span class="st"> </span><span class="kw">colors</span>()
+}</code></pre></div>
+<p>Lets test it:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is_color</span>(<span class="st">&#39;yellow&#39;</span>)  <span class="co"># TRUE</span>
+<span class="co">#&gt; [1] TRUE</span>
+
+<span class="kw">is_color</span>(<span class="st">&#39;blu&#39;</span>)     <span class="co"># FALSE</span>
+<span class="co">#&gt; [1] FALSE</span>
+
+<span class="kw">is_color</span>(<span class="st">&#39;turkuiose&#39;</span>) <span class="co"># FALSE</span>
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>Another possible way to write <code>is_color()</code> is comparing if <code>any()</code> element of <code>colors()</code> equals the provided name:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_color2 &lt;-<span class="st"> </span>function(x) {
+  <span class="kw">any</span>(<span class="kw">colors</span>() ==<span class="st"> </span>x)
+}</code></pre></div>
+<p>Test it:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is_color2</span>(<span class="st">&#39;yellow&#39;</span>)  <span class="co"># TRUE</span>
+<span class="co">#&gt; [1] TRUE</span>
+
+<span class="kw">is_color2</span>(<span class="st">&#39;blu&#39;</span>)     <span class="co"># FALSE</span>
+<span class="co">#&gt; [1] FALSE</span>
+
+<span class="kw">is_color2</span>(<span class="st">&#39;turkuiose&#39;</span>) <span class="co"># FALSE</span>
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+</div>
+<div id="example-me-and-you-plot" class="section level3">
+<h3><span class="header-section-number">8.1.3</span> Example: Me and You plot</h3>
+<p>This example is not really about data analysis or something serious, it is instead a fun project in which you get to apply what we have covered so far. The idea is to produce a plot with some text on it. But not any kind of text. The plot is intended to be a postcard—for Saint Valentine’s day. With this kind of tutorial, you should be able to make youw own plot, print it and give it to your significant other.</p>
+<p>The idea is to make a chart with your name and the name of your significant other, adding a touch of randomness in the location of the text, the sizes, and the colors.</p>
+<p>First we generate the x-y coordinates. We’ll use 100 points, and set the random seed to 333:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># random seed</span>
+<span class="kw">set.seed</span>(<span class="dv">333</span>)
+
+<span class="co"># x-y coordinates</span>
+n &lt;-<span class="st"> </span><span class="dv">100</span>
+x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)
+y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">1</span>, <span class="dv">2</span>)</code></pre></div>
+<p>The first step is to produce a very basic-raw plot (nothing fancy). We use <code>plot()</code> for this purpose:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(x, y)</code></pre></div>
+<p>This just produces a scatter diagram with a 100 points on it. The following step consists of replacing the dots by some text: your name and the one of your significant other. To hide the dots, we set the parameter <code>type = &quot;n&quot;</code>, which means that we don’t want anything to be plotted. To show the text, we use the low level plotting function <code>text()</code>. We use the same coordinates, but this time we specify the displayed <code>labels</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)
+<span class="kw">text</span>(x, y, <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>)</code></pre></div>
+<p>Again, this is a very preliminary plot; something basic that allows us to start getting a feeling of how the chart looks like. The second step is to change the background color. One way to do this is by specifying the <code>bg</code> graphical parameter inside the <code>par()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># graphical parameters</span>
+op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">&quot;gray10&quot;</span>)
+<span class="co"># plot text</span>
+<span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)
+<span class="kw">text</span>(x, y, 
+     <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>,
+     <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)
+<span class="co"># reset default parameters</span>
+<span class="kw">par</span>(op)</code></pre></div>
+<p><img src="_main_files/figure-html/me-and-you2-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><code>par()</code> has default settings. Everytime you call <code>par()</code> and change one of the associated parameters, the subsequent plots will be displayed with those values. To set parameters in a temporary way, you can assign them to an object: i.e. <code>op</code>. After the plot is produced, we reset the default graphical parameters with the instruction <code>par(op)</code>.</p>
+<p>We are getting closer to the desired look of the postcard. The final stage is to add some color to the text, and change their size. The size of the labels will also be random with a uniform distribution.</p>
+<p>R provides several ways to specify colors. In this example we will use the <code>hsv()</code> function (i.e. hue-saturation-value). This function requires three parameters: hue (color), saturation, and value. Hues are specified with a range from 0 to 1. We generate some random numbers in the interval 0.85 - 0.95 to get some hues red, pink, fuchsia colors. <code>hsv()</code> also takes the optional parameters <code>alpha</code> to determined the alpha transparency.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># text size</span>
+sizes &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="fl">0.5</span>, <span class="dv">3</span>)
+
+<span class="co"># text color</span>
+hues &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="fl">0.85</span>, <span class="fl">0.95</span>)
+alphas &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="fl">0.1</span>, <span class="dv">1</span>)
+
+
+op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">&quot;gray10&quot;</span>, <span class="dt">mar =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))
+<span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, 
+     <span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>)
+<span class="kw">text</span>(x, y, 
+     <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>, 
+     <span class="dt">font =</span> <span class="dv">3</span>, 
+     <span class="dt">col =</span> <span class="kw">hsv</span>(hues, <span class="dv">1</span>, <span class="dv">1</span>, alphas),
+     <span class="dt">cex =</span> sizes)
+<span class="kw">par</span>(op)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>To save the image, call <code>pdf()</code>. To give the image the dimensions of a standard postcard, you can specify <code>width = 5</code> and <code>height = 3.5</code>, that is, 5 inches wide and 3.5 inches tall (you can choose other dimensions if you want):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pdf</span>(<span class="dt">file =</span> <span class="st">&quot;figure/me-and-you3.pdf&quot;</span>, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="fl">3.5</span>)
+op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">&quot;gray10&quot;</span>, 
+          <span class="dt">mar =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))
+<span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, 
+     <span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>)
+<span class="kw">text</span>(x, y, 
+     <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>, 
+     <span class="dt">font =</span> <span class="dv">3</span>, 
+     <span class="dt">col =</span> <span class="kw">hsv</span>(hues, <span class="dv">1</span>, <span class="dv">1</span>, alphas),
+     <span class="dt">cex =</span> sizes)
+<span class="kw">par</span>(op)
+<span class="kw">dev.off</span>()</code></pre></div>
+<p>If you save the image in png format, you could also use it as a wallpaper for your computer:</p>
+<div class="figure">
+<img src="images/me-you-wallpaper.png" alt="A wallpaper chart for your significant other" />
+<p class="caption">A wallpaper chart for your significant other</p>
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="stringr-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regex1.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gastonstat/r4strings/edit/master/basic-examples.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
