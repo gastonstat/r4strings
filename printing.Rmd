@@ -4,11 +4,10 @@
 
 ## Introduction
 
-In this chapter you will learn about the different functions and options 
-to print strings in a variety of formats. A common task when working with
-character strings involves printing and displaying them on the screen or on
-a file. R allows you to achieve these tasks using a handful of printing
-and formatting functions.
+A common task when working with character strings involves printing and 
+displaying them on the screen or on a file. In this chapter you will learn 
+about the different functions and options in R to print strings in a 
+wide variety of common---and not so common---formats. 
 
 
 ## Printing and formatting
@@ -81,7 +80,7 @@ for (i in 1:5) {
 
 The above code works and R executes the additions, but nothing is displayed on 
 the consoloe. This is because the command `i + 1` forms part of an R expression,
-that is, is within the braces `{ }`.
+that is, it is within the braces `{ }`.
 To be able to see the actual computations you should call `print()` like so:
 
 ```{r}
@@ -93,7 +92,7 @@ for (i in 1:5) {
 
 ## Concatenate and print with `cat()`
 
-Another very useful function is `cat()` which allows us to concatenate objects 
+Another very useful function is `cat()` which allows you to concatenate objects 
 and print them either on screen or to a file. Its usage has the following 
 structure:
 
@@ -168,7 +167,7 @@ cat(my_string, "with R", file = "output.txt")
 
 ## Encoding strings with `format()`
 
-The function `format()` allows us to format an R object for pretty printing. 
+The function `format()` allows you to format an R object for _pretty_ printing. 
 Essentially, `format()` treats the elements of a vector as character strings 
 using a common format. This is especially useful when printing numbers and 
 quantities under different formats.
@@ -182,7 +181,7 @@ format(13.12345678)
 ```
 
 
-Some useful arguments:
+Some useful arguments used in `format()`:
 
 - `width` the (minimum) width of strings produced
 - `trim` if set to `TRUE` there is no padding with spaces
@@ -196,8 +195,6 @@ For controling the printing of numbers, use these arguments:
 - `scientific` use `TRUE` for scientific notation, `FALSE` for standard notation
 
 
-Keep in mind that \code{justify} does not apply to numeric values. 
-
 ```{r format_string}
 # use of 'nsmall'
 format(13.7, nsmall = 3)
@@ -209,8 +206,8 @@ format(c(6.0, 13.1), digits = 2)
 format(c(6.0, 13.1), digits = 2, nsmall = 1)
 ```
 
-By default, `format()` pads the strings with spaces so that they are all the 
-same length.
+By default, `format()` pads the strings with spaces so that they all have 
+the same length.
 
 ```{r format_strings_ihaka}
 # justify options
