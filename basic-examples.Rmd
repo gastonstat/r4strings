@@ -200,7 +200,7 @@ par(op)
 dev.off()
 ```
 
-If you save the image in png, you could also use it as a wallpaper for your
+If you save the image in png format, you could also use it as a wallpaper for your
 computer:
 
-![A wallpaper chart for your significan other](images/me-you-wallpaper.png)
+![A wallpaper chart for your significant other](images/me-you-wallpaper.png)
