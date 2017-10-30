@@ -234,3 +234,24 @@ with sequences separated by a comma `","`
 # big.mark
 format(123456789, big.mark = ",")
 ```
+
+
+## Exercises
+
+1. Why do we say that `print()` is not really one function but a _family_ of functions?
+
+2. Mention three differences between `print()` and `cat()`.
+
+3. What happens when you pass a matrix to `cat()`? For instance:
+
+```{r cat_matrix, eval = FALSE}
+m <- matrix(1:12, nrow = 3, ncol = 4)
+cat(m)
+```
+
+4. What happens when you pass a data frame object to `cat()`? For instance:
+
+```{r cat_dataframe, eval = FALSE}
+dfr <- data.frame(a = 1, b = 2, c = 3)
+cat(dfr)
+```
