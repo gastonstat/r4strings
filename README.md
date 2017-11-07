@@ -2,7 +2,7 @@
 
 This repository contains the text and code of the book __Handling Strings in R__.
 
-![cover](images/cover.png)
+<img src="images/cover.png" alt="cover image" height="375" width="300">
 
 ## Author
 
