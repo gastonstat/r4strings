@@ -1,6 +1,6 @@
-# Handling Strings in R
+# Handling Strings with R
 
-This repository contains the text and code of the book __[Handling Strings in R](http://www.gastonsanchez.com/r4strings)__.
+This repository contains the text and code of the book __[Handling Strings with R](http://www.gastonsanchez.com/r4strings)__.
 
 <a href="http://www.gastonsanchez.com/r4strings" target="_blank"><img src="images/cover.png" alt="cover image" height="375" width="300"></a>
 
