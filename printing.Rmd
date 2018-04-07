@@ -79,7 +79,7 @@ for (i in 1:5) {
 ```
 
 The above code works and R executes the additions, but nothing is displayed on 
-the consoloe. This is because the command `i + 1` forms part of an R expression,
+the console. This is because the command `i + 1` forms part of an R expression,
 that is, it is within the braces `{ }`.
 To be able to see the actual computations you should call `print()` like so:
 
@@ -100,12 +100,13 @@ structure:
 cat(..., file = "", sep = " ", fill = FALSE, labels = NULL, append = FALSE)
 ```
 
-The argument `...` implies that `cat()` accepts several types of data. However, 
-when we pass numeric and/or complex elements they are automatically converted 
-to character strings by `cat()`. By default, the strings are concatenated with 
-a space character as separator. This can be modified with the `sep` argument.
+The argument `...` implies that `cat()` accepts several types of R objects 
+(typically vectors). However, when we pass numeric and/or complex vectors, 
+they are automatically converted to character strings by `cat()`. By default, 
+the strings are concatenated with a space character as separator. This can be 
+modified with the `sep` argument.
 
-If we use `cat()` with only one single string, you get a similar 
+If you use `cat()` with only one single string, you get a similar 
 (although not identical) result as `noquote()`:
 
 ```{r cat_ex1}
@@ -142,6 +143,12 @@ they were separate arguments:
 ```{r cat_ex4}
 # first four months
 cat(month.name[1:4], sep = " ")
+
+# first four months
+cat(month.name[1:4], sep = "-")
+
+# first four months
+cat(month.name[1:4], sep = "")
 ```
 
 The argument `fill` allows us to break long strings; this is achieved when we 
@@ -155,7 +162,8 @@ cat("Loooooooooong strings", "can be displayed", "in a nice format",
 
 Last but not least, we can specify a file output in `cat()`. For instance, 
 let's suppose that we want to save the output in the file `output.txt` 
-located in our working directory:
+located in our working directory. This is done by specifying the `file`
+argument:
 
 ```{r cat_ex6, eval=FALSE}
 # cat with output in a given file
