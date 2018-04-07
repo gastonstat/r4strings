@@ -24,7 +24,7 @@ for a variable that will be formatted. The rest of the inputs passed to
 The string in the previous example contains three slots of the same type, `%s`,
 and the subsequent arguments are numbers `8`, `0`, and `5`. Each number is used 
 as a value for each slot. The letter `s` indicates that the formatted variable
-is specified as a string.
+is specified as a _string_.
 
 Most of the times you won't use `sprintf()` like in the example above. 
 Instead, what you will pass are variables containing different values:
@@ -54,7 +54,11 @@ options. The following table shows the most common formatting specifications:
 | `%g`     | compact decimal or scientific notation (with `e`) |
 
 
+
+### Format Slot Syntax
+
 The full syntax for a format slot is defined by:
+
 ```
 %[parameter][flags][width][.precision][length]type
 ```
@@ -76,7 +80,7 @@ The `flags` field can be zero or more (in any order) of:
 
 - `-` (minus) Left-align the output of this placeholder.
 - `+` (plus) Prepends a plus for positive signed-numeric types.
-- ` ` (space) Prepends a space for positive signed-numeric types.
+- `' '` (space) Prepends a space for positive signed-numeric types.
 - `0` (zero) When the 'width' option is specified, prepends zeros for numeric types.
 - `#` (hash) Alternate form:
     + for `g` and `G` types, trailing zeros are not removed.
@@ -337,7 +341,7 @@ miles <- function(car, fuel = 1, mpg = 'city') {
 
 The `miles()` function takes three parameters: `car` is an object of
 class `"car"`, `fuel` is the number of gallons, and `mpg` is the
-type of fuel consumption (`'city', `highway', `combined'`). The first
+type of fuel consumption (`'city', `highway`, `combined'`). The first
 command checks whether the first parameter is an object of class `"car"`.
 If it is not, then the function will stop the execution raising an error. 
 The second command involves using the function `switch()` to compute the 
