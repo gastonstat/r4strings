@@ -163,13 +163,13 @@ Article from the R journal introducing the package `"stringr"` by Hadley Wickham
 ### Acknowledgements
 
 This book is a major iteration on a previous ebook that I wrote in 2013:
-__Handling and Processing Strings in R__. As you can tell, I've shorten the
-title to just _Handling Strings in R_. I've also expanded the content to
+_Handling and Processing Strings in R_. As you can tell, I've shorten the
+title to just __Handling Strings with R__. I've also expanded the content to
 include many more examples, code snippets, and material about regular 
 expressions.
 
 As always, many thanks to Jessica who patiently accepted my occupying of the
-dinning table as my workbench (that's over now).
+dinning table as my workbench (~~that's over now~~).
 
 
 ### Colophon
