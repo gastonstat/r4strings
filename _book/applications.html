@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
+  
+  <meta property="og:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="github-repo" content="gastonstat/r4strings" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Handling Strings with R" />
+  
+  <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  
+
+<meta name="author" content="Gaston Sanchez">
+
+
+<meta name="date" content="2018-04-08">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="character-sets.html">
+<link rel="next" href="html.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Handling Strings with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#about-this-book"><i class="fa fa-check"></i><b>1.1</b> About this book</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="intro.html"><a href="intro.html#structure-of-the-book"><i class="fa fa-check"></i><b>1.1.1</b> Structure of the book</a></li>
+<li class="chapter" data-level="1.1.2" data-path="intro.html"><a href="intro.html#main-resources"><i class="fa fa-check"></i><b>1.1.2</b> Main Resources</a></li>
+<li class="chapter" data-level="1.1.3" data-path="intro.html"><a href="intro.html#acknowledgements"><i class="fa fa-check"></i><b>1.1.3</b> Acknowledgements</a></li>
+<li class="chapter" data-level="1.1.4" data-path="intro.html"><a href="intro.html#colophon"><i class="fa fa-check"></i><b>1.1.4</b> Colophon</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>I Characters</b></span></li>
+<li class="chapter" data-level="2" data-path="chars.html"><a href="chars.html"><i class="fa fa-check"></i><b>2</b> Character Strings in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="chars.html"><a href="chars.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="chars.html"><a href="chars.html#common-use-of-strings-in-r"><i class="fa fa-check"></i><b>2.2</b> Common use of strings in R</a></li>
+<li class="chapter" data-level="2.3" data-path="chars.html"><a href="chars.html#creating-character-strings"><i class="fa fa-check"></i><b>2.3</b> Creating Character Strings</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chars.html"><a href="chars.html#empty-string"><i class="fa fa-check"></i><b>2.3.1</b> Empty string</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chars.html"><a href="chars.html#empty-character-vector"><i class="fa fa-check"></i><b>2.3.2</b> Empty character vector</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chars.html"><a href="chars.html#function-c"><i class="fa fa-check"></i><b>2.3.3</b> Function <code>c()</code></a></li>
+<li class="chapter" data-level="2.3.4" data-path="chars.html"><a href="chars.html#is.character-and-as.character"><i class="fa fa-check"></i><b>2.3.4</b> <code>is.character()</code> and <code>as.character()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="chars.html"><a href="chars.html#behavior-of-r-objects-with-character-strings"><i class="fa fa-check"></i><b>2.4</b> Behavior of R objects with character strings</a></li>
+<li class="chapter" data-level="2.5" data-path="chars.html"><a href="chars.html#the-workhorse-function-paste"><i class="fa fa-check"></i><b>2.5</b> The workhorse function <code>paste()</code></a></li>
+<li class="chapter" data-level="2.6" data-path="chars.html"><a href="chars.html#exercises"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="part"><span><b>II Formatting</b></span></li>
+<li class="chapter" data-level="3" data-path="formatting.html"><a href="formatting.html"><i class="fa fa-check"></i><b>3</b> Formatting Text and Numbers</a><ul>
+<li class="chapter" data-level="3.1" data-path="formatting.html"><a href="formatting.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="formatting.html"><a href="formatting.html#printing-and-formatting"><i class="fa fa-check"></i><b>3.2</b> Printing and formatting</a></li>
+<li class="chapter" data-level="3.3" data-path="formatting.html"><a href="formatting.html#generic-printing"><i class="fa fa-check"></i><b>3.3</b> Generic printing</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="formatting.html"><a href="formatting.html#when-to-use-print"><i class="fa fa-check"></i><b>3.3.1</b> When to use <code>print()</code>?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="formatting.html"><a href="formatting.html#concatenate-and-print-with-cat"><i class="fa fa-check"></i><b>3.4</b> Concatenate and print with <code>cat()</code></a></li>
+<li class="chapter" data-level="3.5" data-path="formatting.html"><a href="formatting.html#encoding-strings-with-format"><i class="fa fa-check"></i><b>3.5</b> Encoding strings with <code>format()</code></a></li>
+<li class="chapter" data-level="3.6" data-path="formatting.html"><a href="formatting.html#exercises-1"><i class="fa fa-check"></i><b>3.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="c-style-formatting.html"><a href="c-style-formatting.html"><i class="fa fa-check"></i><b>4</b> C-style Formatting</a><ul>
+<li class="chapter" data-level="4.1" data-path="c-style-formatting.html"><a href="c-style-formatting.html#c-style-formatting-options"><i class="fa fa-check"></i><b>4.1</b> C-style formatting options</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="c-style-formatting.html"><a href="c-style-formatting.html#format-slot-syntax"><i class="fa fa-check"></i><b>4.1.1</b> Format Slot Syntax</a></li>
+<li class="chapter" data-level="4.1.2" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-basic-sprintf"><i class="fa fa-check"></i><b>4.1.2</b> Example: basic <code>sprintf()</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-file-names"><i class="fa fa-check"></i><b>4.1.3</b> Example: File Names</a></li>
+<li class="chapter" data-level="4.1.4" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-fahrenheit-to-celsius"><i class="fa fa-check"></i><b>4.1.4</b> Example: Fahrenheit to Celsius</a></li>
+<li class="chapter" data-level="4.1.5" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-car-traveled-distance"><i class="fa fa-check"></i><b>4.1.5</b> Example: Car Traveled Distance</a></li>
+<li class="chapter" data-level="4.1.6" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-coffee-prices"><i class="fa fa-check"></i><b>4.1.6</b> Example: Coffee Prices</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="input-and-output.html"><a href="input-and-output.html"><i class="fa fa-check"></i><b>5</b> Input and Output</a><ul>
+<li class="chapter" data-level="5.1" data-path="input-and-output.html"><a href="input-and-output.html#output"><i class="fa fa-check"></i><b>5.1</b> Output</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="input-and-output.html"><a href="input-and-output.html#concatenating-output"><i class="fa fa-check"></i><b>5.1.1</b> Concatenating output</a></li>
+<li class="chapter" data-level="5.1.2" data-path="input-and-output.html"><a href="input-and-output.html#sinking-output"><i class="fa fa-check"></i><b>5.1.2</b> Sinking output</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="input-and-output.html"><a href="input-and-output.html#exporting-tables"><i class="fa fa-check"></i><b>5.2</b> Exporting tables</a></li>
+</ul></li>
+<li class="part"><span><b>III Manipulations</b></span></li>
+<li class="chapter" data-level="6" data-path="manip.html"><a href="manip.html"><i class="fa fa-check"></i><b>6</b> Basic String Manipulations</a><ul>
+<li class="chapter" data-level="6.1" data-path="manip.html"><a href="manip.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="manip.html"><a href="manip.html#basic-manipulations"><i class="fa fa-check"></i><b>6.2</b> Basic Manipulations</a></li>
+<li class="chapter" data-level="6.3" data-path="manip.html"><a href="manip.html#counting-characters"><i class="fa fa-check"></i><b>6.3</b> Counting characters</a></li>
+<li class="chapter" data-level="6.4" data-path="manip.html"><a href="manip.html#casefolding"><i class="fa fa-check"></i><b>6.4</b> Casefolding</a></li>
+<li class="chapter" data-level="6.5" data-path="manip.html"><a href="manip.html#translating-characters"><i class="fa fa-check"></i><b>6.5</b> Translating characters</a></li>
+<li class="chapter" data-level="6.6" data-path="manip.html"><a href="manip.html#abbreviating-strings"><i class="fa fa-check"></i><b>6.6</b> Abbreviating strings</a></li>
+<li class="chapter" data-level="6.7" data-path="manip.html"><a href="manip.html#replacing-strings"><i class="fa fa-check"></i><b>6.7</b> Replacing strings</a></li>
+<li class="chapter" data-level="6.8" data-path="manip.html"><a href="manip.html#set-operations"><i class="fa fa-check"></i><b>6.8</b> Set Operations</a><ul>
+<li class="chapter" data-level="6.8.1" data-path="manip.html"><a href="manip.html#set-union-with-union"><i class="fa fa-check"></i><b>6.8.1</b> Set union with <code>union()</code></a></li>
+<li class="chapter" data-level="6.8.2" data-path="manip.html"><a href="manip.html#set-intersection-with-intersect"><i class="fa fa-check"></i><b>6.8.2</b> Set intersection with <code>intersect()</code></a></li>
+<li class="chapter" data-level="6.8.3" data-path="manip.html"><a href="manip.html#set-difference-with-setdiff"><i class="fa fa-check"></i><b>6.8.3</b> Set difference with <code>setdiff()</code></a></li>
+<li class="chapter" data-level="6.8.4" data-path="manip.html"><a href="manip.html#set-equality-with-setequal"><i class="fa fa-check"></i><b>6.8.4</b> Set equality with <code>setequal()</code></a></li>
+<li class="chapter" data-level="6.8.5" data-path="manip.html"><a href="manip.html#exact-equality-with-identical"><i class="fa fa-check"></i><b>6.8.5</b> Exact equality with <code>identical()</code></a></li>
+<li class="chapter" data-level="6.8.6" data-path="manip.html"><a href="manip.html#element-contained-with-is.element"><i class="fa fa-check"></i><b>6.8.6</b> Element contained with <code>is.element()</code></a></li>
+<li class="chapter" data-level="6.8.7" data-path="manip.html"><a href="manip.html#sorting-with-sort"><i class="fa fa-check"></i><b>6.8.7</b> Sorting with <code>sort()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="stringr-basics.html"><a href="stringr-basics.html"><i class="fa fa-check"></i><b>7</b> Stringr Basics</a><ul>
+<li class="chapter" data-level="7.1" data-path="stringr-basics.html"><a href="stringr-basics.html#introduction-3"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="stringr-basics.html"><a href="stringr-basics.html#package-stringr"><i class="fa fa-check"></i><b>7.2</b> Package <code>stringr</code></a></li>
+<li class="chapter" data-level="7.3" data-path="stringr-basics.html"><a href="stringr-basics.html#basic-string-operations"><i class="fa fa-check"></i><b>7.3</b> Basic String Operations</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="stringr-basics.html"><a href="stringr-basics.html#concatenating-with-str_c"><i class="fa fa-check"></i><b>7.3.1</b> Concatenating with <code>str_c()</code></a></li>
+<li class="chapter" data-level="7.3.2" data-path="stringr-basics.html"><a href="stringr-basics.html#number-of-characters-with-str_length"><i class="fa fa-check"></i><b>7.3.2</b> Number of characters with <code>str_length()</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="stringr-basics.html"><a href="stringr-basics.html#substring-with-str_sub"><i class="fa fa-check"></i><b>7.3.3</b> Substring with <code>str_sub()</code></a></li>
+<li class="chapter" data-level="7.3.4" data-path="stringr-basics.html"><a href="stringr-basics.html#duplication-with-str_dup"><i class="fa fa-check"></i><b>7.3.4</b> Duplication with <code>str_dup()</code></a></li>
+<li class="chapter" data-level="7.3.5" data-path="stringr-basics.html"><a href="stringr-basics.html#padding-with-str_pad"><i class="fa fa-check"></i><b>7.3.5</b> Padding with <code>str_pad()</code></a></li>
+<li class="chapter" data-level="7.3.6" data-path="stringr-basics.html"><a href="stringr-basics.html#wrapping-with-str_wrap"><i class="fa fa-check"></i><b>7.3.6</b> Wrapping with <code>str_wrap()</code></a></li>
+<li class="chapter" data-level="7.3.7" data-path="stringr-basics.html"><a href="stringr-basics.html#trimming-with-str_trim"><i class="fa fa-check"></i><b>7.3.7</b> Trimming with <code>str_trim()</code></a></li>
+<li class="chapter" data-level="7.3.8" data-path="stringr-basics.html"><a href="stringr-basics.html#word-extraction-with-word"><i class="fa fa-check"></i><b>7.3.8</b> Word extraction with <code>word()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html"><i class="fa fa-check"></i><b>8</b> Basic Manipulation Examples</a><ul>
+<li class="chapter" data-level="8.1" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#introduction-4"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-names-of-files"><i class="fa fa-check"></i><b>8.1.1</b> Example: Names of files</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-valid-color-names"><i class="fa fa-check"></i><b>8.1.2</b> Example: Valid Color Names</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-me-and-you-plot"><i class="fa fa-check"></i><b>8.1.3</b> Example: Me and You plot</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Regex</b></span></li>
+<li class="chapter" data-level="9" data-path="regex1.html"><a href="regex1.html"><i class="fa fa-check"></i><b>9</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="9.1" data-path="regex1.html"><a href="regex1.html#introduction-5"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="regex1.html"><a href="regex1.html#what-are-regular-expressions"><i class="fa fa-check"></i><b>9.2</b> What are Regular Expressions?</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="regex1.html"><a href="regex1.html#what-are-regular-expressions-used-for"><i class="fa fa-check"></i><b>9.2.1</b> What are Regular Expressions used for?</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regex1.html"><a href="regex1.html#a-word-of-caution-about-regex"><i class="fa fa-check"></i><b>9.2.2</b> A word of caution about regex</a></li>
+<li class="chapter" data-level="9.2.3" data-path="regex1.html"><a href="regex1.html#regular-expressions-in-r"><i class="fa fa-check"></i><b>9.2.3</b> Regular Expressions in R</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regex1.html"><a href="regex1.html#regex-basics"><i class="fa fa-check"></i><b>9.3</b> Regex Basics</a></li>
+<li class="chapter" data-level="9.4" data-path="regex1.html"><a href="regex1.html#matching-literal-characters"><i class="fa fa-check"></i><b>9.4</b> Matching Literal Characters</a></li>
+<li class="chapter" data-level="9.5" data-path="regex1.html"><a href="regex1.html#metacharacters"><i class="fa fa-check"></i><b>9.5</b> Metacharacters</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="regex1.html"><a href="regex1.html#the-wild-metacharacter"><i class="fa fa-check"></i><b>9.5.1</b> The Wild Metacharacter</a></li>
+<li class="chapter" data-level="9.5.2" data-path="regex1.html"><a href="regex1.html#escaping-metacharacters"><i class="fa fa-check"></i><b>9.5.2</b> Escaping metacharacters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="character-sets.html"><a href="character-sets.html"><i class="fa fa-check"></i><b>10</b> Character Sets</a><ul>
+<li class="chapter" data-level="10.1" data-path="character-sets.html"><a href="character-sets.html#defining-character-sets"><i class="fa fa-check"></i><b>10.1</b> Defining character sets</a></li>
+<li class="chapter" data-level="10.2" data-path="character-sets.html"><a href="character-sets.html#character-ranges"><i class="fa fa-check"></i><b>10.2</b> Character ranges</a></li>
+<li class="chapter" data-level="10.3" data-path="character-sets.html"><a href="character-sets.html#negative-character-sets"><i class="fa fa-check"></i><b>10.3</b> Negative Character Sets</a></li>
+<li class="chapter" data-level="10.4" data-path="character-sets.html"><a href="character-sets.html#metacharacters-inside-character-sets"><i class="fa fa-check"></i><b>10.4</b> Metacharacters inside character sets</a></li>
+<li class="chapter" data-level="10.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>10.5</b> Character Classes</a></li>
+<li class="chapter" data-level="10.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>10.6</b> POSIX Character Classes</a></li>
+</ul></li>
+<li class="part"><span><b>V Applications</b></span></li>
+<li class="chapter" data-level="11" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>11</b> Practical Applications</a><ul>
+<li class="chapter" data-level="11.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>12</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="12.1" data-path="html.html"><a href="html.html#introduction-7"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>12.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="12.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>12.2.1</b> Getting SIG links</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>13</b> Data Log File</a><ul>
+<li class="chapter" data-level="13.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>13.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>13.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="13.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>13.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="13.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>13.1.3</b> Image files</a></li>
+<li class="chapter" data-level="13.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>13.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>14</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="14.1" data-path="biomed.html"><a href="biomed.html#introduction-8"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>14.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>14.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>14.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="14.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>14.4</b> Common words</a></li>
+<li class="chapter" data-level="14.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>14.5</b> The top 30 words</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Handling Strings with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="applications" class="section level1">
+<h1><span class="header-section-number">11</span> Practical Applications</h1>
+<div id="introduction-6" class="section level2">
+<h2><span class="header-section-number">11.1</span> Introduction</h2>
+<p>This chapter is dedicated to show some practical examples that involve handling and processing strings. The main idea is to put in practice all the material covered so far and get a grasp of the variety of things you can do in R.</p>
+<p>We will describe a handful of typical examples. While the examples are not exhaustive, but just representative:</p>
+<ul>
+<li>matching html elements (<code>href</code>’s and <code>img</code>’s anchors)</li>
+<li>working with <em>common log format</em> files</li>
+<li>calculating basic statistics and analytics of character data</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="character-sets.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="html.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gastonstat/r4strings/edit/master/applications1.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
