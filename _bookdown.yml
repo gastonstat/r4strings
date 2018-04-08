@@ -13,7 +13,12 @@ rmd_files: [
   "basic-examples.Rmd",
   
   "regex1.Rmd",
-  "character-sets.Rmd"
+  "character-sets.Rmd",
+
+  "applications.Rmd",
+  "html-tags.Rmd",
+  "logs.Rmd",
+  "biomed.Rmd"
 ]
 
 before_chapter_script: "_common.R"
