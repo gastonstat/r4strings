@@ -9,6 +9,8 @@ This chapter is dedicated to show some practical examples that involve handling 
 
 We will describe a handful of typical examples. While the examples are not exhaustive, but just representative:
 
+- reversing a string
+- matching email addresses
 - matching html elements (`href`'s and `img`'s anchors)
 - working with _common log format_ files
 - calculating basic statistics and analytics of character data

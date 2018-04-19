@@ -16,6 +16,7 @@ rmd_files: [
   "character-sets.Rmd",
 
   "applications.Rmd",
+  "reversing.Rmd",
   "html-tags.Rmd",
   "logs.Rmd",
   "biomed.Rmd"
