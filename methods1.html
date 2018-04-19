@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Pack YouR Code</title>
+  <meta name="description" content="Basic example of how to create an R package based on S3 classes.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Pack YouR Code" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Basic example of how to create an R package based on S3 classes." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Pack YouR Code" />
+  
+  <meta name="twitter:description" content="Basic example of how to create an R package based on S3 classes." />
+  
+
+<meta name="author" content="Gaston Sanchez">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="coin.html">
+<link rel="next" href="toss.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pack YouR Code</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-this-book"><i class="fa fa-check"></i>About this book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="part"><span><b>I Motivation</b></span></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Let’s toss a coin</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#coin-object"><i class="fa fa-check"></i><b>1.1</b> Coin object</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#tossing-a-coin"><i class="fa fa-check"></i><b>1.2</b> Tossing a coin</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="intro.html"><a href="intro.html#random-samples"><i class="fa fa-check"></i><b>1.2.1</b> Random Samples</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#the-random-seed"><i class="fa fa-check"></i><b>1.3</b> The Random Seed</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#sampling-with-different-probabilities"><i class="fa fa-check"></i><b>1.4</b> Sampling with different probabilities</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#simulating-tossing-a-coin"><i class="fa fa-check"></i><b>1.4.1</b> Simulating tossing a coin</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="function.html"><a href="function.html"><i class="fa fa-check"></i><b>2</b> Tossing Function</a><ul>
+<li class="chapter" data-level="2.1" data-path="function.html"><a href="function.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="function.html"><a href="function.html#a-toss-function"><i class="fa fa-check"></i><b>2.2</b> A <code>toss()</code> function</a></li>
+<li class="chapter" data-level="2.3" data-path="function.html"><a href="function.html#documenting-functions"><i class="fa fa-check"></i><b>2.3</b> Documenting Functions</a></li>
+<li class="chapter" data-level="2.4" data-path="function.html"><a href="function.html#roxygen-comments"><i class="fa fa-check"></i><b>2.4</b> Roxygen Comments</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="function.html"><a href="function.html#about-roxygen-comments"><i class="fa fa-check"></i><b>2.4.1</b> About Roxygen Comments</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Classes</b></span></li>
+<li class="chapter" data-level="3" data-path="coin.html"><a href="coin.html"><i class="fa fa-check"></i><b>3</b> Coin Objects</a><ul>
+<li class="chapter" data-level="3.1" data-path="coin.html"><a href="coin.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="coin.html"><a href="coin.html#objects-and-classes"><i class="fa fa-check"></i><b>3.2</b> Objects and Classes</a></li>
+<li class="chapter" data-level="3.3" data-path="coin.html"><a href="coin.html#s3-classes"><i class="fa fa-check"></i><b>3.3</b> S3 Classes</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="coin.html"><a href="coin.html#making-an-object"><i class="fa fa-check"></i><b>3.3.1</b> Making an object</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="coin.html"><a href="coin.html#a-more-robust-coin-class"><i class="fa fa-check"></i><b>3.4</b> A more robust <code>&quot;coin&quot;</code> class</a></li>
+<li class="chapter" data-level="3.5" data-path="coin.html"><a href="coin.html#improving-coin-objects"><i class="fa fa-check"></i><b>3.5</b> Improving <code>&quot;coin&quot;</code> objects</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="coin.html"><a href="coin.html#attributes"><i class="fa fa-check"></i><b>3.5.1</b> Attributes</a></li>
+<li class="chapter" data-level="3.5.2" data-path="coin.html"><a href="coin.html#using-a-list"><i class="fa fa-check"></i><b>3.5.2</b> Using a list</a></li>
+<li class="chapter" data-level="3.5.3" data-path="coin.html"><a href="coin.html#auxiliary-checker"><i class="fa fa-check"></i><b>3.5.3</b> Auxiliary Checker</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="coin.html"><a href="coin.html#print-method-for-coin"><i class="fa fa-check"></i><b>3.6</b> Print Method for <code>&quot;coin&quot;</code></a></li>
+<li class="chapter" data-level="3.7" data-path="coin.html"><a href="coin.html#extending-classes"><i class="fa fa-check"></i><b>3.7</b> Extending classes</a></li>
+</ul></li>
+<li class="part"><span><b>III Methods</b></span></li>
+<li class="chapter" data-level="4" data-path="methods1.html"><a href="methods1.html"><i class="fa fa-check"></i><b>4</b> Methods (part 1)</a><ul>
+<li class="chapter" data-level="4.1" data-path="methods1.html"><a href="methods1.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="methods1.html"><a href="methods1.html#improving-toss"><i class="fa fa-check"></i><b>4.2</b> Improving <code>toss()</code></a></li>
+<li class="chapter" data-level="4.3" data-path="methods1.html"><a href="methods1.html#generic-method-toss"><i class="fa fa-check"></i><b>4.3</b> Generic Method <code>toss</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="toss.html"><a href="toss.html"><i class="fa fa-check"></i><b>5</b> Object toss</a><ul>
+<li class="chapter" data-level="5.1" data-path="toss.html"><a href="toss.html#introduction-3"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="toss.html"><a href="toss.html#motivation-for-object-toss"><i class="fa fa-check"></i><b>5.2</b> Motivation for object <code>&quot;toss&quot;</code></a><ul>
+<li class="chapter" data-level="5.2.1" data-path="toss.html"><a href="toss.html#auxiliary-constructor"><i class="fa fa-check"></i><b>5.2.1</b> Auxiliary Constructor</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="toss.html"><a href="toss.html#main-function-toss"><i class="fa fa-check"></i><b>5.3</b> Main Function <code>toss()</code></a></li>
+<li class="chapter" data-level="5.4" data-path="toss.html"><a href="toss.html#upgrading-toss"><i class="fa fa-check"></i><b>5.4</b> Upgrading <code>toss()</code></a><ul>
+<li class="chapter" data-level="5.4.1" data-path="toss.html"><a href="toss.html#in-summary"><i class="fa fa-check"></i><b>5.4.1</b> In Summary</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="methods2.html"><a href="methods2.html"><i class="fa fa-check"></i><b>6</b> Methods (part 2)</a><ul>
+<li class="chapter" data-level="6.1" data-path="methods2.html"><a href="methods2.html#introduction-4"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="methods2.html"><a href="methods2.html#print-method"><i class="fa fa-check"></i><b>6.2</b> Print Method</a></li>
+<li class="chapter" data-level="6.3" data-path="methods2.html"><a href="methods2.html#summary-method"><i class="fa fa-check"></i><b>6.3</b> Summary Method</a></li>
+<li class="chapter" data-level="6.4" data-path="methods2.html"><a href="methods2.html#plot-method"><i class="fa fa-check"></i><b>6.4</b> Plot Method</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="methods3.html"><a href="methods3.html"><i class="fa fa-check"></i><b>7</b> Additional Methods</a><ul>
+<li class="chapter" data-level="7.1" data-path="methods3.html"><a href="methods3.html#introduction-5"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="methods3.html"><a href="methods3.html#replacement-method"><i class="fa fa-check"></i><b>7.2</b> Replacement Method</a></li>
+<li class="chapter" data-level="7.3" data-path="methods3.html"><a href="methods3.html#extraction-method"><i class="fa fa-check"></i><b>7.3</b> Extraction Method</a></li>
+<li class="chapter" data-level="7.4" data-path="methods3.html"><a href="methods3.html#is-toss"><i class="fa fa-check"></i><b>7.4</b> Is <code>&quot;toss&quot;</code></a></li>
+<li class="chapter" data-level="7.5" data-path="methods3.html"><a href="methods3.html#addition-method"><i class="fa fa-check"></i><b>7.5</b> Addition Method</a></li>
+</ul></li>
+<li class="part"><span><b>IV Package Structure</b></span></li>
+<li class="chapter" data-level="8" data-path="toy-package.html"><a href="toy-package.html"><i class="fa fa-check"></i><b>8</b> Toy Package</a><ul>
+<li class="chapter" data-level="8.1" data-path="toy-package.html"><a href="toy-package.html#introduction-6"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="toy-package.html"><a href="toy-package.html#an-off-the-shelf-package"><i class="fa fa-check"></i><b>8.2</b> An off-the-shelf package</a></li>
+<li class="chapter" data-level="8.3" data-path="toy-package.html"><a href="toy-package.html#minimal-filestructure"><i class="fa fa-check"></i><b>8.3</b> Minimal Filestructure</a></li>
+<li class="chapter" data-level="8.4" data-path="toy-package.html"><a href="toy-package.html#quick-build"><i class="fa fa-check"></i><b>8.4</b> Quick Build</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="structure.html"><a href="structure.html"><i class="fa fa-check"></i><b>9</b> Filestructure</a><ul>
+<li class="chapter" data-level="9.1" data-path="structure.html"><a href="structure.html#introduction-7"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="structure.html"><a href="structure.html#scenarios"><i class="fa fa-check"></i><b>9.2</b> Scenarios</a></li>
+<li class="chapter" data-level="9.3" data-path="structure.html"><a href="structure.html#minimal-package"><i class="fa fa-check"></i><b>9.3</b> Minimal Package</a></li>
+<li class="chapter" data-level="9.4" data-path="structure.html"><a href="structure.html#default-devtools-setting"><i class="fa fa-check"></i><b>9.4</b> Default devtools setting</a></li>
+<li class="chapter" data-level="9.5" data-path="structure.html"><a href="structure.html#our-working-example"><i class="fa fa-check"></i><b>9.5</b> Our working example</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>10</b> Description File</a><ul>
+<li class="chapter" data-level="10.1" data-path="description.html"><a href="description.html#introduction-8"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="description.html"><a href="description.html#sample-description"><i class="fa fa-check"></i><b>10.2</b> Sample Description</a></li>
+<li class="chapter" data-level="10.3" data-path="description.html"><a href="description.html#mandatory-fields"><i class="fa fa-check"></i><b>10.3</b> Mandatory Fields</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="description.html"><a href="description.html#package-name"><i class="fa fa-check"></i><b>10.3.1</b> Package Name</a></li>
+<li class="chapter" data-level="10.3.2" data-path="description.html"><a href="description.html#title"><i class="fa fa-check"></i><b>10.3.2</b> Title</a></li>
+<li class="chapter" data-level="10.3.3" data-path="description.html"><a href="description.html#description-1"><i class="fa fa-check"></i><b>10.3.3</b> Description</a></li>
+<li class="chapter" data-level="10.3.4" data-path="description.html"><a href="description.html#author-and-maintainer"><i class="fa fa-check"></i><b>10.3.4</b> Author and Maintainer</a></li>
+<li class="chapter" data-level="10.3.5" data-path="description.html"><a href="description.html#version"><i class="fa fa-check"></i><b>10.3.5</b> Version</a></li>
+<li class="chapter" data-level="10.3.6" data-path="description.html"><a href="description.html#license"><i class="fa fa-check"></i><b>10.3.6</b> License</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="description.html"><a href="description.html#optional-fields"><i class="fa fa-check"></i><b>10.4</b> Optional Fields</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="description.html"><a href="description.html#encoding"><i class="fa fa-check"></i><b>10.4.1</b> Encoding</a></li>
+<li class="chapter" data-level="10.4.2" data-path="description.html"><a href="description.html#lazydata"><i class="fa fa-check"></i><b>10.4.2</b> LazyData</a></li>
+<li class="chapter" data-level="10.4.3" data-path="description.html"><a href="description.html#type"><i class="fa fa-check"></i><b>10.4.3</b> Type</a></li>
+<li class="chapter" data-level="10.4.4" data-path="description.html"><a href="description.html#vignettebuilder"><i class="fa fa-check"></i><b>10.4.4</b> VignetteBuilder</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="namespace.html"><a href="namespace.html"><i class="fa fa-check"></i><b>11</b> Namespace</a><ul>
+<li class="chapter" data-level="11.1" data-path="namespace.html"><a href="namespace.html#introduction-9"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="namespace.html"><a href="namespace.html#about-namespaces"><i class="fa fa-check"></i><b>11.2</b> About Namespaces</a></li>
+<li class="chapter" data-level="11.3" data-path="namespace.html"><a href="namespace.html#namespace-of-a-package"><i class="fa fa-check"></i><b>11.3</b> Namespace of a Package</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="namespace.html"><a href="namespace.html#exported-functions"><i class="fa fa-check"></i><b>11.3.1</b> Exported Functions</a></li>
+<li class="chapter" data-level="11.3.2" data-path="namespace.html"><a href="namespace.html#roxygen-export"><i class="fa fa-check"></i><b>11.3.2</b> Roxygen export</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tests.html"><a href="tests.html"><i class="fa fa-check"></i><b>12</b> Tests</a><ul>
+<li class="chapter" data-level="12.1" data-path="tests.html"><a href="tests.html#introduction-10"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tests.html"><a href="tests.html#including-tests"><i class="fa fa-check"></i><b>12.2</b> Including Tests</a></li>
+<li class="chapter" data-level="12.3" data-path="tests.html"><a href="tests.html#script-testthat.r"><i class="fa fa-check"></i><b>12.3</b> Script <code>testthat.R</code></a></li>
+<li class="chapter" data-level="12.4" data-path="tests.html"><a href="tests.html#about-testthat"><i class="fa fa-check"></i><b>12.4</b> About <code>&quot;testthat&quot;</code></a><ul>
+<li class="chapter" data-level="12.4.1" data-path="tests.html"><a href="tests.html#list-of-common-expectation-functions"><i class="fa fa-check"></i><b>12.4.1</b> List of common expectation functions</a></li>
+<li class="chapter" data-level="12.4.2" data-path="tests.html"><a href="tests.html#remarks"><i class="fa fa-check"></i><b>12.4.2</b> Remarks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="vignettes.html"><a href="vignettes.html"><i class="fa fa-check"></i><b>13</b> Vignettes</a><ul>
+<li class="chapter" data-level="13.1" data-path="vignettes.html"><a href="vignettes.html#introduction-11"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="vignettes.html"><a href="vignettes.html#including-vignettes"><i class="fa fa-check"></i><b>13.2</b> Including Vignettes</a></li>
+</ul></li>
+<li class="part"><span><b>V Packaging</b></span></li>
+<li class="chapter" data-level="14" data-path="states.html"><a href="states.html"><i class="fa fa-check"></i><b>14</b> Package States</a><ul>
+<li class="chapter" data-level="14.1" data-path="states.html"><a href="states.html#introduction-12"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="states.html"><a href="states.html#package-states"><i class="fa fa-check"></i><b>14.2</b> Package States</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="states.html"><a href="states.html#source-package"><i class="fa fa-check"></i><b>14.2.1</b> Source Package</a></li>
+<li class="chapter" data-level="14.2.2" data-path="states.html"><a href="states.html#bundled-package"><i class="fa fa-check"></i><b>14.2.2</b> Bundled Package</a></li>
+<li class="chapter" data-level="14.2.3" data-path="states.html"><a href="states.html#binary-package"><i class="fa fa-check"></i><b>14.2.3</b> Binary Package</a></li>
+<li class="chapter" data-level="14.2.4" data-path="states.html"><a href="states.html#installed-package"><i class="fa fa-check"></i><b>14.2.4</b> Installed Package</a></li>
+<li class="chapter" data-level="14.2.5" data-path="states.html"><a href="states.html#in-memory-package"><i class="fa fa-check"></i><b>14.2.5</b> In-memory Package</a></li>
+<li class="chapter" data-level="14.2.6" data-path="states.html"><a href="states.html#remarks-1"><i class="fa fa-check"></i><b>14.2.6</b> Remarks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
+<li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
+<li class="chapter" data-level="16.1" data-path="sharing.html"><a href="sharing.html#introduction-14"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
+<li class="chapter" data-level="16.2" data-path="sharing.html"><a href="sharing.html#file-sharing"><i class="fa fa-check"></i><b>16.2</b> File sharing</a></li>
+<li class="chapter" data-level="16.3" data-path="sharing.html"><a href="sharing.html#github"><i class="fa fa-check"></i><b>16.3</b> GitHub</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pack YouR Code</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="methods1" class="section level1">
+<h1><span class="header-section-number">4</span> Methods (part 1)</h1>
+<div id="introduction-2" class="section level2">
+<h2><span class="header-section-number">4.1</span> Introduction</h2>
+<p>We describe our methods in this chapter.</p>
+</div>
+<div id="improving-toss" class="section level2">
+<h2><span class="header-section-number">4.2</span> Improving <code>toss()</code></h2>
+<p>From <a href="function.html#function">chapter 2</a>, we ended up with the following <code>toss()</code> function:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co">#&#39; @title Coin toss function </span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="co">#&#39; @description Simulates tossing a coin a given number of times</span></a>
+<a class="sourceLine" id="cb54-3" data-line-number="3"><span class="co">#&#39; @param x coin object</span></a>
+<a class="sourceLine" id="cb54-4" data-line-number="4"><span class="co">#&#39; @param times number of tosses</span></a>
+<a class="sourceLine" id="cb54-5" data-line-number="5"><span class="co">#&#39; @param prob vector of probabilities for each side of the coin</span></a>
+<a class="sourceLine" id="cb54-6" data-line-number="6"><span class="co">#&#39; @return vector of tosses</span></a>
+<a class="sourceLine" id="cb54-7" data-line-number="7">toss &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="ot">NULL</span>) {</a>
+<a class="sourceLine" id="cb54-8" data-line-number="8">  <span class="kw">sample</span>(x, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> prob)</a>
+<a class="sourceLine" id="cb54-9" data-line-number="9">}</a></code></pre></div>
+<p>The issue with the way <code>toss()</code> has been defined so far, is that you can pass it any type of vector (not necessarily of class <code>&quot;coin&quot;</code>), and it will still work:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">toss</span>(<span class="kw">c</span>(<span class="st">&#39;tic&#39;</span>, <span class="st">&#39;tac&#39;</span>, <span class="st">&#39;toe&#39;</span>))</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="co">#&gt; [1] &quot;tac&quot;</span></a></code></pre></div>
+<p>To create a function <code>toss()</code> that only works for objects of class <code>&quot;coin&quot;</code>, we could add a <code>stop()</code> condition that checks if the argument <code>x</code> is of the right class:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">toss &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="ot">NULL</span>) {</a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">class</span>(x) <span class="op">!=</span><span class="st"> &quot;coin&quot;</span>) {</a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">toss() requires an object &#39;coin&#39;&quot;</span>)</a>
+<a class="sourceLine" id="cb56-4" data-line-number="4">  }</a>
+<a class="sourceLine" id="cb56-5" data-line-number="5">  <span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> prob)</a>
+<a class="sourceLine" id="cb56-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb56-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb56-8" data-line-number="8"><span class="co"># ok</span></a>
+<a class="sourceLine" id="cb56-9" data-line-number="9"><span class="kw">toss</span>(coin1)</a>
+<a class="sourceLine" id="cb56-10" data-line-number="10"><span class="co">#&gt; [1] &quot;heads&quot;</span></a>
+<a class="sourceLine" id="cb56-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb56-12" data-line-number="12"><span class="co"># bad coin</span></a>
+<a class="sourceLine" id="cb56-13" data-line-number="13"><span class="kw">toss</span>(<span class="kw">c</span>(<span class="st">&#39;tic&#39;</span>, <span class="st">&#39;tac&#39;</span>, <span class="st">&#39;toe&#39;</span>))</a>
+<a class="sourceLine" id="cb56-14" data-line-number="14"><span class="co">#&gt; Error in toss(c(&quot;tic&quot;, &quot;tac&quot;, &quot;toe&quot;)): </span></a>
+<a class="sourceLine" id="cb56-15" data-line-number="15"><span class="co">#&gt; toss() requires an object &#39;coin&#39;</span></a></code></pre></div>
+<p>A more formal strategy, and one that follows OOP principles, is to create a toss <strong>method</strong>. In R, many functions are actually methods: e.g. <code>print()</code>, <code>summary()</code>, <code>plot()</code>, <code>str()</code>, etc.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># print method</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">print</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="co">#&gt; function (x, ...) </span></a>
+<a class="sourceLine" id="cb57-4" data-line-number="4"><span class="co">#&gt; UseMethod(&quot;print&quot;)</span></a>
+<a class="sourceLine" id="cb57-5" data-line-number="5"><span class="co">#&gt; &lt;bytecode: 0x7f855de2b580&gt;</span></a>
+<a class="sourceLine" id="cb57-6" data-line-number="6"><span class="co">#&gt; &lt;environment: namespace:base&gt;</span></a></code></pre></div>
+<p>These types of functions are not really one unique function, they typically comprise a collection or family of functions for printing objects, computing summaries, plotting, etc. Depending on the class of the object, a generic method will look for a specific function for that class:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co"># methods for objects &quot;matrix&quot;</span></a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">methods</span>(<span class="dt">class =</span> <span class="st">&quot;matrix&quot;</span>)</a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="co">#&gt;  [1] anyDuplicated as.data.frame as.raster     boxplot       determinant  </span></a>
+<a class="sourceLine" id="cb58-4" data-line-number="4"><span class="co">#&gt;  [6] duplicated    edit          head          isSymmetric   relist       </span></a>
+<a class="sourceLine" id="cb58-5" data-line-number="5"><span class="co">#&gt; [11] subset        summary       tail          unique       </span></a>
+<a class="sourceLine" id="cb58-6" data-line-number="6"><span class="co">#&gt; see &#39;?methods&#39; for accessing help and source code</span></a></code></pre></div>
+</div>
+<div id="generic-method-toss" class="section level2">
+<h2><span class="header-section-number">4.3</span> Generic Method <code>toss</code></h2>
+<p>When implementing new methods, you begin by creating a <strong>generic</strong> method with the function <code>UseMethod()</code>:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">toss &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) <span class="kw">UseMethod</span>(<span class="st">&quot;toss&quot;</span>)</a></code></pre></div>
+<p>The function <code>UseMethod()</code> allows you to declare the name of a method. In this example we are telling R that the function <code>toss()</code> is now a generic <code>&quot;toss&quot;</code> method. Note the use of <code>&quot;...&quot;</code> in the function definition, this will allow you to include more arguments when you define specific methods based on <code>&quot;toss&quot;</code>.</p>
+<p>A generic method alone is not very useful. You need to create specific cases for the generic. In our example, we only have one class <code>&quot;coin&quot;</code>,so that is the only class we will allow <code>toss</code> to be applied on. The way to do this is by defining <code>toss.coin()</code>:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="ot">NULL</span>) {</a>
+<a class="sourceLine" id="cb60-2" data-line-number="2">  <span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> prob)</a>
+<a class="sourceLine" id="cb60-3" data-line-number="3">}</a></code></pre></div>
+<p>The name of the method, <code>&quot;toss&quot;</code>, comes first, followed by a dot <code>&quot;.&quot;</code>, followed by the name of the class, <code>&quot;coin&quot;</code>. Notice that the body of the function <code>toss.coin()</code> does not include the <code>stop()</code> command anymore.</p>
+<p>To use the <code>toss()</code> method on a <code>&quot;coin&quot;</code> object, you don’t really have to call <code>toss.coin()</code>; calling <code>toss()</code> is enough:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">toss</span>(coin1)</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="co">#&gt; [1] &quot;tails&quot;</span></a></code></pre></div>
+<p>How does <code>toss()</code> work? Becasue <code>toss()</code> is now a generic method, everytime you use it, R will look at the class of the input, and see if there is an associated <code>&quot;toss&quot;</code> method. In the previous example, <code>coin1</code> is an object of class <code>&quot;coin&quot;</code>, for which there is a specific <code>toss.coin()</code> method. Thus using <code>toss()</code> on a <code>&quot;coin&quot;</code> object works fine.</p>
+<p>Now let’s try <code>toss()</code> on the character vector <code>c('tic', 'tac', 'toe')</code>:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="co"># no toss() method for regular vectors</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="kw">toss</span>(<span class="kw">c</span>(<span class="st">&#39;tic&#39;</span>, <span class="st">&#39;tac&#39;</span>, <span class="st">&#39;toe&#39;</span>))</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="co">#&gt; Error in UseMethod(&quot;toss&quot;): no applicable method for &#39;toss&#39; applied to an object of class &quot;character&quot;</span></a></code></pre></div>
+<p>When you try to use <code>toss()</code> on an object that is not of class <code>&quot;coin&quot;</code>, you get a nice error message.</p>
+<p>Because an object <code>&quot;coin&quot;</code> already contains an element <code>prob</code>, the <code>toss.coin()</code> function does not really an argument <code>prob</code>. Instead, we can pass this value from the coin object.
+Here’s a new definition of <code>toss.coin()</code>:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb63-2" data-line-number="2">  <span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> x<span class="op">$</span>prob)</a>
+<a class="sourceLine" id="cb63-3" data-line-number="3">}</a></code></pre></div>
+<p>Let’s toss a loaded coin:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2341</span>)</a>
+<a class="sourceLine" id="cb64-2" data-line-number="2">loaded_coin &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&#39;HEADS&#39;</span>, <span class="st">&#39;tails&#39;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.75</span>, <span class="fl">0.25</span>))</a>
+<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="kw">toss</span>(loaded_coin, <span class="dt">times =</span> <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb64-4" data-line-number="4"><span class="co">#&gt; [1] &quot;HEADS&quot; &quot;HEADS&quot; &quot;HEADS&quot; &quot;HEADS&quot; &quot;HEADS&quot; &quot;tails&quot;</span></a></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="coin.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="toss.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["packyourcode.pdf", "packyourcode.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

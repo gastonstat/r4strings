@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Pack YouR Code</title>
+  <meta name="description" content="Basic example of how to create an R package based on S3 classes.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Pack YouR Code" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Basic example of how to create an R package based on S3 classes." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Pack YouR Code" />
+  
+  <meta name="twitter:description" content="Basic example of how to create an R package based on S3 classes." />
+  
+
+<meta name="author" content="Gaston Sanchez">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="methods1.html">
+<link rel="next" href="methods2.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pack YouR Code</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-this-book"><i class="fa fa-check"></i>About this book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="part"><span><b>I Motivation</b></span></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Let’s toss a coin</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#coin-object"><i class="fa fa-check"></i><b>1.1</b> Coin object</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#tossing-a-coin"><i class="fa fa-check"></i><b>1.2</b> Tossing a coin</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="intro.html"><a href="intro.html#random-samples"><i class="fa fa-check"></i><b>1.2.1</b> Random Samples</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#the-random-seed"><i class="fa fa-check"></i><b>1.3</b> The Random Seed</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#sampling-with-different-probabilities"><i class="fa fa-check"></i><b>1.4</b> Sampling with different probabilities</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#simulating-tossing-a-coin"><i class="fa fa-check"></i><b>1.4.1</b> Simulating tossing a coin</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="function.html"><a href="function.html"><i class="fa fa-check"></i><b>2</b> Tossing Function</a><ul>
+<li class="chapter" data-level="2.1" data-path="function.html"><a href="function.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="function.html"><a href="function.html#a-toss-function"><i class="fa fa-check"></i><b>2.2</b> A <code>toss()</code> function</a></li>
+<li class="chapter" data-level="2.3" data-path="function.html"><a href="function.html#documenting-functions"><i class="fa fa-check"></i><b>2.3</b> Documenting Functions</a></li>
+<li class="chapter" data-level="2.4" data-path="function.html"><a href="function.html#roxygen-comments"><i class="fa fa-check"></i><b>2.4</b> Roxygen Comments</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="function.html"><a href="function.html#about-roxygen-comments"><i class="fa fa-check"></i><b>2.4.1</b> About Roxygen Comments</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Classes</b></span></li>
+<li class="chapter" data-level="3" data-path="coin.html"><a href="coin.html"><i class="fa fa-check"></i><b>3</b> Coin Objects</a><ul>
+<li class="chapter" data-level="3.1" data-path="coin.html"><a href="coin.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="coin.html"><a href="coin.html#objects-and-classes"><i class="fa fa-check"></i><b>3.2</b> Objects and Classes</a></li>
+<li class="chapter" data-level="3.3" data-path="coin.html"><a href="coin.html#s3-classes"><i class="fa fa-check"></i><b>3.3</b> S3 Classes</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="coin.html"><a href="coin.html#making-an-object"><i class="fa fa-check"></i><b>3.3.1</b> Making an object</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="coin.html"><a href="coin.html#a-more-robust-coin-class"><i class="fa fa-check"></i><b>3.4</b> A more robust <code>&quot;coin&quot;</code> class</a></li>
+<li class="chapter" data-level="3.5" data-path="coin.html"><a href="coin.html#improving-coin-objects"><i class="fa fa-check"></i><b>3.5</b> Improving <code>&quot;coin&quot;</code> objects</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="coin.html"><a href="coin.html#attributes"><i class="fa fa-check"></i><b>3.5.1</b> Attributes</a></li>
+<li class="chapter" data-level="3.5.2" data-path="coin.html"><a href="coin.html#using-a-list"><i class="fa fa-check"></i><b>3.5.2</b> Using a list</a></li>
+<li class="chapter" data-level="3.5.3" data-path="coin.html"><a href="coin.html#auxiliary-checker"><i class="fa fa-check"></i><b>3.5.3</b> Auxiliary Checker</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="coin.html"><a href="coin.html#print-method-for-coin"><i class="fa fa-check"></i><b>3.6</b> Print Method for <code>&quot;coin&quot;</code></a></li>
+<li class="chapter" data-level="3.7" data-path="coin.html"><a href="coin.html#extending-classes"><i class="fa fa-check"></i><b>3.7</b> Extending classes</a></li>
+</ul></li>
+<li class="part"><span><b>III Methods</b></span></li>
+<li class="chapter" data-level="4" data-path="methods1.html"><a href="methods1.html"><i class="fa fa-check"></i><b>4</b> Methods (part 1)</a><ul>
+<li class="chapter" data-level="4.1" data-path="methods1.html"><a href="methods1.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="methods1.html"><a href="methods1.html#improving-toss"><i class="fa fa-check"></i><b>4.2</b> Improving <code>toss()</code></a></li>
+<li class="chapter" data-level="4.3" data-path="methods1.html"><a href="methods1.html#generic-method-toss"><i class="fa fa-check"></i><b>4.3</b> Generic Method <code>toss</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="toss.html"><a href="toss.html"><i class="fa fa-check"></i><b>5</b> Object toss</a><ul>
+<li class="chapter" data-level="5.1" data-path="toss.html"><a href="toss.html#introduction-3"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="toss.html"><a href="toss.html#motivation-for-object-toss"><i class="fa fa-check"></i><b>5.2</b> Motivation for object <code>&quot;toss&quot;</code></a><ul>
+<li class="chapter" data-level="5.2.1" data-path="toss.html"><a href="toss.html#auxiliary-constructor"><i class="fa fa-check"></i><b>5.2.1</b> Auxiliary Constructor</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="toss.html"><a href="toss.html#main-function-toss"><i class="fa fa-check"></i><b>5.3</b> Main Function <code>toss()</code></a></li>
+<li class="chapter" data-level="5.4" data-path="toss.html"><a href="toss.html#upgrading-toss"><i class="fa fa-check"></i><b>5.4</b> Upgrading <code>toss()</code></a><ul>
+<li class="chapter" data-level="5.4.1" data-path="toss.html"><a href="toss.html#in-summary"><i class="fa fa-check"></i><b>5.4.1</b> In Summary</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="methods2.html"><a href="methods2.html"><i class="fa fa-check"></i><b>6</b> Methods (part 2)</a><ul>
+<li class="chapter" data-level="6.1" data-path="methods2.html"><a href="methods2.html#introduction-4"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="methods2.html"><a href="methods2.html#print-method"><i class="fa fa-check"></i><b>6.2</b> Print Method</a></li>
+<li class="chapter" data-level="6.3" data-path="methods2.html"><a href="methods2.html#summary-method"><i class="fa fa-check"></i><b>6.3</b> Summary Method</a></li>
+<li class="chapter" data-level="6.4" data-path="methods2.html"><a href="methods2.html#plot-method"><i class="fa fa-check"></i><b>6.4</b> Plot Method</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="methods3.html"><a href="methods3.html"><i class="fa fa-check"></i><b>7</b> Additional Methods</a><ul>
+<li class="chapter" data-level="7.1" data-path="methods3.html"><a href="methods3.html#introduction-5"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="methods3.html"><a href="methods3.html#replacement-method"><i class="fa fa-check"></i><b>7.2</b> Replacement Method</a></li>
+<li class="chapter" data-level="7.3" data-path="methods3.html"><a href="methods3.html#extraction-method"><i class="fa fa-check"></i><b>7.3</b> Extraction Method</a></li>
+<li class="chapter" data-level="7.4" data-path="methods3.html"><a href="methods3.html#is-toss"><i class="fa fa-check"></i><b>7.4</b> Is <code>&quot;toss&quot;</code></a></li>
+<li class="chapter" data-level="7.5" data-path="methods3.html"><a href="methods3.html#addition-method"><i class="fa fa-check"></i><b>7.5</b> Addition Method</a></li>
+</ul></li>
+<li class="part"><span><b>IV Package Structure</b></span></li>
+<li class="chapter" data-level="8" data-path="toy-package.html"><a href="toy-package.html"><i class="fa fa-check"></i><b>8</b> Toy Package</a><ul>
+<li class="chapter" data-level="8.1" data-path="toy-package.html"><a href="toy-package.html#introduction-6"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="toy-package.html"><a href="toy-package.html#an-off-the-shelf-package"><i class="fa fa-check"></i><b>8.2</b> An off-the-shelf package</a></li>
+<li class="chapter" data-level="8.3" data-path="toy-package.html"><a href="toy-package.html#minimal-filestructure"><i class="fa fa-check"></i><b>8.3</b> Minimal Filestructure</a></li>
+<li class="chapter" data-level="8.4" data-path="toy-package.html"><a href="toy-package.html#quick-build"><i class="fa fa-check"></i><b>8.4</b> Quick Build</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="structure.html"><a href="structure.html"><i class="fa fa-check"></i><b>9</b> Filestructure</a><ul>
+<li class="chapter" data-level="9.1" data-path="structure.html"><a href="structure.html#introduction-7"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="structure.html"><a href="structure.html#scenarios"><i class="fa fa-check"></i><b>9.2</b> Scenarios</a></li>
+<li class="chapter" data-level="9.3" data-path="structure.html"><a href="structure.html#minimal-package"><i class="fa fa-check"></i><b>9.3</b> Minimal Package</a></li>
+<li class="chapter" data-level="9.4" data-path="structure.html"><a href="structure.html#default-devtools-setting"><i class="fa fa-check"></i><b>9.4</b> Default devtools setting</a></li>
+<li class="chapter" data-level="9.5" data-path="structure.html"><a href="structure.html#our-working-example"><i class="fa fa-check"></i><b>9.5</b> Our working example</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="description.html"><a href="description.html"><i class="fa fa-check"></i><b>10</b> Description File</a><ul>
+<li class="chapter" data-level="10.1" data-path="description.html"><a href="description.html#introduction-8"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="description.html"><a href="description.html#sample-description"><i class="fa fa-check"></i><b>10.2</b> Sample Description</a></li>
+<li class="chapter" data-level="10.3" data-path="description.html"><a href="description.html#mandatory-fields"><i class="fa fa-check"></i><b>10.3</b> Mandatory Fields</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="description.html"><a href="description.html#package-name"><i class="fa fa-check"></i><b>10.3.1</b> Package Name</a></li>
+<li class="chapter" data-level="10.3.2" data-path="description.html"><a href="description.html#title"><i class="fa fa-check"></i><b>10.3.2</b> Title</a></li>
+<li class="chapter" data-level="10.3.3" data-path="description.html"><a href="description.html#description-1"><i class="fa fa-check"></i><b>10.3.3</b> Description</a></li>
+<li class="chapter" data-level="10.3.4" data-path="description.html"><a href="description.html#author-and-maintainer"><i class="fa fa-check"></i><b>10.3.4</b> Author and Maintainer</a></li>
+<li class="chapter" data-level="10.3.5" data-path="description.html"><a href="description.html#version"><i class="fa fa-check"></i><b>10.3.5</b> Version</a></li>
+<li class="chapter" data-level="10.3.6" data-path="description.html"><a href="description.html#license"><i class="fa fa-check"></i><b>10.3.6</b> License</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="description.html"><a href="description.html#optional-fields"><i class="fa fa-check"></i><b>10.4</b> Optional Fields</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="description.html"><a href="description.html#encoding"><i class="fa fa-check"></i><b>10.4.1</b> Encoding</a></li>
+<li class="chapter" data-level="10.4.2" data-path="description.html"><a href="description.html#lazydata"><i class="fa fa-check"></i><b>10.4.2</b> LazyData</a></li>
+<li class="chapter" data-level="10.4.3" data-path="description.html"><a href="description.html#type"><i class="fa fa-check"></i><b>10.4.3</b> Type</a></li>
+<li class="chapter" data-level="10.4.4" data-path="description.html"><a href="description.html#vignettebuilder"><i class="fa fa-check"></i><b>10.4.4</b> VignetteBuilder</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="namespace.html"><a href="namespace.html"><i class="fa fa-check"></i><b>11</b> Namespace</a><ul>
+<li class="chapter" data-level="11.1" data-path="namespace.html"><a href="namespace.html#introduction-9"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="namespace.html"><a href="namespace.html#about-namespaces"><i class="fa fa-check"></i><b>11.2</b> About Namespaces</a></li>
+<li class="chapter" data-level="11.3" data-path="namespace.html"><a href="namespace.html#namespace-of-a-package"><i class="fa fa-check"></i><b>11.3</b> Namespace of a Package</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="namespace.html"><a href="namespace.html#exported-functions"><i class="fa fa-check"></i><b>11.3.1</b> Exported Functions</a></li>
+<li class="chapter" data-level="11.3.2" data-path="namespace.html"><a href="namespace.html#roxygen-export"><i class="fa fa-check"></i><b>11.3.2</b> Roxygen export</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="tests.html"><a href="tests.html"><i class="fa fa-check"></i><b>12</b> Tests</a><ul>
+<li class="chapter" data-level="12.1" data-path="tests.html"><a href="tests.html#introduction-10"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="tests.html"><a href="tests.html#including-tests"><i class="fa fa-check"></i><b>12.2</b> Including Tests</a></li>
+<li class="chapter" data-level="12.3" data-path="tests.html"><a href="tests.html#script-testthat.r"><i class="fa fa-check"></i><b>12.3</b> Script <code>testthat.R</code></a></li>
+<li class="chapter" data-level="12.4" data-path="tests.html"><a href="tests.html#about-testthat"><i class="fa fa-check"></i><b>12.4</b> About <code>&quot;testthat&quot;</code></a><ul>
+<li class="chapter" data-level="12.4.1" data-path="tests.html"><a href="tests.html#list-of-common-expectation-functions"><i class="fa fa-check"></i><b>12.4.1</b> List of common expectation functions</a></li>
+<li class="chapter" data-level="12.4.2" data-path="tests.html"><a href="tests.html#remarks"><i class="fa fa-check"></i><b>12.4.2</b> Remarks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="vignettes.html"><a href="vignettes.html"><i class="fa fa-check"></i><b>13</b> Vignettes</a><ul>
+<li class="chapter" data-level="13.1" data-path="vignettes.html"><a href="vignettes.html#introduction-11"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="vignettes.html"><a href="vignettes.html#including-vignettes"><i class="fa fa-check"></i><b>13.2</b> Including Vignettes</a></li>
+</ul></li>
+<li class="part"><span><b>V Packaging</b></span></li>
+<li class="chapter" data-level="14" data-path="states.html"><a href="states.html"><i class="fa fa-check"></i><b>14</b> Package States</a><ul>
+<li class="chapter" data-level="14.1" data-path="states.html"><a href="states.html#introduction-12"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="states.html"><a href="states.html#package-states"><i class="fa fa-check"></i><b>14.2</b> Package States</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="states.html"><a href="states.html#source-package"><i class="fa fa-check"></i><b>14.2.1</b> Source Package</a></li>
+<li class="chapter" data-level="14.2.2" data-path="states.html"><a href="states.html#bundled-package"><i class="fa fa-check"></i><b>14.2.2</b> Bundled Package</a></li>
+<li class="chapter" data-level="14.2.3" data-path="states.html"><a href="states.html#binary-package"><i class="fa fa-check"></i><b>14.2.3</b> Binary Package</a></li>
+<li class="chapter" data-level="14.2.4" data-path="states.html"><a href="states.html#installed-package"><i class="fa fa-check"></i><b>14.2.4</b> Installed Package</a></li>
+<li class="chapter" data-level="14.2.5" data-path="states.html"><a href="states.html#in-memory-package"><i class="fa fa-check"></i><b>14.2.5</b> In-memory Package</a></li>
+<li class="chapter" data-level="14.2.6" data-path="states.html"><a href="states.html#remarks-1"><i class="fa fa-check"></i><b>14.2.6</b> Remarks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
+<li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
+<li class="chapter" data-level="16.1" data-path="sharing.html"><a href="sharing.html#introduction-14"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
+<li class="chapter" data-level="16.2" data-path="sharing.html"><a href="sharing.html#file-sharing"><i class="fa fa-check"></i><b>16.2</b> File sharing</a></li>
+<li class="chapter" data-level="16.3" data-path="sharing.html"><a href="sharing.html#github"><i class="fa fa-check"></i><b>16.3</b> GitHub</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pack YouR Code</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="toss" class="section level1">
+<h1><span class="header-section-number">5</span> Object toss</h1>
+<div id="introduction-3" class="section level2">
+<h2><span class="header-section-number">5.1</span> Introduction</h2>
+<p>Let’s keep improving our function <code>toss()</code>, but now changing its output in order to return an object of class <code>&quot;toss&quot;</code>.</p>
+</div>
+<div id="motivation-for-object-toss" class="section level2">
+<h2><span class="header-section-number">5.2</span> Motivation for object <code>&quot;toss&quot;</code></h2>
+<p>We finished the previous chapter with the following <code>toss()</code> function, which actually corresponds to the <code>toss</code> <em>method</em> for objects of class <code>&quot;coin&quot;</code>:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb65-2" data-line-number="2">  <span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> x<span class="op">$</span>prob)</a>
+<a class="sourceLine" id="cb65-3" data-line-number="3">}</a></code></pre></div>
+<p>Let’s use <code>toss()</code> to flip a coin 10 times:</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">321</span>)</a>
+<a class="sourceLine" id="cb66-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb66-3" data-line-number="3">acoin &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&#39;heads&#39;</span>, <span class="st">&#39;tails&#39;</span>))</a>
+<a class="sourceLine" id="cb66-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb66-5" data-line-number="5">toss10 &lt;-<span class="st"> </span><span class="kw">toss</span>(acoin, <span class="dt">times =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb66-6" data-line-number="6">toss10</a>
+<a class="sourceLine" id="cb66-7" data-line-number="7"><span class="co">#&gt;  [1] &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot;</span></a>
+<a class="sourceLine" id="cb66-8" data-line-number="8"><span class="co">#&gt;  [9] &quot;tails&quot; &quot;heads&quot;</span></a></code></pre></div>
+<p>Having obtained several tosses, we can calculate things like 1) the total number of tosses, 2) the total number of <code>heads</code>, and 3) the total number of <code>tails</code>:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="co"># number of tosses</span></a>
+<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="kw">length</span>(toss10)</a>
+<a class="sourceLine" id="cb67-3" data-line-number="3"><span class="co">#&gt; [1] 10</span></a>
+<a class="sourceLine" id="cb67-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb67-5" data-line-number="5"><span class="co"># total number of heads</span></a>
+<a class="sourceLine" id="cb67-6" data-line-number="6"><span class="kw">sum</span>(toss10 <span class="op">==</span><span class="st"> &#39;heads&#39;</span>)</a>
+<a class="sourceLine" id="cb67-7" data-line-number="7"><span class="co">#&gt; [1] 3</span></a>
+<a class="sourceLine" id="cb67-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb67-9" data-line-number="9"><span class="co"># total number of tails</span></a>
+<a class="sourceLine" id="cb67-10" data-line-number="10"><span class="kw">sum</span>(toss10 <span class="op">==</span><span class="st"> &#39;tails&#39;</span>)</a>
+<a class="sourceLine" id="cb67-11" data-line-number="11"><span class="co">#&gt; [1] 7</span></a></code></pre></div>
+<p>In general, when tossing a coin, we are not only interested in keeping track of such tosses; we would also like to know (or keep track of) the number of tosses, the number of heads, and the number of tails. Consequently, it would be nice to have another class of object for this purpose.</p>
+<p>How do you know that you need this new object class?</p>
+<p>Well, this is precisely an example that illustrates the process of programming in general, and OOP in particular. This kind of decisions require some (or sometimes “a lot” of) thinking, and brainstorming time. To be honest, while I was writing this book and playing with <code>&quot;coin&quot;</code> objects and their tosses, I decided that it would be convenient to have an object of class <code>&quot;toss&quot;</code> containing the following information:</p>
+<ul>
+<li>all the outcomes from the series of tosses</li>
+<li>the total number of tosses</li>
+<li>the total number of heads</li>
+<li>the total number of tails</li>
+</ul>
+<p>The most flexible type of data structure in R to store other data structures is a <code>list</code>. Having a vector of tosses, we can use a list to keep all the desired information:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">flips &lt;-<span class="st"> </span><span class="kw">toss</span>(coin1, <span class="dt">times =</span> <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb68-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb68-3" data-line-number="3">a &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb68-4" data-line-number="4">  <span class="dt">tosses =</span> flips, </a>
+<a class="sourceLine" id="cb68-5" data-line-number="5">  <span class="dt">total =</span> <span class="kw">length</span>(flips),</a>
+<a class="sourceLine" id="cb68-6" data-line-number="6">  <span class="dt">heads =</span> <span class="kw">sum</span>(flips <span class="op">==</span><span class="st"> </span>coin1<span class="op">$</span>sides[<span class="dv">1</span>]),</a>
+<a class="sourceLine" id="cb68-7" data-line-number="7">  <span class="dt">tails =</span> <span class="kw">sum</span>(flips <span class="op">==</span><span class="st"> </span>coin1<span class="op">$</span>sides[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb68-8" data-line-number="8">)</a>
+<a class="sourceLine" id="cb68-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb68-10" data-line-number="10">a</a>
+<a class="sourceLine" id="cb68-11" data-line-number="11"><span class="co">#&gt; $tosses</span></a>
+<a class="sourceLine" id="cb68-12" data-line-number="12"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot;</span></a>
+<a class="sourceLine" id="cb68-13" data-line-number="13"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb68-14" data-line-number="14"><span class="co">#&gt; $total</span></a>
+<a class="sourceLine" id="cb68-15" data-line-number="15"><span class="co">#&gt; [1] 6</span></a>
+<a class="sourceLine" id="cb68-16" data-line-number="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb68-17" data-line-number="17"><span class="co">#&gt; $heads</span></a>
+<a class="sourceLine" id="cb68-18" data-line-number="18"><span class="co">#&gt; [1] 3</span></a>
+<a class="sourceLine" id="cb68-19" data-line-number="19"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb68-20" data-line-number="20"><span class="co">#&gt; $tails</span></a>
+<a class="sourceLine" id="cb68-21" data-line-number="21"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
+<p>The idea is to be able to invoke <code>toss()</code>, and then obtain an object like the list <code>a</code> in the above code. But do it in such a way that the output is an object of class <code>&quot;toss&quot;</code>.</p>
+<div id="auxiliary-constructor" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Auxiliary Constructor</h3>
+<p>For convenience purposes, we can write an <strong>auxiliary constructor</strong> function, which I will call <code>make_toss()</code>. This function will take an input vector (i.e. a character vector with <code>&quot;heads&quot;</code> and <code>&quot;tails&quot;</code> elements), and it will return an object of class <code>&quot;toss&quot;</code>:</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="co"># auxiliary constructor function</span></a>
+<a class="sourceLine" id="cb69-2" data-line-number="2">make_toss &lt;-<span class="st"> </span><span class="cf">function</span>(coin, flips) {</a>
+<a class="sourceLine" id="cb69-3" data-line-number="3">  res &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb69-4" data-line-number="4">    <span class="dt">coin =</span> coin,</a>
+<a class="sourceLine" id="cb69-5" data-line-number="5">    <span class="dt">tosses =</span> flips,</a>
+<a class="sourceLine" id="cb69-6" data-line-number="6">    <span class="dt">total =</span> <span class="kw">length</span>(flips),</a>
+<a class="sourceLine" id="cb69-7" data-line-number="7">    <span class="dt">heads =</span> <span class="kw">sum</span>(flips <span class="op">==</span><span class="st"> </span>coin<span class="op">$</span>sides[<span class="dv">1</span>]),</a>
+<a class="sourceLine" id="cb69-8" data-line-number="8">    <span class="dt">tails =</span> <span class="kw">sum</span>(flips <span class="op">==</span><span class="st"> </span>coin<span class="op">$</span>sides[<span class="dv">2</span>]))</a>
+<a class="sourceLine" id="cb69-9" data-line-number="9">  <span class="kw">class</span>(res) &lt;-<span class="st"> &quot;toss&quot;</span></a>
+<a class="sourceLine" id="cb69-10" data-line-number="10">  res</a>
+<a class="sourceLine" id="cb69-11" data-line-number="11">}</a></code></pre></div>
+</div>
+</div>
+<div id="main-function-toss" class="section level2">
+<h2><span class="header-section-number">5.3</span> Main Function <code>toss()</code></h2>
+<p>Now that we have the auxiliary function <code>make_toss()</code>, we can encapsulate it in a <em>master</em> function <code>toss.coin()</code>:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb70-2" data-line-number="2">  flips &lt;-<span class="st"> </span><span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> x<span class="op">$</span>prob)</a>
+<a class="sourceLine" id="cb70-3" data-line-number="3">  <span class="kw">make_toss</span>(x, flips)</a>
+<a class="sourceLine" id="cb70-4" data-line-number="4">}</a></code></pre></div>
+<p>This is how <code>toss()</code> works:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2233</span>)</a>
+<a class="sourceLine" id="cb71-2" data-line-number="2">fair &lt;-<span class="st"> </span><span class="kw">coin</span>()</a>
+<a class="sourceLine" id="cb71-3" data-line-number="3"><span class="kw">toss</span>(fair, <span class="dt">times =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb71-4" data-line-number="4"><span class="co">#&gt; $coin</span></a>
+<a class="sourceLine" id="cb71-5" data-line-number="5"><span class="co">#&gt; object &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb71-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb71-7" data-line-number="7"><span class="co">#&gt;    side prob</span></a>
+<a class="sourceLine" id="cb71-8" data-line-number="8"><span class="co">#&gt; 1 heads  0.5</span></a>
+<a class="sourceLine" id="cb71-9" data-line-number="9"><span class="co">#&gt; 2 tails  0.5</span></a>
+<a class="sourceLine" id="cb71-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb71-11" data-line-number="11"><span class="co">#&gt; $tosses</span></a>
+<a class="sourceLine" id="cb71-12" data-line-number="12"><span class="co">#&gt; [1] &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot;</span></a>
+<a class="sourceLine" id="cb71-13" data-line-number="13"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb71-14" data-line-number="14"><span class="co">#&gt; $total</span></a>
+<a class="sourceLine" id="cb71-15" data-line-number="15"><span class="co">#&gt; [1] 5</span></a>
+<a class="sourceLine" id="cb71-16" data-line-number="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb71-17" data-line-number="17"><span class="co">#&gt; $heads</span></a>
+<a class="sourceLine" id="cb71-18" data-line-number="18"><span class="co">#&gt; [1] 2</span></a>
+<a class="sourceLine" id="cb71-19" data-line-number="19"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb71-20" data-line-number="20"><span class="co">#&gt; $tails</span></a>
+<a class="sourceLine" id="cb71-21" data-line-number="21"><span class="co">#&gt; [1] 3</span></a>
+<a class="sourceLine" id="cb71-22" data-line-number="22"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb71-23" data-line-number="23"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb71-24" data-line-number="24"><span class="co">#&gt; [1] &quot;toss&quot;</span></a></code></pre></div>
+<p>You may ask: “Why do we need a function <code>make_toss()</code>, and another function <code>toss()</code>?”. Can’t we just write a single function <code>suppertoss()</code> that does everything at once?:</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="co"># can&#39;t we just put everything in one function?</span></a>
+<a class="sourceLine" id="cb72-2" data-line-number="2">supertoss &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb72-3" data-line-number="3">  flips &lt;-<span class="st"> </span><span class="kw">toss</span>(x, <span class="dt">times =</span> times)</a>
+<a class="sourceLine" id="cb72-4" data-line-number="4">  res &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb72-5" data-line-number="5">    <span class="dt">coin =</span> x,</a>
+<a class="sourceLine" id="cb72-6" data-line-number="6">    <span class="dt">tosses =</span> flips,</a>
+<a class="sourceLine" id="cb72-7" data-line-number="7">    <span class="dt">total =</span> <span class="kw">length</span>(flips),</a>
+<a class="sourceLine" id="cb72-8" data-line-number="8">    <span class="dt">heads =</span> <span class="kw">sum</span>(flips <span class="op">==</span><span class="st"> </span>x<span class="op">$</span>sides[<span class="dv">1</span>]),</a>
+<a class="sourceLine" id="cb72-9" data-line-number="9">    <span class="dt">tails =</span> <span class="kw">sum</span>(flips <span class="op">==</span><span class="st"> </span>x<span class="op">$</span>sides[<span class="dv">2</span>]))</a>
+<a class="sourceLine" id="cb72-10" data-line-number="10">  <span class="kw">class</span>(res) &lt;-<span class="st"> &quot;toss&quot;</span></a>
+<a class="sourceLine" id="cb72-11" data-line-number="11">  res</a>
+<a class="sourceLine" id="cb72-12" data-line-number="12">}</a></code></pre></div>
+<p>The short answer is: yes, you can. And probably this is what most beginners tend to do. The reason why I decided to break things down into simpler and smaller functions is because I went already through a couple of implementations, and realized that it was better to have the auxiliary function <code>make_toss()</code>. Also, it is good practice to write short functions that preferably do one thing.</p>
+<p>Here’s a brief recap of the main functions we have so far:</p>
+<ul>
+<li><code>coin()</code> is a constructor function to create objects of class <code>&quot;coin&quot;</code>.</li>
+<li><code>toss()</code> is a generic <code>&quot;toss&quot;</code> method.</li>
+<li><code>make_toss()</code> is an auxiliary function that takes a <code>&quot;coin&quot;</code> and a vector of
+flips, and which produces an object <code>&quot;toss&quot;</code>.</li>
+<li><code>toss.coin()</code> is the specific <code>&quot;toss&quot;</code> method to be used on <code>&quot;coin&quot;</code> objects.</li>
+</ul>
+</div>
+<div id="upgrading-toss" class="section level2">
+<h2><span class="header-section-number">5.4</span> Upgrading <code>toss()</code></h2>
+<p>Let’s consider our <code>quarter</code> coin, and apply <code>toss()</code> on it:</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">quarter1 &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;washington&quot;</span>, <span class="st">&quot;fort&quot;</span>)) </a>
+<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="kw">class</span>(quarter1) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;quarter&quot;</span>, <span class="st">&quot;coin&quot;</span>)</a>
+<a class="sourceLine" id="cb73-3" data-line-number="3">quarter1</a>
+<a class="sourceLine" id="cb73-4" data-line-number="4"><span class="co">#&gt; object &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb73-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb73-6" data-line-number="6"><span class="co">#&gt;         side prob</span></a>
+<a class="sourceLine" id="cb73-7" data-line-number="7"><span class="co">#&gt; 1 washington  0.5</span></a>
+<a class="sourceLine" id="cb73-8" data-line-number="8"><span class="co">#&gt; 2       fort  0.5</span></a>
+<a class="sourceLine" id="cb73-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb73-10" data-line-number="10"><span class="kw">toss</span>(quarter1, <span class="dt">times =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb73-11" data-line-number="11"><span class="co">#&gt; $coin</span></a>
+<a class="sourceLine" id="cb73-12" data-line-number="12"><span class="co">#&gt; object &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb73-13" data-line-number="13"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb73-14" data-line-number="14"><span class="co">#&gt;         side prob</span></a>
+<a class="sourceLine" id="cb73-15" data-line-number="15"><span class="co">#&gt; 1 washington  0.5</span></a>
+<a class="sourceLine" id="cb73-16" data-line-number="16"><span class="co">#&gt; 2       fort  0.5</span></a>
+<a class="sourceLine" id="cb73-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb73-18" data-line-number="18"><span class="co">#&gt; $tosses</span></a>
+<a class="sourceLine" id="cb73-19" data-line-number="19"><span class="co">#&gt; [1] &quot;washington&quot; &quot;washington&quot; &quot;fort&quot;       &quot;washington&quot;</span></a>
+<a class="sourceLine" id="cb73-20" data-line-number="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb73-21" data-line-number="21"><span class="co">#&gt; $total</span></a>
+<a class="sourceLine" id="cb73-22" data-line-number="22"><span class="co">#&gt; [1] 4</span></a>
+<a class="sourceLine" id="cb73-23" data-line-number="23"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb73-24" data-line-number="24"><span class="co">#&gt; $heads</span></a>
+<a class="sourceLine" id="cb73-25" data-line-number="25"><span class="co">#&gt; [1] 3</span></a>
+<a class="sourceLine" id="cb73-26" data-line-number="26"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb73-27" data-line-number="27"><span class="co">#&gt; $tails</span></a>
+<a class="sourceLine" id="cb73-28" data-line-number="28"><span class="co">#&gt; [1] 1</span></a>
+<a class="sourceLine" id="cb73-29" data-line-number="29"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb73-30" data-line-number="30"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb73-31" data-line-number="31"><span class="co">#&gt; [1] &quot;toss&quot;</span></a></code></pre></div>
+
+<p><code>toss()</code> is working as expected, and you can try it with different values for <code>times</code>. The only issue is that a distracted user could pass an unexpected value for the argument <code>times</code>:</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">toss</span>(quarter1, <span class="dt">times =</span> <span class="dv">-4</span>)</a>
+<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="co">#&gt; Error in sample.int(length(x), size, replace, prob): invalid &#39;size&#39; argument</span></a></code></pre></div>
+<p>R produces an error when <code>times = -4</code>, but it’s an error that may not be very helpful for the user. The error message clearly says that <code>'size'</code> is an invalid argument, but <code>toss()</code> just has one argument: <code>times</code>.</p>
+<p>To be more user friendly, among other reasons, it would be better to check whether <code>times</code> has a valid value. One way to do that is to include a conditional statement like following one:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb75-2" data-line-number="2">  <span class="cf">if</span> (times <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb75-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">argument &#39;times&#39; must be a positive integer&quot;</span>)</a>
+<a class="sourceLine" id="cb75-4" data-line-number="4">  }</a>
+<a class="sourceLine" id="cb75-5" data-line-number="5">  flips &lt;-<span class="st"> </span><span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> x<span class="op">$</span>prob)</a>
+<a class="sourceLine" id="cb75-6" data-line-number="6">  <span class="kw">make_toss</span>(x, flips)</a>
+<a class="sourceLine" id="cb75-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb75-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb75-9" data-line-number="9"><span class="co"># this works ok</span></a>
+<a class="sourceLine" id="cb75-10" data-line-number="10"><span class="kw">toss</span>(quarter1, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb75-11" data-line-number="11"><span class="co">#&gt; $coin</span></a>
+<a class="sourceLine" id="cb75-12" data-line-number="12"><span class="co">#&gt; object &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb75-13" data-line-number="13"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb75-14" data-line-number="14"><span class="co">#&gt;         side prob</span></a>
+<a class="sourceLine" id="cb75-15" data-line-number="15"><span class="co">#&gt; 1 washington  0.5</span></a>
+<a class="sourceLine" id="cb75-16" data-line-number="16"><span class="co">#&gt; 2       fort  0.5</span></a>
+<a class="sourceLine" id="cb75-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb75-18" data-line-number="18"><span class="co">#&gt; $tosses</span></a>
+<a class="sourceLine" id="cb75-19" data-line-number="19"><span class="co">#&gt; [1] &quot;fort&quot;       &quot;fort&quot;       &quot;washington&quot; &quot;washington&quot; &quot;fort&quot;      </span></a>
+<a class="sourceLine" id="cb75-20" data-line-number="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb75-21" data-line-number="21"><span class="co">#&gt; $total</span></a>
+<a class="sourceLine" id="cb75-22" data-line-number="22"><span class="co">#&gt; [1] 5</span></a>
+<a class="sourceLine" id="cb75-23" data-line-number="23"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb75-24" data-line-number="24"><span class="co">#&gt; $heads</span></a>
+<a class="sourceLine" id="cb75-25" data-line-number="25"><span class="co">#&gt; [1] 2</span></a>
+<a class="sourceLine" id="cb75-26" data-line-number="26"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb75-27" data-line-number="27"><span class="co">#&gt; $tails</span></a>
+<a class="sourceLine" id="cb75-28" data-line-number="28"><span class="co">#&gt; [1] 3</span></a>
+<a class="sourceLine" id="cb75-29" data-line-number="29"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb75-30" data-line-number="30"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb75-31" data-line-number="31"><span class="co">#&gt; [1] &quot;toss&quot;</span></a>
+<a class="sourceLine" id="cb75-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb75-33" data-line-number="33"><span class="co"># this doesn&#39;t work, but the error message is clear</span></a>
+<a class="sourceLine" id="cb75-34" data-line-number="34"><span class="kw">toss</span>(quarter1, <span class="dv">-4</span>)</a>
+<a class="sourceLine" id="cb75-35" data-line-number="35"><span class="co">#&gt; Error in toss.coin(quarter1, -4): </span></a>
+<a class="sourceLine" id="cb75-36" data-line-number="36"><span class="co">#&gt; argument &#39;times&#39; must be a positive integer</span></a></code></pre></div>
+<p>Once again, it is good practice to write short functions that preferably do one thing. In this case, we could define a checking function <code>check_times()</code> to make sure that <code>times</code> has a valid value:</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="co"># auxiliary function to check &#39;times&#39; input</span></a>
+<a class="sourceLine" id="cb76-2" data-line-number="2">check_times &lt;-<span class="st"> </span><span class="cf">function</span>(times) {</a>
+<a class="sourceLine" id="cb76-3" data-line-number="3">  <span class="cf">if</span> (times <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span> <span class="op">|</span><span class="st"> </span><span class="op">!</span><span class="kw">is.numeric</span>(times)) {</a>
+<a class="sourceLine" id="cb76-4" data-line-number="4">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">argument &#39;times&#39; must be a positive integer&quot;</span>)</a>
+<a class="sourceLine" id="cb76-5" data-line-number="5">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb76-6" data-line-number="6">    <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb76-7" data-line-number="7">  }</a>
+<a class="sourceLine" id="cb76-8" data-line-number="8">}</a></code></pre></div>
+<p>Once <code>check_times()</code> has been defined, we can include it inside <code>toss()</code>:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb77-2" data-line-number="2">  <span class="kw">check_times</span>(times)</a>
+<a class="sourceLine" id="cb77-3" data-line-number="3">  flips &lt;-<span class="st"> </span><span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> x<span class="op">$</span>prob)</a>
+<a class="sourceLine" id="cb77-4" data-line-number="4">  <span class="kw">make_toss</span>(x, flips)</a>
+<a class="sourceLine" id="cb77-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb77-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb77-7" data-line-number="7"><span class="kw">toss</span>(quarter1, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb77-8" data-line-number="8"><span class="co">#&gt; $coin</span></a>
+<a class="sourceLine" id="cb77-9" data-line-number="9"><span class="co">#&gt; object &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb77-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb77-11" data-line-number="11"><span class="co">#&gt;         side prob</span></a>
+<a class="sourceLine" id="cb77-12" data-line-number="12"><span class="co">#&gt; 1 washington  0.5</span></a>
+<a class="sourceLine" id="cb77-13" data-line-number="13"><span class="co">#&gt; 2       fort  0.5</span></a>
+<a class="sourceLine" id="cb77-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb77-15" data-line-number="15"><span class="co">#&gt; $tosses</span></a>
+<a class="sourceLine" id="cb77-16" data-line-number="16"><span class="co">#&gt; [1] &quot;washington&quot; &quot;washington&quot; &quot;fort&quot;       &quot;fort&quot;       &quot;fort&quot;      </span></a>
+<a class="sourceLine" id="cb77-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb77-18" data-line-number="18"><span class="co">#&gt; $total</span></a>
+<a class="sourceLine" id="cb77-19" data-line-number="19"><span class="co">#&gt; [1] 5</span></a>
+<a class="sourceLine" id="cb77-20" data-line-number="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb77-21" data-line-number="21"><span class="co">#&gt; $heads</span></a>
+<a class="sourceLine" id="cb77-22" data-line-number="22"><span class="co">#&gt; [1] 2</span></a>
+<a class="sourceLine" id="cb77-23" data-line-number="23"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb77-24" data-line-number="24"><span class="co">#&gt; $tails</span></a>
+<a class="sourceLine" id="cb77-25" data-line-number="25"><span class="co">#&gt; [1] 3</span></a>
+<a class="sourceLine" id="cb77-26" data-line-number="26"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb77-27" data-line-number="27"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb77-28" data-line-number="28"><span class="co">#&gt; [1] &quot;toss&quot;</span></a></code></pre></div>
+<div id="in-summary" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> In Summary</h3>
+<p>The more you understand a problem (i.e. phenomenon, process), the better you will be prepared to design objects, and program their corresponding methods.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="methods1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="methods2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["packyourcode.pdf", "packyourcode.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
