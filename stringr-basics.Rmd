@@ -96,11 +96,11 @@ The following table contains the `stringr` functions for basic string operations
 | `str_c()`      | string concatenation                    | `paste()`     |
 | `str_length()` | number of characters                    | `nchar()`     |
 | `str_sub()`    | extracts substrings                     | `substring()` |
-| `str_dup()`    | duplicates characters                   | _none_        |
-| `str_trim()`   | removes leading and trailing whitespace | _none_        |
+| `str_dup()`    | duplicates characters                   | `strrep()`    |
+| `str_trim()`   | removes leading and trailing whitespace | `trimws()`    |
 | `str_pad()`    | pads a string                           | _none_        |
 | `str_wrap()`   | wraps a string paragraph                | `strwrap()`   |
-| `str_trim()`   | trims a string                          | _none_        |
+| `str_trim()`   | trims a string                          | `trimws()`    |
 
 
 Notice that all functions in `stringr` start with `"str_"` followed by a term 
