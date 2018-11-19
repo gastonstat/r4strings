@@ -1,0 +1,346 @@
+# Data Cleaning {#cleaning}
+
+```{r echo = FALSE, message = FALSE}
+library(rvest)
+library(stringr)
+```
+
+## Introduction
+
+In this application we are going to work with the Men's Long Jump World Record Progression data from wikipedia.
+
+https://en.wikipedia.org/wiki/Men%27s_long_jump_world_record_progression#Low_altitude_record_progression_1965%E2%80%931991
+
+```{r echo = FALSE, out.width = NULL, fig.cap='Men Long Jump World Record Progression'}
+knitr::include_graphics("images/men-long-jump.png")
+```
+
+```{r echo = FALSE}
+long_jump <- read_html('data/men-long-jump.html')
+tbl <- html_table(html_node(long_jump, 'table'))
+```
+
+
+## Import Data
+
+To import the data of the Record Progression table you can use a couple of functions from the package `rvest`.
+
+```{r eval = FALSE}
+library(rvest)
+
+wiki_jump <- 'https://en.wikipedia.org/wiki/Men%27s_long_jump_world_record_progression'
+
+long_jump <- read_html(wiki_jump)
+tbl <- html_table(html_node(long_jump, 'table'))
+```
+
+The function `read_html()` reads the html file of the wikipedia page. This will produce an object of type `"xml_document"` which we can further manipulate with other functions in `"rvest"`.
+
+Because the _Record progression_ data is in an html `table` node, you can use `html_node()` to locate such table in the XML document. And then _extract_ it with `html_table()`.
+
+```{r}
+str(tbl, vec.len = 1)
+```
+
+As you can tell, the extracted table `tbl` is a data frame with `r nrow(tbl)` rows and `r ncol(tbl)` columns.
+
+
+## Extracting Meters
+
+The first task consists of looking at the values in column `Mark`, and find how to retrieve the distance values expressed in meters. For example, the first element in `Mark` is:
+
+```{r}
+tbl$Mark[1]
+```
+
+The goal is to obtain the number `7.61`. One way to achieve this task is via the `substr()` function.
+
+```{r}
+substr(tbl$Mark[1], start = 1, stop = 4)
+```
+
+We can do that for the entire vector:
+
+```{r}
+meters <- substr(tbl$Mark, start = 1, stop = 4)
+meters
+```
+
+Notice that the meter values are not really numeric but character. In order to have `meters` as numbers, we should call `as.numeric()`
+
+```{r}
+meters <- as.numeric(substr(tbl$Mark, start = 1, stop = 4))
+meters
+```
+
+
+#### Extracting Meters with Regular Expressions {-}
+
+We want to match a pattern formed by: a digit, followed by a dot, followed by two digits:
+
+```{r}
+mark1 <- tbl$Mark[1]
+mark1
+```
+
+```{r}
+str_detect(mark1, pattern = "[0-9]\\.[0-9][0-9]")
+```
+
+To extract it, we use `str_extract()`
+
+```{r}
+str_extract(mark1, pattern = "[0-9]\\.[0-9][0-9]")
+```
+
+And then apply it on the entire column we get:
+
+```{r}
+str_extract(tbl$Mark, pattern = "[0-9]\\.[0-9][0-9]")
+```
+
+
+
+## Extracting Country
+
+Consider the column `Athlete`. The first value corresponds to `Petter O'Connor` from Ireland.
+
+```{r}
+tbl$Athlete[1]
+```
+
+Let's create a vector `peter` for this athlete:
+
+```{r}
+peter <- tbl$Athlete[1]
+```
+
+How can we get the country abbreviation?
+
+```{r}
+substr(peter, nchar(peter)-4, nchar(peter))
+```
+
+That works but it is preferable to exclude the parentheses, that is, the third to last character, as well as the last character:
+
+```{r}
+substr(peter, nchar(peter)-3, nchar(peter)-1)
+```
+
+Now we can apply the `substr()` command with all the athletes:
+
+```{r}
+# extract country
+substr(tbl$Athlete, nchar(tbl$Athlete)-4, nchar(tbl$Athlete))
+country <- substr(tbl$Athlete, nchar(tbl$Athlete)-3, nchar(tbl$Athlete)-1)
+country
+```
+
+
+## Cleaning Dates
+
+Now let's consider tha values in column `Date`:
+
+```{r}
+# first 5 dates
+tbl$Date[1:5]
+```
+
+Notice that all the date values are formed by the day-number, the name of the month, the year, and then the characters `[1]`. Obviously we don't need those last three characters `[1]`.
+
+```{r}
+date1 <- tbl$Date[1]
+date1
+```
+
+First let's see how to match the pattern `[1]`. Perhaps the first option that an inexperience user would try is:
+
+```{r}
+str_detect(date1, pattern = "[1]")
+```
+
+According to `str_detect()`, there's is a match, so let's see what exactly `"[1]"` is matching:
+
+```{r}
+str_match(date1, pattern = "[1]")
+```
+
+Mmmm, not quite right. We are matching the character `"1"` but not `"[1]"`. Why? Because brackets are metacharacters. So in order to match brackets _as brackets_ we need to escape them:
+
+```{r}
+str_match(date1, pattern = "\\[1\\]")
+```
+
+Now we are talking. The next step involves using `str_replace()` to match the pattern `"\\[1\\]"` and replace it with an empty string `""`:
+
+```{r}
+str_replace(date1, pattern = "\\[1\\]", replacement = "")
+```
+
+Then, we can get an entire vector of clean dates:
+
+```{r}
+# clean dates
+dates <- str_replace(tbl$Date, pattern = "\\[1\\]", replacement = "")
+dates
+```
+
+
+## Month and Day
+
+We can further manipulate the dates. For example, say we are interested in extracting the name of the month. In the first date, this corresponds to extracting `"August"`:
+
+```{r}
+dates[1]
+```
+
+How can we do that? Several approaches can be applied in this case. For example, let's inspect the format of the month names:
+
+```{r}
+dates[1:5]
+```
+
+They all begin with an upper case letter, followed by the rest of the characters in lower case. If we want to match month names formed by four letters (e.g. June, July), we could look for the pattern `"[A-Z][a-z][a-z][a-z]"`
+
+```{r}
+str_extract(dates, pattern = "[A-Z][a-z][a-z][a-z]")
+```
+
+The previous pattern `"[A-Z][a-z][a-z][a-z]"` not only matches `"June"` and `"July"` but also `"Augu"`, `"Sept"`, `"Octo"`. In addition, we have some missing values.
+
+Because the month names have variable lengths, we can use a repetition or quantifier operator. More specifically, we could look for the pattern `"[A-Z][a-z]+"`, that is: an upper case letter, followed by a lower case letter, repeated one or more times. The plus `+` tells the regex engine to attempt to match the preceding token once or more:
+
+```{r}
+month_names <- str_extract(dates, pattern = "[A-Z][a-z]+")
+month_names
+```
+
+Having extracted the name of the months, we can take advantage of a similar pattern to extract the days. How? Using a pattern formed by one digit range and the plus sign: `"[0-9]+"`
+
+```{r}
+str_extract(dates, pattern = "[0-9]+")
+```
+
+
+## Extracting Year
+
+What about extracting the year number? 
+
+```{r}
+dates[1]
+```
+
+One option that we have discussed already is to use `substr()` or `str_sub()`
+
+```{r}
+str_sub(dates, start = nchar(dates)-3, end = nchar(dates))
+```
+
+or simply indicate a negative starting position (to counting from the end of the string):
+
+```{r}
+str_sub(dates, start = -4)
+```
+
+Another option consists in using a pattern formed by four digits: `"[0-9][0-9][0-9][0-9]"`:
+
+```{r}
+str_extract(dates[1], pattern = "[0-9][0-9][0-9][0-9]")
+```
+
+An additional option consists in using an _end of string anchor_ with the metacharacter `"$"` (dollar sign), and combine with a repetition operator `"+"` like: `"[0-9]+$"`:
+
+```{r}
+str_extract(dates[1], pattern = "[0-9]+$")
+```
+
+What is this pattern doing? The part of the pattern `"[0-9]+"` indicates that we want to match one or more digits. In order to tell the engine to match the pattern at the end of the string, we must use the anchor `"$"`. 
+
+The same task can be achieved with a digit character class `\\d` and the repetition operator `+`:
+
+```{r}
+str_extract(dates[1], pattern = "\\d+$")
+```
+
+
+### Athlete's Name
+
+```{r}
+# First name
+str_extract(tbl$Athlete, pattern = "[A-Z][a-z]+")
+```
+
+The pattern `"[A-Z][a-z]+"` fails to match the name of the fourth athlete `r tbl$Athlete[4]`. One way to match an optional upper case in the third position is with the following pattern: `"[A-Z][a-z][A-Z]?[a-z]+"`: 
+
+```{r}
+# First name
+str_extract(tbl$Athlete, pattern = "[A-Z][a-z][A-Z]?[a-z]+")
+```
+
+An alternative option is to use the _word_ character class `\\w` repeated one or more times: `"\\w+"`
+ 
+```{r}
+# First name
+str_extract(tbl$Athlete, pattern = "\\w+")
+```
+
+
+## Athlete Names
+
+Now let's try to extract the athletes' first and last names. We could specify a regex pattern for the first name `[A-Z][a-z][A-Z]?[a-z]+`, followed by a space, followed by an uper case letter, and one or more lower case letters ` [A-Z][a-z]+`:
+
+```{r}
+str_extract(tbl$Athlete, pattern = "[A-Z][a-z][A-Z]?[a-z]+ [A-Z][a-z]+")
+```
+
+What about the first athlete Peter O'Connor? The previous pattern does not include the apostrophe.
+
+```{r}
+# works for Peter O'Connor only
+str_extract(tbl$Athlete, pattern = "[A-Z][a-z][A-Z]?[a-z]+ [A-Z]'[A-Z][a-z]+")
+```
+
+What about this other pattern?
+
+```{r}
+# still only works for Peter O'Connor
+str_extract(tbl$Athlete, pattern = "[A-Z][a-z][A-Z]?[a-z]+ [A-Z]'[A-Z]?[a-z]+")
+```
+
+Recall that the quantifier (or repetition) operators have an effect on the preceding token. So, the pattern `"[A-Z]'[A-Z]?[a-z]+"` means: an upper case letter, followed by an apostrophe, followed by an optional upper case, followed by one or more lower case letters. In other words, the quantifier `"?"` only has an effect on the second upper case letter.
+
+In reality, we want both the apostrophe and the second upper case letters to be optional, so we need to add quantifiers `"?"` to both of them:
+
+```{r}
+str_extract(tbl$Athlete, pattern = "[A-Z][a-z][A-Z]?[a-z]+ [A-Z]'?[A-Z]?[a-z]+")
+```
+
+If you want to treat a set of characters as a single unit, you must wrap them inside parentheses:
+
+```{r}
+str_extract(tbl$Athlete, pattern = "[A-Z][a-z][A-Z]?[a-z]+ [A-Z]('[A-Z])?[a-z]+")
+```
+
+We still have an issue with athlete `Igor Ter-Ovanesyan`. The patterns used so far are only matching the the characters in his last name before the hyphen. We can start by adding a escaped hyphen inside the character set `"[a-z\\-]"` at the end of the pattern:
+
+```{r}
+str_extract(tbl$Athlete, pattern = "[A-Z][a-z][A-Z]?[a-z]+ [A-Z]('[A-Z])?[a-z\\-]+")
+```
+
+Notice that this pattern does match the hyphen but fails to match the second part of the last name (the one after the hyphen). This is because our token is only matching lower case letters. So we also need to include upper case letters in the character set: `"[a-zA-Z\\-]"`
+
+```{r}
+str_extract(tbl$Athlete, pattern = "[A-Z][a-z][A-Z]?[a-z]+ [A-Z]('[A-Z])?[a-zA-Z\\-]+")
+```
+
+The regex patterns that involve a set such as `"[a-zA-Z]"` can be simplified with a repeated __word__ character class `"\\w+"` (recall that `"\\w+"` is equivalent to `"[0-9A-Za-z_]"`). We can try to use two repeated word classes:
+
+```{r}
+str_extract(tbl$Athlete, pattern = "\\w+ \\w+")
+```
+
+As you know, we also need to include an apostrphe and the hyphen. In this case, we can include them inside parentheses and separating them with the OR operator `"|"`:
+
+```{r}
+str_extract(tbl$Athlete, pattern = "\\w+ (\\w|-|')+")
+```
