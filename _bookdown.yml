@@ -18,6 +18,7 @@ rmd_files: [
   "applications.Rmd",
   "reversing.Rmd",
   "html-tags.Rmd",
+  "data-cleaning.Rmd",
   "logs.Rmd",
   "biomed.Rmd"
 ]
