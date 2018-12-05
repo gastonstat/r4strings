@@ -266,9 +266,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
 <li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
 <li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
-<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#workflow"><i class="fa fa-check"></i><b>15.3</b> Workflow</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
-<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#rstudio-build-and-check"><i class="fa fa-check"></i><b>15.3.2</b> RStudio Build and Check</a></li>
+<li class="chapter" data-level="15.3.3" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.3</b> Sample Package <code>cointoss</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
@@ -304,10 +305,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="motivation-for-object-toss" class="section level2">
 <h2><span class="header-section-number">5.2</span> Motivation for object <code>&quot;toss&quot;</code></h2>
-<p>We finished the previous chapter with the following <code>toss()</code> function, which actually corresponds to the <code>toss</code> <em>method</em> for objects of class <code>&quot;coin&quot;</code>:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb65-2" data-line-number="2">  <span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> x<span class="op">$</span>prob)</a>
-<a class="sourceLine" id="cb65-3" data-line-number="3">}</a></code></pre></div>
+<p>So far we have a constructor function <code>coin()</code> (from <a href="function.html#function">chapter 3</a>) and a <code>toss()</code> (from <a href="methods1.html#methods1">chapter 4</a>) which actually corresponds to the <code>toss</code> <em>method</em> for objects of class <code>&quot;coin&quot;</code>:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co"># constructor function</span></a>
+<a class="sourceLine" id="cb64-2" data-line-number="2">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)) {</a>
+<a class="sourceLine" id="cb64-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(sides) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {</a>
+<a class="sourceLine" id="cb64-4" data-line-number="4">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;sides&#39; must be of length 2&quot;</span>)</a>
+<a class="sourceLine" id="cb64-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb64-6" data-line-number="6">  <span class="kw">check_prob</span>(prob)</a>
+<a class="sourceLine" id="cb64-7" data-line-number="7">  res &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">sides =</span> sides, <span class="dt">prob =</span> prob)</a>
+<a class="sourceLine" id="cb64-8" data-line-number="8">  <span class="kw">class</span>(res) &lt;-<span class="st"> &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb64-9" data-line-number="9">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb64-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="co"># toss method for &quot;coin&quot; objects</span></a>
+<a class="sourceLine" id="cb65-2" data-line-number="2">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb65-3" data-line-number="3">  <span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> x<span class="op">$</span>prob)</a>
+<a class="sourceLine" id="cb65-4" data-line-number="4">}</a></code></pre></div>
 <p>Let’s use <code>toss()</code> to flip a coin 10 times:</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">321</span>)</a>
 <a class="sourceLine" id="cb66-2" data-line-number="2"></a>
@@ -317,7 +329,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb66-6" data-line-number="6">toss10</a>
 <a class="sourceLine" id="cb66-7" data-line-number="7"><span class="co">#&gt;  [1] &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot;</span></a>
 <a class="sourceLine" id="cb66-8" data-line-number="8"><span class="co">#&gt;  [9] &quot;tails&quot; &quot;heads&quot;</span></a></code></pre></div>
-<p>Having obtained several tosses, we can calculate things like 1) the total number of tosses, 2) the total number of <code>heads</code>, and 3) the total number of <code>tails</code>:</p>
+<p>Having obtained several tosses, we can calculate things like:</p>
+<ol style="list-style-type: decimal">
+<li>the total number of tosses</li>
+<li>the total number of <code>heads</code></li>
+<li>the total number of <code>tails</code></li>
+</ol>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="co"># number of tosses</span></a>
 <a class="sourceLine" id="cb67-2" data-line-number="2"><span class="kw">length</span>(toss10)</a>
 <a class="sourceLine" id="cb67-3" data-line-number="3"><span class="co">#&gt; [1] 10</span></a>
@@ -375,15 +392,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb69-9" data-line-number="9">  <span class="kw">class</span>(res) &lt;-<span class="st"> &quot;toss&quot;</span></a>
 <a class="sourceLine" id="cb69-10" data-line-number="10">  res</a>
 <a class="sourceLine" id="cb69-11" data-line-number="11">}</a></code></pre></div>
+<p>This auxiliary function is not intended to be called by the user. Instead, it’s an <em>internal</em> function for auxiliary purposes.</p>
 </div>
 </div>
 <div id="main-function-toss" class="section level2">
 <h2><span class="header-section-number">5.3</span> Main Function <code>toss()</code></h2>
-<p>Now that we have the auxiliary function <code>make_toss()</code>, we can encapsulate it in a <em>master</em> function <code>toss.coin()</code>:</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb70-2" data-line-number="2">  flips &lt;-<span class="st"> </span><span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> x<span class="op">$</span>prob)</a>
-<a class="sourceLine" id="cb70-3" data-line-number="3">  <span class="kw">make_toss</span>(x, flips)</a>
-<a class="sourceLine" id="cb70-4" data-line-number="4">}</a></code></pre></div>
+<p>Now that we have the auxiliary function <code>make_toss()</code>, we can integrate it inside the specific method <code>toss.coin()</code>. In this way, the function <code>toss.coin()</code> becomes the <em>master</em> function: the one designed to be called by the user:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="co"># redefining toss.coin()</span></a>
+<a class="sourceLine" id="cb70-2" data-line-number="2">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb70-3" data-line-number="3">  flips &lt;-<span class="st"> </span><span class="kw">sample</span>(x<span class="op">$</span>sides, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> x<span class="op">$</span>prob)</a>
+<a class="sourceLine" id="cb70-4" data-line-number="4">  <span class="kw">make_toss</span>(x, flips)</a>
+<a class="sourceLine" id="cb70-5" data-line-number="5">}</a></code></pre></div>
 <p>This is how <code>toss()</code> works:</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2233</span>)</a>
 <a class="sourceLine" id="cb71-2" data-line-number="2">fair &lt;-<span class="st"> </span><span class="kw">coin</span>()</a>
@@ -430,6 +449,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>make_toss()</code> is an auxiliary function that takes a <code>&quot;coin&quot;</code> and a vector of
 flips, and which produces an object <code>&quot;toss&quot;</code>.</li>
 <li><code>toss.coin()</code> is the specific <code>&quot;toss&quot;</code> method to be used on <code>&quot;coin&quot;</code> objects.</li>
+<li>notice that <code>make_toss()</code> is called by <code>toss.coin()</code>.</li>
 </ul>
 </div>
 <div id="upgrading-toss" class="section level2">
@@ -471,7 +491,7 @@ flips, and which produces an object <code>&quot;toss&quot;</code>.</li>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">toss</span>(quarter1, <span class="dt">times =</span> <span class="dv">-4</span>)</a>
 <a class="sourceLine" id="cb74-2" data-line-number="2"><span class="co">#&gt; Error in sample.int(length(x), size, replace, prob): invalid &#39;size&#39; argument</span></a></code></pre></div>
 <p>R produces an error when <code>times = -4</code>, but it’s an error that may not be very helpful for the user. The error message clearly says that <code>'size'</code> is an invalid argument, but <code>toss()</code> just has one argument: <code>times</code>.</p>
-<p>To be more user friendly, among other reasons, it would be better to check whether <code>times</code> has a valid value. One way to do that is to include a conditional statement like following one:</p>
+<p>To be more user friendly, among other reasons, it would be better to check whether <code>times</code> has a valid value. One way to do that is to include a conditional statement like the following one:</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">toss.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>) {</a>
 <a class="sourceLine" id="cb75-2" data-line-number="2">  <span class="cf">if</span> (times <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>) {</a>
 <a class="sourceLine" id="cb75-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">argument &#39;times&#39; must be a positive integer&quot;</span>)</a>
@@ -548,7 +568,8 @@ flips, and which produces an object <code>&quot;toss&quot;</code>.</li>
 <a class="sourceLine" id="cb77-28" data-line-number="28"><span class="co">#&gt; [1] &quot;toss&quot;</span></a></code></pre></div>
 <div id="in-summary" class="section level3">
 <h3><span class="header-section-number">5.4.1</span> In Summary</h3>
-<p>The more you understand a problem (i.e. phenomenon, process), the better you will be prepared to design objects, and program their corresponding methods.</p>
+<p>The more you understand a problem (i.e. phenomenon, process), the better you will be prepared to design objects, and program their corresponding methods, auxiliary functions, classes, etc.</p>
+<p>In my experience, you will very likely need to iterate several times with the creation of objects and functions for your code. At one iteration you will realize that you need to break down a given function into two ore more simpler functions. Sometimes you will see an opportunity to create a secondary function to check ceratin inputs. Likewise, you will identify situations when derived methods are needed to make your code more flexible and user friendly. Of course, like anything in this life, learning when all these components are needed takes a lot of time and practice.</p>
 
 </div>
 </div>

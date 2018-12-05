@@ -266,9 +266,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
 <li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
 <li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
-<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#workflow"><i class="fa fa-check"></i><b>15.3</b> Workflow</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
-<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#rstudio-build-and-check"><i class="fa fa-check"></i><b>15.3.2</b> RStudio Build and Check</a></li>
+<li class="chapter" data-level="15.3.3" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.3</b> Sample Package <code>cointoss</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
@@ -328,7 +329,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Usually, you wrap the body of the functions with curly braces.</li>
 <li>A function returns a single value.</li>
 </ul>
-<p>Once defined, you can use a function like any other function in R:</p>
+<p>Once defined, you can use <code>toss()</code> like any other function in R:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># basic call</span></a>
 <a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">toss</span>(coin)</a>
 <a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co">#&gt; [1] &quot;heads&quot;</span></a>
@@ -337,7 +338,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb20-6" data-line-number="6"><span class="kw">toss</span>(coin, <span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co">#&gt; [1] &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot;</span></a></code></pre></div>
 <p>Because we can make use of the <code>prob</code> argument inside <code>sample()</code>, we can make the <code>toss()</code> function more versatile by adding an argument that let us specify different probabilities for each side of a coin:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># toss function (version 1)</span></a>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># toss function (version 2)</span></a>
 <a class="sourceLine" id="cb21-2" data-line-number="2">toss &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">times =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="ot">NULL</span>) {</a>
 <a class="sourceLine" id="cb21-3" data-line-number="3">  <span class="kw">sample</span>(x, <span class="dt">size =</span> times, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> prob)</a>
 <a class="sourceLine" id="cb21-4" data-line-number="4">}</a>
@@ -373,8 +374,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="roxygen-comments" class="section level2">
 <h2><span class="header-section-number">2.4</span> Roxygen Comments</h2>
-<p>I’m going to take advantage of our first function to introduce <strong>Roxygen</strong> comments. As you know, the hash symbol <code>#</code> has a special meaning in R: you use it to indicate comments in your code. Interestingly, there is a special kind of comment called an “R oxygen” comment, or simply <em>roxygen</em>. As any R comment, Roxygen comments are also indicated with a hash; unlike standard comments, Roxygen comments have an appended apostrophe: <code>#'</code>.</p>
-<p>You use Roxygen comments to write documentation for your functions. One way to do this is by using Roxygen comments. Let’s see an example and then I will explain what’s going on with the special comments:</p>
+<p>I’m going to take advantage of our first function to introduce <strong>Roxygen</strong> comments. As you know, the hash symbol <code>#</code> has a special meaning in R: you use it to indicate comments in your code. Interestingly, there is a special kind of comment called an “R oxygen” comment, or simply <em>roxygen</em> comment. As any R comment, Roxygen comments are also indicated with a hash; unlike standard comments, Roxygen comments have an appended apostrophe: <code>#'</code>.</p>
+<p>You use Roxygen comments to write documentation for your functions. Let’s see an example and then I will explain what’s going on with the special comments:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co">#&#39; @title Coin toss function </span></a>
 <a class="sourceLine" id="cb23-2" data-line-number="2"><span class="co">#&#39; @description Simulates tossing a coin a given number of times</span></a>
 <a class="sourceLine" id="cb23-3" data-line-number="3"><span class="co">#&#39; @param x coin object (a vector)</span></a>
@@ -401,10 +402,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb24-11" data-line-number="11">}</a></code></pre></div>
 <p>When you see Roxygen comments like the above ones, the text in the first line is treated as the <code>@title</code> of the function, and then the text after the empty line is considered to be the <code>@description</code>. Notice how both lines of text have an empty line below them!</p>
 <p>The <code>@return</code> keyword is optional. But I strongly recommend including <code>@return</code> because it is part of a function’s documentation: tile, description, inputs, and output.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># toss a loaded coin 10 times</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">toss</span>(coin, <span class="dt">times =</span> <span class="dv">10</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>))</a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co">#&gt;  [9] &quot;heads&quot; &quot;heads&quot;</span></a></code></pre></div>
 <div id="about-roxygen-comments" class="section level3">
 <h3><span class="header-section-number">2.4.1</span> About Roxygen Comments</h3>
 <p>At this point you may be asking yourself: “Do I really need to document my functions with roxygen comments?” The short answer is No; you don’t. So why bother? Because royxgen comments are very convenient when you take a set of functions that will be used to build an R package. In later chapters we will describe more details about roxygen comments and roxygen keywords. The way we are going to build a package involves running some functions that will take the content of the roxygen comments and use them to generate what is called <code>Rd</code> (R-dcoumentation) files. These are actually the files behind all the help (or manual) documentation pages of any function.</p>

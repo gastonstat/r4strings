@@ -266,9 +266,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
 <li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
 <li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
-<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#workflow"><i class="fa fa-check"></i><b>15.3</b> Workflow</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
-<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#rstudio-build-and-check"><i class="fa fa-check"></i><b>15.3.2</b> RStudio Build and Check</a></li>
+<li class="chapter" data-level="15.3.3" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.3</b> Sample Package <code>cointoss</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
@@ -308,7 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>On the menu bar, click <strong>File</strong> and select <strong>New Project</strong></li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-78"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-80"></span>
 <img src="images/pkg-step0-new.png" alt="Starting point for a new project" width="70%" />
 <p class="caption">
 Figure 8.1: Starting point for a new project
@@ -317,7 +318,7 @@ Figure 8.1: Starting point for a new project
 <ol start="2" style="list-style-type: decimal">
 <li>Then choose <strong>New Directory</strong></li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-79"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-81"></span>
 <img src="images/pkg-step1-project.png" alt="Different types of RStudio projects" width="70%" />
 <p class="caption">
 Figure 8.2: Different types of RStudio projects
@@ -330,7 +331,7 @@ Figure 8.2: Different types of RStudio projects
 <ol start="4" style="list-style-type: decimal">
 <li>Give it a name: e.g. “cointoss”</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-81"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-83"></span>
 <img src="images/pkg-step4-name.png" alt="Choosing a name for a package" width="70%" />
 <p class="caption">
 Figure 8.3: Choosing a name for a package
@@ -344,7 +345,7 @@ Figure 8.3: Choosing a name for a package
 <div id="minimal-filestructure" class="section level2">
 <h2><span class="header-section-number">8.3</span> Minimal Filestructure</h2>
 <p>If you look at pane with the <strong>Files</strong> tab, you should be able to see the following files and directories:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-83"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-85"></span>
 <img src="images/pkg-step6-files.png" alt="Minimal filestructure created by devtools" width="70%" />
 <p class="caption">
 Figure 8.4: Minimal filestructure created by devtools
@@ -355,6 +356,7 @@ Figure 8.4: Minimal filestructure created by devtools
 <li><p><code>DESCRIPTION</code> is a text file (with no extension) that has metadata for your package. Simply put, this file is like the business card of your package.</p></li>
 <li><p><code>NAMESPACE</code> is a text file (also with no extension) that is used to list the functions that will be available to be called by the user.</p></li>
 <li><p>The <code>R/</code> directory which is where you store all the R script files with the functions of the package.</p></li>
+<li><p>The <code>man/</code> directory which is the folder containing the <code>Rd</code> (R documentation) files, that is, the text files with the technical <em>help</em> documentation of the functions in your package.</p></li>
 <li><p><code>cointoss.Rproj</code> is an RStudio project file that is designed to make your package easy to use with RStudio.</p></li>
 <li><p><code>.Rbuildignore</code> is a <em>hidden</em> text file used to specify files to be ignored by R when building the <em>tar-ball</em> or <em>bundle</em> of the package.</p></li>
 </ul>
@@ -369,7 +371,7 @@ Figure 8.4: Minimal filestructure created by devtools
 <li>Test Package: <code>Cmd + Shift + T</code></li>
 </ul>
 <p>Alternatively, if you go to the <strong>Build</strong> tab, you will find the <em>Install and Restart</em> button, the <em>Check</em> button, and the <em>More</em> menu with additional building options.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-84"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-86"></span>
 <img src="images/pkg-step6-build.png" alt="Options in the Build tab" width="70%" />
 <p class="caption">
 Figure 8.5: Options in the Build tab
@@ -380,11 +382,11 @@ Figure 8.5: Options in the Build tab
 <li>Build and Reload Package: <code>Cmd + Shift + B</code></li>
 <li>Check Package: <code>Cmd + Shift + E</code></li>
 </ul>
-<p>If everything went fine, you should have been able to create a toy <em>hello world</em> R package (with one function) that you can load:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="kw">library</span>(hello)</a></code></pre></div>
+<p>If everything went fine, you should have been able to create a toy <em>hello world</em> R package (with one function) that you can load with <code>library()</code>:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="kw">library</span>(hello)</a></code></pre></div>
 <p>and check that it works:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1"><span class="kw">hello</span>()</a>
-<a class="sourceLine" id="cb102-2" data-line-number="2"><span class="co">#&gt; [1] &quot;Hello, world!&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">hello</span>()</a>
+<a class="sourceLine" id="cb105-2" data-line-number="2"><span class="co">#&gt; [1] &quot;Hello, world!&quot;</span></a></code></pre></div>
 
 </div>
 </div>

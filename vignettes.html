@@ -266,9 +266,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
 <li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
 <li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
-<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#workflow"><i class="fa fa-check"></i><b>15.3</b> Workflow</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
-<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#rstudio-build-and-check"><i class="fa fa-check"></i><b>15.3.2</b> RStudio Build and Check</a></li>
+<li class="chapter" data-level="15.3.3" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.3</b> Sample Package <code>cointoss</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
@@ -306,7 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="including-vignettes" class="section level2">
 <h2><span class="header-section-number">13.2</span> Including Vignettes</h2>
 <p>If you decide that your package needs one or more vignettes (which I strongly recommend), then you need to add a subdirectory called <code>vignettes/</code>. You can have as many vignettes as you consider convenient. Inside the <code>vignettes/</code> subdirectory, you add either <code>.Rmd</code> (R markdown) files or <code>.Rnw</code> (R noweb) files. Since the markdown syntax is simpler than latex, I prefer to use <code>.Rmd</code> files to write the content of the vignettes.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-104"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-106"></span>
 <img src="images/vignette-files.png" alt="Structure of vignette files" width="35%" />
 <p class="caption">
 Figure 13.1: Structure of vignette files
@@ -332,7 +333,7 @@ vignette: &gt;
 <li><p><code>vignette</code>: this is the last yaml field which contains a special block of metadata needed by R. You only need to modify the <code>\VignetteIndexEntry</code> to provide the title of your vignette. The other two lines should not be changed. They tell R to use knitr to process the file, and that the file is encoded in UTF-8 (the only encoding you should ever use to write vignettes).</p></li>
 </ul>
 <p>The following screenshot shows part of the contents in the introductory vignette for the working example package <code>&quot;cointoss&quot;</code>. Notice that there is a code chunk with the <code>library()</code> function in order to load the package: e.g. <code>library(cointos</code>.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-105"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-107"></span>
 <img src="images/vignette-rmd.png" alt="Screenshot of the vignette in cointoss" width="80%" />
 <p class="caption">
 Figure 13.2: Screenshot of the vignette in cointoss

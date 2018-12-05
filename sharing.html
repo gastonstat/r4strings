@@ -266,9 +266,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
 <li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
 <li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
-<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#workflow"><i class="fa fa-check"></i><b>15.3</b> Workflow</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
-<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#rstudio-build-and-check"><i class="fa fa-check"></i><b>15.3.2</b> RStudio Build and Check</a></li>
+<li class="chapter" data-level="15.3.3" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.3</b> Sample Package <code>cointoss</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
@@ -306,7 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">16.2</span> File sharing</h2>
 <p>The most straighforward way to share your package is to take the bundled package (<code>.tar.gz</code> file) and share it with whoever you want. Perhaps the simplest way to do this is to email the bundle file, or share it through a file-sharing service like Google Drive, Dropbox, Box, etc.</p>
 <p>To install your package, the users will have to download it to their computers, and then install it with the function <code>install.packages()</code>, specifying the path of the <code>.tar.gz</code> file. Or they can also use the menu options from RStudio’s Packages tab (see screenshot below).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-117"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-123"></span>
 <img src="images/share-install.png" alt="Installing a .tar.gz file from RStudio's Packages tab" width="70%" />
 <p class="caption">
 Figure 16.1: Installing a .tar.gz file from RStudio’s Packages tab
@@ -323,7 +324,7 @@ Figure 16.1: Installing a .tar.gz file from RStudio’s Packages tab
 </div>
 <div id="github" class="section level2">
 <h2><span class="header-section-number">16.3</span> GitHub</h2>
-<p>Another very convenient way to share your package is GitHub. I’m assuming that you have a GitHub account, and that you have some familiary with this service. If you use GitHub to host your package source, the <code>&quot;devtools&quot;</code> function <code>install_github()</code> is the way to go.</p>
+<p>Another very convenient way to share your package is GitHub. I’m assuming that you have a GitHub account, and that you have some familiarity with this service. If you use GitHub to host your package source, the <code>&quot;devtools&quot;</code> function <code>install_github()</code> is the way to go.</p>
 <p>All you (or any other user) have to do is specify the GitHub username, and the name of the repository containing the source code:</p>
 <pre><code>devtools::install_github(&quot;usrname/pkgname&quot;)</code></pre>
 <p>You can try installing my <code>&quot;cointoss&quot;</code> package with <code>install_github()</code> like this:</p>

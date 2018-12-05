@@ -266,9 +266,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
 <li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
 <li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
-<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#workflow"><i class="fa fa-check"></i><b>15.3</b> Workflow</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
-<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#rstudio-build-and-check"><i class="fa fa-check"></i><b>15.3.2</b> RStudio Build and Check</a></li>
+<li class="chapter" data-level="15.3.3" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.3</b> Sample Package <code>cointoss</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
@@ -315,8 +316,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </blockquote>
 <p>The main concept is that of a <strong>name</strong> of an object and its <strong>value</strong>. For example, consider the following code in which objects <code>a</code> and <code>b</code> are created:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb104-2" data-line-number="2">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;hi&#39;</span>, <span class="st">&#39;there&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb111-2" data-line-number="2">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;hi&#39;</span>, <span class="st">&#39;there&#39;</span>)</a></code></pre></div>
 <p>From a technical point of view, the command <code>a &lt;- 1</code> implies that an object named <code>a</code> is being assigned the value of 1. In turn, the command <code>b &lt;- c('hi', 'there')</code> involves creating an object named <code>b</code> which takes the value of a character vector.</p>
 <p>When you type the name of an object, R will look up for it and see what value is associated to (if the object exists). In order to uniquely and correctly identified the value of a name (i.e. named object), R uses a formal system of environments, scoping rules, and namespaces. Without entering into the details of environments, and scoping rules, the idea of a namespace is to provide a context so that R knows how to find the value of an object associated with a name. The lack of such a context would result in total chaos.</p>
 <p>Why is this context extremely important with R packages? The best way to answer this question is by thinking about two (or more) different packages containing a function with the same name. For instance, base R contains the function <code>norm()</code> which computes the norm of a matrix (and returns an error when you pass a vector to it). Say that I write my own function <code>norm()</code> to compute the norm of a vector. If I run the command <code>norm(1:5)</code>, what’s going to happen? Will R get confused about which <code>norm()</code> to use? Will it use R’s base <code>norm()</code>? Or will it use my <code>norm()</code>?</p>
@@ -342,26 +343,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">11.3.2</span> Roxygen export</h3>
 <p>This book assumes that you are using roxygen comments to document the functions. The good news is that roxygen has a dedicated keyword that let’s you specify an <em>export directive</em>: the <code>@export</code> keyword. Every time you include an <code>@export</code> comment in the documentation of a function, this will be taken into account when running the code that generates the corresponding documentation (i.e. in an <code>.Rd</code> file).</p>
 <p>Here’s an example with the code of the <code>coin()</code> function. Notice the roxygen comment <code>@export</code> to indicate that this function must be exported in the namespace of the package.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="co">#&#39; @title Coin</span></a>
-<a class="sourceLine" id="cb105-2" data-line-number="2"><span class="co">#&#39; @description Creates an object of class \code{&quot;coin&quot;}</span></a>
-<a class="sourceLine" id="cb105-3" data-line-number="3"><span class="co">#&#39; @param sides vector of coin sides</span></a>
-<a class="sourceLine" id="cb105-4" data-line-number="4"><span class="co">#&#39; @param prob vector of side probabilities</span></a>
-<a class="sourceLine" id="cb105-5" data-line-number="5"><span class="co">#&#39; @return an object of class \code{&quot;coin&quot;}</span></a>
-<a class="sourceLine" id="cb105-6" data-line-number="6"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb105-7" data-line-number="7"><span class="co">#&#39; @examples</span></a>
-<a class="sourceLine" id="cb105-8" data-line-number="8"><span class="co">#&#39; # default </span></a>
-<a class="sourceLine" id="cb105-9" data-line-number="9"><span class="co">#&#39; coin1 &lt;- coin()</span></a>
-<a class="sourceLine" id="cb105-10" data-line-number="10"><span class="co">#&#39; </span></a>
-<a class="sourceLine" id="cb105-11" data-line-number="11">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)) {</a>
-<a class="sourceLine" id="cb105-12" data-line-number="12">  <span class="kw">check_sides</span>(sides)</a>
-<a class="sourceLine" id="cb105-13" data-line-number="13">  <span class="kw">check_prob</span>(prob)</a>
-<a class="sourceLine" id="cb105-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb105-15" data-line-number="15">  object &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb105-16" data-line-number="16">    <span class="dt">sides =</span> sides,</a>
-<a class="sourceLine" id="cb105-17" data-line-number="17">    <span class="dt">prob =</span> prob)</a>
-<a class="sourceLine" id="cb105-18" data-line-number="18">  <span class="kw">class</span>(object) &lt;-<span class="st"> &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb105-19" data-line-number="19">  object</a>
-<a class="sourceLine" id="cb105-20" data-line-number="20">}</a></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="co">#&#39; @title Coin</span></a>
+<a class="sourceLine" id="cb112-2" data-line-number="2"><span class="co">#&#39; @description Creates an object of class \code{&quot;coin&quot;}</span></a>
+<a class="sourceLine" id="cb112-3" data-line-number="3"><span class="co">#&#39; @param sides vector of coin sides</span></a>
+<a class="sourceLine" id="cb112-4" data-line-number="4"><span class="co">#&#39; @param prob vector of side probabilities</span></a>
+<a class="sourceLine" id="cb112-5" data-line-number="5"><span class="co">#&#39; @return an object of class \code{&quot;coin&quot;}</span></a>
+<a class="sourceLine" id="cb112-6" data-line-number="6"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb112-7" data-line-number="7"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb112-8" data-line-number="8"><span class="co">#&#39; # default </span></a>
+<a class="sourceLine" id="cb112-9" data-line-number="9"><span class="co">#&#39; coin1 &lt;- coin()</span></a>
+<a class="sourceLine" id="cb112-10" data-line-number="10"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb112-11" data-line-number="11">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)) {</a>
+<a class="sourceLine" id="cb112-12" data-line-number="12">  <span class="kw">check_sides</span>(sides)</a>
+<a class="sourceLine" id="cb112-13" data-line-number="13">  <span class="kw">check_prob</span>(prob)</a>
+<a class="sourceLine" id="cb112-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb112-15" data-line-number="15">  object &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb112-16" data-line-number="16">    <span class="dt">sides =</span> sides,</a>
+<a class="sourceLine" id="cb112-17" data-line-number="17">    <span class="dt">prob =</span> prob)</a>
+<a class="sourceLine" id="cb112-18" data-line-number="18">  <span class="kw">class</span>(object) &lt;-<span class="st"> &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb112-19" data-line-number="19">  object</a>
+<a class="sourceLine" id="cb112-20" data-line-number="20">}</a></code></pre></div>
 <p>The way we are going to build a package will be done in such a manner that R will automatically generate content for the <code>NAMESPACE</code> file. Assuming that <code>coin()</code> was the only exported function, then <code>NAMESPACE</code> would look like this:</p>
 <pre><code># Generated by roxygen2: do not edit by hand
 

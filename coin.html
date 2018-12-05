@@ -266,9 +266,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
 <li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
 <li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
-<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#workflow"><i class="fa fa-check"></i><b>15.3</b> Workflow</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
-<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#rstudio-build-and-check"><i class="fa fa-check"></i><b>15.3.2</b> RStudio Build and Check</a></li>
+<li class="chapter" data-level="15.3.3" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.3</b> Sample Package <code>cointoss</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
@@ -300,181 +301,186 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">3</span> Coin Objects</h1>
 <div id="introduction-1" class="section level2">
 <h2><span class="header-section-number">3.1</span> Introduction</h2>
-<p>We begin describing how to create object classes.</p>
+<p>In this chapter we describe how to create object classes in R. Specifically, we will focus on the so-called <strong>S3 classes</strong> or S3 system.
+This is one of the three types of Object Oriented (OO) systems available in R, and it is the most common among R packages.</p>
 </div>
 <div id="objects-and-classes" class="section level2">
 <h2><span class="header-section-number">3.2</span> Objects and Classes</h2>
-<p>Let’s use the <code>toss()</code> function from the previous chapter. We can invoke <code>toss()</code> to generate a first series of five tosses, and then compute the proportion of heads:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># random seed</span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">534</span>)</a>
-<a class="sourceLine" id="cb26-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co"># five tosses</span></a>
-<a class="sourceLine" id="cb26-5" data-line-number="5">five &lt;-<span class="st"> </span><span class="kw">toss</span>(coin, <span class="dt">times =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb26-6" data-line-number="6">five</a>
-<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="co">#&gt; [1] &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb26-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb26-9" data-line-number="9"><span class="co"># prop of heads in five</span></a>
-<a class="sourceLine" id="cb26-10" data-line-number="10"><span class="kw">sum</span>(five <span class="op">==</span><span class="st"> &quot;heads&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(five)</a>
-<a class="sourceLine" id="cb26-11" data-line-number="11"><span class="co">#&gt; [1] 0.6</span></a></code></pre></div>
+<p>In the previous chapter we learned how to create a <code>toss()</code> function, and also how to document it with roxygen comments. We can invoke <code>toss()</code> to generate a first series of five tosses, and then compute the proportion of heads:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># random seed</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">534</span>)</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co"># five tosses</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">five &lt;-<span class="st"> </span><span class="kw">toss</span>(coin, <span class="dt">times =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">five</a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt; [1] &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot;</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co"># proportion of heads in five</span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="kw">sum</span>(five <span class="op">==</span><span class="st"> &quot;heads&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(five)</a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt; [1] 0.6</span></a></code></pre></div>
 <p>We can also get a second series of tosses, but this time involving tossing a coin six times. Similarly, we compute the proportion of heads:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># six tosses</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">six &lt;-<span class="st"> </span><span class="kw">toss</span>(coin, <span class="dt">times =</span> <span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">six</a>
-<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="co">#&gt; [1] &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb27-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb27-6" data-line-number="6"><span class="co"># prop of heads in six</span></a>
-<a class="sourceLine" id="cb27-7" data-line-number="7"><span class="kw">sum</span>(six <span class="op">==</span><span class="st"> &quot;heads&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(five)</a>
-<a class="sourceLine" id="cb27-8" data-line-number="8"><span class="co">#&gt; [1] 0.8</span></a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># six tosses</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">six &lt;-<span class="st"> </span><span class="kw">toss</span>(coin, <span class="dt">times =</span> <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">six</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co">#&gt; [1] &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot;</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="co"># prop of heads in six</span></a>
+<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="kw">sum</span>(six <span class="op">==</span><span class="st"> &quot;heads&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(five)</a>
+<a class="sourceLine" id="cb26-8" data-line-number="8"><span class="co">#&gt; [1] 0.8</span></a></code></pre></div>
 <p>The above code works … except that there is an error; the number of heads in <code>six</code> is being divided by 5 instead of 6. R hasn’t detected this error: it doesn’t know that the division has to be done using <code>length(six)</code>.</p>
 <p>Wouldn’t it be prefarable to have some mechanism that prevented this type of error from happening? Bugs will always be part of any programming activity, but it is better to minimize certain types of errors like the one above.</p>
 </div>
 <div id="s3-classes" class="section level2">
 <h2><span class="header-section-number">3.3</span> S3 Classes</h2>
-<p>R has two (plus one) object oriented systems, so it can be a bit intimidatingwhen you read and learn about them for the first time.
-The goal of this tutorial is not to make you an expert in all R’s OOP systems, but to help you become familiar with the so-called <em>S3 class</em>.</p>
-<p><strong>S3</strong> implements a style of OO programming called generic-function OO. S3 uses a special type of function called a <em>generic</em> function that decides which method to call. Keep in mind that S3 is a very casual system: it does not really have a formal definition of classes.</p>
+<p>R has two (plus one) object oriented systems, so it can be a bit intimidatin gwhen you read and learn about them for the first time.
+The goal of this tutorial is not to make you an expert in all R’s OO systems, but to help you become familiar with the so-called <em>S3 class</em>.</p>
+<p><strong>S3</strong> implements a style of object oriented programming called generic-function OO. S3 uses a special type of function called a <em>generic</em> function that decides which method to call. Keep in mind that S3 is a very casual system: it does not really have a formal definition of classes.</p>
 <p>S3 classes are widely-used, in particular for statistical models in the <code>&quot;stats&quot;</code> package. S3 classes are very informal in that there is not a formal definition for an S3 class. Usually, S3 objects are built on top of lists, or atomic vectors with attributes. But you can also turn functions into S3 objects.</p>
 <p>Note that in more formal OOP languages, all functions are associated with a class, while in R, only some are.</p>
 <div id="making-an-object" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Making an object</h3>
 <p>To make an object an instance of a class, you just take an existing base object and set the <code>&quot;class&quot;</code> attribute. You can do that during creation of the object with <code>structure()</code></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># object coin via structure()</span></a>
-<a class="sourceLine" id="cb28-2" data-line-number="2">coin1 &lt;-<span class="st"> </span><span class="kw">structure</span>(<span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">class =</span> <span class="st">&quot;coin&quot;</span>) </a>
-<a class="sourceLine" id="cb28-3" data-line-number="3">coin1</a>
-<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
-<a class="sourceLine" id="cb28-6" data-line-number="6"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># object coin via structure()</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">coin1 &lt;-<span class="st"> </span><span class="kw">structure</span>(<span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">class =</span> <span class="st">&quot;coin&quot;</span>) </a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">coin1</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb27-6" data-line-number="6"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
 <p>You can also create an object first, and then specify its class with the function <code>class()</code>:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># object coin via class()</span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2">coin2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>)</a>
-<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="kw">class</span>(coin2) &lt;-<span class="st"> &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb29-4" data-line-number="4">coin2</a>
-<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
-<a class="sourceLine" id="cb29-7" data-line-number="7"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># object coin via class()</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">coin2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>)</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="kw">class</span>(coin2) &lt;-<span class="st"> &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">coin2</a>
+<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
+<a class="sourceLine" id="cb28-6" data-line-number="6"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb28-7" data-line-number="7"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
 <p>As any object in R, you can inspect the class <code>coin1</code>, and <code>coin2</code> with the <code>class()</code> function:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">class</span>(coin1)</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="co">#&gt; [1] &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb30-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="kw">class</span>(coin2)</a>
-<a class="sourceLine" id="cb30-5" data-line-number="5"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">class</span>(coin1)</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="co">#&gt; [1] &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="kw">class</span>(coin2)</a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
 <p>You can also determine if an object inherits from a specific class using <code>inherits()</code></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">inherits</span>(coin2, <span class="st">&quot;coin&quot;</span>)</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">inherits</span>(coin2, <span class="st">&quot;coin&quot;</span>)</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 <p>Having a <code>&quot;coin&quot;</code> object, we can pass it to the <code>toss()</code> function to simulate flipping the coin:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">toss</span>(coin1, <span class="dt">times =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="co">#&gt; [1] &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">toss</span>(coin1, <span class="dt">times =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="co">#&gt; [1] &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="a-more-robust-coin-class" class="section level2">
 <h2><span class="header-section-number">3.4</span> A more robust <code>&quot;coin&quot;</code> class</h2>
 <p>Let’s review our class <code>&quot;coin&quot;</code>. The way we defined a coin object was like this:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># object coin</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2">coin1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>)</a>
-<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="kw">class</span>(coin1) &lt;-<span class="st"> &quot;coin&quot;</span> </a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co"># object coin</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">coin1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>)</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="kw">class</span>(coin1) &lt;-<span class="st"> &quot;coin&quot;</span> </a></code></pre></div>
 <p>While this definition is good to illustrate the concept of an object, its class, and how to define generic methods, it is a very loose-defined class. One could create a <code>&quot;coin&quot;</code> out of <code>c('tic', 'tac', 'toe')</code>, and then use <code>toss()</code> on it:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">ttt &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tic&#39;</span>, <span class="st">&#39;tac&#39;</span>, <span class="st">&#39;toe&#39;</span>)</a>
-<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">class</span>(ttt) &lt;-<span class="st"> &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb34-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb34-4" data-line-number="4"><span class="kw">toss</span>(ttt)</a>
-<a class="sourceLine" id="cb34-5" data-line-number="5"><span class="co">#&gt; [1] &quot;tic&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">ttt &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tic&#39;</span>, <span class="st">&#39;tac&#39;</span>, <span class="st">&#39;toe&#39;</span>)</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">class</span>(ttt) &lt;-<span class="st"> &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="kw">toss</span>(ttt)</a>
+<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="co">#&gt; [1] &quot;tic&quot;</span></a></code></pre></div>
 <p>We need a more formal definition of a coin. For instance, it makes more sense to require that a coin should only have two sides. In this way, the vector <code>ttt</code> would not be a valid coin.</p>
 <p>For convenience purposes, we can define a <strong>class constructor</strong> function to
 initialize a <code>&quot;coin&quot;</code> object:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">object =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>)) {</a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">  <span class="kw">class</span>(object) &lt;-<span class="st"> &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb35-3" data-line-number="3">  object</a>
-<a class="sourceLine" id="cb35-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb35-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb35-6" data-line-number="6"><span class="co"># default coin</span></a>
-<a class="sourceLine" id="cb35-7" data-line-number="7"><span class="kw">coin</span>()</a>
-<a class="sourceLine" id="cb35-8" data-line-number="8"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb35-9" data-line-number="9"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
-<a class="sourceLine" id="cb35-10" data-line-number="10"><span class="co">#&gt; [1] &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb35-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb35-12" data-line-number="12"><span class="co"># another coin</span></a>
-<a class="sourceLine" id="cb35-13" data-line-number="13"><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;h&quot;</span>, <span class="st">&quot;t&quot;</span>))</a>
-<a class="sourceLine" id="cb35-14" data-line-number="14"><span class="co">#&gt; [1] &quot;h&quot; &quot;t&quot;</span></a>
-<a class="sourceLine" id="cb35-15" data-line-number="15"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
-<a class="sourceLine" id="cb35-16" data-line-number="16"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co"># constructor function (version 1)</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">object =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>)) {</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">  <span class="kw">class</span>(object) &lt;-<span class="st"> &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb34-4" data-line-number="4">  object</a>
+<a class="sourceLine" id="cb34-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb34-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb34-7" data-line-number="7"><span class="co"># default coin</span></a>
+<a class="sourceLine" id="cb34-8" data-line-number="8"><span class="kw">coin</span>()</a>
+<a class="sourceLine" id="cb34-9" data-line-number="9"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
+<a class="sourceLine" id="cb34-10" data-line-number="10"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb34-11" data-line-number="11"><span class="co">#&gt; [1] &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb34-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb34-13" data-line-number="13"><span class="co"># another coin</span></a>
+<a class="sourceLine" id="cb34-14" data-line-number="14"><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;h&quot;</span>, <span class="st">&quot;t&quot;</span>))</a>
+<a class="sourceLine" id="cb34-15" data-line-number="15"><span class="co">#&gt; [1] &quot;h&quot; &quot;t&quot;</span></a>
+<a class="sourceLine" id="cb34-16" data-line-number="16"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb34-17" data-line-number="17"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
 </div>
 <div id="improving-coin-objects" class="section level2">
 <h2><span class="header-section-number">3.5</span> Improving <code>&quot;coin&quot;</code> objects</h2>
-<p>To implement the requirement that a coin must have two sides, we can check for the length of the input vector:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">object =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>)) {</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(object) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {</a>
-<a class="sourceLine" id="cb36-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;object&#39; must be of length 2&quot;</span>)</a>
-<a class="sourceLine" id="cb36-4" data-line-number="4">  }</a>
-<a class="sourceLine" id="cb36-5" data-line-number="5">  <span class="kw">class</span>(object) &lt;-<span class="st"> &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb36-6" data-line-number="6">  object</a>
-<a class="sourceLine" id="cb36-7" data-line-number="7">}</a></code></pre></div>
-<p>Let’s try our modified <code>coin()</code> function to create a US penny like the one in the image below:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-31"></span>
+<p>To implement the requirement that a coin must have two sides, we can add an <em>if</em> condition to check for the length of the input vector:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># constructor function (version 2)</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">object =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>)) {</a>
+<a class="sourceLine" id="cb35-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(object) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {</a>
+<a class="sourceLine" id="cb35-4" data-line-number="4">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;object&#39; must be of length 2&quot;</span>)</a>
+<a class="sourceLine" id="cb35-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb35-6" data-line-number="6">  <span class="kw">class</span>(object) &lt;-<span class="st"> &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb35-7" data-line-number="7">  object</a>
+<a class="sourceLine" id="cb35-8" data-line-number="8">}</a></code></pre></div>
+<p>Let’s try our modified constructor function <code>coin()</code> to create a virtual version of the US penny like the one in the image below:</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-30"></span>
 <img src="images/penny.jpg" alt="US Penny (www.usacoinbook.com)" width="70%" />
 <p class="caption">
 Figure 3.1: US Penny (www.usacoinbook.com)
 </p>
 </div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># US penny</span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2">penny &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;lincoln&quot;</span>, <span class="st">&quot;shield&quot;</span>))</a>
-<a class="sourceLine" id="cb37-3" data-line-number="3">penny</a>
-<a class="sourceLine" id="cb37-4" data-line-number="4"><span class="co">#&gt; [1] &quot;lincoln&quot; &quot;shield&quot; </span></a>
-<a class="sourceLine" id="cb37-5" data-line-number="5"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
-<a class="sourceLine" id="cb37-6" data-line-number="6"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
-<p>Now let’s try <code>coin()</code> with an invalid input vector:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="co"># invalid coin</span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2">ttt &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tic&#39;</span>, <span class="st">&#39;tac&#39;</span>, <span class="st">&#39;toe&#39;</span>)</a>
-<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="kw">coin</span>(ttt)</a>
-<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="co">#&gt; Error in coin(ttt): </span></a>
-<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="co">#&gt; &#39;object&#39; must be of length 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># US penny</span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">penny &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;lincoln&quot;</span>, <span class="st">&quot;shield&quot;</span>))</a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">penny</a>
+<a class="sourceLine" id="cb36-4" data-line-number="4"><span class="co">#&gt; [1] &quot;lincoln&quot; &quot;shield&quot; </span></a>
+<a class="sourceLine" id="cb36-5" data-line-number="5"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb36-6" data-line-number="6"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
+<p>Now let’s try <code>coin()</code> with an invalid input vector. In this case, the constructor function will <code>stop()</code> execution with an error message because the input argument has more than 2 elements.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># invalid coin</span></a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">ttt &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tic&#39;</span>, <span class="st">&#39;tac&#39;</span>, <span class="st">&#39;toe&#39;</span>)</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="kw">coin</span>(ttt)</a>
+<a class="sourceLine" id="cb37-4" data-line-number="4"><span class="co">#&gt; Error in coin(ttt): </span></a>
+<a class="sourceLine" id="cb37-5" data-line-number="5"><span class="co">#&gt; &#39;object&#39; must be of length 2</span></a></code></pre></div>
 <p>Because the <code>toss()</code> function simulates flips using <code>sample()</code>, we can take advantage of the argument <code>prob</code> to specify probabilities for each side of the coin. In this way, we can create <em>loaded</em> (i.e. biased) coins.</p>
 <p>The way we are going to keep the probability of each side of the coin is with the use an objetc’s attributes. An example of an attribute is the class of an object. For example the class of our <code>&quot;coin&quot;</code> objects:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">penny</a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="co">#&gt; [1] &quot;lincoln&quot; &quot;shield&quot; </span></a>
-<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
-<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">penny</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="co">#&gt; [1] &quot;lincoln&quot; &quot;shield&quot; </span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
 <p>Notice how everytime you print the name of a <code>&quot;coin&quot;</code> object, its class is displayed in the form of <code>attr(,&quot;class&quot;)</code>.</p>
 <div id="attributes" class="section level3">
 <h3><span class="header-section-number">3.5.1</span> Attributes</h3>
 <p>In addition to the class attribute of a coin, the idea is to assign another attribute for the probability values. We can do this by adding a <code>prob</code> argument to the constructor function, and then pass it as an attribute of the coin object inside the class-constructor function.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">object =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)) {</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(object) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {</a>
-<a class="sourceLine" id="cb40-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;object&#39; must be of length 2&quot;</span>)</a>
-<a class="sourceLine" id="cb40-4" data-line-number="4">  }</a>
-<a class="sourceLine" id="cb40-5" data-line-number="5">  <span class="kw">attr</span>(object, <span class="st">&quot;prob&quot;</span>) &lt;-<span class="st"> </span>prob</a>
-<a class="sourceLine" id="cb40-6" data-line-number="6">  <span class="kw">class</span>(object) &lt;-<span class="st"> &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb40-7" data-line-number="7">  <span class="kw">return</span>(object)</a>
-<a class="sourceLine" id="cb40-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb40-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb40-10" data-line-number="10"><span class="kw">coin</span>()</a>
-<a class="sourceLine" id="cb40-11" data-line-number="11"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb40-12" data-line-number="12"><span class="co">#&gt; attr(,&quot;prob&quot;)</span></a>
-<a class="sourceLine" id="cb40-13" data-line-number="13"><span class="co">#&gt; [1] 0.5 0.5</span></a>
-<a class="sourceLine" id="cb40-14" data-line-number="14"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
-<a class="sourceLine" id="cb40-15" data-line-number="15"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co"># constructor function (version 3)</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">object =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)) {</a>
+<a class="sourceLine" id="cb39-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(object) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {</a>
+<a class="sourceLine" id="cb39-4" data-line-number="4">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;object&#39; must be of length 2&quot;</span>)</a>
+<a class="sourceLine" id="cb39-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb39-6" data-line-number="6">  <span class="kw">attr</span>(object, <span class="st">&quot;prob&quot;</span>) &lt;-<span class="st"> </span>prob</a>
+<a class="sourceLine" id="cb39-7" data-line-number="7">  <span class="kw">class</span>(object) &lt;-<span class="st"> &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb39-8" data-line-number="8">  <span class="kw">return</span>(object)</a>
+<a class="sourceLine" id="cb39-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb39-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb39-11" data-line-number="11"><span class="kw">coin</span>()</a>
+<a class="sourceLine" id="cb39-12" data-line-number="12"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
+<a class="sourceLine" id="cb39-13" data-line-number="13"><span class="co">#&gt; attr(,&quot;prob&quot;)</span></a>
+<a class="sourceLine" id="cb39-14" data-line-number="14"><span class="co">#&gt; [1] 0.5 0.5</span></a>
+<a class="sourceLine" id="cb39-15" data-line-number="15"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb39-16" data-line-number="16"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
 <p>In the previous code, the <code>prob</code> argument takes a vector of probabilities for each element in <code>object</code>. This vector is passed to <code>object</code> via the function <code>attr()</code> inside the body of <code>coin()</code>. Notice the use of a default <code>prob = c(0.5, 0.5)</code>, that is, a <em>fair</em> coin by default.</p>
 </div>
 <div id="using-a-list" class="section level3">
 <h3><span class="header-section-number">3.5.2</span> Using a list</h3>
 <p>Another way to implement a constructor function <code>coin()</code> that returns an object containing values for both the sides and the probabilities, is to use an R list. Here’s the code for this option:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)) {</a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(sides) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;sides&#39; must be of length 2&quot;</span>)</a>
-<a class="sourceLine" id="cb41-4" data-line-number="4">  }</a>
-<a class="sourceLine" id="cb41-5" data-line-number="5">  res &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">sides =</span> sides, <span class="dt">prob =</span> prob)</a>
-<a class="sourceLine" id="cb41-6" data-line-number="6">  <span class="kw">class</span>(res) &lt;-<span class="st"> &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb41-7" data-line-number="7">  <span class="kw">return</span>(res)</a>
-<a class="sourceLine" id="cb41-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb41-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb41-10" data-line-number="10"><span class="kw">coin</span>()</a>
-<a class="sourceLine" id="cb41-11" data-line-number="11"><span class="co">#&gt; $sides</span></a>
-<a class="sourceLine" id="cb41-12" data-line-number="12"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb41-13" data-line-number="13"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb41-14" data-line-number="14"><span class="co">#&gt; $prob</span></a>
-<a class="sourceLine" id="cb41-15" data-line-number="15"><span class="co">#&gt; [1] 0.5 0.5</span></a>
-<a class="sourceLine" id="cb41-16" data-line-number="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb41-17" data-line-number="17"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
-<a class="sourceLine" id="cb41-18" data-line-number="18"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># constructor function (version 4)</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)) {</a>
+<a class="sourceLine" id="cb40-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(sides) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {</a>
+<a class="sourceLine" id="cb40-4" data-line-number="4">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;sides&#39; must be of length 2&quot;</span>)</a>
+<a class="sourceLine" id="cb40-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb40-6" data-line-number="6">  res &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">sides =</span> sides, <span class="dt">prob =</span> prob)</a>
+<a class="sourceLine" id="cb40-7" data-line-number="7">  <span class="kw">class</span>(res) &lt;-<span class="st"> &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb40-8" data-line-number="8">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb40-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb40-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb40-11" data-line-number="11"><span class="kw">coin</span>()</a>
+<a class="sourceLine" id="cb40-12" data-line-number="12"><span class="co">#&gt; $sides</span></a>
+<a class="sourceLine" id="cb40-13" data-line-number="13"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
+<a class="sourceLine" id="cb40-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb40-15" data-line-number="15"><span class="co">#&gt; $prob</span></a>
+<a class="sourceLine" id="cb40-16" data-line-number="16"><span class="co">#&gt; [1] 0.5 0.5</span></a>
+<a class="sourceLine" id="cb40-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb40-18" data-line-number="18"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb40-19" data-line-number="19"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
 </div>
 <div id="auxiliary-checker" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Auxiliary Checker</h3>
@@ -485,139 +491,143 @@ Figure 3.1: US Penny (www.usacoinbook.com)
 <li>the sum of these values must add up to 1</li>
 </ul>
 <p>Here is one possible function to check the aspects of <code>prob</code> listed above:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">check_prob &lt;-<span class="st"> </span><span class="cf">function</span>(prob) {</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(prob) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span> <span class="op">|</span><span class="st"> </span><span class="op">!</span><span class="kw">is.numeric</span>(prob)) {</a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;prob&#39; must be a numeric vector of length 2&quot;</span>)</a>
-<a class="sourceLine" id="cb42-4" data-line-number="4">  }</a>
-<a class="sourceLine" id="cb42-5" data-line-number="5">  <span class="cf">if</span> (<span class="kw">any</span>(prob <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">|</span><span class="st"> </span><span class="kw">any</span>(prob <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)) {</a>
-<a class="sourceLine" id="cb42-6" data-line-number="6">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;prob&#39; values must be between 0 and 1&quot;</span>)</a>
-<a class="sourceLine" id="cb42-7" data-line-number="7">  }</a>
-<a class="sourceLine" id="cb42-8" data-line-number="8">  <span class="cf">if</span> (<span class="kw">sum</span>(prob) <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb42-9" data-line-number="9">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">elements in &#39;prob&#39; must add up to 1&quot;</span>)</a>
-<a class="sourceLine" id="cb42-10" data-line-number="10">  }</a>
-<a class="sourceLine" id="cb42-11" data-line-number="11">  <span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb42-12" data-line-number="12">}</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">check_prob &lt;-<span class="st"> </span><span class="cf">function</span>(prob) {</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(prob) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span> <span class="op">|</span><span class="st"> </span><span class="op">!</span><span class="kw">is.numeric</span>(prob)) {</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;prob&#39; must be a numeric vector of length 2&quot;</span>)</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4">  }</a>
+<a class="sourceLine" id="cb41-5" data-line-number="5">  <span class="cf">if</span> (<span class="kw">any</span>(prob <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">|</span><span class="st"> </span><span class="kw">any</span>(prob <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)) {</a>
+<a class="sourceLine" id="cb41-6" data-line-number="6">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;prob&#39; values must be between 0 and 1&quot;</span>)</a>
+<a class="sourceLine" id="cb41-7" data-line-number="7">  }</a>
+<a class="sourceLine" id="cb41-8" data-line-number="8">  <span class="cf">if</span> (<span class="kw">sum</span>(prob) <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb41-9" data-line-number="9">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">elements in &#39;prob&#39; must add up to 1&quot;</span>)</a>
+<a class="sourceLine" id="cb41-10" data-line-number="10">  }</a>
+<a class="sourceLine" id="cb41-11" data-line-number="11">  <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb41-12" data-line-number="12">}</a></code></pre></div>
 <p>Note that I’m adding a <code>TRUE</code> statement at the end of the function. This is just an auxiliary value to know if the function returns a valid <code>prob</code>. Now let’s test it with <em>valid</em> and <em>invalid</em> values:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># Valid -----------------------</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</a>
-<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</a>
-<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb43-6" data-line-number="6"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb43-7" data-line-number="7"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb43-8" data-line-number="8"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">6</span><span class="op">/</span><span class="dv">9</span>))</a>
-<a class="sourceLine" id="cb43-9" data-line-number="9"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="co"># Invalid -----------------------</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="co"># bad length</span></a>
-<a class="sourceLine" id="cb44-3" data-line-number="3"><span class="kw">check_prob</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="co">#&gt; Error in check_prob(1): </span></a>
-<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="co">#&gt; &#39;prob&#39; must be a numeric vector of length 2</span></a>
-<a class="sourceLine" id="cb44-6" data-line-number="6"><span class="co"># bad length</span></a>
-<a class="sourceLine" id="cb44-7" data-line-number="7"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>))</a>
-<a class="sourceLine" id="cb44-8" data-line-number="8"><span class="co">#&gt; Error in check_prob(c(0.1, 0.2, 0.3)): </span></a>
-<a class="sourceLine" id="cb44-9" data-line-number="9"><span class="co">#&gt; &#39;prob&#39; must be a numeric vector of length 2</span></a>
-<a class="sourceLine" id="cb44-10" data-line-number="10"><span class="co"># negative probability</span></a>
-<a class="sourceLine" id="cb44-11" data-line-number="11"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.8</span>))</a>
-<a class="sourceLine" id="cb44-12" data-line-number="12"><span class="co">#&gt; Error in check_prob(c(-0.2, 0.8)): </span></a>
-<a class="sourceLine" id="cb44-13" data-line-number="13"><span class="co">#&gt; &#39;prob&#39; values must be between 0 and 1</span></a>
-<a class="sourceLine" id="cb44-14" data-line-number="14"><span class="co"># what should we do in this case?</span></a>
-<a class="sourceLine" id="cb44-15" data-line-number="15"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="fl">0.33</span>, <span class="fl">0.66</span>))     </a>
-<a class="sourceLine" id="cb44-16" data-line-number="16"><span class="co">#&gt; Error in check_prob(c(0.33, 0.66)): </span></a>
-<a class="sourceLine" id="cb44-17" data-line-number="17"><span class="co">#&gt; elements in &#39;prob&#39; must add up to 1</span></a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="co"># Valid -----------------------</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="co">#&gt; [1] TRUE</span></a>
+<a class="sourceLine" id="cb42-4" data-line-number="4"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</a>
+<a class="sourceLine" id="cb42-5" data-line-number="5"><span class="co">#&gt; [1] TRUE</span></a>
+<a class="sourceLine" id="cb42-6" data-line-number="6"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb42-7" data-line-number="7"><span class="co">#&gt; [1] TRUE</span></a>
+<a class="sourceLine" id="cb42-8" data-line-number="8"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">6</span><span class="op">/</span><span class="dv">9</span>))</a>
+<a class="sourceLine" id="cb42-9" data-line-number="9"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># Invalid -----------------------</span></a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="co"># bad length</span></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="kw">check_prob</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="co">#&gt; Error in check_prob(1): </span></a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="co">#&gt; &#39;prob&#39; must be a numeric vector of length 2</span></a>
+<a class="sourceLine" id="cb43-6" data-line-number="6"><span class="co"># bad length</span></a>
+<a class="sourceLine" id="cb43-7" data-line-number="7"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>))</a>
+<a class="sourceLine" id="cb43-8" data-line-number="8"><span class="co">#&gt; Error in check_prob(c(0.1, 0.2, 0.3)): </span></a>
+<a class="sourceLine" id="cb43-9" data-line-number="9"><span class="co">#&gt; &#39;prob&#39; must be a numeric vector of length 2</span></a>
+<a class="sourceLine" id="cb43-10" data-line-number="10"><span class="co"># negative probability</span></a>
+<a class="sourceLine" id="cb43-11" data-line-number="11"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.8</span>))</a>
+<a class="sourceLine" id="cb43-12" data-line-number="12"><span class="co">#&gt; Error in check_prob(c(-0.2, 0.8)): </span></a>
+<a class="sourceLine" id="cb43-13" data-line-number="13"><span class="co">#&gt; &#39;prob&#39; values must be between 0 and 1</span></a>
+<a class="sourceLine" id="cb43-14" data-line-number="14"><span class="co"># what should we do in this case?</span></a>
+<a class="sourceLine" id="cb43-15" data-line-number="15"><span class="kw">check_prob</span>(<span class="kw">c</span>(<span class="fl">0.33</span>, <span class="fl">0.66</span>))     </a>
+<a class="sourceLine" id="cb43-16" data-line-number="16"><span class="co">#&gt; Error in check_prob(c(0.33, 0.66)): </span></a>
+<a class="sourceLine" id="cb43-17" data-line-number="17"><span class="co">#&gt; elements in &#39;prob&#39; must add up to 1</span></a></code></pre></div>
 <p>Here’s the improved constructor function <code>coin()</code>:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)) {</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(sides) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {</a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;sides&#39; must be of length 2&quot;</span>)</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">  }</a>
-<a class="sourceLine" id="cb45-5" data-line-number="5">  <span class="kw">check_prob</span>(prob)</a>
-<a class="sourceLine" id="cb45-6" data-line-number="6">  res &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">sides =</span> sides, <span class="dt">prob =</span> prob)</a>
-<a class="sourceLine" id="cb45-7" data-line-number="7">  <span class="kw">class</span>(res) &lt;-<span class="st"> &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb45-8" data-line-number="8">  <span class="kw">return</span>(res)</a>
-<a class="sourceLine" id="cb45-9" data-line-number="9">}</a>
-<a class="sourceLine" id="cb45-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb45-11" data-line-number="11">coin1 &lt;-<span class="st"> </span><span class="kw">coin</span>()</a>
-<a class="sourceLine" id="cb45-12" data-line-number="12">coin1</a>
-<a class="sourceLine" id="cb45-13" data-line-number="13"><span class="co">#&gt; $sides</span></a>
-<a class="sourceLine" id="cb45-14" data-line-number="14"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb45-15" data-line-number="15"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb45-16" data-line-number="16"><span class="co">#&gt; $prob</span></a>
-<a class="sourceLine" id="cb45-17" data-line-number="17"><span class="co">#&gt; [1] 0.5 0.5</span></a>
-<a class="sourceLine" id="cb45-18" data-line-number="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb45-19" data-line-number="19"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
-<a class="sourceLine" id="cb45-20" data-line-number="20"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="co"># constructor function (version 5)</span></a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">coin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)) {</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(sides) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {</a>
+<a class="sourceLine" id="cb44-4" data-line-number="4">    <span class="kw">stop</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&#39;sides&#39; must be of length 2&quot;</span>)</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb44-6" data-line-number="6">  <span class="kw">check_prob</span>(prob)</a>
+<a class="sourceLine" id="cb44-7" data-line-number="7">  res &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">sides =</span> sides, <span class="dt">prob =</span> prob)</a>
+<a class="sourceLine" id="cb44-8" data-line-number="8">  <span class="kw">class</span>(res) &lt;-<span class="st"> &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb44-9" data-line-number="9">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb44-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb44-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb44-12" data-line-number="12">coin1 &lt;-<span class="st"> </span><span class="kw">coin</span>()</a>
+<a class="sourceLine" id="cb44-13" data-line-number="13">coin1</a>
+<a class="sourceLine" id="cb44-14" data-line-number="14"><span class="co">#&gt; $sides</span></a>
+<a class="sourceLine" id="cb44-15" data-line-number="15"><span class="co">#&gt; [1] &quot;heads&quot; &quot;tails&quot;</span></a>
+<a class="sourceLine" id="cb44-16" data-line-number="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb44-17" data-line-number="17"><span class="co">#&gt; $prob</span></a>
+<a class="sourceLine" id="cb44-18" data-line-number="18"><span class="co">#&gt; [1] 0.5 0.5</span></a>
+<a class="sourceLine" id="cb44-19" data-line-number="19"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb44-20" data-line-number="20"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb44-21" data-line-number="21"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="print-method-for-coin" class="section level2">
 <h2><span class="header-section-number">3.6</span> Print Method for <code>&quot;coin&quot;</code></h2>
 <p>Every time you type in the name of an object <code>&quot;coin&quot;</code>, like our <code>penny</code> example, the output is displayed in a default, “quick and dirty”, way. R displays the values associated to the sides and their probabilities like any other list:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="co"># US penny</span></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2">penny &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;lincoln&quot;</span>, <span class="st">&quot;shield&quot;</span>))</a>
-<a class="sourceLine" id="cb46-3" data-line-number="3">penny</a>
-<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="co">#&gt; $sides</span></a>
-<a class="sourceLine" id="cb46-5" data-line-number="5"><span class="co">#&gt; [1] &quot;lincoln&quot; &quot;shield&quot; </span></a>
-<a class="sourceLine" id="cb46-6" data-line-number="6"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb46-7" data-line-number="7"><span class="co">#&gt; $prob</span></a>
-<a class="sourceLine" id="cb46-8" data-line-number="8"><span class="co">#&gt; [1] 0.5 0.5</span></a>
-<a class="sourceLine" id="cb46-9" data-line-number="9"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb46-10" data-line-number="10"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
-<a class="sourceLine" id="cb46-11" data-line-number="11"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="co"># US penny</span></a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">penny &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;lincoln&quot;</span>, <span class="st">&quot;shield&quot;</span>))</a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">penny</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4"><span class="co">#&gt; $sides</span></a>
+<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="co">#&gt; [1] &quot;lincoln&quot; &quot;shield&quot; </span></a>
+<a class="sourceLine" id="cb45-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb45-7" data-line-number="7"><span class="co">#&gt; $prob</span></a>
+<a class="sourceLine" id="cb45-8" data-line-number="8"><span class="co">#&gt; [1] 0.5 0.5</span></a>
+<a class="sourceLine" id="cb45-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb45-10" data-line-number="10"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb45-11" data-line-number="11"><span class="co">#&gt; [1] &quot;coin&quot;</span></a></code></pre></div>
 <p>Sometimes the default displayed output is all you need. However, there are occasions in which you need to customize the amount and format of information displayed on the screen when you type in the name of an object.</p>
-<p>Instead of keeping the default printed values, it would be nice to print <code>penny</code> and see some output like this:</p>
+<p>Instead of keeping the default printed values, it would be nice to print <code>penny</code> and see some <em>cleaner</em> output like this:</p>
 <pre><code>object &quot;coin&quot;
 
         side  prob
 1  &quot;lincoln&quot;   0.5
 2   &quot;shield&quot;   0.5</code></pre>
-<p>How can we do this? The answer involves writing a <code>print</code> method for objects of class <code>&quot;coin&quot;</code>. Because <code>print()</code> is actually a generic function, what you need to do is to create a a specific print <em>flavor</em> for class coin. Basically, you define a <code>print.coin()</code> function, and then include commands to print information in the desired way:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">print.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2">  <span class="kw">cat</span>(<span class="st">&#39;object &quot;coin&quot;</span><span class="ch">\n\n</span><span class="st">&#39;</span>)</a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">  cd &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb48-4" data-line-number="4">    <span class="dt">side =</span> x<span class="op">$</span>sides, <span class="dt">prob =</span> x<span class="op">$</span>prob</a>
-<a class="sourceLine" id="cb48-5" data-line-number="5">  )</a>
-<a class="sourceLine" id="cb48-6" data-line-number="6">  <span class="kw">print</span>(cd)</a>
-<a class="sourceLine" id="cb48-7" data-line-number="7">  <span class="kw">invisible</span>(x)</a>
-<a class="sourceLine" id="cb48-8" data-line-number="8">}</a></code></pre></div>
+<p>How can we do this? The answer involves writing a <code>print</code> method for objects of class <code>&quot;coin&quot;</code>. Because <code>print()</code> is actually a generic function, what you need to do is to create a a specific print <em>flavor</em> for class <code>&quot;coin&quot;</code>. Basically, you define a <code>print.coin()</code> function, and then include commands to print information in the desired way:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="co"># print method for objects of class &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">print.coin &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">  <span class="kw">cat</span>(<span class="st">&#39;object &quot;coin&quot;</span><span class="ch">\n\n</span><span class="st">&#39;</span>)</a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">  cd &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb47-5" data-line-number="5">    <span class="dt">side =</span> x<span class="op">$</span>sides, <span class="dt">prob =</span> x<span class="op">$</span>prob</a>
+<a class="sourceLine" id="cb47-6" data-line-number="6">  )</a>
+<a class="sourceLine" id="cb47-7" data-line-number="7">  <span class="kw">print</span>(cd)</a>
+<a class="sourceLine" id="cb47-8" data-line-number="8">  <span class="kw">invisible</span>(x)</a>
+<a class="sourceLine" id="cb47-9" data-line-number="9">}</a></code></pre></div>
 <p>Now, the next time you print the name of an object of class <code>&quot;coin&quot;</code>, R will look for a <code>print</code> method (which now exists) and dispatch such method.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">penny</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="co">#&gt; object &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb49-3" data-line-number="3"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb49-4" data-line-number="4"><span class="co">#&gt;      side prob</span></a>
-<a class="sourceLine" id="cb49-5" data-line-number="5"><span class="co">#&gt; 1 lincoln  0.5</span></a>
-<a class="sourceLine" id="cb49-6" data-line-number="6"><span class="co">#&gt; 2  shield  0.5</span></a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">penny</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="co">#&gt; object &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb48-3" data-line-number="3"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb48-4" data-line-number="4"><span class="co">#&gt;      side prob</span></a>
+<a class="sourceLine" id="cb48-5" data-line-number="5"><span class="co">#&gt; 1 lincoln  0.5</span></a>
+<a class="sourceLine" id="cb48-6" data-line-number="6"><span class="co">#&gt; 2  shield  0.5</span></a></code></pre></div>
 </div>
 <div id="extending-classes" class="section level2">
 <h2><span class="header-section-number">3.7</span> Extending classes</h2>
-<p>We can extend the class <code>&quot;coin&quot;</code> and create a derived class for special types of coins. For instance, say we want to create a class <code>&quot;quarter&quot;</code>. One side of the coin refers to George Washington, while the other side refers to John Brown’s Fort:</p>
+<p>We can extend the class <code>&quot;coin&quot;</code> and create a derived class for special types of coins. For instance, say we want to create a class <code>&quot;quarter&quot;</code>. One side of the coin refers to George Washington, while the other side refers to the bald eagle:</p>
 <p><a href="https://en.wikipedia.org/wiki/Quarter_(United_States_coin)" class="uri">https://en.wikipedia.org/wiki/Quarter_(United_States_coin)</a></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">quarter1 &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;washington&quot;</span>, <span class="st">&quot;fort&quot;</span>)) </a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">class</span>(quarter1) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;quarter&quot;</span>, <span class="st">&quot;coin&quot;</span>)</a>
-<a class="sourceLine" id="cb50-3" data-line-number="3">quarter1</a>
-<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="co">#&gt; object &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb50-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb50-6" data-line-number="6"><span class="co">#&gt;         side prob</span></a>
-<a class="sourceLine" id="cb50-7" data-line-number="7"><span class="co">#&gt; 1 washington  0.5</span></a>
-<a class="sourceLine" id="cb50-8" data-line-number="8"><span class="co">#&gt; 2       fort  0.5</span></a></code></pre></div>
-<p>Our coin <code>quarter1</code> inherits from <code>&quot;coin&quot;</code>:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">inherits</span>(quarter1, <span class="st">&quot;coin&quot;</span>)</a>
-<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<p>We can create a quarter by first starting with a <code>coin()</code> of <code>sides</code> <em>washington</em> and <em>bald-eagle</em>, and then assign a <code>&quot;quarter&quot;</code> class:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">quarter1 &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;washington&quot;</span>, <span class="st">&quot;bald-eagle&quot;</span>)) </a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">class</span>(quarter1) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;quarter&quot;</span>, <span class="st">&quot;coin&quot;</span>)</a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">quarter1</a>
+<a class="sourceLine" id="cb49-4" data-line-number="4"><span class="co">#&gt; object &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb49-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb49-6" data-line-number="6"><span class="co">#&gt;         side prob</span></a>
+<a class="sourceLine" id="cb49-7" data-line-number="7"><span class="co">#&gt; 1 washington  0.5</span></a>
+<a class="sourceLine" id="cb49-8" data-line-number="8"><span class="co">#&gt; 2 bald-eagle  0.5</span></a></code></pre></div>
+<p>Interestingly, our coin <code>quarter1</code> inherits from <code>&quot;coin&quot;</code>:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">inherits</span>(quarter1, <span class="st">&quot;coin&quot;</span>)</a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<p>In other words, <code>quartier1</code> is of class <code>&quot;quarter&quot;</code> but it is also a <code>&quot;coin&quot;</code> object.</p>
 <p>Likewise, we can create a class for a slightly unbalanced <code>&quot;dime&quot;</code>:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">dime1 &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;roosevelt&quot;</span>, <span class="st">&quot;torch&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.48</span>, <span class="fl">0.52</span>))</a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">class</span>(dime1) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;dime&quot;</span>, <span class="st">&quot;coin&quot;</span>)</a>
-<a class="sourceLine" id="cb52-3" data-line-number="3">dime1</a>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">dime1 &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;roosevelt&quot;</span>, <span class="st">&quot;torch&quot;</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.48</span>, <span class="fl">0.52</span>))</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="kw">class</span>(dime1) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;dime&quot;</span>, <span class="st">&quot;coin&quot;</span>)</a>
+<a class="sourceLine" id="cb51-3" data-line-number="3">dime1</a>
+<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="co">#&gt; object &quot;coin&quot;</span></a>
+<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb51-6" data-line-number="6"><span class="co">#&gt;        side prob</span></a>
+<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="co">#&gt; 1 roosevelt 0.48</span></a>
+<a class="sourceLine" id="cb51-8" data-line-number="8"><span class="co">#&gt; 2     torch 0.52</span></a></code></pre></div>
+<p>Here’s another coin example, a <em>peso</em>, from Mexico (where I grew up). When you flip a <em>peso</em>, mexicans will talk about two sides: <em>aguila</em> (eagle) or <em>sol</em> (sun):</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">peso &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;aguila&quot;</span>, <span class="st">&quot;sol&quot;</span>)) </a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">class</span>(peso) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;peso&quot;</span>, <span class="st">&quot;coin&quot;</span>)</a>
+<a class="sourceLine" id="cb52-3" data-line-number="3">peso</a>
 <a class="sourceLine" id="cb52-4" data-line-number="4"><span class="co">#&gt; object &quot;coin&quot;</span></a>
 <a class="sourceLine" id="cb52-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb52-6" data-line-number="6"><span class="co">#&gt;        side prob</span></a>
-<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="co">#&gt; 1 roosevelt 0.48</span></a>
-<a class="sourceLine" id="cb52-8" data-line-number="8"><span class="co">#&gt; 2     torch 0.52</span></a></code></pre></div>
-<p>Here’s another coin example, a <em>peso</em>, from Mexico (where I grew up). When you flip a <em>peso</em>, you have two sides: <em>aguila</em> (eagle) or <em>sol</em> (sun):</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">peso &lt;-<span class="st"> </span><span class="kw">coin</span>(<span class="kw">c</span>(<span class="st">&quot;aguila&quot;</span>, <span class="st">&quot;sol&quot;</span>)) </a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw">class</span>(peso) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;peso&quot;</span>, <span class="st">&quot;coin&quot;</span>)</a>
-<a class="sourceLine" id="cb53-3" data-line-number="3">peso</a>
-<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="co">#&gt; object &quot;coin&quot;</span></a>
-<a class="sourceLine" id="cb53-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb53-6" data-line-number="6"><span class="co">#&gt;     side prob</span></a>
-<a class="sourceLine" id="cb53-7" data-line-number="7"><span class="co">#&gt; 1 aguila  0.5</span></a>
-<a class="sourceLine" id="cb53-8" data-line-number="8"><span class="co">#&gt; 2    sol  0.5</span></a></code></pre></div>
+<a class="sourceLine" id="cb52-6" data-line-number="6"><span class="co">#&gt;     side prob</span></a>
+<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="co">#&gt; 1 aguila  0.5</span></a>
+<a class="sourceLine" id="cb52-8" data-line-number="8"><span class="co">#&gt; 2    sol  0.5</span></a></code></pre></div>
 
 </div>
 </div>

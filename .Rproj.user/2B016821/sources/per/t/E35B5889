@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1542595738687.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1380005652",
+    "id" : "E35B5889",
+    "lastKnownWriteTime" : 1542595789,
+    "last_content_update" : 1542595789603,
+    "path" : "~/Dropbox/r4strings/repetitions.Rmd",
+    "project_path" : "repetitions.Rmd",
+    "properties" : {
+        "cursorPosition" : "3,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

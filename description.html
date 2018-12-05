@@ -266,9 +266,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
 <li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
 <li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
-<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#workflow"><i class="fa fa-check"></i><b>15.3</b> Workflow</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
-<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#rstudio-build-and-check"><i class="fa fa-check"></i><b>15.3.2</b> RStudio Build and Check</a></li>
+<li class="chapter" data-level="15.3.3" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.3</b> Sample Package <code>cointoss</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
@@ -305,7 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sample-description" class="section level2">
 <h2><span class="header-section-number">10.2</span> Sample Description</h2>
 <p>When creating an “off-the-shelf” package, like the <em>hello world</em> example, the file <code>DESCRIPTION</code> will contain some default lines:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-94"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-96"></span>
 <img src="images/pkg-description.png" alt="Typical default content in a DESCRIPTION file" width="70%" />
 <p class="caption">
 Figure 10.1: Typical default content in a DESCRIPTION file
@@ -344,7 +345,7 @@ LazyData: true</code></pre>
 <h3><span class="header-section-number">10.3.1</span> Package Name</h3>
 <p>Every R package needs a name, specified in the <code>Package</code> field. The package of our study-case is <code>&quot;cointoss&quot;</code> but you can actually use a different name. However, you need to follow three rules to choose a valid package name:</p>
 <ul>
-<li>the name can only consist of (ASCII) letters, numbers and dot.</li>
+<li>the name can only consist of (ASCII) letters, numbers and the dot (or period).</li>
 <li>it must start with a letter.</li>
 <li>it cannot end with a period.</li>
 </ul>
@@ -363,19 +364,27 @@ LazyData: true</code></pre>
 <li>if you refer to other packages and external software then that has to be done in single quotes.</li>
 <li>if you refer to book titles (and similar), then that has to be done in double quotes.</li>
 </ul>
+<p>The <code>Title</code> value of our working example is:</p>
+<pre><code>Title: Simulates Tossing a Coin</code></pre>
+<p>But you could also specify a title like:</p>
+<pre><code>Title: Functions for Tossing a Coin</code></pre>
 </div>
 <div id="description-1" class="section level3">
 <h3><span class="header-section-number">10.3.3</span> Description</h3>
 <p>The <code>Description</code> field provides a comprehensive description of what your package is designed for. The entire description must be given with one paragraph, which can contain various sentences.</p>
+<p><code>Description: Functions to create a coin object, to toss a coin multiple times,     and to summarize and visualize frequencies of the tosses.</code></p>
 <p>The same rules of double quotes used in <code>Title</code> apply to <code>Description</code>. If you use URLs in your description, these should be enclosed in angle brackets, e.g. <code>&lt;https://www.r-project.org&gt;</code>.</p>
 </div>
 <div id="author-and-maintainer" class="section level3">
 <h3><span class="header-section-number">10.3.4</span> Author and Maintainer</h3>
 <p>You need to provide the name(s) of the author(s). You also need to designate one (and only one) person who will be in charge of maintaining the package. The role of the maintainer is essentially fixing bugs, and integrate new code and build a new version.</p>
+<pre><code>Author: Gaston Sanchez
+Maintainer: Gaston Sanchez &lt;gaston@email.com&gt;</code></pre>
 </div>
 <div id="version" class="section level3">
 <h3><span class="header-section-number">10.3.5</span> Version</h3>
 <p>Another mandatory field is <code>Version</code>, which as you may guess, gives the version of the package. The version is a sequence of at least two (and usually three) non-negative integers separated by single <code>.</code> (dot) or <code>-</code> (hyphen) characters.</p>
+<pre><code>Version: 0.1.0</code></pre>
 <p>Among the different versioning schemes, perhaps the most common one consists of <code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code>. For example, consider a version number <code>1.5.3</code>, 1 is the major number, 5 is the minor number, and 3 is the patch number.</p>
 <p>Keep in mind that as you keep working on a package, releasing new versions of it, the version number of the package must increase. Another important detail has to do with the fact that version numbers are NOT decimal numbers. For instance, two versions <code>0.8</code> and <code>0.55</code> does not mean that 0.8 &gt; 0.55. On the contrary, the order is 0.8 &lt; 0.55` because 8 &lt; 55 (again, they are not decimal numbers).</p>
 </div>

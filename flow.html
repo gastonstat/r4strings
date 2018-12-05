@@ -266,9 +266,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="flow.html"><a href="flow.html"><i class="fa fa-check"></i><b>15</b> Packaging Flow</a><ul>
 <li class="chapter" data-level="15.1" data-path="flow.html"><a href="flow.html#introduction-13"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
 <li class="chapter" data-level="15.2" data-path="flow.html"><a href="flow.html#example-structure"><i class="fa fa-check"></i><b>15.2</b> Example Structure</a></li>
-<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#worklfow"><i class="fa fa-check"></i><b>15.3</b> Worklfow</a><ul>
+<li class="chapter" data-level="15.3" data-path="flow.html"><a href="flow.html#workflow"><i class="fa fa-check"></i><b>15.3</b> Workflow</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="flow.html"><a href="flow.html#optional-devtools-file"><i class="fa fa-check"></i><b>15.3.1</b> Optional devtools file</a></li>
-<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.2</b> Sample Package <code>cointoss</code></a></li>
+<li class="chapter" data-level="15.3.2" data-path="flow.html"><a href="flow.html#rstudio-build-and-check"><i class="fa fa-check"></i><b>15.3.2</b> RStudio Build and Check</a></li>
+<li class="chapter" data-level="15.3.3" data-path="flow.html"><a href="flow.html#sample-package-cointoss"><i class="fa fa-check"></i><b>15.3.3</b> Sample Package <code>cointoss</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="sharing.html"><a href="sharing.html"><i class="fa fa-check"></i><b>16</b> Sharing</a><ul>
@@ -306,7 +307,7 @@ In this chapter I will describe an opinionated workflow to pack the source code 
 <div id="example-structure" class="section level2">
 <h2><span class="header-section-number">15.2</span> Example Structure</h2>
 <p>The following diagram depicts the filestructure for our working example with the package <code>cointoss</code>.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-115"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-117"></span>
 <img src="images/pkg-example.png" alt="Assumed filestructure" width="35%" />
 <p class="caption">
 Figure 15.1: Assumed filestructure
@@ -314,8 +315,8 @@ Figure 15.1: Assumed filestructure
 </div>
 <p>Let’s assume that the source package you are developing has the previous structure. If this is not the case for you, at least keep in mind that the mandatory components are <code>DESCRIPTION</code>, <code>NAMESPACE</code>, <code>R/</code> and <code>man/</code>.</p>
 </div>
-<div id="worklfow" class="section level2">
-<h2><span class="header-section-number">15.3</span> Worklfow</h2>
+<div id="workflow" class="section level2">
+<h2><span class="header-section-number">15.3</span> Workflow</h2>
 <p>Because a package is made up of various types of files—which can be located in different subdirectories—that play different roles, you can actually break down the overall creation of a package into separate pieces. Interestingly, each of the resulting pieces can be created separately. Consequently, the packaging process that you follow may depend on the piece (or pieces) that need to be built as you add or change components in a package.</p>
 <p>The core part of a package is the code in the <code>R/</code> directory. Most of the modifications made at this level will very likely have a cascading effect on the rest of elements in the package. From this point of view, a typical packaging workflow involves the following steps:</p>
 <ul>
@@ -325,8 +326,9 @@ Figure 15.1: Assumed filestructure
 <li>Knit Vignettes</li>
 <li>Build Bundle</li>
 <li>Install Package</li>
+<li>Check Package</li>
 </ul>
-<p>You can use functions from <code>&quot;devtools&quot;</code> to individually perform each of the actions previously listed. The following table shows such functions:</p>
+<p>You can use functions from <code>&quot;devtools&quot;</code> to individually perform each of the actions previously listed. The following table shows such functions.</p>
 <table>
 <thead>
 <tr class="header">
@@ -359,8 +361,14 @@ Figure 15.1: Assumed filestructure
 <td align="left">Install binary</td>
 <td align="left"><code>devtools::install()</code></td>
 </tr>
+<tr class="odd">
+<td align="left">Check</td>
+<td align="left"><code>devtools::check()</code></td>
+</tr>
 </tbody>
 </table>
+<p><br></p>
+<p><em>Note: Assuming that your working directory is the one containing all the files and subdirectories of your package, you can invoke the <code>devtools</code> functions from the console.</em></p>
 <p><br></p>
 <p><strong>Create Documentation</strong>: When you change the roxygen comments of your functions, you will need to (re)generate the corresponding manual documentation. This can be done with the function <code>devtools::document()</code> which generates the so-called <code>.Rd</code> (R documentation) files, located in the <code>man/</code> directory.</p>
 <p><strong>Check Documentation</strong>: An optional, but strongly recommended, step after new documentation has been generated, is to check that it is correct. This step becomes mandatory if you plan to share your package via CRAN. To check that the <code>.Rd</code> files are okay, use the function <code>devtools::check_man()</code>. This function inspects that the content and syntax of the <code>.Rd</code> files are correct. A typical cause for this check-up to fail is when you have typos or inconsistencies. For example: when the definition of a function contains the argument <code>x</code> but your roxygen comment <code>@param</code> uses <code>y</code>.</p>
@@ -370,6 +378,7 @@ Figure 15.1: Assumed filestructure
 <p>To create a binary package, you have to use the argument <code>binary = TRUE</code>. Keep in mind that this generated binary will be platform specific, and will only be installable on the current platform. Most of the time, there is no need to create a binary package.</p>
 <p><code>build()</code> does not generate or check any documentation. It also does not run any tests. However, <code>build()</code> does build vignettes by default.</p>
 <p><strong>Install</strong>: To install the package you can use <code>devtools::install()</code>. This function can install a source, bundle or a binary package. After the installation is done, you should be able to load the package with <code>library()</code> in order to use its functions, inspect its manual documentation, and read the available vignettes.</p>
+<p><strong>Check</strong>: Optionally, you can carry out an integral check of the package. This checking is a comprehensive one, and it will verify pretty much every single detail.</p>
 <div id="optional-devtools-file" class="section level3">
 <h3><span class="header-section-number">15.3.1</span> Optional devtools file</h3>
 <p>Unless you are constantly creating packages, you will very likely forget what functions to use for a specific purpose. One small hack that I tend to use is to include an auxiliary <code>.R</code> file in the source package, which I typically name as <code>devtools-flow.R</code> (or something like that). This file basically contains the list of <code>&quot;devtools&quot;</code> functions that we’ve discussed so far. The following code shows the typical commands of the auxiliary file:</p>
@@ -382,7 +391,8 @@ devtools::check_man()         # check documentation
 devtools::test()              # run tests
 devtools::build_vignettes()   # build vignettes
 devtools::build()             # build bundle
-devtools::install()           # install package</code></pre>
+devtools::install()           # install package
+devtools::check()             # comprehensive check (optional)</code></pre>
 <p>You can think of this auxiliary file, e.g. <code>devtools-flow.R</code>, as a cheat-sheet. But keep in mind that this is an additional file that the building functions are NOT expecting to find. That’s why you should include the name of this file in your <code>.Rbuildignore</code> file.
 Add a new line with the name of the file to <code>.Rbuildignore</code>, and remember to anchor it with the caret <code>^</code> character. Here’s what your <code>.Rbuildignore</code> file may look like:</p>
 <pre><code>^.*\.Rproj$
@@ -390,8 +400,45 @@ Add a new line with the name of the file to <code>.Rbuildignore</code>, and reme
 ^devtools-flow.R</code></pre>
 <p>I should also say that the inclusion of a <code>devtools-flow.R</code> file is completely optional, and there are actually more efficient (but also more advanced/complex) ways to add a <em>master</em> script that you execute in a programmatic way everytime something new has to be built.</p>
 </div>
+<div id="rstudio-build-and-check" class="section level3">
+<h3><span class="header-section-number">15.3.2</span> RStudio Build and Check</h3>
+<p>When you use an RStudio R.project, you will see that the pane containing the Environment, History, and Connections, will show one additonal tab called <strong>Build</strong>.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-118"></span>
+<img src="images/flow-build-tab.png" alt="Build tab" width="55%" />
+<p class="caption">
+Figure 15.2: Build tab
+</p>
+</div>
+<p>This tab displays three buttons:</p>
+<ul>
+<li>Install and Restart</li>
+<li>Check</li>
+<li>More</li>
+</ul>
+<p>The <strong>Install and Restart</strong> button will install and reload your package, starting a fresh session.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-119"></span>
+<img src="images/flow-icon-install.png" alt="Install icon" width="35%" />
+<p class="caption">
+Figure 15.3: Install icon
+</p>
+</div>
+<p>The <strong>Check</strong> button will perform a comprehensive check of your package.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-120"></span>
+<img src="images/flow-icon-check.png" alt="Check icon" width="25%" />
+<p class="caption">
+Figure 15.4: Check icon
+</p>
+</div>
+<p>The <strong>Build</strong> button shows more building options.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-121"></span>
+<img src="images/flow-icon-build.png" alt="Build icon" width="35%" />
+<p class="caption">
+Figure 15.5: Build icon
+</p>
+</div>
+</div>
 <div id="sample-package-cointoss" class="section level3">
-<h3><span class="header-section-number">15.3.2</span> Sample Package <code>cointoss</code></h3>
+<h3><span class="header-section-number">15.3.3</span> Sample Package <code>cointoss</code></h3>
 <p>You can find the source package of <code>&quot;cointoss&quot;</code> in the following github repository:</p>
 <p><a href="https://github.com/gastonstat/cointoss" class="uri">https://github.com/gastonstat/cointoss</a></p>
 <p>Feel free to download (or clone) the repository and modify its contents to experiment and practice how to create an R package.</p>
