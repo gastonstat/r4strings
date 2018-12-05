@@ -34,6 +34,9 @@ you know how. Sadly, documentation on how to manipulate strings and text data
 in R is very scarce. This work is my two cents to increase the number of 
 available resources about this indispensable topic for any data scientist.
 
+-----
+
+If you find this resource useful (which I'm pretty sure you will) please consider helping me with my <a href="http://amzn.com/w/A8P707HJ94QI" target="_target"><b>wishlist</b></a>.
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
