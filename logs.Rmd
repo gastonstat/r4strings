@@ -9,7 +9,7 @@ This file is a __server log file__ that contains the recorded events taking plac
 
 > "The Common Log Format is a standardized text file format used by web servers when generating server log files."
 
-Here's an example of a log record; the text should in one line of code, but I've split it into 2 lines for readibility purposes:
+Here's an example of a log record; the text should be in one line of code, but I've split it into 2 lines for readibility purposes:
 
 ```
 pd9049dac.dip.t-dialin.net - - [01/May/2001:01:51:25 -0700] 
@@ -28,7 +28,7 @@ pd9049dac.dip.t-dialin.net - - [01/May/2001:01:51:25 -0700]
     + `5xx` a server error
 - `1004` is the size of the object returned to the client, measured in bytes.
 
-If you want to download a copy of the text file to your working directory run the following code:
+If you want to download a copy of the text file to your working directory (from within R) run the following code:
 
 ```{r eval = FALSE}
 # download file
