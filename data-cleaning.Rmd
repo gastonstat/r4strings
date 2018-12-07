@@ -11,7 +11,7 @@ In this application we are going to work with the Men's Long Jump World Record P
 
 https://en.wikipedia.org/wiki/Men%27s_long_jump_world_record_progression#Low_altitude_record_progression_1965%E2%80%931991
 
-```{r echo = FALSE, out.width = NULL, fig.cap="Men's Long Jump World Record Progression""}
+```{r echo = FALSE, out.width = NULL, fig.cap="Men's Long Jump World Record Progression"}
 knitr::include_graphics("images/men-long-jump.png")
 ```
 
