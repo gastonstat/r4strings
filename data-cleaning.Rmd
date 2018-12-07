@@ -7,11 +7,11 @@ library(stringr)
 
 ## Introduction
 
-In this application we are going to work with the Men's Long Jump World Record Progression data from wikipedia.
+In this application we are going to work with the Men's Long Jump World Record Progression data from wikipedia (see screenshot below).
 
 https://en.wikipedia.org/wiki/Men%27s_long_jump_world_record_progression#Low_altitude_record_progression_1965%E2%80%931991
 
-```{r echo = FALSE, out.width = NULL, fig.cap='Men Long Jump World Record Progression'}
+```{r echo = FALSE, out.width = NULL, fig.cap="Men's Long Jump World Record Progression""}
 knitr::include_graphics("images/men-long-jump.png")
 ```
 
@@ -66,7 +66,7 @@ meters <- substr(tbl$Mark, start = 1, stop = 4)
 meters
 ```
 
-Notice that the meter values are not really numeric but character. In order to have `meters` as numbers, we should call `as.numeric()`
+Notice that the meter values are not really numeric but character. In order to have `meters` as numbers, we should coerce them with `as.numeric()`
 
 ```{r}
 meters <- as.numeric(substr(tbl$Mark, start = 1, stop = 4))
@@ -76,24 +76,26 @@ meters
 
 #### Extracting Meters with Regular Expressions {-}
 
-We want to match a pattern formed by: a digit, followed by a dot, followed by two digits:
+Instead of using the function `substr()` to obtain the distance values, let's see how to achieve the same task using regular expressions. To do this we must determine a pattern to be matched. So, what is the pattern that all the distance values (in meters) have in common?
 
 ```{r}
 mark1 <- tbl$Mark[1]
 mark1
 ```
 
+If you look at the `Mark` content, you will notice that the target pattern is formed by: a digit, followed by a dot, followed by two digits. Such pattern can be codified as: `"[0-9]\\.[0-9][0-9]"`. So let's test it and see if there's match:
+
 ```{r}
 str_detect(mark1, pattern = "[0-9]\\.[0-9][0-9]")
 ```
 
-To extract it, we use `str_extract()`
+To extract the distance pattern we use `str_extract()`
 
 ```{r}
 str_extract(mark1, pattern = "[0-9]\\.[0-9][0-9]")
 ```
 
-And then apply it on the entire column we get:
+And then we can apply it on the entire column to get:
 
 ```{r}
 str_extract(tbl$Mark, pattern = "[0-9]\\.[0-9][0-9]")
