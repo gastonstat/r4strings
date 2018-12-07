@@ -1,0 +1,127 @@
+# Metacharacters {#metacharacters}
+
+The next topic that you should learn about regular expressions has to do with 
+__metacharacters__. As you just learned, the most basic type of regular 
+expressions are the literal characters which are characters that match 
+themselves. However, not all characters match themselves. Any character that 
+is not a literal character is a metacharacter. 
+
+
+## About Metacharacters
+
+Metacharacter are characters that have a special meaning and they allow you to transform literal characters in very powerful ways.
+
+Below is the list of metacharacters in _Extended Regular Expressions_ (EREs):
+
+```
+.   \   |   (   )   [   ]   {   }   $   -    ^   *   +   ?
+```
+
+- the dot `.`
+- the backslash `\`
+- the bar `|`
+- left or opening parenthesis `(`
+- right or closing parenthesis `)`
+- left or opening bracket `[`
+- right or closing bracket `]`
+- left or opening brace `{`
+- right or closing brace `}`
+- the dollar sign `$`
+- the dash, hyphen or minus sign `-`
+- the caret or hat `^`
+- the star or asterisk `*`
+- the plus sign `+`
+- the question mark `?`
+
+We're going to be working with these characters throughout the rest of the book. 
+Simply put, everything else that you need to know about regular expressions 
+besides literal characters is how these metacharacters work. The good news is 
+that there are only a few metacharacters to learn. The bad news is 
+that some metacharacters can have more than one meaning. And learning those 
+meanings definitely takes time and requires hours of practice. The meaning of 
+the metacharacters greatly depend on the context in which you use them,
+how you use them, and where you use them. If it wasn't enough complication, 
+it is also the metacharacters that have variation between the different 
+regex engines. 
+ 
+
+
+## The Wild Metacharacter
+
+The first metacharacter you should learn about is the dot or period `"."`, 
+better known as the __wild__ metacharacter. This metacharacter is used to
+match __ANY__ character except for a new line.
+
+For example, consider the pattern `"p.n"`, that is, _p wildcard n_. This
+pattern will match _pan_, _pen_, and _pin_, but it will not match _prun_ 
+or _plan_. The dot only matches one single character. 
+
+Let's see another example using the vector `c("not", "note", "knot", "nut")` 
+and the pattern `"n.t"`
+
+```{r eval = FALSE}
+not <- c("not", "note", "knot", "nut")
+
+str_view(not, "n.t")
+```
+
+the pattern `"n.t"` matches _not_ in the first three elements, and _nut_
+in the last element.
+
+If you specify a pattern `"no."`, then just the first three elements
+in `not` will be matched. 
+
+```{r eval = FALSE}
+str_view(not, "no.")
+```
+
+And if you define a pattern `"kn."`, then only the third element is matched.
+
+```{r eval = FALSE}
+str_view(not, "kn.")
+```
+
+The wild metacharacter is probably the most used metacharacter, and it is 
+also the most abused one, being the source of many mistakes. Here is a basic
+example with the regular expression formed by `"5.00"`. If you think that this 
+pattern will match five with two decimal places after it, you will be 
+surprised to find out that it not only matches _5.00_ but also _5100_ and _5-00_. 
+Why? Because `"."` is the metacharacter that matches absolutely anything.
+You will learn how to fix this mistake in the next section, but it illustrates 
+an important fact about regular expressions: the challenge consists of matching 
+what you want, but also in matching only what you want. You don't want to 
+specify a pattern that is overly permissive. You want to find the thing you're 
+looking for, but only that thing. 
+
+
+
+## Escaping metacharacters
+
+What if you just want to match the character dot? For example, say you 
+have the following vector:
+
+```{r}
+fives <- c("5.00", "5100", "5-00", "5 00")
+```
+
+If you try the pattern `"5.00"`, it will match all of the elements in `fives`.
+
+```{r eval = FALSE}
+str_view(fives, "5.00")
+```
+
+To actually match the dot character, what you need to do is __escape__ the
+metacharacter. In most languages, the way to escape a metacharacter is by 
+adding a backslash character in front of the metacharacter: `"\."`. 
+When you use a backslash in front of a metacharacter you are "escaping" the
+character, this means that the character no longer has a special meaning, 
+and it will match itself.
+
+However, R is a bit different. Instead of using a backslash you have to use
+two backslashes: `"5\\.00"`. This is because the backslash `"\"`, which is
+another metacharacter, has a special meaning in R. Therefore, to match just
+the element _5.00_ in `fives` in R, you do it like so:
+
+```{r eval = FALSE}
+str_view(fives, "5\\.00")
+```
