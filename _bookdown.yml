@@ -13,6 +13,8 @@ rmd_files: [
   "basic-examples.Rmd",
   
   "regex1.Rmd",
+  "literal.Rmd",
+  "metacharacters.Rmd",
   "character-sets.Rmd",
 
   "applications.Rmd",
