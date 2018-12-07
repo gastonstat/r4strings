@@ -1,0 +1,89 @@
+# Literal Characters {#literal}
+
+We're going to start with the simplest match of all: a __literal character__.
+A literal character match is one in which a given character such as the letter
+`"R"` matches the letter _R_. This type of match is the most basic 
+type of regular expression operation: just matching plain text.
+
+
+## Matching Literal Characters
+
+The following examples are extremely basic but they will help you get a 
+good understanding of regex.
+
+Consider the following text stored in a character vector `this_book`:
+
+```{r book}
+this_book <- 'This book is mine'
+```
+
+The first regular expression we are going to work with is `"book"`. 
+This pattern is formed by a letter _b_, followed by a letter _o_, followed by 
+another letter _o_, followed by a letter _k_. As you may guess, this pattern 
+matches the word _book_ in the character vector `this_book`. 
+To have a visual representation of the actual pattern that is matched, you
+should use the function `str_view()` from the package `"stringr"` 
+(you may need to upgrade to a recent version of RStudio):
+
+```{r eval = FALSE}
+str_view(this_book, 'book')
+```
+
+As you can tell, the pattern `"book"` doesn't match the entire content in
+the vector `this_book`; it just matches those four letters.
+
+It may seem really simple but there are a couple of details to be highlighted.
+The first is that regex searches are case sensitive by default. This means 
+that the pattern `"Book"` would not match _book_ in ``this_book``.
+
+```{r eval = FALSE}
+str_view("This Book is mine.", 'book')
+```
+
+You can change the matching task so that it is case insensitive but we will
+talk about it later.
+
+Let's add more text to `this_book`:
+
+```{r book_online}
+this_book <- 'This book is mine. I wrote this book with bookdown.'
+```
+
+Let's use `str_view()` to see what pieces of text are matched in `this_book` 
+with the pattern `"book"`:
+
+```{r grep_book, eval = FALSE}
+str_view(this_book, "book")
+```
+
+As you can tell, only the first occurrence of _book_ was matched. This is
+a common behavior of regular expressions in which they return a match as fast
+possible. You can think of this behavior as the "eager principle", that is,
+regular expressions are eager and they will give preference to an early match.
+This is a minor but important detail and we will come back to this behavior of 
+regular expressions.
+
+All the letters and digits in the English alphabet are considered literal 
+characters. They are called _literal_ because they match themselves.
+
+```{r eval = FALSE}
+str_view <- c("I had 3 quesadillas for lunch", "3")
+```
+
+Here is another example:
+
+```{r}
+transport <- c("car", "bike", "boat", "airplane")
+```
+
+The first pattern to test is the letter `"a"`:
+
+```{r eval = FALSE}
+str_view(transport, "a")
+```
+
+When you execute the previous command, you should be able to see that the 
+letter `"a"` is highlighted in the words _car_, _boat_ and _airplane_.
+
+
+
