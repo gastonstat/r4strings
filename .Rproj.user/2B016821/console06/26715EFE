@@ -1,0 +1,1944 @@
+
+Welcome gaston
+
+Today is 02-17-2019 09:58:22
+
+   February 2019
+Su Mo Tu We Th Fr Sa
+                1  2
+ 3  4  5  6  7  8  9
+10 11 12 13 14 15 16
+17 18 19 20 21 22 23
+24 25 26 27 28
+
+Uptime:  9:58  up 4 days,  1:53, 3 users, load averages: 1.96 1.98 1.85
+
+]0;~/Dropbox/r4strings[?1034h[0;36m[gaston@ r4strings]$[0m [K[0;36m[gaston@ r4strings]$[0m make
+Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE)'
+
+
+processing file: _main.Rmd
+  |                                                                         |                                                                 |   0%
+   inline R code fragments
+
+
+label: unnamed-chunk-1 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |                                                                 |   1%
+label: unnamed-chunk-2 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+  |                                                                         |.                                                                |   1%
+  ordinary text without R code
+
+
+label: unnamed-chunk-3 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-4 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |.                                                                |   2%
+label: unnamed-chunk-5 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-6 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-7
+  |                                                                         |..                                                               |   2%
+  ordinary text without R code
+
+  |                                                                         |..                                                               |   3%
+label: unnamed-chunk-8
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-9
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-10 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-11 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |..                                                               |   4%
+  ordinary text without R code
+
+
+label: unnamed-chunk-12 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |...                                                              |   4%
+  ordinary text without R code
+
+
+label: unnamed-chunk-13 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-14 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |...                                                              |   5%
+  ordinary text without R code
+
+
+label: unnamed-chunk-15 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: character_function
+
+  ordinary text without R code
+
+
+label: empty_vector_ex1
+  |                                                                         |....                                                             |   6%
+  ordinary text without R code
+
+
+label: empty_vector_ex2
+
+  ordinary text without R code
+
+
+label: empty_string
+
+  ordinary text without R code
+
+
+label: empty_char_vector
+
+  ordinary text without R code
+
+  |                                                                         |....                                                             |   7%
+label: empty_str_char_lengths
+
+  ordinary text without R code
+
+  |                                                                         |.....                                                            |   7%
+label: sunny
+
+  ordinary text without R code
+
+
+label: sunny0
+
+  ordinary text without R code
+
+  |                                                                         |.....                                                            |   8%
+label: unnamed-chunk-16
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-17
+
+  ordinary text without R code
+
+
+label: objs_a_b
+
+  ordinary text without R code
+
+  |                                                                         |......                                                           |   9%
+label: is_character
+
+  ordinary text without R code
+
+
+label: class_a_b
+
+  ordinary text without R code
+
+
+label: as_character
+
+  ordinary text without R code
+
+
+label: mixed_vector
+  |                                                                         |......                                                           |  10%
+  ordinary text without R code
+
+
+label: mixed_vector2
+
+  ordinary text without R code
+
+  |                                                                         |.......                                                          |  10%
+label: mixed_matrix
+
+  ordinary text without R code
+
+
+label: mixed_dataframe1
+  |                                                                         |.......                                                          |  11%
+  ordinary text without R code
+
+
+label: mixed_dataframe2 (with options) 
+List of 1
+ $ tidy: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: mixed_list
+
+  ordinary text without R code
+
+
+label: paste_string_ex1
+
+  ordinary text without R code
+
+  |                                                                         |........                                                         |  12%
+label: paste_string_ex2
+
+  ordinary text without R code
+
+
+label: paste_string_ex3
+
+  ordinary text without R code
+
+
+label: paste_string_ex4
+
+  ordinary text without R code
+
+  |                                                                         |........                                                         |  13%
+label: paste_string_ex5
+
+  ordinary text without R code
+
+
+label: paste0
+
+  ordinary text without R code
+
+  |                                                                         |.........                                                        |  13%
+label: unnamed-chunk-18 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |.........                                                        |  14%
+label: unnamed-chunk-19
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-20 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+
+label: print_string
+
+  ordinary text without R code
+
+
+label: print_noquote
+  |                                                                         |..........                                                       |  15%
+  ordinary text without R code
+
+
+label: unnamed-chunk-21
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-22
+
+  ordinary text without R code
+
+
+label: cat_ex1
+  |                                                                         |..........                                                       |  16%
+  ordinary text without R code
+
+
+label: cat_ex2
+
+  ordinary text without R code
+
+
+label: cat_ex3
+  |                                                                         |...........                                                      |  16%
+  ordinary text without R code
+
+
+label: cat_ex4
+  |                                                                         |...........                                                      |  17%
+  ordinary text without R code
+
+
+label: cat_ex5
+
+  ordinary text without R code
+
+
+label: cat_ex6 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: format_string_default
+
+  ordinary text without R code
+
+  |                                                                         |...........                                                      |  18%
+label: format_string
+  |                                                                         |............                                                     |  18%
+  ordinary text without R code
+
+
+label: format_strings_ihaka
+
+  ordinary text without R code
+
+
+label: format_bigmark
+
+  ordinary text without R code
+
+  |                                                                         |............                                                     |  19%
+label: cat_matrix (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: cat_dataframe (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-23 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+  |                                                                         |.............                                                    |  19%
+  ordinary text without R code
+
+  |                                                                         |.............                                                    |  20%
+label: unnamed-chunk-24
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-25
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-26
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-27
+  |                                                                         |.............                                                    |  21%
+  ordinary text without R code
+
+  |                                                                         |..............                                                   |  21%
+label: unnamed-chunk-28
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-29
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-30
+  |                                                                         |..............                                                   |  22%
+  ordinary text without R code
+
+
+label: unnamed-chunk-31
+
+   inline R code fragments
+
+
+label: file_names1
+
+  ordinary text without R code
+
+  |                                                                         |...............                                                  |  22%
+label: file_names2
+  |                                                                         |...............                                                  |  23%
+  ordinary text without R code
+
+
+label: file_names3
+
+  ordinary text without R code
+
+
+label: file_names4
+
+  ordinary text without R code
+
+
+label: file_names5
+
+  ordinary text without R code
+
+  |                                                                         |...............                                                  |  24%
+label: to_celsius
+
+  ordinary text without R code
+
+  |                                                                         |................                                                 |  24%
+label: to_celsius1
+
+  ordinary text without R code
+
+
+label: fahrenheit2celsius
+
+  ordinary text without R code
+
+  |                                                                         |................                                                 |  25%
+label: fah2celsius
+
+  ordinary text without R code
+
+
+label: mazda3
+
+  ordinary text without R code
+
+
+label: mazda3_car
+
+  ordinary text without R code
+
+  |                                                                         |.................                                                |  26%
+label: print_car
+
+  ordinary text without R code
+
+
+label: print_mazda3
+
+  ordinary text without R code
+
+
+label: miles_function
+
+  ordinary text without R code
+
+
+label: miles_test
+  |                                                                         |.................                                                |  27%
+  ordinary text without R code
+
+
+label: get_distance_function
+  |                                                                         |..................                                               |  27%
+  ordinary text without R code
+
+
+label: get_distance_test
+
+  ordinary text without R code
+
+
+label: coffee_prices
+  |                                                                         |..................                                               |  28%
+  ordinary text without R code
+
+
+label: mode_prices
+
+  ordinary text without R code
+
+
+label: print_prices
+
+  ordinary text without R code
+
+
+label: for_loop_print_prices
+  |                                                                         |...................                                              |  29%
+  ordinary text without R code
+
+
+label: paste_prices
+
+  ordinary text without R code
+
+
+label: sprintf_prices
+
+  ordinary text without R code
+
+
+label: noquote_prices
+
+  ordinary text without R code
+
+  |                                                                         |...................                                              |  30%
+label: cat_prices
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-32 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+  |                                                                         |....................                                             |  30%
+  ordinary text without R code
+
+
+label: unnamed-chunk-33 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |....................                                             |  31%
+label: unnamed-chunk-34
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-35 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-36 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-37 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |.....................                                            |  32%
+  ordinary text without R code
+
+
+label: unnamed-chunk-38 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-39 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-40 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |.....................                                            |  33%
+  ordinary text without R code
+
+
+label: unnamed-chunk-41 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-42 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |......................                                           |  33%
+  ordinary text without R code
+
+
+label: unnamed-chunk-43 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+  |                                                                         |......................                                           |  34%
+  ordinary text without R code
+
+
+label: nchar_ex1
+
+  ordinary text without R code
+
+
+label: length_ex1
+
+  ordinary text without R code
+
+
+label: tolower_ex
+
+  ordinary text without R code
+
+  |                                                                         |.......................                                          |  35%
+label: toupper_ex
+
+  ordinary text without R code
+
+
+label: casefold_ex
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-44
+
+  ordinary text without R code
+
+  |                                                                         |.......................                                          |  36%
+label: unnamed-chunk-45
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-46
+
+  ordinary text without R code
+
+  |                                                                         |........................                                         |  36%
+label: unnamed-chunk-47 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |........................                                         |  37%
+label: chartr_ex1
+
+  ordinary text without R code
+
+
+label: chartr_ex2 (with options) 
+List of 1
+ $ error: logi TRUE
+
+
+  ordinary text without R code
+
+
+label: chartr_ex3
+
+  ordinary text without R code
+
+
+label: abbreviate_ex
+  |                                                                         |........................                                         |  38%
+  ordinary text without R code
+
+  |                                                                         |.........................                                        |  38%
+label: unnamed-chunk-48
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-49
+
+  ordinary text without R code
+
+
+label: substr_ex
+  |                                                                         |.........................                                        |  39%
+  ordinary text without R code
+
+
+label: substring_ex
+
+  ordinary text without R code
+
+
+label: union_ex
+
+  ordinary text without R code
+
+  |                                                                         |..........................                                       |  39%
+label: intersect_ex
+  |                                                                         |..........................                                       |  40%
+  ordinary text without R code
+
+
+label: setdiff_ex
+
+  ordinary text without R code
+
+
+label: setequal_ex
+
+  ordinary text without R code
+
+
+label: setidentical_ex
+
+  ordinary text without R code
+
+  |                                                                         |..........................                                       |  41%
+label: iselement_ex
+  |                                                                         |...........................                                      |  41%
+  ordinary text without R code
+
+
+label: in_ex
+
+  ordinary text without R code
+
+
+label: sort_ex1
+
+  ordinary text without R code
+
+  |                                                                         |...........................                                      |  42%
+label: sort_ex2
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-50 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+
+label: ugly_nchar
+  |                                                                         |............................                                     |  42%
+  ordinary text without R code
+
+  |                                                                         |............................                                     |  43%
+label: paste_berkeley_ex (with options) 
+List of 1
+ $ tidy: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: install_stringr (with options) 
+List of 2
+ $ message: logi FALSE
+ $ eval   : logi FALSE
+
+
+  ordinary text without R code
+
+
+label: load_stringr (with options) 
+List of 1
+ $ echo: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: str_c_ex
+  |                                                                         |............................                                     |  44%
+  ordinary text without R code
+
+
+label: str_join
+  |                                                                         |.............................                                    |  44%
+  ordinary text without R code
+
+
+label: str_length_ex
+
+  ordinary text without R code
+
+
+label: str_length_with_factors
+  |                                                                         |.............................                                    |  45%
+  ordinary text without R code
+
+
+label: str_sub_ex1
+
+  ordinary text without R code
+
+
+label: str_sub_ex2
+
+  ordinary text without R code
+
+
+label: str_sub_ex3
+  |                                                                         |..............................                                   |  46%
+  ordinary text without R code
+
+
+label: str_sub_ex4
+
+  ordinary text without R code
+
+
+label: str_dup_ex
+
+  ordinary text without R code
+
+
+label: str_pad_ex
+
+  ordinary text without R code
+
+  |                                                                         |..............................                                   |  47%
+label: douglas_adams (with options) 
+List of 1
+ $ tidy: logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |...............................                                  |  47%
+label: str_wrap_ex1 (with options) 
+List of 1
+ $ tidy: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: str_wrap_ex2 (with options) 
+List of 1
+ $ tidy: logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |...............................                                  |  48%
+label: steal (with options) 
+List of 1
+ $ tidy: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: word_ex
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-51 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |................................                                 |  49%
+label: unnamed-chunk-52
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-53
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-54
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-55
+  |                                                                         |................................                                 |  50%
+  ordinary text without R code
+
+
+label: unnamed-chunk-56
+
+  ordinary text without R code
+
+  |                                                                         |.................................                                |  50%
+label: unnamed-chunk-57
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-58
+  |                                                                         |.................................                                |  51%
+  ordinary text without R code
+
+
+label: me-and-you-coords
+
+  ordinary text without R code
+
+
+label: me-and-you0 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: me-and-you1 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |..................................                               |  52%
+label: me-and-you2
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-59
+
+  ordinary text without R code
+
+
+label: me-and-you3-pdf (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |..................................                               |  53%
+label: unnamed-chunk-60 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-61 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |...................................                              |  53%
+label: book
+
+  ordinary text without R code
+
+  |                                                                         |...................................                              |  54%
+label: unnamed-chunk-62 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-63 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: book_online
+
+  ordinary text without R code
+
+
+label: grep_book (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |....................................                             |  55%
+  ordinary text without R code
+
+
+label: unnamed-chunk-64 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-65
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-66 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |....................................                             |  56%
+  ordinary text without R code
+
+
+label: unnamed-chunk-67 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-68 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |.....................................                            |  56%
+  ordinary text without R code
+
+
+label: unnamed-chunk-69 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |.....................................                            |  57%
+  ordinary text without R code
+
+
+label: unnamed-chunk-70 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-71
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-72 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |.....................................                            |  58%
+label: unnamed-chunk-73 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |......................................                           |  58%
+  ordinary text without R code
+
+
+label: unnamed-chunk-74 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-75 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+  |                                                                         |......................................                           |  59%
+label: unnamed-chunk-76 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-77
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-78 (with options) 
+List of 1
+ $ results: chr "hide"
+
+  |                                                                         |.......................................                          |  59%
+  ordinary text without R code
+
+  |                                                                         |.......................................                          |  60%
+label: unnamed-chunk-79 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-80 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-81
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-82 (with options) 
+List of 1
+ $ results: chr "hide"
+
+  |                                                                         |.......................................                          |  61%
+  ordinary text without R code
+
+  |                                                                         |........................................                         |  61%
+label: unnamed-chunk-83
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-84 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-85 (with options) 
+List of 1
+ $ results: chr "hide"
+
+  |                                                                         |........................................                         |  62%
+  ordinary text without R code
+
+
+label: unnamed-chunk-86 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-87 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+  |                                                                         |.........................................                        |  62%
+label: unnamed-chunk-88 (with options) 
+List of 1
+ $ results: chr "hide"
+
+  |                                                                         |.........................................                        |  63%
+  ordinary text without R code
+
+
+label: unnamed-chunk-89
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-90 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-91 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+  |                                                                         |.........................................                        |  64%
+label: unnamed-chunk-92 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+  |                                                                         |..........................................                       |  64%
+label: unnamed-chunk-93 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-94 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+  |                                                                         |..........................................                       |  65%
+label: unnamed-chunk-95 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-96 (with options) 
+List of 1
+ $ results: chr "hide"
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-97 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |...........................................                      |  66%
+label: unnamed-chunk-98 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+
+label: reverse_func
+
+  ordinary text without R code
+
+
+label: try_rev_chars
+
+  ordinary text without R code
+
+
+label: reverse_chars_fun
+  |                                                                         |...........................................                      |  67%
+  ordinary text without R code
+
+
+label: reverse_chars_ex1
+  |                                                                         |............................................                     |  67%
+  ordinary text without R code
+
+
+label: reverse_chars_ex2
+
+  ordinary text without R code
+
+
+label: reverse_chars_lapply
+  |                                                                         |............................................                     |  68%
+  ordinary text without R code
+
+
+label: reverse_words_fun
+
+  ordinary text without R code
+
+
+label: reverse_words
+
+  ordinary text without R code
+
+
+label: reverse_words_lapply
+  |                                                                         |.............................................                    |  69%
+  ordinary text without R code
+
+
+label: unnamed-chunk-99 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-100 (with options) 
+List of 2
+ $ echo     : logi FALSE
+ $ out.width: NULL
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-101 (with options) 
+List of 2
+ $ echo     : logi FALSE
+ $ out.width: NULL
+
+
+  ordinary text without R code
+
+  |                                                                         |.............................................                    |  70%
+label: read_mail_list (with options) 
+List of 1
+ $ echo: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: read_mails (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |..............................................                   |  70%
+  ordinary text without R code
+
+
+label: unnamed-chunk-102
+
+  ordinary text without R code
+
+  |                                                                         |..............................................                   |  71%
+label: mail_list
+
+  ordinary text without R code
+
+
+label: extract_hrefs
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-103 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-104 (with options) 
+List of 2
+ $ echo   : logi FALSE
+ $ message: logi FALSE
+
+  |                                                                         |...............................................                  |  72%
+  ordinary text without R code
+
+
+label: unnamed-chunk-105 (with options) 
+List of 3
+ $ echo     : logi FALSE
+ $ out.width: NULL
+ $ fig.cap  : chr "Men's Long Jump World Record Progression"
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-106 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-107 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+  |                                                                         |...............................................                  |  73%
+  ordinary text without R code
+
+
+label: unnamed-chunk-108
+
+   inline R code fragments
+
+
+label: unnamed-chunk-109
+  |                                                                         |................................................                 |  73%
+  ordinary text without R code
+
+
+label: unnamed-chunk-110
+  |                                                                         |................................................                 |  74%
+  ordinary text without R code
+
+
+label: unnamed-chunk-111
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-112
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-113
+
+  ordinary text without R code
+
+  |                                                                         |.................................................                |  75%
+label: unnamed-chunk-114
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-115
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-116
+
+  ordinary text without R code
+
+  |                                                                         |.................................................                |  76%
+label: unnamed-chunk-117
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-118
+
+  ordinary text without R code
+
+  |                                                                         |..................................................               |  76%
+label: unnamed-chunk-119
+
+  ordinary text without R code
+
+  |                                                                         |..................................................               |  77%
+label: unnamed-chunk-120
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-121
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-122
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-123
+  |                                                                         |..................................................               |  78%
+  ordinary text without R code
+
+  |                                                                         |...................................................              |  78%
+label: unnamed-chunk-124
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-125
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-126
+  |                                                                         |...................................................              |  79%
+  ordinary text without R code
+
+
+label: unnamed-chunk-127
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-128
+
+  ordinary text without R code
+
+  |                                                                         |....................................................             |  79%
+label: unnamed-chunk-129
+  |                                                                         |....................................................             |  80%
+  ordinary text without R code
+
+
+label: unnamed-chunk-130
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-131
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-132
+
+  ordinary text without R code
+
+  |                                                                         |....................................................             |  81%
+label: unnamed-chunk-133
+  |                                                                         |.....................................................            |  81%
+  ordinary text without R code
+
+
+label: unnamed-chunk-134
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-135
+
+  ordinary text without R code
+
+  |                                                                         |.....................................................            |  82%
+label: unnamed-chunk-136
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-137
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-138
+  |                                                                         |......................................................           |  82%
+  ordinary text without R code
+
+  |                                                                         |......................................................           |  83%
+label: unnamed-chunk-139
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-140
+
+   inline R code fragments
+
+
+label: unnamed-chunk-141
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-142
+  |                                                                         |......................................................           |  84%
+  ordinary text without R code
+
+
+label: unnamed-chunk-143
+  |                                                                         |.......................................................          |  84%
+  ordinary text without R code
+
+
+label: unnamed-chunk-144
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-145
+  |                                                                         |.......................................................          |  85%
+  ordinary text without R code
+
+
+label: unnamed-chunk-146
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-147
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-148
+  |                                                                         |........................................................         |  86%
+  ordinary text without R code
+
+
+label: unnamed-chunk-149
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-150
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-151
+
+  ordinary text without R code
+
+  |                                                                         |........................................................         |  87%
+label: unnamed-chunk-152 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |.........................................................        |  87%
+label: unnamed-chunk-153 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: may-logs (with options) 
+List of 1
+ $ echo: logi FALSE
+
+
+  ordinary text without R code
+
+  |                                                                         |.........................................................        |  88%
+label: may-logs-fake (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: head-logs
+
+   inline R code fragments
+
+
+label: unnamed-chunk-154
+
+  ordinary text without R code
+
+  |                                                                         |..........................................................       |  89%
+label: unnamed-chunk-155
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-156
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-157
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-158
+  |                                                                         |..........................................................       |  90%
+  ordinary text without R code
+
+
+label: unnamed-chunk-159
+
+  ordinary text without R code
+
+  |                                                                         |...........................................................      |  90%
+label: unnamed-chunk-160
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-161
+  |                                                                         |...........................................................      |  91%
+  ordinary text without R code
+
+
+label: unnamed-chunk-162
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-163
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-164
+
+  ordinary text without R code
+
+  |                                                                         |............................................................     |  92%
+label: unnamed-chunk-165
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-166
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-167
+
+  ordinary text without R code
+
+  |                                                                         |............................................................     |  93%
+label: unnamed-chunk-168
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-169
+
+  ordinary text without R code
+
+  |                                                                         |.............................................................    |  93%
+label: unnamed-chunk-170
+
+  ordinary text without R code
+
+  |                                                                         |.............................................................    |  94%
+label: unnamed-chunk-171 (with options) 
+List of 2
+ $ include: logi FALSE
+ $ cache  : logi FALSE
+
+
+  ordinary text without R code
+
+
+label: setup (with options) 
+List of 1
+ $ message: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-172 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: read_biomed (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  |                                                                         |..............................................................   |  95%
+  ordinary text without R code
+
+
+label: BMCcatalog (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+
+label: biomedstr
+
+   inline R code fragments
+
+
+label: journalnames
+  |                                                                         |..............................................................   |  96%
+  ordinary text without R code
+
+
+label: titles10
+
+  ordinary text without R code
+
+
+label: rm-punct-titles10
+  |                                                                         |...............................................................  |  96%
+  ordinary text without R code
+
+
+label: trim-titles10
+  |                                                                         |...............................................................  |  97%
+  ordinary text without R code
+
+
+label: unnamed-chunk-173
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-174
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-175
+
+  ordinary text without R code
+
+  |                                                                         |...............................................................  |  98%
+label: unnamed-chunk-176
+  |                                                                         |................................................................ |  98%
+  ordinary text without R code
+
+
+label: unnamed-chunk-177
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-178
+
+   inline R code fragments
+
+  |                                                                         |................................................................ |  99%
+label: unnamed-chunk-179
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-180
+
+  ordinary text without R code
+
+
+label: unnamed-chunk-181
+  |                                                                         |.................................................................|  99%
+  ordinary text without R code
+
+  |                                                                         |.................................................................| 100%
+label: unnamed-chunk-182
+
+  ordinary text without R code
+
+
+label: top30barplot (with options) 
+List of 1
+ $ echo: language c(-1, -4)
+
+
+  ordinary text without R code
+
+
+output file: _main.knit.md
+
+/usr/local/bin/pandoc +RTS -K512m -RTS _main.utf8.md --to html4 --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash+smart --output _main.html --email-obfuscation none --wrap preserve --standalone --section-divs --table-of-contents --toc-depth 3 --template /Library/Frameworks/R.framework/Versions/3.3/Resources/library/bookdown/templates/gitbook.html --highlight-style pygments --number-sections --css style.css --include-in-header /var/folders/6z/1hlnpplx0pqfpkbqbtyjk0080000gn/T//Rtmp10o5XF/rmarkdown-str3792452f8bca.html --mathjax --filter /usr/local/bin/pandoc-citeproc 
+
+Output created: _book/index.html
+[1] "/Users/gaston/Dropbox/r4strings/_book/index.html"
+cp -fvr style.css _book/
+style.css -> _book/style.css
+cp -fvr images _book/
+images -> _book/images
+images/cover.png -> _book/images/cover.png
+images/me-you-wallpaper.png -> _book/images/me-you-wallpaper.png
+images/men-long-jump.png -> _book/images/men-long-jump.png
+images/rmailing-interest-groups.png -> _book/images/rmailing-interest-groups.png
+images/rmailing-lists-page.png -> _book/images/rmailing-lists-page.png
+]0;~/Dropbox/r4strings[0;36m[gaston@ r4strings]$[0m 
