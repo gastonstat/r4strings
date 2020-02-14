@@ -152,12 +152,16 @@ cat(month.name[1:4], sep = "")
 ```
 
 The argument `fill` allows us to break long strings; this is achieved when we 
-specify the string width with an integer number:
+specify the string width with an integer number (or the default set by options()):
 
 ```{r cat_ex5}
-# fill = 30
+options(width=79)
+print(options('width'))
 cat("Loooooooooong strings", "can be displayed", "in a nice format", 
-    "by using the 'fill' argument", fill = 30)
+    "by using the 'fill' argument", fill = T)
+# fill = 40
+cat("Loooooooooong strings", "can be displayed", "in a nice format", 
+    "by using the 'fill' argument", fill = 40)
 ```
 
 Last but not least, we can specify a file output in `cat()`. For instance, 
