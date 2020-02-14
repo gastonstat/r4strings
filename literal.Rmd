@@ -67,7 +67,7 @@ All the letters and digits in the English alphabet are considered literal
 characters. They are called _literal_ because they match themselves.
 
 ```{r eval = FALSE}
-str_view <- c("I had 3 quesadillas for lunch", "3")
+str_view("I had 3 quesadillas for lunch", "3")
 ```
 
 Here is another example:
