@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Handling Strings with R</title>
-  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Formatting Text and Numbers | Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:title" content="3 Formatting Text and Numbers | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -17,29 +16,32 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Handling Strings with R" />
+  <meta name="twitter:title" content="3 Formatting Text and Numbers | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
 
-<meta name="author" content="Gaston Sanchez">
+<meta name="author" content="Gaston Sanchez Chitra Venkatesh" />
 
 
-<meta name="date" content="2016-10-19">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="chars.html">
-<link rel="next" href="c-style-formatting.html">
+<link rel="prev" href="chars.html"/>
+<link rel="next" href="c-style-formatting.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,28 +52,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,49 +251,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
 <li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
+<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
+<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries</a></li>
 <li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="13" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>13</b> Practical Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
+<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>14</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="14.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>14.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="14.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>14.3</b> Reversing Words</a></li>
+<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
+<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
+<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>15</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="15.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
-<li class="chapter" data-level="15.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>15.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="15.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>15.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>16</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="16.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-<li class="chapter" data-level="16.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>16.2</b> Import Data</a></li>
-<li class="chapter" data-level="16.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>16.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="16.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>16.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="16.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>16.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="16.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>16.6</b> Month and Day</a></li>
-<li class="chapter" data-level="16.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>16.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="16.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>16.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="16.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>16.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>17</b> Data Log File</a><ul>
-<li class="chapter" data-level="17.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>17.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="17.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>17.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="17.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>17.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="17.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>17.1.3</b> Image files</a></li>
-<li class="chapter" data-level="17.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>17.1.4</b> How to match image files with one regex pattern?</a></li>
+<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>18</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="18.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>18.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="18.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>18.2.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
+<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
+<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
+<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
+<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
+<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
+<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>18.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="18.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>18.4</b> Common words</a></li>
-<li class="chapter" data-level="18.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>18.5</b> The top 30 words</a></li>
+<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
+<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
+<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
+<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -369,24 +375,24 @@ print-related functions:</p>
 <h2><span class="header-section-number">3.3</span> Generic printing</h2>
 <p>The <em>workhorse</em> printing function in R is <code>print()</code>. As its
 names indicates, this function prints its argument on the R console:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="co"># text string</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">my_string &lt;-<span class="st"> &quot;programming with data is fun&quot;</span></a>
-<a class="sourceLine" id="cb44-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="kw">print</span>(my_string)</a>
-<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="co">#&gt; [1] &quot;programming with data is fun&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="formatting.html#cb44-1"></a><span class="co"># text string</span></span>
+<span id="cb44-2"><a href="formatting.html#cb44-2"></a>my_string &lt;-<span class="st"> &quot;programming with data is fun&quot;</span></span>
+<span id="cb44-3"><a href="formatting.html#cb44-3"></a></span>
+<span id="cb44-4"><a href="formatting.html#cb44-4"></a><span class="kw">print</span>(my_string)</span>
+<span id="cb44-5"><a href="formatting.html#cb44-5"></a><span class="co">#&gt; [1] &quot;programming with data is fun&quot;</span></span></code></pre></div>
 <p>To be more precise, <code>print()</code> is a generic function, which means that you
 should use this function when creating printing methods for programmed classes.</p>
 <p>As you can see from the previous example, <code>print()</code> displays text in
 quoted form by default. If you want to print character strings with no quotes
 you can set the argument <code>quote = FALSE</code></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="co"># print without quotes</span></a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">print</span>(my_string, <span class="dt">quote =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="co">#&gt; [1] programming with data is fun</span></a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="formatting.html#cb45-1"></a><span class="co"># print without quotes</span></span>
+<span id="cb45-2"><a href="formatting.html#cb45-2"></a><span class="kw">print</span>(my_string, <span class="dt">quote =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb45-3"><a href="formatting.html#cb45-3"></a><span class="co">#&gt; [1] programming with data is fun</span></span></code></pre></div>
 <div id="when-to-use-print" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> When to use <code>print()</code>?</h3>
 <p>When you type the name of an obbject in the R console, R calls the corresponding
 <code>print</code> method associated to the class of the object. If the object is a
-<code>&quot;data.frame&quot;</code>, then R will dispatch the method <code>print.data.frame</code> and display
+<code>"data.frame"</code>, then R will dispatch the method <code>print.data.frame</code> and display
 the output on screen accordingly.</p>
 <p>Most of the times you don’t really need to invoke <code>print()</code>. Usually, simply
 typing the name of the object will suffice. So when do you actually call
@@ -397,21 +403,21 @@ or more computational steps. Typical examples that require an explicit call to
 or a conditional structure.</p>
 <p>Consider the following dummy <code>for</code> loop. It iterates five times, each
 time adding 1 to the value of the iterator <code>i</code>:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</a>
-<a class="sourceLine" id="cb46-2" data-line-number="2">  i <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb46-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="formatting.html#cb46-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
+<span id="cb46-2"><a href="formatting.html#cb46-2"></a>  i <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb46-3"><a href="formatting.html#cb46-3"></a>}</span></code></pre></div>
 <p>The above code works and R executes the additions, but nothing is displayed on
 the console. This is because the command <code>i + 1</code> forms part of an R expression,
 that is, it is within the braces <code>{ }</code>.
 To be able to see the actual computations you should call <code>print()</code> like so:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">  <span class="kw">print</span>(i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="co">#&gt; [1] 2</span></a>
-<a class="sourceLine" id="cb47-5" data-line-number="5"><span class="co">#&gt; [1] 3</span></a>
-<a class="sourceLine" id="cb47-6" data-line-number="6"><span class="co">#&gt; [1] 4</span></a>
-<a class="sourceLine" id="cb47-7" data-line-number="7"><span class="co">#&gt; [1] 5</span></a>
-<a class="sourceLine" id="cb47-8" data-line-number="8"><span class="co">#&gt; [1] 6</span></a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="formatting.html#cb47-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
+<span id="cb47-2"><a href="formatting.html#cb47-2"></a>  <span class="kw">print</span>(i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb47-3"><a href="formatting.html#cb47-3"></a>}</span>
+<span id="cb47-4"><a href="formatting.html#cb47-4"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb47-5"><a href="formatting.html#cb47-5"></a><span class="co">#&gt; [1] 3</span></span>
+<span id="cb47-6"><a href="formatting.html#cb47-6"></a><span class="co">#&gt; [1] 4</span></span>
+<span id="cb47-7"><a href="formatting.html#cb47-7"></a><span class="co">#&gt; [1] 5</span></span>
+<span id="cb47-8"><a href="formatting.html#cb47-8"></a><span class="co">#&gt; [1] 6</span></span></code></pre></div>
 </div>
 </div>
 <div id="concatenate-and-print-with-cat" class="section level2">
@@ -427,54 +433,54 @@ the strings are concatenated with a space character as separator. This can be
 modified with the <code>sep</code> argument.</p>
 <p>If you use <code>cat()</code> with only one single string, you get a similar
 (although not identical) result as <code>noquote()</code>:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="co"># simply print with &#39;cat()&#39;</span></a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">cat</span>(my_string)</a>
-<a class="sourceLine" id="cb49-3" data-line-number="3"><span class="co">#&gt; programming with data is fun</span></a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="formatting.html#cb49-1"></a><span class="co"># simply print with &#39;cat()&#39;</span></span>
+<span id="cb49-2"><a href="formatting.html#cb49-2"></a><span class="kw">cat</span>(my_string)</span>
+<span id="cb49-3"><a href="formatting.html#cb49-3"></a><span class="co">#&gt; programming with data is fun</span></span></code></pre></div>
 <p>As you can see, <code>cat()</code> prints its arguments without quotes. In essence, <code>cat()</code>
 simply displays its content (on screen or in a file). Compared to <code>noquote()</code>,
 <code>cat()</code> does not print the numeric line indicator (<code>[1]</code> in this case).</p>
 <p>The usefulness of <code>cat()</code> is when we have two or more strings that we want
 to concatenate:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co"># concatenate and print</span></a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">cat</span>(my_string, <span class="st">&quot;with R&quot;</span>)</a>
-<a class="sourceLine" id="cb50-3" data-line-number="3"><span class="co">#&gt; programming with data is fun with R</span></a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="formatting.html#cb50-1"></a><span class="co"># concatenate and print</span></span>
+<span id="cb50-2"><a href="formatting.html#cb50-2"></a><span class="kw">cat</span>(my_string, <span class="st">&quot;with R&quot;</span>)</span>
+<span id="cb50-3"><a href="formatting.html#cb50-3"></a><span class="co">#&gt; programming with data is fun with R</span></span></code></pre></div>
 <p>You can use the argument <code>sep</code> to indicate a chacracter vector that will be
 included to separate the concatenated elements:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="co"># especifying &#39;sep&#39;</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="kw">cat</span>(my_string, <span class="st">&quot;with R&quot;</span>, <span class="dt">sep=</span><span class="st">&quot; =) &quot;</span>)</a>
-<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="co">#&gt; programming with data is fun =) with R</span></a>
-<a class="sourceLine" id="cb51-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="co"># another example</span></a>
-<a class="sourceLine" id="cb51-6" data-line-number="6"><span class="kw">cat</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</a>
-<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="co">#&gt; 1-2-3-4-5-6-7-8-9-10</span></a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="formatting.html#cb51-1"></a><span class="co"># especifying &#39;sep&#39;</span></span>
+<span id="cb51-2"><a href="formatting.html#cb51-2"></a><span class="kw">cat</span>(my_string, <span class="st">&quot;with R&quot;</span>, <span class="dt">sep=</span><span class="st">&quot; =) &quot;</span>)</span>
+<span id="cb51-3"><a href="formatting.html#cb51-3"></a><span class="co">#&gt; programming with data is fun =) with R</span></span>
+<span id="cb51-4"><a href="formatting.html#cb51-4"></a></span>
+<span id="cb51-5"><a href="formatting.html#cb51-5"></a><span class="co"># another example</span></span>
+<span id="cb51-6"><a href="formatting.html#cb51-6"></a><span class="kw">cat</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb51-7"><a href="formatting.html#cb51-7"></a><span class="co">#&gt; 1-2-3-4-5-6-7-8-9-10</span></span></code></pre></div>
 <p>When we pass vectors to <code>cat()</code>, each of the elements are treated as though
 they were separate arguments:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co"># first four months</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">cat</span>(month.name[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)</a>
-<a class="sourceLine" id="cb52-3" data-line-number="3"><span class="co">#&gt; January February March April</span></a>
-<a class="sourceLine" id="cb52-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="co"># first four months</span></a>
-<a class="sourceLine" id="cb52-6" data-line-number="6"><span class="kw">cat</span>(month.name[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</a>
-<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="co">#&gt; January-February-March-April</span></a>
-<a class="sourceLine" id="cb52-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb52-9" data-line-number="9"><span class="co"># first four months</span></a>
-<a class="sourceLine" id="cb52-10" data-line-number="10"><span class="kw">cat</span>(month.name[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb52-11" data-line-number="11"><span class="co">#&gt; JanuaryFebruaryMarchApril</span></a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="formatting.html#cb52-1"></a><span class="co"># first four months</span></span>
+<span id="cb52-2"><a href="formatting.html#cb52-2"></a><span class="kw">cat</span>(month.name[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb52-3"><a href="formatting.html#cb52-3"></a><span class="co">#&gt; January February March April</span></span>
+<span id="cb52-4"><a href="formatting.html#cb52-4"></a></span>
+<span id="cb52-5"><a href="formatting.html#cb52-5"></a><span class="co"># first four months</span></span>
+<span id="cb52-6"><a href="formatting.html#cb52-6"></a><span class="kw">cat</span>(month.name[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb52-7"><a href="formatting.html#cb52-7"></a><span class="co">#&gt; January-February-March-April</span></span>
+<span id="cb52-8"><a href="formatting.html#cb52-8"></a></span>
+<span id="cb52-9"><a href="formatting.html#cb52-9"></a><span class="co"># first four months</span></span>
+<span id="cb52-10"><a href="formatting.html#cb52-10"></a><span class="kw">cat</span>(month.name[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb52-11"><a href="formatting.html#cb52-11"></a><span class="co">#&gt; JanuaryFebruaryMarchApril</span></span></code></pre></div>
 <p>The argument <code>fill</code> allows us to break long strings; this is achieved when we
 specify the string width with an integer number:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># fill = 30</span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw">cat</span>(<span class="st">&quot;Loooooooooong strings&quot;</span>, <span class="st">&quot;can be displayed&quot;</span>, <span class="st">&quot;in a nice format&quot;</span>, </a>
-<a class="sourceLine" id="cb53-3" data-line-number="3">    <span class="st">&quot;by using the &#39;fill&#39; argument&quot;</span>, <span class="dt">fill =</span> <span class="dv">30</span>)</a>
-<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="co">#&gt; Loooooooooong strings </span></a>
-<a class="sourceLine" id="cb53-5" data-line-number="5"><span class="co">#&gt; can be displayed </span></a>
-<a class="sourceLine" id="cb53-6" data-line-number="6"><span class="co">#&gt; in a nice format </span></a>
-<a class="sourceLine" id="cb53-7" data-line-number="7"><span class="co">#&gt; by using the &#39;fill&#39; argument</span></a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="formatting.html#cb53-1"></a><span class="co"># fill = 30</span></span>
+<span id="cb53-2"><a href="formatting.html#cb53-2"></a><span class="kw">cat</span>(<span class="st">&quot;Loooooooooong strings&quot;</span>, <span class="st">&quot;can be displayed&quot;</span>, <span class="st">&quot;in a nice format&quot;</span>, </span>
+<span id="cb53-3"><a href="formatting.html#cb53-3"></a>    <span class="st">&quot;by using the &#39;fill&#39; argument&quot;</span>, <span class="dt">fill =</span> <span class="dv">30</span>)</span>
+<span id="cb53-4"><a href="formatting.html#cb53-4"></a><span class="co">#&gt; Loooooooooong strings </span></span>
+<span id="cb53-5"><a href="formatting.html#cb53-5"></a><span class="co">#&gt; can be displayed </span></span>
+<span id="cb53-6"><a href="formatting.html#cb53-6"></a><span class="co">#&gt; in a nice format </span></span>
+<span id="cb53-7"><a href="formatting.html#cb53-7"></a><span class="co">#&gt; by using the &#39;fill&#39; argument</span></span></code></pre></div>
 <p>Last but not least, we can specify a file output in <code>cat()</code>. For instance,
 let’s suppose that we want to save the output in the file <code>output.txt</code>
 located in our working directory. This is done by specifying the <code>file</code>
 argument:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co"># cat with output in a given file</span></a>
-<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="kw">cat</span>(my_string, <span class="st">&quot;with R&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;output.txt&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="formatting.html#cb54-1"></a><span class="co"># cat with output in a given file</span></span>
+<span id="cb54-2"><a href="formatting.html#cb54-2"></a><span class="kw">cat</span>(my_string, <span class="st">&quot;with R&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;output.txt&quot;</span>)</span></code></pre></div>
 </div>
 <div id="encoding-strings-with-format" class="section level2">
 <h2><span class="header-section-number">3.5</span> Encoding strings with <code>format()</code></h2>
@@ -482,64 +488,64 @@ argument:</p>
 Essentially, <code>format()</code> treats the elements of a vector as character strings
 using a common format. This is especially useful when printing numbers and
 quantities under different formats.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># default usage</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw">format</span>(<span class="fl">13.7</span>)</a>
-<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="co">#&gt; [1] &quot;13.7&quot;</span></a>
-<a class="sourceLine" id="cb55-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb55-5" data-line-number="5"><span class="co"># another example</span></a>
-<a class="sourceLine" id="cb55-6" data-line-number="6"><span class="kw">format</span>(<span class="fl">13.12345678</span>)</a>
-<a class="sourceLine" id="cb55-7" data-line-number="7"><span class="co">#&gt; [1] &quot;13.1&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="formatting.html#cb55-1"></a><span class="co"># default usage</span></span>
+<span id="cb55-2"><a href="formatting.html#cb55-2"></a><span class="kw">format</span>(<span class="fl">13.7</span>)</span>
+<span id="cb55-3"><a href="formatting.html#cb55-3"></a><span class="co">#&gt; [1] &quot;13.7&quot;</span></span>
+<span id="cb55-4"><a href="formatting.html#cb55-4"></a></span>
+<span id="cb55-5"><a href="formatting.html#cb55-5"></a><span class="co"># another example</span></span>
+<span id="cb55-6"><a href="formatting.html#cb55-6"></a><span class="kw">format</span>(<span class="fl">13.12345678</span>)</span>
+<span id="cb55-7"><a href="formatting.html#cb55-7"></a><span class="co">#&gt; [1] &quot;13.1&quot;</span></span></code></pre></div>
 <p>Some useful arguments used in <code>format()</code>:</p>
 <ul>
 <li><code>width</code> the (minimum) width of strings produced</li>
 <li><code>trim</code> if set to <code>TRUE</code> there is no padding with spaces</li>
 <li><code>justify</code> controls how padding takes place for strings.
-Takes the values <code>&quot;left&quot;, &quot;right&quot;, &quot;centre&quot;, &quot;none&quot;</code></li>
+Takes the values <code>"left", "right", "centre", "none"</code></li>
 </ul>
 <p>For controling the printing of numbers, use these arguments:</p>
 <ul>
 <li><code>digits</code> The number of digits to the right of the decimal place.</li>
 <li><code>scientific</code> use <code>TRUE</code> for scientific notation, <code>FALSE</code> for standard notation</li>
 </ul>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="co"># use of &#39;nsmall&#39;</span></a>
-<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="kw">format</span>(<span class="fl">13.7</span>, <span class="dt">nsmall =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="co">#&gt; [1] &quot;13.700&quot;</span></a>
-<a class="sourceLine" id="cb56-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb56-5" data-line-number="5"><span class="co"># use of &#39;digits&#39;</span></a>
-<a class="sourceLine" id="cb56-6" data-line-number="6"><span class="kw">format</span>(<span class="kw">c</span>(<span class="fl">6.0</span>, <span class="fl">13.1</span>), <span class="dt">digits =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb56-7" data-line-number="7"><span class="co">#&gt; [1] &quot; 6&quot; &quot;13&quot;</span></a>
-<a class="sourceLine" id="cb56-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb56-9" data-line-number="9"><span class="co"># use of &#39;digits&#39; and &#39;nsmall&#39;</span></a>
-<a class="sourceLine" id="cb56-10" data-line-number="10"><span class="kw">format</span>(<span class="kw">c</span>(<span class="fl">6.0</span>, <span class="fl">13.1</span>), <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">nsmall =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb56-11" data-line-number="11"><span class="co">#&gt; [1] &quot; 6.0&quot; &quot;13.1&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="formatting.html#cb56-1"></a><span class="co"># use of &#39;nsmall&#39;</span></span>
+<span id="cb56-2"><a href="formatting.html#cb56-2"></a><span class="kw">format</span>(<span class="fl">13.7</span>, <span class="dt">nsmall =</span> <span class="dv">3</span>)</span>
+<span id="cb56-3"><a href="formatting.html#cb56-3"></a><span class="co">#&gt; [1] &quot;13.700&quot;</span></span>
+<span id="cb56-4"><a href="formatting.html#cb56-4"></a></span>
+<span id="cb56-5"><a href="formatting.html#cb56-5"></a><span class="co"># use of &#39;digits&#39;</span></span>
+<span id="cb56-6"><a href="formatting.html#cb56-6"></a><span class="kw">format</span>(<span class="kw">c</span>(<span class="fl">6.0</span>, <span class="fl">13.1</span>), <span class="dt">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb56-7"><a href="formatting.html#cb56-7"></a><span class="co">#&gt; [1] &quot; 6&quot; &quot;13&quot;</span></span>
+<span id="cb56-8"><a href="formatting.html#cb56-8"></a></span>
+<span id="cb56-9"><a href="formatting.html#cb56-9"></a><span class="co"># use of &#39;digits&#39; and &#39;nsmall&#39;</span></span>
+<span id="cb56-10"><a href="formatting.html#cb56-10"></a><span class="kw">format</span>(<span class="kw">c</span>(<span class="fl">6.0</span>, <span class="fl">13.1</span>), <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">nsmall =</span> <span class="dv">1</span>)</span>
+<span id="cb56-11"><a href="formatting.html#cb56-11"></a><span class="co">#&gt; [1] &quot; 6.0&quot; &quot;13.1&quot;</span></span></code></pre></div>
 <p>By default, <code>format()</code> pads the strings with spaces so that they all have
 the same length.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># justify options</span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">format</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;BB&quot;</span>, <span class="st">&quot;CCC&quot;</span>), <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">justify =</span> <span class="st">&quot;centre&quot;</span>)</a>
-<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="co">#&gt; [1] &quot;  A  &quot; &quot; BB  &quot; &quot; CCC &quot;</span></a>
-<a class="sourceLine" id="cb57-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb57-5" data-line-number="5"><span class="kw">format</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;BB&quot;</span>, <span class="st">&quot;CCC&quot;</span>), <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">justify =</span> <span class="st">&quot;left&quot;</span>)</a>
-<a class="sourceLine" id="cb57-6" data-line-number="6"><span class="co">#&gt; [1] &quot;A    &quot; &quot;BB   &quot; &quot;CCC  &quot;</span></a>
-<a class="sourceLine" id="cb57-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb57-8" data-line-number="8"><span class="kw">format</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;BB&quot;</span>, <span class="st">&quot;CCC&quot;</span>), <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">justify =</span> <span class="st">&quot;right&quot;</span>)</a>
-<a class="sourceLine" id="cb57-9" data-line-number="9"><span class="co">#&gt; [1] &quot;    A&quot; &quot;   BB&quot; &quot;  CCC&quot;</span></a>
-<a class="sourceLine" id="cb57-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb57-11" data-line-number="11"><span class="kw">format</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;BB&quot;</span>, <span class="st">&quot;CCC&quot;</span>), <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">justify =</span> <span class="st">&quot;none&quot;</span>)</a>
-<a class="sourceLine" id="cb57-12" data-line-number="12"><span class="co">#&gt; [1] &quot;A&quot;   &quot;BB&quot;  &quot;CCC&quot;</span></a>
-<a class="sourceLine" id="cb57-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb57-14" data-line-number="14"><span class="co"># digits</span></a>
-<a class="sourceLine" id="cb57-15" data-line-number="15"><span class="kw">format</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">digits =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb57-16" data-line-number="16"><span class="co">#&gt; [1] &quot;1.00&quot; &quot;0.50&quot; &quot;0.33&quot; &quot;0.25&quot; &quot;0.20&quot;</span></a>
-<a class="sourceLine" id="cb57-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb57-18" data-line-number="18"><span class="co"># use of &#39;digits&#39;, widths and justify</span></a>
-<a class="sourceLine" id="cb57-19" data-line-number="19"><span class="kw">format</span>(<span class="kw">format</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">digits =</span> <span class="dv">2</span>), <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">justify =</span> <span class="st">&quot;c&quot;</span>)</a>
-<a class="sourceLine" id="cb57-20" data-line-number="20"><span class="co">#&gt; [1] &quot; 1.00 &quot; &quot; 0.50 &quot; &quot; 0.33 &quot; &quot; 0.25 &quot; &quot; 0.20 &quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="formatting.html#cb57-1"></a><span class="co"># justify options</span></span>
+<span id="cb57-2"><a href="formatting.html#cb57-2"></a><span class="kw">format</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;BB&quot;</span>, <span class="st">&quot;CCC&quot;</span>), <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">justify =</span> <span class="st">&quot;centre&quot;</span>)</span>
+<span id="cb57-3"><a href="formatting.html#cb57-3"></a><span class="co">#&gt; [1] &quot;  A  &quot; &quot; BB  &quot; &quot; CCC &quot;</span></span>
+<span id="cb57-4"><a href="formatting.html#cb57-4"></a></span>
+<span id="cb57-5"><a href="formatting.html#cb57-5"></a><span class="kw">format</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;BB&quot;</span>, <span class="st">&quot;CCC&quot;</span>), <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">justify =</span> <span class="st">&quot;left&quot;</span>)</span>
+<span id="cb57-6"><a href="formatting.html#cb57-6"></a><span class="co">#&gt; [1] &quot;A    &quot; &quot;BB   &quot; &quot;CCC  &quot;</span></span>
+<span id="cb57-7"><a href="formatting.html#cb57-7"></a></span>
+<span id="cb57-8"><a href="formatting.html#cb57-8"></a><span class="kw">format</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;BB&quot;</span>, <span class="st">&quot;CCC&quot;</span>), <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">justify =</span> <span class="st">&quot;right&quot;</span>)</span>
+<span id="cb57-9"><a href="formatting.html#cb57-9"></a><span class="co">#&gt; [1] &quot;    A&quot; &quot;   BB&quot; &quot;  CCC&quot;</span></span>
+<span id="cb57-10"><a href="formatting.html#cb57-10"></a></span>
+<span id="cb57-11"><a href="formatting.html#cb57-11"></a><span class="kw">format</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;BB&quot;</span>, <span class="st">&quot;CCC&quot;</span>), <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">justify =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb57-12"><a href="formatting.html#cb57-12"></a><span class="co">#&gt; [1] &quot;A&quot;   &quot;BB&quot;  &quot;CCC&quot;</span></span>
+<span id="cb57-13"><a href="formatting.html#cb57-13"></a></span>
+<span id="cb57-14"><a href="formatting.html#cb57-14"></a><span class="co"># digits</span></span>
+<span id="cb57-15"><a href="formatting.html#cb57-15"></a><span class="kw">format</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb57-16"><a href="formatting.html#cb57-16"></a><span class="co">#&gt; [1] &quot;1.00&quot; &quot;0.50&quot; &quot;0.33&quot; &quot;0.25&quot; &quot;0.20&quot;</span></span>
+<span id="cb57-17"><a href="formatting.html#cb57-17"></a></span>
+<span id="cb57-18"><a href="formatting.html#cb57-18"></a><span class="co"># use of &#39;digits&#39;, widths and justify</span></span>
+<span id="cb57-19"><a href="formatting.html#cb57-19"></a><span class="kw">format</span>(<span class="kw">format</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">digits =</span> <span class="dv">2</span>), <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">justify =</span> <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb57-20"><a href="formatting.html#cb57-20"></a><span class="co">#&gt; [1] &quot; 1.00 &quot; &quot; 0.50 &quot; &quot; 0.33 &quot; &quot; 0.25 &quot; &quot; 0.20 &quot;</span></span></code></pre></div>
 <p>For printing large quantities with a sequenced format we can use the arguments
 <code>big.mark</code> or <code>big.interval</code>. For instance, here is how we can print a number
-with sequences separated by a comma <code>&quot;,&quot;</code></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co"># big.mark</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">format</span>(<span class="dv">123456789</span>, <span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>)</a>
-<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="co">#&gt; [1] &quot;1.23e+08&quot;</span></a></code></pre></div>
+with sequences separated by a comma <code>","</code></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="formatting.html#cb58-1"></a><span class="co"># big.mark</span></span>
+<span id="cb58-2"><a href="formatting.html#cb58-2"></a><span class="kw">format</span>(<span class="dv">123456789</span>, <span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb58-3"><a href="formatting.html#cb58-3"></a><span class="co">#&gt; [1] &quot;1.23e+08&quot;</span></span></code></pre></div>
 </div>
 <div id="exercises-1" class="section level2">
 <h2><span class="header-section-number">3.6</span> Exercises</h2>
@@ -548,13 +554,13 @@ with sequences separated by a comma <code>&quot;,&quot;</code></p>
 <li><p>Mention three differences between <code>print()</code> and <code>cat()</code>.</p></li>
 <li><p>What happens when you pass a matrix to <code>cat()</code>? For instance:</p></li>
 </ol>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="kw">cat</span>(m)</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="formatting.html#cb59-1"></a>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb59-2"><a href="formatting.html#cb59-2"></a><span class="kw">cat</span>(m)</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>What happens when you pass a data frame object to <code>cat()</code>? For instance:</li>
 </ol>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">dfr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="kw">cat</span>(dfr)</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="formatting.html#cb60-1"></a>dfr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>)</span>
+<span id="cb60-2"><a href="formatting.html#cb60-2"></a><span class="kw">cat</span>(dfr)</span></code></pre></div>
 <hr />
 <div id="make-a-donation-1" class="section level4 unnumbered">
 <h4>Make a donation</h4>
@@ -581,11 +587,13 @@ with sequences separated by a comma <code>&quot;,&quot;</code></p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -593,12 +601,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -608,6 +615,14 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/gastonstat/r4strings/edit/master/printing.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -623,9 +638,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

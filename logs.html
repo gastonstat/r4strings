@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Handling Strings with R</title>
-  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>20 Data Log File | Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:title" content="20 Data Log File | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -17,29 +16,32 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Handling Strings with R" />
+  <meta name="twitter:title" content="20 Data Log File | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
 
-<meta name="author" content="Gaston Sanchez">
+<meta name="author" content="Gaston Sanchez Chitra Venkatesh" />
 
 
-<meta name="date" content="2016-10-19">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="cleaning.html">
-<link rel="next" href="biomed.html">
+<link rel="prev" href="cleaning.html"/>
+<link rel="next" href="biomed.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,28 +52,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,49 +251,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
 <li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
+<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
+<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries</a></li>
 <li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="13" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>13</b> Practical Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
+<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>14</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="14.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>14.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="14.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>14.3</b> Reversing Words</a></li>
+<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
+<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
+<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>15</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="15.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
-<li class="chapter" data-level="15.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>15.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="15.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>15.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>16</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="16.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-<li class="chapter" data-level="16.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>16.2</b> Import Data</a></li>
-<li class="chapter" data-level="16.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>16.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="16.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>16.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="16.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>16.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="16.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>16.6</b> Month and Day</a></li>
-<li class="chapter" data-level="16.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>16.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="16.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>16.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="16.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>16.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>17</b> Data Log File</a><ul>
-<li class="chapter" data-level="17.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>17.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="17.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>17.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="17.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>17.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="17.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>17.1.3</b> Image files</a></li>
-<li class="chapter" data-level="17.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>17.1.4</b> How to match image files with one regex pattern?</a></li>
+<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>18</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="18.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>18.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="18.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>18.2.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
+<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
+<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
+<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
+<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
+<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
+<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>18.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="18.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>18.4</b> Common words</a></li>
-<li class="chapter" data-level="18.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>18.5</b> The top 30 words</a></li>
+<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
+<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
+<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
+<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -315,10 +321,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="logs" class="section level1">
-<h1><span class="header-section-number">17</span> Data Log File</h1>
+<h1><span class="header-section-number">20</span> Data Log File</h1>
 <p>In this example, we’ll be using the text file <code>logfile.txt</code> located in the
 <code>data/</code> folder of the book’s github repository:</p>
-<p><a href="https://raw.githubusercontent.com/gastonstat/r4strings/master/data/logfile.txt" class="uri">https://raw.githubusercontent.com/gastonstat/r4strings/master/data/logfile.txt</a></p>
+<p><a href="https://raw.githubusercontent.com/gastonstat/r4strings/master/data/logfile.txt">https://raw.githubusercontent.com/gastonstat/r4strings/master/data/logfile.txt</a></p>
 <p>This file is a <strong>server log file</strong> that contains the recorded events taking place in a web server. The content of the file is in a special format known as <em>common log format</em>. According to <a href="https://en.wikipedia.org/wiki/Common_Log_Format">wikipedia</a>:</p>
 <blockquote>
 <p>“The Common Log Format is a standardized text file format used by web servers when generating server log files.”</p>
@@ -327,10 +333,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>pd9049dac.dip.t-dialin.net - - [01/May/2001:01:51:25 -0700] 
 &quot;GET /accesswatch/accesswatch-1.33/ HTTP/1.0&quot; 200 1004</code></pre>
 <ul>
-<li>A <code>&quot;-&quot;</code> in a field indicates missing data.</li>
+<li>A <code>"-"</code> in a field indicates missing data.</li>
 <li><code>pd9049dac.dip.t-dialin.net</code> is the IP address of the client (remote host) which made the request to the server.</li>
 <li><code>[01/May/2001:01:51:25 -0700]</code> is the date, time, and time zone that the request was received, by default in strftime format<code>%d/%b/%Y:%H:%M:%S %z</code>.</li>
-<li><code>&quot;GET /accesswatch/accesswatch-1.33/ HTTP/1.0&quot;</code> is the request line from the client.</li>
+<li><code>"GET /accesswatch/accesswatch-1.33/ HTTP/1.0"</code> is the request line from the client.</li>
 <li>The method <code>GET, /accesswatch/accesswatch-1.33/</code> is the resource requested, and <code>HTTP/1.0</code> is the HTTP protocol.</li>
 <li><code>200</code> is the HTTP status code returned to the client.
 <ul>
@@ -342,190 +348,196 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>1004</code> is the size of the object returned to the client, measured in bytes.</li>
 </ul>
 <p>If you want to download a copy of the text file to your working directory (from within R) run the following code:</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" data-line-number="1"><span class="co"># download file</span></a>
-<a class="sourceLine" id="cb280-2" data-line-number="2">github &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/gastonstat/r4strings&quot;</span></a>
-<a class="sourceLine" id="cb280-3" data-line-number="3">textfile &lt;-<span class="st"> &quot;/master/data/logfile.txt&quot;</span></a>
-<a class="sourceLine" id="cb280-4" data-line-number="4"><span class="kw">download.file</span>(<span class="dt">url =</span> <span class="kw">paste0</span>(github, textfile), <span class="dt">destfile =</span> <span class="st">&quot;logfile.txt&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="logs.html#cb295-1"></a><span class="co"># download file</span></span>
+<span id="cb295-2"><a href="logs.html#cb295-2"></a>github &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/gastonstat/r4strings&quot;</span></span>
+<span id="cb295-3"><a href="logs.html#cb295-3"></a>textfile &lt;-<span class="st"> &quot;/master/data/logfile.txt&quot;</span></span>
+<span id="cb295-4"><a href="logs.html#cb295-4"></a><span class="kw">download.file</span>(<span class="dt">url =</span> <span class="kw">paste0</span>(github, textfile), <span class="dt">destfile =</span> <span class="st">&quot;logfile.txt&quot;</span>)</span></code></pre></div>
 <div id="reading-the-text-file" class="section level2">
-<h2><span class="header-section-number">17.1</span> Reading the text file</h2>
+<h2><span class="header-section-number">20.1</span> Reading the text file</h2>
 <p>The first step involves reading the data in R. How can you do this? One option is with the <code>readLines()</code> function which reads any text file into a character vector:</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" data-line-number="1"><span class="co"># one option is to read in the content with &#39;readLines()&#39;</span></a>
-<a class="sourceLine" id="cb281-2" data-line-number="2">logs &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&#39;logfile.txt&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="logs.html#cb296-1"></a><span class="co"># one option is to read in the content with &#39;readLines()&#39;</span></span>
+<span id="cb296-2"><a href="logs.html#cb296-2"></a>logs &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&#39;logfile.txt&#39;</span>)</span></code></pre></div>
 <p>Let’s take a peek at the content of the vector <code>logs</code>:</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" data-line-number="1"><span class="co"># take a peek at the contents in logs</span></a>
-<a class="sourceLine" id="cb282-2" data-line-number="2"><span class="kw">head</span>(logs)</a>
-<a class="sourceLine" id="cb282-3" data-line-number="3"><span class="co">#&gt; [1] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:01:51:25 -0700] \&quot;GET /accesswatch/accesswatch-1.33/ HTTP/1.0\&quot; 200 1004&quot;              </span></a>
-<a class="sourceLine" id="cb282-4" data-line-number="4"><span class="co">#&gt; [2] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:01:51:26 -0700] \&quot;GET /accesswatch/accesswatch-1.33/img/allifou.jpg HTTP/1.0\&quot; 304 -&quot;  </span></a>
-<a class="sourceLine" id="cb282-5" data-line-number="5"><span class="co">#&gt; [3] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:01:51:26 -0700] \&quot;GET /sa.inside.jpg HTTP/1.0\&quot; 304 -&quot;                                 </span></a>
-<a class="sourceLine" id="cb282-6" data-line-number="6"><span class="co">#&gt; [4] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:02:20:19 -0700] \&quot;GET /accesswatch/accesswatch-1.33/ HTTP/1.0\&quot; 200 7791&quot;              </span></a>
-<a class="sourceLine" id="cb282-7" data-line-number="7"><span class="co">#&gt; [5] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:02:20:20 -0700] \&quot;GET /accesswatch/accesswatch-1.33/img/allifou.jpg HTTP/1.0\&quot; 304 -&quot;  </span></a>
-<a class="sourceLine" id="cb282-8" data-line-number="8"><span class="co">#&gt; [6] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:02:20:20 -0700] \&quot;GET /accesswatch/accesswatch-1.33/img/blueblock.gif HTTP/1.0\&quot; 304 -&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="logs.html#cb297-1"></a><span class="co"># take a peek at the contents in logs</span></span>
+<span id="cb297-2"><a href="logs.html#cb297-2"></a><span class="kw">head</span>(logs)</span>
+<span id="cb297-3"><a href="logs.html#cb297-3"></a><span class="co">#&gt; [1] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:01:51:25 -0700] \&quot;GET /accesswatch/accesswatch-1.33/ HTTP/1.0\&quot; 200 1004&quot;              </span></span>
+<span id="cb297-4"><a href="logs.html#cb297-4"></a><span class="co">#&gt; [2] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:01:51:26 -0700] \&quot;GET /accesswatch/accesswatch-1.33/img/allifou.jpg HTTP/1.0\&quot; 304 -&quot;  </span></span>
+<span id="cb297-5"><a href="logs.html#cb297-5"></a><span class="co">#&gt; [3] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:01:51:26 -0700] \&quot;GET /sa.inside.jpg HTTP/1.0\&quot; 304 -&quot;                                 </span></span>
+<span id="cb297-6"><a href="logs.html#cb297-6"></a><span class="co">#&gt; [4] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:02:20:19 -0700] \&quot;GET /accesswatch/accesswatch-1.33/ HTTP/1.0\&quot; 200 7791&quot;              </span></span>
+<span id="cb297-7"><a href="logs.html#cb297-7"></a><span class="co">#&gt; [5] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:02:20:20 -0700] \&quot;GET /accesswatch/accesswatch-1.33/img/allifou.jpg HTTP/1.0\&quot; 304 -&quot;  </span></span>
+<span id="cb297-8"><a href="logs.html#cb297-8"></a><span class="co">#&gt; [6] &quot;pd9049dac.dip.t-dialin.net - - [01/May/2001:02:20:20 -0700] \&quot;GET /accesswatch/accesswatch-1.33/img/blueblock.gif HTTP/1.0\&quot; 304 -&quot;</span></span></code></pre></div>
 <p>Because the file contains 26033 lines (or elements), let’s get a subset by taking a random sample of size 50:</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" data-line-number="1"><span class="co"># subset a sample of lines</span></a>
-<a class="sourceLine" id="cb283-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">98765</span>)</a>
-<a class="sourceLine" id="cb283-3" data-line-number="3">s &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(logs), <span class="dt">size =</span> <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb283-4" data-line-number="4">sublogs &lt;-<span class="st"> </span>logs[s]</a></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="logs.html#cb298-1"></a><span class="co"># subset a sample of lines</span></span>
+<span id="cb298-2"><a href="logs.html#cb298-2"></a><span class="kw">set.seed</span>(<span class="dv">98765</span>)</span>
+<span id="cb298-3"><a href="logs.html#cb298-3"></a>s &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(logs), <span class="dt">size =</span> <span class="dv">50</span>)</span>
+<span id="cb298-4"><a href="logs.html#cb298-4"></a>sublogs &lt;-<span class="st"> </span>logs[s]</span></code></pre></div>
 <div id="jpg-file-requests" class="section level3">
-<h3><span class="header-section-number">17.1.1</span> JPG File Requests</h3>
+<h3><span class="header-section-number">20.1.1</span> JPG File Requests</h3>
 <p>To begin our regex experiments, let’s try to find out “how many requests involved a JPG file?”.
-One way to answer the previous question is by counting the number of lines containing the pattern <code>&quot;jpg&quot;</code>. We can use <code>grep()</code> to match or detect this pattern:</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" data-line-number="1"><span class="co"># matching &quot;jpg&quot; (which lements)</span></a>
-<a class="sourceLine" id="cb284-2" data-line-number="2"><span class="kw">grep</span>(<span class="st">&quot;jpg&quot;</span>, sublogs)</a>
-<a class="sourceLine" id="cb284-3" data-line-number="3"><span class="co">#&gt;  [1]  1  2 10 19 20 33 42 45 46 50</span></a>
-<a class="sourceLine" id="cb284-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb284-5" data-line-number="5"><span class="co"># showing value of matches</span></a>
-<a class="sourceLine" id="cb284-6" data-line-number="6"><span class="kw">grep</span>(<span class="st">&quot;jpg&quot;</span>, sublogs, <span class="dt">value =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb284-7" data-line-number="7"><span class="co">#&gt;  [1] &quot;202.123.196.17 - - [29/May/2001:20:42:45 -0700] \&quot;GET /testing/images/pshtk.jpg HTTP/1.0\&quot; 200 34301&quot;               </span></a>
-<a class="sourceLine" id="cb284-8" data-line-number="8"><span class="co">#&gt;  [2] &quot;210.162.154.147 - - [22/May/2001:21:18:01 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.1\&quot; 200 18531&quot;              </span></a>
-<a class="sourceLine" id="cb284-9" data-line-number="9"><span class="co">#&gt;  [3] &quot;203.61.155.10 - - [27/May/2001:20:13:09 -0700] \&quot;GET /testing/images/pshtk.jpg HTTP/1.0\&quot; 200 34301&quot;                </span></a>
-<a class="sourceLine" id="cb284-10" data-line-number="10"><span class="co">#&gt;  [4] &quot;213.41.95.158 - - [22/May/2001:07:37:02 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.1\&quot; 200 18531&quot;                </span></a>
-<a class="sourceLine" id="cb284-11" data-line-number="11"><span class="co">#&gt;  [5] &quot;1cust113.tnt15.sfo3.da.uu.net - - [24/May/2001:04:27:34 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.1\&quot; 200 18531&quot;</span></a>
-<a class="sourceLine" id="cb284-12" data-line-number="12"><span class="co">#&gt;  [6] &quot;host5.aa-jupiter.com - - [24/May/2001:08:56:04 -0700] \&quot;GET /testing/images/archi_servlet.jpg HTTP/1.1\&quot; 304 -&quot;     </span></a>
-<a class="sourceLine" id="cb284-13" data-line-number="13"><span class="co">#&gt;  [7] &quot;crash.birdstep.org - - [31/May/2001:05:41:29 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.1\&quot; 200 18531&quot;           </span></a>
-<a class="sourceLine" id="cb284-14" data-line-number="14"><span class="co">#&gt;  [8] &quot;61.132.62.80 - - [28/May/2001:00:50:12 -0700] \&quot;GET /testing/images/archi_servlet.jpg HTTP/1.0\&quot; 200 18646&quot;         </span></a>
-<a class="sourceLine" id="cb284-15" data-line-number="15"><span class="co">#&gt;  [9] &quot;63.169.209.209 - - [29/May/2001:14:01:13 -0700] \&quot;GET /testing/images/archi_servlet.jpg HTTP/1.1\&quot; 200 18646&quot;       </span></a>
-<a class="sourceLine" id="cb284-16" data-line-number="16"><span class="co">#&gt; [10] &quot;h206013050210.pbdir.com - - [24/May/2001:15:48:10 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.0\&quot; 200 18531&quot;</span></a></code></pre></div>
-<p>We can try to be more specific by defining a pattern <code>&quot;.jpg&quot;</code> in which the <code>.</code> corresponds to the <em>literal</em> dot character. To match the dot, we need to escape it with <code>&quot;\\.&quot;</code>:</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" data-line-number="1"><span class="co"># we could try to be more precise and match &quot;.jpg&quot;</span></a>
-<a class="sourceLine" id="cb285-2" data-line-number="2"><span class="kw">grep</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg &quot;</span>, sublogs, <span class="dt">value =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb285-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;202.123.196.17 - - [29/May/2001:20:42:45 -0700] \&quot;GET /testing/images/pshtk.jpg HTTP/1.0\&quot; 200 34301&quot;               </span></a>
-<a class="sourceLine" id="cb285-4" data-line-number="4"><span class="co">#&gt;  [2] &quot;210.162.154.147 - - [22/May/2001:21:18:01 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.1\&quot; 200 18531&quot;              </span></a>
-<a class="sourceLine" id="cb285-5" data-line-number="5"><span class="co">#&gt;  [3] &quot;203.61.155.10 - - [27/May/2001:20:13:09 -0700] \&quot;GET /testing/images/pshtk.jpg HTTP/1.0\&quot; 200 34301&quot;                </span></a>
-<a class="sourceLine" id="cb285-6" data-line-number="6"><span class="co">#&gt;  [4] &quot;213.41.95.158 - - [22/May/2001:07:37:02 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.1\&quot; 200 18531&quot;                </span></a>
-<a class="sourceLine" id="cb285-7" data-line-number="7"><span class="co">#&gt;  [5] &quot;1cust113.tnt15.sfo3.da.uu.net - - [24/May/2001:04:27:34 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.1\&quot; 200 18531&quot;</span></a>
-<a class="sourceLine" id="cb285-8" data-line-number="8"><span class="co">#&gt;  [6] &quot;host5.aa-jupiter.com - - [24/May/2001:08:56:04 -0700] \&quot;GET /testing/images/archi_servlet.jpg HTTP/1.1\&quot; 304 -&quot;     </span></a>
-<a class="sourceLine" id="cb285-9" data-line-number="9"><span class="co">#&gt;  [7] &quot;crash.birdstep.org - - [31/May/2001:05:41:29 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.1\&quot; 200 18531&quot;           </span></a>
-<a class="sourceLine" id="cb285-10" data-line-number="10"><span class="co">#&gt;  [8] &quot;61.132.62.80 - - [28/May/2001:00:50:12 -0700] \&quot;GET /testing/images/archi_servlet.jpg HTTP/1.0\&quot; 200 18646&quot;         </span></a>
-<a class="sourceLine" id="cb285-11" data-line-number="11"><span class="co">#&gt;  [9] &quot;63.169.209.209 - - [29/May/2001:14:01:13 -0700] \&quot;GET /testing/images/archi_servlet.jpg HTTP/1.1\&quot; 200 18646&quot;       </span></a>
-<a class="sourceLine" id="cb285-12" data-line-number="12"><span class="co">#&gt; [10] &quot;h206013050210.pbdir.com - - [24/May/2001:15:48:10 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.0\&quot; 200 18531&quot;</span></a></code></pre></div>
+One way to answer the previous question is by counting the number of lines containing the pattern <code>"jpg"</code>. We can use <code>grep()</code> to match or detect this pattern:</p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="logs.html#cb299-1"></a><span class="co"># matching &quot;jpg&quot; (which lements)</span></span>
+<span id="cb299-2"><a href="logs.html#cb299-2"></a><span class="kw">grep</span>(<span class="st">&quot;jpg&quot;</span>, sublogs)</span>
+<span id="cb299-3"><a href="logs.html#cb299-3"></a><span class="co">#&gt;  [1]  2  6  8 10 11 14 26 34 35 36 40 41 45</span></span>
+<span id="cb299-4"><a href="logs.html#cb299-4"></a></span>
+<span id="cb299-5"><a href="logs.html#cb299-5"></a><span class="co"># showing value of matches</span></span>
+<span id="cb299-6"><a href="logs.html#cb299-6"></a><span class="kw">grep</span>(<span class="st">&quot;jpg&quot;</span>, sublogs, <span class="dt">value =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb299-7"><a href="logs.html#cb299-7"></a><span class="co">#&gt;  [1] &quot;hj.a11.betware.com - - [29/May/2001:02:15:26 -0700] \&quot;GET /testing/images/archi_servlet.jpg HTTP/1.1\&quot; 200 18646&quot;                     </span></span>
+<span id="cb299-8"><a href="logs.html#cb299-8"></a><span class="co">#&gt;  [2] &quot;port194.ds1-gl.adsl.cybercity.dk - - [29/May/2001:15:33:04 -0700] \&quot;GET /testing/images/archi_jsp.jpg HTTP/1.1\&quot; 200 21211&quot;           </span></span>
+<span id="cb299-9"><a href="logs.html#cb299-9"></a><span class="co">#&gt;  [3] &quot;pd9049e9b.dip.t-dialin.net - - [06/May/2001:12:45:35 -0700] \&quot;GET /accesswatch/accesswatch-1.33/img/allifou.jpg HTTP/1.0\&quot; 304 -&quot;     </span></span>
+<span id="cb299-10"><a href="logs.html#cb299-10"></a><span class="co">#&gt;  [4] &quot;pd9049e94.dip.t-dialin.net - - [04/May/2001:04:12:53 -0700] \&quot;GET /accesswatch/accesswatch-1.33/img/allifou.jpg HTTP/1.0\&quot; 200 108154&quot;</span></span>
+<span id="cb299-11"><a href="logs.html#cb299-11"></a><span class="co">#&gt;  [5] &quot;edslink9.eds.com - - [23/May/2001:02:22:12 -0700] \&quot;GET /testing/images/pshtk.jpg HTTP/1.0\&quot; 200 34301&quot;                               </span></span>
+<span id="cb299-12"><a href="logs.html#cb299-12"></a><span class="co">#&gt;  [6] &quot;bloodymary.vebis.de - - [22/May/2001:01:15:28 -0700] \&quot;GET /testing/images/scope.jpg HTTP/1.0\&quot; 200 32117&quot;                            </span></span>
+<span id="cb299-13"><a href="logs.html#cb299-13"></a><span class="co">#&gt;  [7] &quot;line210-137.iplan.com.ar - - [28/May/2001:14:49:26 -0700] \&quot;GET /testing/images/archi_servlet.jpg HTTP/1.1\&quot; 304 -&quot;                   </span></span>
+<span id="cb299-14"><a href="logs.html#cb299-14"></a><span class="co">#&gt;  [8] &quot;aannecy-101-2-1-40.abo.wanadoo.fr - - [31/May/2001:08:43:33 -0700] \&quot;GET /testing/images/pshtk.jpg HTTP/1.1\&quot; 200 34301&quot;              </span></span>
+<span id="cb299-15"><a href="logs.html#cb299-15"></a><span class="co">#&gt;  [9] &quot;rr-2s01.inf.fh-rhein-sieg.de - - [23/May/2001:06:40:00 -0700] \&quot;GET /xp-r/img17.jpg HTTP/1.0\&quot; 304 -&quot;                                 </span></span>
+<span id="cb299-16"><a href="logs.html#cb299-16"></a><span class="co">#&gt; [10] &quot;pd9541d23.dip.t-dialin.net - - [29/May/2001:07:08:26 -0700] \&quot;GET /sa.inside.jpg HTTP/1.1\&quot; 304 -&quot;                                    </span></span>
+<span id="cb299-17"><a href="logs.html#cb299-17"></a><span class="co">#&gt; [11] &quot;rose.ap.dregis.com - - [29/May/2001:05:09:28 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.0\&quot; 200 18531&quot;                             </span></span>
+<span id="cb299-18"><a href="logs.html#cb299-18"></a><span class="co">#&gt; [12] &quot;208.36.196.8 - - [23/May/2001:22:39:40 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.1\&quot; 200 18531&quot;                                   </span></span>
+<span id="cb299-19"><a href="logs.html#cb299-19"></a><span class="co">#&gt; [13] &quot;hlch0enk.htc.com - - [22/May/2001:11:01:53 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.0\&quot; 200 18531&quot;</span></span></code></pre></div>
+<p>We can try to be more specific by defining a pattern <code>".jpg"</code> in which the <code>.</code> corresponds to the <em>literal</em> dot character. To match the dot, we need to escape it with <code>"\\."</code>:</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="logs.html#cb300-1"></a><span class="co"># we could try to be more precise and match &quot;.jpg&quot;</span></span>
+<span id="cb300-2"><a href="logs.html#cb300-2"></a><span class="kw">grep</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg &quot;</span>, sublogs, <span class="dt">value =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb300-3"><a href="logs.html#cb300-3"></a><span class="co">#&gt;  [1] &quot;hj.a11.betware.com - - [29/May/2001:02:15:26 -0700] \&quot;GET /testing/images/archi_servlet.jpg HTTP/1.1\&quot; 200 18646&quot;                     </span></span>
+<span id="cb300-4"><a href="logs.html#cb300-4"></a><span class="co">#&gt;  [2] &quot;port194.ds1-gl.adsl.cybercity.dk - - [29/May/2001:15:33:04 -0700] \&quot;GET /testing/images/archi_jsp.jpg HTTP/1.1\&quot; 200 21211&quot;           </span></span>
+<span id="cb300-5"><a href="logs.html#cb300-5"></a><span class="co">#&gt;  [3] &quot;pd9049e9b.dip.t-dialin.net - - [06/May/2001:12:45:35 -0700] \&quot;GET /accesswatch/accesswatch-1.33/img/allifou.jpg HTTP/1.0\&quot; 304 -&quot;     </span></span>
+<span id="cb300-6"><a href="logs.html#cb300-6"></a><span class="co">#&gt;  [4] &quot;pd9049e94.dip.t-dialin.net - - [04/May/2001:04:12:53 -0700] \&quot;GET /accesswatch/accesswatch-1.33/img/allifou.jpg HTTP/1.0\&quot; 200 108154&quot;</span></span>
+<span id="cb300-7"><a href="logs.html#cb300-7"></a><span class="co">#&gt;  [5] &quot;edslink9.eds.com - - [23/May/2001:02:22:12 -0700] \&quot;GET /testing/images/pshtk.jpg HTTP/1.0\&quot; 200 34301&quot;                               </span></span>
+<span id="cb300-8"><a href="logs.html#cb300-8"></a><span class="co">#&gt;  [6] &quot;bloodymary.vebis.de - - [22/May/2001:01:15:28 -0700] \&quot;GET /testing/images/scope.jpg HTTP/1.0\&quot; 200 32117&quot;                            </span></span>
+<span id="cb300-9"><a href="logs.html#cb300-9"></a><span class="co">#&gt;  [7] &quot;line210-137.iplan.com.ar - - [28/May/2001:14:49:26 -0700] \&quot;GET /testing/images/archi_servlet.jpg HTTP/1.1\&quot; 304 -&quot;                   </span></span>
+<span id="cb300-10"><a href="logs.html#cb300-10"></a><span class="co">#&gt;  [8] &quot;aannecy-101-2-1-40.abo.wanadoo.fr - - [31/May/2001:08:43:33 -0700] \&quot;GET /testing/images/pshtk.jpg HTTP/1.1\&quot; 200 34301&quot;              </span></span>
+<span id="cb300-11"><a href="logs.html#cb300-11"></a><span class="co">#&gt;  [9] &quot;rr-2s01.inf.fh-rhein-sieg.de - - [23/May/2001:06:40:00 -0700] \&quot;GET /xp-r/img17.jpg HTTP/1.0\&quot; 304 -&quot;                                 </span></span>
+<span id="cb300-12"><a href="logs.html#cb300-12"></a><span class="co">#&gt; [10] &quot;pd9541d23.dip.t-dialin.net - - [29/May/2001:07:08:26 -0700] \&quot;GET /sa.inside.jpg HTTP/1.1\&quot; 304 -&quot;                                    </span></span>
+<span id="cb300-13"><a href="logs.html#cb300-13"></a><span class="co">#&gt; [11] &quot;rose.ap.dregis.com - - [29/May/2001:05:09:28 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.0\&quot; 200 18531&quot;                             </span></span>
+<span id="cb300-14"><a href="logs.html#cb300-14"></a><span class="co">#&gt; [12] &quot;208.36.196.8 - - [23/May/2001:22:39:40 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.1\&quot; 200 18531&quot;                                   </span></span>
+<span id="cb300-15"><a href="logs.html#cb300-15"></a><span class="co">#&gt; [13] &quot;hlch0enk.htc.com - - [22/May/2001:11:01:53 -0700] \&quot;GET /testing/images/archi.jpg HTTP/1.0\&quot; 200 18531&quot;</span></span></code></pre></div>
 <p>A similar output of <code>grep()</code> can be obtained with <code>str_detect()</code>, which allows you to <em>detect</em> what elements contain a match to the specified pattern:</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" data-line-number="1"><span class="co"># matching &quot;jpg&quot; (which lements)</span></a>
-<a class="sourceLine" id="cb286-2" data-line-number="2"><span class="kw">str_detect</span>(<span class="dt">string =</span> sublogs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg&quot;</span>)</a>
-<a class="sourceLine" id="cb286-3" data-line-number="3"><span class="co">#&gt;  [1]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</span></a>
-<a class="sourceLine" id="cb286-4" data-line-number="4"><span class="co">#&gt; [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE</span></a>
-<a class="sourceLine" id="cb286-5" data-line-number="5"><span class="co">#&gt; [23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</span></a>
-<a class="sourceLine" id="cb286-6" data-line-number="6"><span class="co">#&gt; [34] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</span></a>
-<a class="sourceLine" id="cb286-7" data-line-number="7"><span class="co">#&gt; [45]  TRUE  TRUE FALSE FALSE FALSE  TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="logs.html#cb301-1"></a><span class="co"># matching &quot;jpg&quot; (which lements)</span></span>
+<span id="cb301-2"><a href="logs.html#cb301-2"></a><span class="kw">str_detect</span>(<span class="dt">string =</span> sublogs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg&quot;</span>)</span>
+<span id="cb301-3"><a href="logs.html#cb301-3"></a><span class="co">#&gt;  [1] FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE</span></span>
+<span id="cb301-4"><a href="logs.html#cb301-4"></a><span class="co">#&gt; [13] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb301-5"><a href="logs.html#cb301-5"></a><span class="co">#&gt; [25] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE</span></span>
+<span id="cb301-6"><a href="logs.html#cb301-6"></a><span class="co">#&gt; [37] FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE</span></span>
+<span id="cb301-7"><a href="logs.html#cb301-7"></a><span class="co">#&gt; [49] FALSE FALSE</span></span></code></pre></div>
 <p>We can do the same for PNG extensions (or for GIF or ICO):</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" data-line-number="1"><span class="co"># matching &quot;png&quot; (which lements)</span></a>
-<a class="sourceLine" id="cb287-2" data-line-number="2"><span class="kw">str_detect</span>(<span class="dt">string =</span> sublogs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.png&quot;</span>)</a>
-<a class="sourceLine" id="cb287-3" data-line-number="3"><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></a>
-<a class="sourceLine" id="cb287-4" data-line-number="4"><span class="co">#&gt; [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></a>
-<a class="sourceLine" id="cb287-5" data-line-number="5"><span class="co">#&gt; [23] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</span></a>
-<a class="sourceLine" id="cb287-6" data-line-number="6"><span class="co">#&gt; [34] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></a>
-<a class="sourceLine" id="cb287-7" data-line-number="7"><span class="co">#&gt; [45] FALSE FALSE FALSE FALSE FALSE FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="logs.html#cb302-1"></a><span class="co"># matching &quot;png&quot; (which lements)</span></span>
+<span id="cb302-2"><a href="logs.html#cb302-2"></a><span class="kw">str_detect</span>(<span class="dt">string =</span> sublogs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.png&quot;</span>)</span>
+<span id="cb302-3"><a href="logs.html#cb302-3"></a><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb302-4"><a href="logs.html#cb302-4"></a><span class="co">#&gt; [13] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb302-5"><a href="logs.html#cb302-5"></a><span class="co">#&gt; [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb302-6"><a href="logs.html#cb302-6"></a><span class="co">#&gt; [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb302-7"><a href="logs.html#cb302-7"></a><span class="co">#&gt; [49] FALSE  TRUE</span></span></code></pre></div>
 </div>
 <div id="extracting-file-extensions" class="section level3">
-<h3><span class="header-section-number">17.1.2</span> Extracting file extensions</h3>
+<h3><span class="header-section-number">20.1.2</span> Extracting file extensions</h3>
 <p>Another common task when working with regular expressions has to do with pattern extraction. For this purposes, we can use <code>str_extract()</code>:</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" data-line-number="1"><span class="co"># extracting &quot;jpg&quot; (which lements)</span></a>
-<a class="sourceLine" id="cb288-2" data-line-number="2"><span class="kw">str_extract</span>(<span class="dt">string =</span> sublogs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg&quot;</span>)</a>
-<a class="sourceLine" id="cb288-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;.jpg&quot; &quot;.jpg&quot; NA     NA     NA     NA     NA     NA     NA     &quot;.jpg&quot;</span></a>
-<a class="sourceLine" id="cb288-4" data-line-number="4"><span class="co">#&gt; [11] NA     NA     NA     NA     NA     NA     NA     NA     &quot;.jpg&quot; &quot;.jpg&quot;</span></a>
-<a class="sourceLine" id="cb288-5" data-line-number="5"><span class="co">#&gt; [21] NA     NA     NA     NA     NA     NA     NA     NA     NA     NA    </span></a>
-<a class="sourceLine" id="cb288-6" data-line-number="6"><span class="co">#&gt; [31] NA     NA     &quot;.jpg&quot; NA     NA     NA     NA     NA     NA     NA    </span></a>
-<a class="sourceLine" id="cb288-7" data-line-number="7"><span class="co">#&gt; [41] NA     &quot;.jpg&quot; NA     NA     &quot;.jpg&quot; &quot;.jpg&quot; NA     NA     NA     &quot;.jpg&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="logs.html#cb303-1"></a><span class="co"># extracting &quot;jpg&quot; (which lements)</span></span>
+<span id="cb303-2"><a href="logs.html#cb303-2"></a><span class="kw">str_extract</span>(<span class="dt">string =</span> sublogs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg&quot;</span>)</span>
+<span id="cb303-3"><a href="logs.html#cb303-3"></a><span class="co">#&gt;  [1] NA     &quot;.jpg&quot; NA     NA     NA     &quot;.jpg&quot; NA     &quot;.jpg&quot; NA     &quot;.jpg&quot;</span></span>
+<span id="cb303-4"><a href="logs.html#cb303-4"></a><span class="co">#&gt; [11] &quot;.jpg&quot; NA     NA     &quot;.jpg&quot; NA     NA     NA     NA     NA     NA    </span></span>
+<span id="cb303-5"><a href="logs.html#cb303-5"></a><span class="co">#&gt; [21] NA     NA     NA     NA     NA     &quot;.jpg&quot; NA     NA     NA     NA    </span></span>
+<span id="cb303-6"><a href="logs.html#cb303-6"></a><span class="co">#&gt; [31] NA     NA     NA     &quot;.jpg&quot; &quot;.jpg&quot; &quot;.jpg&quot; NA     NA     NA     &quot;.jpg&quot;</span></span>
+<span id="cb303-7"><a href="logs.html#cb303-7"></a><span class="co">#&gt; [41] &quot;.jpg&quot; NA     NA     NA     &quot;.jpg&quot; NA     NA     NA     NA     NA</span></span></code></pre></div>
 <p><code>str_extract()</code> actually let us confirm that we are matching the desired patterns. Notice that when there is no match, <code>str_extract()</code> returns a missing value <code>NA</code>.</p>
 </div>
 <div id="image-files" class="section level3">
-<h3><span class="header-section-number">17.1.3</span> Image files</h3>
+<h3><span class="header-section-number">20.1.3</span> Image files</h3>
 <p>Now let’s try to detect all types of image files: JPG, PNG, GIF, ICO</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" data-line-number="1"><span class="co"># looking for image file extensions</span></a>
-<a class="sourceLine" id="cb289-2" data-line-number="2">jpgs &lt;-<span class="st"> </span><span class="kw">str_detect</span>(logs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg &quot;</span>)</a>
-<a class="sourceLine" id="cb289-3" data-line-number="3"><span class="kw">sum</span>(jpgs)</a>
-<a class="sourceLine" id="cb289-4" data-line-number="4"><span class="co">#&gt; [1] 5509</span></a>
-<a class="sourceLine" id="cb289-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb289-6" data-line-number="6">pngs &lt;-<span class="st"> </span><span class="kw">str_detect</span>(logs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.png &quot;</span>)</a>
-<a class="sourceLine" id="cb289-7" data-line-number="7"><span class="kw">sum</span>(pngs)</a>
-<a class="sourceLine" id="cb289-8" data-line-number="8"><span class="co">#&gt; [1] 1374</span></a>
-<a class="sourceLine" id="cb289-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb289-10" data-line-number="10">gifs &lt;-<span class="st"> </span><span class="kw">str_detect</span>(logs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.gif&quot;</span>)</a>
-<a class="sourceLine" id="cb289-11" data-line-number="11"><span class="kw">sum</span>(gifs)</a>
-<a class="sourceLine" id="cb289-12" data-line-number="12"><span class="co">#&gt; [1] 8818</span></a>
-<a class="sourceLine" id="cb289-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb289-14" data-line-number="14">icos &lt;-<span class="st"> </span><span class="kw">str_detect</span>(logs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.ico &quot;</span>)</a>
-<a class="sourceLine" id="cb289-15" data-line-number="15"><span class="kw">sum</span>(icos)</a>
-<a class="sourceLine" id="cb289-16" data-line-number="16"><span class="co">#&gt; [1] 100</span></a></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="logs.html#cb304-1"></a><span class="co"># looking for image file extensions</span></span>
+<span id="cb304-2"><a href="logs.html#cb304-2"></a>jpgs &lt;-<span class="st"> </span><span class="kw">str_detect</span>(logs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg &quot;</span>)</span>
+<span id="cb304-3"><a href="logs.html#cb304-3"></a><span class="kw">sum</span>(jpgs)</span>
+<span id="cb304-4"><a href="logs.html#cb304-4"></a><span class="co">#&gt; [1] 5509</span></span>
+<span id="cb304-5"><a href="logs.html#cb304-5"></a></span>
+<span id="cb304-6"><a href="logs.html#cb304-6"></a>pngs &lt;-<span class="st"> </span><span class="kw">str_detect</span>(logs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.png &quot;</span>)</span>
+<span id="cb304-7"><a href="logs.html#cb304-7"></a><span class="kw">sum</span>(pngs)</span>
+<span id="cb304-8"><a href="logs.html#cb304-8"></a><span class="co">#&gt; [1] 1374</span></span>
+<span id="cb304-9"><a href="logs.html#cb304-9"></a></span>
+<span id="cb304-10"><a href="logs.html#cb304-10"></a>gifs &lt;-<span class="st"> </span><span class="kw">str_detect</span>(logs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.gif&quot;</span>)</span>
+<span id="cb304-11"><a href="logs.html#cb304-11"></a><span class="kw">sum</span>(gifs)</span>
+<span id="cb304-12"><a href="logs.html#cb304-12"></a><span class="co">#&gt; [1] 8818</span></span>
+<span id="cb304-13"><a href="logs.html#cb304-13"></a></span>
+<span id="cb304-14"><a href="logs.html#cb304-14"></a>icos &lt;-<span class="st"> </span><span class="kw">str_detect</span>(logs, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.ico &quot;</span>)</span>
+<span id="cb304-15"><a href="logs.html#cb304-15"></a><span class="kw">sum</span>(icos)</span>
+<span id="cb304-16"><a href="logs.html#cb304-16"></a><span class="co">#&gt; [1] 100</span></span></code></pre></div>
 </div>
 <div id="how-to-match-image-files-with-one-regex-pattern" class="section level3">
-<h3><span class="header-section-number">17.1.4</span> How to match image files with one regex pattern?</h3>
+<h3><span class="header-section-number">20.1.4</span> How to match image files with one regex pattern?</h3>
 <p>We can use character sets to define a more generic pattern. For instance, to
-match <code>&quot;jpg&quot;</code> or <code>&quot;png&quot;</code>, we could join three character sets: <code>&quot;[jp][pn][g]&quot;</code>.
+match <code>"jpg"</code> or <code>"png"</code>, we could join three character sets: <code>"[jp][pn][g]"</code>.
 The first set <code>[jp]</code> looks for <code>j</code> or <code>p</code>, the second set <code>[pn]</code> looks for
 <code>p</code> or <code>n</code>, and the third set simply looks for <code>g</code>.</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" data-line-number="1"><span class="co"># matching &quot;jpg&quot; or &quot;png&quot;</span></a>
-<a class="sourceLine" id="cb290-2" data-line-number="2">jpg_png_lines &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sublogs, <span class="st">&quot;[jp][pn][g]&quot;</span>)</a>
-<a class="sourceLine" id="cb290-3" data-line-number="3"><span class="kw">sum</span>(jpg_png_lines)</a>
-<a class="sourceLine" id="cb290-4" data-line-number="4"><span class="co">#&gt; [1] 11</span></a></code></pre></div>
-<p>Including the dot, we can use: <code>&quot;\\.[jp][pn][g]&quot;</code></p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" data-line-number="1"><span class="co"># matching &quot;jpg&quot; or &quot;png&quot;</span></a>
-<a class="sourceLine" id="cb291-2" data-line-number="2">jpg_png_lines &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.[jp][pn][g]&quot;</span>)</a>
-<a class="sourceLine" id="cb291-3" data-line-number="3"><span class="kw">sum</span>(jpg_png_lines)</a>
-<a class="sourceLine" id="cb291-4" data-line-number="4"><span class="co">#&gt; [1] 11</span></a></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="logs.html#cb305-1"></a><span class="co"># matching &quot;jpg&quot; or &quot;png&quot;</span></span>
+<span id="cb305-2"><a href="logs.html#cb305-2"></a>jpg_png_lines &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sublogs, <span class="st">&quot;[jp][pn][g]&quot;</span>)</span>
+<span id="cb305-3"><a href="logs.html#cb305-3"></a><span class="kw">sum</span>(jpg_png_lines)</span>
+<span id="cb305-4"><a href="logs.html#cb305-4"></a><span class="co">#&gt; [1] 15</span></span></code></pre></div>
+<p>Including the dot, we can use: <code>"\\.[jp][pn][g]"</code></p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="logs.html#cb306-1"></a><span class="co"># matching &quot;jpg&quot; or &quot;png&quot;</span></span>
+<span id="cb306-2"><a href="logs.html#cb306-2"></a>jpg_png_lines &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.[jp][pn][g]&quot;</span>)</span>
+<span id="cb306-3"><a href="logs.html#cb306-3"></a><span class="kw">sum</span>(jpg_png_lines)</span>
+<span id="cb306-4"><a href="logs.html#cb306-4"></a><span class="co">#&gt; [1] 15</span></span></code></pre></div>
 <p>We could generalize the pattern to include the GIF and ICO extensions:</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" data-line-number="1"><span class="co"># matching &quot;jpg&quot; or &quot;png&quot; or &quot;gif&quot;</span></a>
-<a class="sourceLine" id="cb292-2" data-line-number="2">image_lines1 &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sublogs, <span class="st">&quot;[jpgi][pnic][gfo]&quot;</span>)</a>
-<a class="sourceLine" id="cb292-3" data-line-number="3"><span class="kw">sum</span>(image_lines1)</a>
-<a class="sourceLine" id="cb292-4" data-line-number="4"><span class="co">#&gt; [1] 46</span></a></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="logs.html#cb307-1"></a><span class="co"># matching &quot;jpg&quot; or &quot;png&quot; or &quot;gif&quot;</span></span>
+<span id="cb307-2"><a href="logs.html#cb307-2"></a>image_lines1 &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sublogs, <span class="st">&quot;[jpgi][pnic][gfo]&quot;</span>)</span>
+<span id="cb307-3"><a href="logs.html#cb307-3"></a><span class="kw">sum</span>(image_lines1)</span>
+<span id="cb307-4"><a href="logs.html#cb307-4"></a><span class="co">#&gt; [1] 44</span></span></code></pre></div>
 <p>To confirm that we are actually matching <code>jpg</code>, <code>png</code>, <code>gif</code> and <code>ico</code>, let’s
 use <code>str_extract()</code></p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" data-line-number="1"><span class="co"># are we correctly extracting image file extensions?</span></a>
-<a class="sourceLine" id="cb293-2" data-line-number="2"><span class="kw">str_extract</span>(sublogs, <span class="st">&quot;[jpgi][pnic][gfo]&quot;</span>)</a>
-<a class="sourceLine" id="cb293-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;gif&quot; NA    &quot;ing&quot; &quot;ing&quot; &quot;gif&quot; &quot;ing&quot; &quot;ing&quot; &quot;gif&quot;</span></a>
-<a class="sourceLine" id="cb293-4" data-line-number="4"><span class="co">#&gt; [12] &quot;ing&quot; &quot;gif&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;gif&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot;</span></a>
-<a class="sourceLine" id="cb293-5" data-line-number="5"><span class="co">#&gt; [23] &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;gif&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; NA    &quot;ing&quot; &quot;ing&quot;</span></a>
-<a class="sourceLine" id="cb293-6" data-line-number="6"><span class="co">#&gt; [34] &quot;ing&quot; &quot;ing&quot; NA    &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;inf&quot; &quot;ing&quot;</span></a>
-<a class="sourceLine" id="cb293-7" data-line-number="7"><span class="co">#&gt; [45] &quot;ing&quot; &quot;ing&quot; NA    &quot;ing&quot; &quot;gif&quot; &quot;ing&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="logs.html#cb308-1"></a><span class="co"># are we correctly extracting image file extensions?</span></span>
+<span id="cb308-2"><a href="logs.html#cb308-2"></a><span class="kw">str_extract</span>(sublogs, <span class="st">&quot;[jpgi][pnic][gfo]&quot;</span>)</span>
+<span id="cb308-3"><a href="logs.html#cb308-3"></a><span class="co">#&gt;  [1] &quot;ing&quot; &quot;ing&quot; NA    &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;jpg&quot; &quot;ing&quot; &quot;jpg&quot; &quot;ing&quot; &quot;ing&quot;</span></span>
+<span id="cb308-4"><a href="logs.html#cb308-4"></a><span class="co">#&gt; [13] NA    &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;gif&quot; &quot;ing&quot; &quot;ico&quot; &quot;ing&quot; &quot;ing&quot;</span></span>
+<span id="cb308-5"><a href="logs.html#cb308-5"></a><span class="co">#&gt; [25] &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; NA    &quot;pco&quot; &quot;ing&quot; &quot;gif&quot; &quot;ing&quot; NA    &quot;ing&quot; &quot;inf&quot; &quot;jpg&quot;</span></span>
+<span id="cb308-6"><a href="logs.html#cb308-6"></a><span class="co">#&gt; [37] &quot;gif&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;gif&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; &quot;ing&quot; NA    NA   </span></span>
+<span id="cb308-7"><a href="logs.html#cb308-7"></a><span class="co">#&gt; [49] &quot;gif&quot; &quot;ing&quot;</span></span></code></pre></div>
 <p>The previous pattern does not really work as expected: note that we are matching
-the patterns formed by <code>&quot;ing&quot;</code> and <code>&quot;inf&quot;</code> which do not correspond to image file
+the patterns formed by <code>"ing"</code> and <code>"inf"</code> which do not correspond to image file
 extensions.</p>
 <p>An alternative way to detect JPG and PNG is by grouping patterns inside
-parentheses, and separating them with the metacharacter <code>&quot;|&quot;</code> which means <em>OR</em>:</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" data-line-number="1"><span class="co"># detecting .jpg OR .png</span></a>
-<a class="sourceLine" id="cb294-2" data-line-number="2">jpg_png &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg|</span><span class="ch">\\</span><span class="st">.png&quot;</span>)</a>
-<a class="sourceLine" id="cb294-3" data-line-number="3"><span class="kw">sum</span>(jpg_png)</a>
-<a class="sourceLine" id="cb294-4" data-line-number="4"><span class="co">#&gt; [1] 11</span></a></code></pre></div>
+parentheses, and separating them with the metacharacter <code>"|"</code> which means <em>OR</em>:</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="logs.html#cb309-1"></a><span class="co"># detecting .jpg OR .png</span></span>
+<span id="cb309-2"><a href="logs.html#cb309-2"></a>jpg_png &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg|</span><span class="ch">\\</span><span class="st">.png&quot;</span>)</span>
+<span id="cb309-3"><a href="logs.html#cb309-3"></a><span class="kw">sum</span>(jpg_png)</span>
+<span id="cb309-4"><a href="logs.html#cb309-4"></a><span class="co">#&gt; [1] 15</span></span></code></pre></div>
 <p>Here’s how to detect all the extension in one single pattern:</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" data-line-number="1"><span class="co"># matching &quot;jpg&quot; or &quot;png&quot; or &quot;gif&quot; or &quot;ico&quot;</span></a>
-<a class="sourceLine" id="cb295-2" data-line-number="2">image_lines &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg|</span><span class="ch">\\</span><span class="st">.png|</span><span class="ch">\\</span><span class="st">.gif|</span><span class="ch">\\</span><span class="st">.ico&quot;</span>)</a>
-<a class="sourceLine" id="cb295-3" data-line-number="3"><span class="kw">sum</span>(image_lines)</a>
-<a class="sourceLine" id="cb295-4" data-line-number="4"><span class="co">#&gt; [1] 29</span></a></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="logs.html#cb310-1"></a><span class="co"># matching &quot;jpg&quot; or &quot;png&quot; or &quot;gif&quot; or &quot;ico&quot;</span></span>
+<span id="cb310-2"><a href="logs.html#cb310-2"></a>image_lines &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg|</span><span class="ch">\\</span><span class="st">.png|</span><span class="ch">\\</span><span class="st">.gif|</span><span class="ch">\\</span><span class="st">.ico&quot;</span>)</span>
+<span id="cb310-3"><a href="logs.html#cb310-3"></a><span class="kw">sum</span>(image_lines)</span>
+<span id="cb310-4"><a href="logs.html#cb310-4"></a><span class="co">#&gt; [1] 28</span></span></code></pre></div>
 <p>To make sure our regex operation is successful, let’s see the output of
 <code>str_extract()</code>:</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1">images_output &lt;-<span class="st"> </span><span class="kw">str_extract</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg|</span><span class="ch">\\</span><span class="st">.png|</span><span class="ch">\\</span><span class="st">.gif|</span><span class="ch">\\</span><span class="st">.ico&quot;</span>)</a>
-<a class="sourceLine" id="cb296-2" data-line-number="2">images_output</a>
-<a class="sourceLine" id="cb296-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;.jpg&quot; &quot;.jpg&quot; NA     &quot;.gif&quot; NA     &quot;.gif&quot; NA     &quot;.gif&quot; NA     &quot;.jpg&quot;</span></a>
-<a class="sourceLine" id="cb296-4" data-line-number="4"><span class="co">#&gt; [11] &quot;.gif&quot; &quot;.gif&quot; &quot;.gif&quot; &quot;.gif&quot; NA     NA     &quot;.gif&quot; &quot;.gif&quot; &quot;.jpg&quot; &quot;.jpg&quot;</span></a>
-<a class="sourceLine" id="cb296-5" data-line-number="5"><span class="co">#&gt; [21] &quot;.gif&quot; &quot;.gif&quot; NA     NA     NA     &quot;.gif&quot; NA     &quot;.png&quot; NA     NA    </span></a>
-<a class="sourceLine" id="cb296-6" data-line-number="6"><span class="co">#&gt; [31] NA     &quot;.ico&quot; &quot;.jpg&quot; NA     &quot;.gif&quot; NA     NA     &quot;.gif&quot; NA     NA    </span></a>
-<a class="sourceLine" id="cb296-7" data-line-number="7"><span class="co">#&gt; [41] NA     &quot;.jpg&quot; NA     &quot;.gif&quot; &quot;.jpg&quot; &quot;.jpg&quot; NA     &quot;.gif&quot; &quot;.gif&quot; &quot;.jpg&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="logs.html#cb311-1"></a>images_output &lt;-<span class="st"> </span><span class="kw">str_extract</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg|</span><span class="ch">\\</span><span class="st">.png|</span><span class="ch">\\</span><span class="st">.gif|</span><span class="ch">\\</span><span class="st">.ico&quot;</span>)</span>
+<span id="cb311-2"><a href="logs.html#cb311-2"></a>images_output</span>
+<span id="cb311-3"><a href="logs.html#cb311-3"></a><span class="co">#&gt;  [1] NA     &quot;.jpg&quot; NA     NA     NA     &quot;.jpg&quot; &quot;.gif&quot; &quot;.jpg&quot; NA     &quot;.jpg&quot;</span></span>
+<span id="cb311-4"><a href="logs.html#cb311-4"></a><span class="co">#&gt; [11] &quot;.jpg&quot; NA     NA     &quot;.jpg&quot; NA     &quot;.png&quot; NA     NA     NA     &quot;.gif&quot;</span></span>
+<span id="cb311-5"><a href="logs.html#cb311-5"></a><span class="co">#&gt; [21] &quot;.gif&quot; &quot;.gif&quot; NA     NA     &quot;.gif&quot; &quot;.jpg&quot; NA     NA     &quot;.gif&quot; NA    </span></span>
+<span id="cb311-6"><a href="logs.html#cb311-6"></a><span class="co">#&gt; [31] &quot;.gif&quot; &quot;.gif&quot; NA     &quot;.jpg&quot; &quot;.jpg&quot; &quot;.jpg&quot; &quot;.gif&quot; NA     NA     &quot;.jpg&quot;</span></span>
+<span id="cb311-7"><a href="logs.html#cb311-7"></a><span class="co">#&gt; [41] &quot;.jpg&quot; &quot;.gif&quot; NA     &quot;.gif&quot; &quot;.jpg&quot; &quot;.gif&quot; NA     NA     &quot;.gif&quot; &quot;.png&quot;</span></span></code></pre></div>
 <p>There’s some repetition with the dot character; we can modify our previous
-pattern by placing the dot <code>&quot;\\.&quot;</code> at the beginning:</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" data-line-number="1">images_output &lt;-<span class="st"> </span><span class="kw">str_extract</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg|png|gif|ico&quot;</span>)</a>
-<a class="sourceLine" id="cb297-2" data-line-number="2">images_output</a>
-<a class="sourceLine" id="cb297-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;.jpg&quot; &quot;.jpg&quot; NA     &quot;gif&quot;  NA     &quot;gif&quot;  NA     &quot;gif&quot;  NA     &quot;.jpg&quot;</span></a>
-<a class="sourceLine" id="cb297-4" data-line-number="4"><span class="co">#&gt; [11] &quot;gif&quot;  &quot;gif&quot;  &quot;gif&quot;  &quot;gif&quot;  NA     NA     &quot;gif&quot;  &quot;gif&quot;  &quot;.jpg&quot; &quot;.jpg&quot;</span></a>
-<a class="sourceLine" id="cb297-5" data-line-number="5"><span class="co">#&gt; [21] &quot;gif&quot;  &quot;gif&quot;  NA     NA     NA     &quot;gif&quot;  NA     &quot;png&quot;  NA     NA    </span></a>
-<a class="sourceLine" id="cb297-6" data-line-number="6"><span class="co">#&gt; [31] NA     &quot;ico&quot;  &quot;.jpg&quot; NA     &quot;gif&quot;  NA     NA     &quot;gif&quot;  NA     NA    </span></a>
-<a class="sourceLine" id="cb297-7" data-line-number="7"><span class="co">#&gt; [41] NA     &quot;.jpg&quot; NA     &quot;gif&quot;  &quot;.jpg&quot; &quot;.jpg&quot; NA     &quot;gif&quot;  &quot;gif&quot;  &quot;.jpg&quot;</span></a></code></pre></div>
-<p>Notice that the dot only appears next to <code>&quot;.jpg&quot;</code> but not with the other
+pattern by placing the dot <code>"\\."</code> at the beginning:</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="logs.html#cb312-1"></a>images_output &lt;-<span class="st"> </span><span class="kw">str_extract</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.jpg|png|gif|ico&quot;</span>)</span>
+<span id="cb312-2"><a href="logs.html#cb312-2"></a>images_output</span>
+<span id="cb312-3"><a href="logs.html#cb312-3"></a><span class="co">#&gt;  [1] NA     &quot;.jpg&quot; NA     NA     NA     &quot;.jpg&quot; &quot;gif&quot;  &quot;.jpg&quot; NA     &quot;.jpg&quot;</span></span>
+<span id="cb312-4"><a href="logs.html#cb312-4"></a><span class="co">#&gt; [11] &quot;.jpg&quot; NA     NA     &quot;.jpg&quot; NA     &quot;png&quot;  NA     NA     NA     &quot;gif&quot; </span></span>
+<span id="cb312-5"><a href="logs.html#cb312-5"></a><span class="co">#&gt; [21] &quot;gif&quot;  &quot;ico&quot;  NA     NA     &quot;gif&quot;  &quot;.jpg&quot; NA     NA     &quot;gif&quot;  NA    </span></span>
+<span id="cb312-6"><a href="logs.html#cb312-6"></a><span class="co">#&gt; [31] &quot;gif&quot;  &quot;gif&quot;  NA     &quot;.jpg&quot; &quot;.jpg&quot; &quot;.jpg&quot; &quot;gif&quot;  NA     NA     &quot;.jpg&quot;</span></span>
+<span id="cb312-7"><a href="logs.html#cb312-7"></a><span class="co">#&gt; [41] &quot;.jpg&quot; &quot;gif&quot;  NA     &quot;gif&quot;  &quot;.jpg&quot; &quot;gif&quot;  NA     NA     &quot;gif&quot;  &quot;png&quot;</span></span></code></pre></div>
+<p>Notice that the dot only appears next to <code>".jpg"</code> but not with the other
 type of extensions. What we need to do is group the file extensions by surrounding
 them with parentheses:</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1">images_output &lt;-<span class="st"> </span><span class="kw">str_extract</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.(jpg|png|gif|ico)&quot;</span>)</a>
-<a class="sourceLine" id="cb298-2" data-line-number="2">images_output</a>
-<a class="sourceLine" id="cb298-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;.jpg&quot; &quot;.jpg&quot; NA     &quot;.gif&quot; NA     &quot;.gif&quot; NA     &quot;.gif&quot; NA     &quot;.jpg&quot;</span></a>
-<a class="sourceLine" id="cb298-4" data-line-number="4"><span class="co">#&gt; [11] &quot;.gif&quot; &quot;.gif&quot; &quot;.gif&quot; &quot;.gif&quot; NA     NA     &quot;.gif&quot; &quot;.gif&quot; &quot;.jpg&quot; &quot;.jpg&quot;</span></a>
-<a class="sourceLine" id="cb298-5" data-line-number="5"><span class="co">#&gt; [21] &quot;.gif&quot; &quot;.gif&quot; NA     NA     NA     &quot;.gif&quot; NA     &quot;.png&quot; NA     NA    </span></a>
-<a class="sourceLine" id="cb298-6" data-line-number="6"><span class="co">#&gt; [31] NA     &quot;.ico&quot; &quot;.jpg&quot; NA     &quot;.gif&quot; NA     NA     &quot;.gif&quot; NA     NA    </span></a>
-<a class="sourceLine" id="cb298-7" data-line-number="7"><span class="co">#&gt; [41] NA     &quot;.jpg&quot; NA     &quot;.gif&quot; &quot;.jpg&quot; &quot;.jpg&quot; NA     &quot;.gif&quot; &quot;.gif&quot; &quot;.jpg&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="logs.html#cb313-1"></a>images_output &lt;-<span class="st"> </span><span class="kw">str_extract</span>(sublogs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.(jpg|png|gif|ico)&quot;</span>)</span>
+<span id="cb313-2"><a href="logs.html#cb313-2"></a>images_output</span>
+<span id="cb313-3"><a href="logs.html#cb313-3"></a><span class="co">#&gt;  [1] NA     &quot;.jpg&quot; NA     NA     NA     &quot;.jpg&quot; &quot;.gif&quot; &quot;.jpg&quot; NA     &quot;.jpg&quot;</span></span>
+<span id="cb313-4"><a href="logs.html#cb313-4"></a><span class="co">#&gt; [11] &quot;.jpg&quot; NA     NA     &quot;.jpg&quot; NA     &quot;.png&quot; NA     NA     NA     &quot;.gif&quot;</span></span>
+<span id="cb313-5"><a href="logs.html#cb313-5"></a><span class="co">#&gt; [21] &quot;.gif&quot; &quot;.gif&quot; NA     NA     &quot;.gif&quot; &quot;.jpg&quot; NA     NA     &quot;.gif&quot; NA    </span></span>
+<span id="cb313-6"><a href="logs.html#cb313-6"></a><span class="co">#&gt; [31] &quot;.gif&quot; &quot;.gif&quot; NA     &quot;.jpg&quot; &quot;.jpg&quot; &quot;.jpg&quot; &quot;.gif&quot; NA     NA     &quot;.jpg&quot;</span></span>
+<span id="cb313-7"><a href="logs.html#cb313-7"></a><span class="co">#&gt; [41] &quot;.jpg&quot; &quot;.gif&quot; NA     &quot;.gif&quot; &quot;.jpg&quot; &quot;.gif&quot; NA     NA     &quot;.gif&quot; &quot;.png&quot;</span></span></code></pre></div>
 <p>Now let’s apply the pattern on the entire log file, to count the number of files
 of each type:</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1"><span class="co"># frequencies</span></a>
-<a class="sourceLine" id="cb299-2" data-line-number="2">img_extensions &lt;-<span class="st"> </span><span class="kw">str_extract</span>(logs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.(jpg|png|gif|ico)&quot;</span>)</a>
-<a class="sourceLine" id="cb299-3" data-line-number="3"><span class="kw">table</span>(img_extensions)</a>
-<a class="sourceLine" id="cb299-4" data-line-number="4"><span class="co">#&gt; img_extensions</span></a>
-<a class="sourceLine" id="cb299-5" data-line-number="5"><span class="co">#&gt; .gif .ico .jpg .png </span></a>
-<a class="sourceLine" id="cb299-6" data-line-number="6"><span class="co">#&gt; 8818  100 5509 1374</span></a></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="logs.html#cb314-1"></a><span class="co"># frequencies</span></span>
+<span id="cb314-2"><a href="logs.html#cb314-2"></a>img_extensions &lt;-<span class="st"> </span><span class="kw">str_extract</span>(logs, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.(jpg|png|gif|ico)&quot;</span>)</span>
+<span id="cb314-3"><a href="logs.html#cb314-3"></a><span class="kw">table</span>(img_extensions)</span>
+<span id="cb314-4"><a href="logs.html#cb314-4"></a><span class="co">#&gt; img_extensions</span></span>
+<span id="cb314-5"><a href="logs.html#cb314-5"></a><span class="co">#&gt; .gif .ico .jpg .png </span></span>
+<span id="cb314-6"><a href="logs.html#cb314-6"></a><span class="co">#&gt; 8818  100 5509 1374</span></span></code></pre></div>
 <hr />
 <div id="make-a-donation-13" class="section level4 unnumbered">
 <h4>Make a donation</h4>
@@ -553,11 +565,13 @@ of each type:</p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -565,12 +579,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -580,6 +593,14 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/gastonstat/r4strings/edit/master/logs.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -595,9 +616,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

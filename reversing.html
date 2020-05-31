@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Handling Strings with R</title>
-  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>17 Reversing Strings | Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:title" content="17 Reversing Strings | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -17,29 +16,32 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Handling Strings with R" />
+  <meta name="twitter:title" content="17 Reversing Strings | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
 
-<meta name="author" content="Gaston Sanchez">
+<meta name="author" content="Gaston Sanchez Chitra Venkatesh" />
 
 
-<meta name="date" content="2016-10-19">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="applications.html">
-<link rel="next" href="html.html">
+<link rel="prev" href="applications.html"/>
+<link rel="next" href="html.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,28 +52,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,49 +251,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
 <li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
+<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
+<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries</a></li>
 <li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="13" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>13</b> Practical Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
+<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>14</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="14.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>14.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="14.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>14.3</b> Reversing Words</a></li>
+<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
+<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
+<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>15</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="15.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
-<li class="chapter" data-level="15.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>15.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="15.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>15.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>16</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="16.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-<li class="chapter" data-level="16.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>16.2</b> Import Data</a></li>
-<li class="chapter" data-level="16.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>16.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="16.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>16.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="16.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>16.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="16.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>16.6</b> Month and Day</a></li>
-<li class="chapter" data-level="16.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>16.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="16.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>16.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="16.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>16.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>17</b> Data Log File</a><ul>
-<li class="chapter" data-level="17.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>17.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="17.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>17.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="17.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>17.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="17.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>17.1.3</b> Image files</a></li>
-<li class="chapter" data-level="17.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>17.1.4</b> How to match image files with one regex pattern?</a></li>
+<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>18</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="18.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>18.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="18.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>18.2.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
+<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
+<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
+<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
+<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
+<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
+<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>18.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="18.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>18.4</b> Common words</a></li>
-<li class="chapter" data-level="18.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>18.5</b> The top 30 words</a></li>
+<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
+<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
+<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
+<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -315,121 +321,121 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="reversing" class="section level1">
-<h1><span class="header-section-number">14</span> Reversing Strings</h1>
+<h1><span class="header-section-number">17</span> Reversing Strings</h1>
 <div id="introduction-7" class="section level2">
-<h2><span class="header-section-number">14.1</span> Introduction</h2>
+<h2><span class="header-section-number">17.1</span> Introduction</h2>
 <p>Our first example has to do with reversing a character string. More precisely, the objective is to create a function that takes a string and returns it in reversed order. The trick of this exercise depends on what we understand with the term <em>reversing</em>. For some people, reversing may be understood as simply having the set of <em>characters</em> in reverse order. For others, reversing may be understood as having a set of <em>words</em> in reverse order. Can you see the distinction?</p>
 <p>Let’s consider the following two simple strings:</p>
 <ul>
-<li><code>&quot;atmosphere&quot;</code></li>
-<li><code>&quot;the big bang theory&quot;</code></li>
+<li><code>"atmosphere"</code></li>
+<li><code>"the big bang theory"</code></li>
 </ul>
 <p>The first string is formed by one single word (atmosphere). The second string is formed by a sentence with four words (the big bang theory). If we were to reverse both strings by characters we would get the following results:</p>
 <ul>
-<li><code>&quot;erehpsomta&quot;</code></li>
-<li><code>&quot;yroeht gnab gib eht&quot;</code></li>
+<li><code>"erehpsomta"</code></li>
+<li><code>"yroeht gnab gib eht"</code></li>
 </ul>
 <p>Conversely, if we were to reverse the strings by words, we would obtain the following output:</p>
 <ul>
-<li><code>&quot;atmosphere&quot;</code></li>
-<li><code>&quot;theory bang big the&quot;</code></li>
+<li><code>"atmosphere"</code></li>
+<li><code>"theory bang big the"</code></li>
 </ul>
 <p>For this example we will implement a function for each type of reversing operation.</p>
 </div>
 <div id="reversing-characters" class="section level2">
-<h2><span class="header-section-number">14.2</span> Reversing Characters</h2>
+<h2><span class="header-section-number">17.2</span> Reversing Characters</h2>
 <p>The first case for reversing a string is to do it by <em>characters</em>. This implies that we need to split a given string into its different characters, and then we need to concatenate them back together in reverse order. Let’s try to write a first function:</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1"><span class="co"># function that reverses a string by characters</span></a>
-<a class="sourceLine" id="cb219-2" data-line-number="2">reverse_chars &lt;-<span class="st"> </span><span class="cf">function</span>(string)</a>
-<a class="sourceLine" id="cb219-3" data-line-number="3">{</a>
-<a class="sourceLine" id="cb219-4" data-line-number="4">  <span class="co"># split string by characters</span></a>
-<a class="sourceLine" id="cb219-5" data-line-number="5">  string_split =<span class="st"> </span><span class="kw">strsplit</span>(string, <span class="dt">split =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb219-6" data-line-number="6">  <span class="co"># reverse order</span></a>
-<a class="sourceLine" id="cb219-7" data-line-number="7">  rev_order =<span class="st"> </span><span class="kw">nchar</span>(string)<span class="op">:</span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb219-8" data-line-number="8">  <span class="co"># reversed characters</span></a>
-<a class="sourceLine" id="cb219-9" data-line-number="9">  reversed_chars =<span class="st"> </span>string_split[[<span class="dv">1</span>]][rev_order]</a>
-<a class="sourceLine" id="cb219-10" data-line-number="10">  <span class="co"># collapse reversed characters</span></a>
-<a class="sourceLine" id="cb219-11" data-line-number="11">  <span class="kw">paste</span>(reversed_chars, <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb219-12" data-line-number="12">} </a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="reversing.html#cb234-1"></a><span class="co"># function that reverses a string by characters</span></span>
+<span id="cb234-2"><a href="reversing.html#cb234-2"></a>reverse_chars &lt;-<span class="st"> </span><span class="cf">function</span>(string)</span>
+<span id="cb234-3"><a href="reversing.html#cb234-3"></a>{</span>
+<span id="cb234-4"><a href="reversing.html#cb234-4"></a>  <span class="co"># split string by characters</span></span>
+<span id="cb234-5"><a href="reversing.html#cb234-5"></a>  string_split =<span class="st"> </span><span class="kw">strsplit</span>(string, <span class="dt">split =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb234-6"><a href="reversing.html#cb234-6"></a>  <span class="co"># reverse order</span></span>
+<span id="cb234-7"><a href="reversing.html#cb234-7"></a>  rev_order =<span class="st"> </span><span class="kw">nchar</span>(string)<span class="op">:</span><span class="dv">1</span></span>
+<span id="cb234-8"><a href="reversing.html#cb234-8"></a>  <span class="co"># reversed characters</span></span>
+<span id="cb234-9"><a href="reversing.html#cb234-9"></a>  reversed_chars =<span class="st"> </span>string_split[[<span class="dv">1</span>]][rev_order]</span>
+<span id="cb234-10"><a href="reversing.html#cb234-10"></a>  <span class="co"># collapse reversed characters</span></span>
+<span id="cb234-11"><a href="reversing.html#cb234-11"></a>  <span class="kw">paste</span>(reversed_chars, <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb234-12"><a href="reversing.html#cb234-12"></a>} </span></code></pre></div>
 <p>Let’s test our reversing function with a character and numeric vectors:</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="co"># try &#39;reverse_chars&#39;</span></a>
-<a class="sourceLine" id="cb220-2" data-line-number="2"><span class="kw">reverse_chars</span>(<span class="st">&quot;abcdefg&quot;</span>)</a>
-<a class="sourceLine" id="cb220-3" data-line-number="3"><span class="co">#&gt; [1] &quot;gfedcba&quot;</span></a>
-<a class="sourceLine" id="cb220-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb220-5" data-line-number="5"><span class="co"># try with non-character input</span></a>
-<a class="sourceLine" id="cb220-6" data-line-number="6"><span class="kw">reverse_chars</span>(<span class="dv">12345</span>)</a>
-<a class="sourceLine" id="cb220-7" data-line-number="7"><span class="co">#&gt; Error in strsplit(string, split = &quot;&quot;): non-character argument</span></a></code></pre></div>
-<p>As you can see, <code>reverse_chars()</code> works fine when the input is in <code>&quot;character&quot;</code> mode. However, it complains when the input is <code>&quot;non-character&quot;</code>. In order to make our function more robust, we can force the input to be converted as character. The resulting code is given as:</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="co"># reversing a string by characters</span></a>
-<a class="sourceLine" id="cb221-2" data-line-number="2">reverse_chars &lt;-<span class="st"> </span><span class="cf">function</span>(string)</a>
-<a class="sourceLine" id="cb221-3" data-line-number="3">{</a>
-<a class="sourceLine" id="cb221-4" data-line-number="4">  string_split =<span class="st"> </span><span class="kw">strsplit</span>(<span class="kw">as.character</span>(string), <span class="dt">split =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb221-5" data-line-number="5">  reversed_split =<span class="st"> </span>string_split[[<span class="dv">1</span>]][<span class="kw">nchar</span>(string)<span class="op">:</span><span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb221-6" data-line-number="6">  <span class="kw">paste</span>(reversed_split, <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb221-7" data-line-number="7">} </a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="reversing.html#cb235-1"></a><span class="co"># try &#39;reverse_chars&#39;</span></span>
+<span id="cb235-2"><a href="reversing.html#cb235-2"></a><span class="kw">reverse_chars</span>(<span class="st">&quot;abcdefg&quot;</span>)</span>
+<span id="cb235-3"><a href="reversing.html#cb235-3"></a><span class="co">#&gt; [1] &quot;gfedcba&quot;</span></span>
+<span id="cb235-4"><a href="reversing.html#cb235-4"></a></span>
+<span id="cb235-5"><a href="reversing.html#cb235-5"></a><span class="co"># try with non-character input</span></span>
+<span id="cb235-6"><a href="reversing.html#cb235-6"></a><span class="kw">reverse_chars</span>(<span class="dv">12345</span>)</span>
+<span id="cb235-7"><a href="reversing.html#cb235-7"></a><span class="co">#&gt; Error in strsplit(string, split = &quot;&quot;): non-character argument</span></span></code></pre></div>
+<p>As you can see, <code>reverse_chars()</code> works fine when the input is in <code>"character"</code> mode. However, it complains when the input is <code>"non-character"</code>. In order to make our function more robust, we can force the input to be converted as character. The resulting code is given as:</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="reversing.html#cb236-1"></a><span class="co"># reversing a string by characters</span></span>
+<span id="cb236-2"><a href="reversing.html#cb236-2"></a>reverse_chars &lt;-<span class="st"> </span><span class="cf">function</span>(string)</span>
+<span id="cb236-3"><a href="reversing.html#cb236-3"></a>{</span>
+<span id="cb236-4"><a href="reversing.html#cb236-4"></a>  string_split =<span class="st"> </span><span class="kw">strsplit</span>(<span class="kw">as.character</span>(string), <span class="dt">split =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb236-5"><a href="reversing.html#cb236-5"></a>  reversed_split =<span class="st"> </span>string_split[[<span class="dv">1</span>]][<span class="kw">nchar</span>(string)<span class="op">:</span><span class="dv">1</span>]</span>
+<span id="cb236-6"><a href="reversing.html#cb236-6"></a>  <span class="kw">paste</span>(reversed_split, <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb236-7"><a href="reversing.html#cb236-7"></a>} </span></code></pre></div>
 <p>Now if we try our modified function, we get the expected results:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="co"># example with one word</span></a>
-<a class="sourceLine" id="cb222-2" data-line-number="2"><span class="kw">reverse_chars</span>(<span class="st">&quot;atmosphere&quot;</span>)</a>
-<a class="sourceLine" id="cb222-3" data-line-number="3"><span class="co">#&gt; [1] &quot;erehpsomta&quot;</span></a>
-<a class="sourceLine" id="cb222-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb222-5" data-line-number="5"><span class="co"># example with a several words</span></a>
-<a class="sourceLine" id="cb222-6" data-line-number="6"><span class="kw">reverse_chars</span>(<span class="st">&quot;the big bang theory&quot;</span>)</a>
-<a class="sourceLine" id="cb222-7" data-line-number="7"><span class="co">#&gt; [1] &quot;yroeht gnab gib eht&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="reversing.html#cb237-1"></a><span class="co"># example with one word</span></span>
+<span id="cb237-2"><a href="reversing.html#cb237-2"></a><span class="kw">reverse_chars</span>(<span class="st">&quot;atmosphere&quot;</span>)</span>
+<span id="cb237-3"><a href="reversing.html#cb237-3"></a><span class="co">#&gt; [1] &quot;erehpsomta&quot;</span></span>
+<span id="cb237-4"><a href="reversing.html#cb237-4"></a></span>
+<span id="cb237-5"><a href="reversing.html#cb237-5"></a><span class="co"># example with a several words</span></span>
+<span id="cb237-6"><a href="reversing.html#cb237-6"></a><span class="kw">reverse_chars</span>(<span class="st">&quot;the big bang theory&quot;</span>)</span>
+<span id="cb237-7"><a href="reversing.html#cb237-7"></a><span class="co">#&gt; [1] &quot;yroeht gnab gib eht&quot;</span></span></code></pre></div>
 <p>Moreover, it also works with non-character input:</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1"><span class="co"># try &#39;reverse_chars&#39;</span></a>
-<a class="sourceLine" id="cb223-2" data-line-number="2"><span class="kw">reverse_chars</span>(<span class="st">&quot;abcdefg&quot;</span>)</a>
-<a class="sourceLine" id="cb223-3" data-line-number="3"><span class="co">#&gt; [1] &quot;gfedcba&quot;</span></a>
-<a class="sourceLine" id="cb223-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb223-5" data-line-number="5"><span class="co"># try with non-character input</span></a>
-<a class="sourceLine" id="cb223-6" data-line-number="6"><span class="kw">reverse_chars</span>(<span class="dv">12345</span>)</a>
-<a class="sourceLine" id="cb223-7" data-line-number="7"><span class="co">#&gt; [1] &quot;54321&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="reversing.html#cb238-1"></a><span class="co"># try &#39;reverse_chars&#39;</span></span>
+<span id="cb238-2"><a href="reversing.html#cb238-2"></a><span class="kw">reverse_chars</span>(<span class="st">&quot;abcdefg&quot;</span>)</span>
+<span id="cb238-3"><a href="reversing.html#cb238-3"></a><span class="co">#&gt; [1] &quot;gfedcba&quot;</span></span>
+<span id="cb238-4"><a href="reversing.html#cb238-4"></a></span>
+<span id="cb238-5"><a href="reversing.html#cb238-5"></a><span class="co"># try with non-character input</span></span>
+<span id="cb238-6"><a href="reversing.html#cb238-6"></a><span class="kw">reverse_chars</span>(<span class="dv">12345</span>)</span>
+<span id="cb238-7"><a href="reversing.html#cb238-7"></a><span class="co">#&gt; [1] &quot;54321&quot;</span></span></code></pre></div>
 <p>If we want to use our function with a vector (more than one element), we can combine it with the <code>lapply()</code> function as follows:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="co"># reverse vector (by characters)</span></a>
-<a class="sourceLine" id="cb224-2" data-line-number="2"><span class="kw">lapply</span>(<span class="kw">c</span>(<span class="st">&quot;the big bang theory&quot;</span>, <span class="st">&quot;atmosphere&quot;</span>), reverse_chars)</a>
-<a class="sourceLine" id="cb224-3" data-line-number="3"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb224-4" data-line-number="4"><span class="co">#&gt; [1] &quot;yroeht gnab gib eht&quot;</span></a>
-<a class="sourceLine" id="cb224-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb224-6" data-line-number="6"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb224-7" data-line-number="7"><span class="co">#&gt; [1] &quot;erehpsomta&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="reversing.html#cb239-1"></a><span class="co"># reverse vector (by characters)</span></span>
+<span id="cb239-2"><a href="reversing.html#cb239-2"></a><span class="kw">lapply</span>(<span class="kw">c</span>(<span class="st">&quot;the big bang theory&quot;</span>, <span class="st">&quot;atmosphere&quot;</span>), reverse_chars)</span>
+<span id="cb239-3"><a href="reversing.html#cb239-3"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb239-4"><a href="reversing.html#cb239-4"></a><span class="co">#&gt; [1] &quot;yroeht gnab gib eht&quot;</span></span>
+<span id="cb239-5"><a href="reversing.html#cb239-5"></a><span class="co">#&gt; </span></span>
+<span id="cb239-6"><a href="reversing.html#cb239-6"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb239-7"><a href="reversing.html#cb239-7"></a><span class="co">#&gt; [1] &quot;erehpsomta&quot;</span></span></code></pre></div>
 </div>
 <div id="reversing-words" class="section level2">
-<h2><span class="header-section-number">14.3</span> Reversing Words</h2>
+<h2><span class="header-section-number">17.3</span> Reversing Words</h2>
 <p>The second type of reversing operation is to reverse a string by <strong>words</strong>. In this case the procedure involves splitting up a string by words, re-arrange them in reverse order, and paste them back in one sentence. Here’s how we can defined our <code>reverse_words()</code> function:</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1"><span class="co"># function that reverses a string by words</span></a>
-<a class="sourceLine" id="cb225-2" data-line-number="2">reverse_words &lt;-<span class="st"> </span><span class="cf">function</span>(string)</a>
-<a class="sourceLine" id="cb225-3" data-line-number="3">{</a>
-<a class="sourceLine" id="cb225-4" data-line-number="4">  <span class="co"># split string by blank spaces</span></a>
-<a class="sourceLine" id="cb225-5" data-line-number="5">  string_split =<span class="st"> </span><span class="kw">strsplit</span>(<span class="kw">as.character</span>(string), <span class="dt">split =</span> <span class="st">&quot; &quot;</span>)</a>
-<a class="sourceLine" id="cb225-6" data-line-number="6">  <span class="co"># how many split terms?</span></a>
-<a class="sourceLine" id="cb225-7" data-line-number="7">  string_length =<span class="st"> </span><span class="kw">length</span>(string_split[[<span class="dv">1</span>]])</a>
-<a class="sourceLine" id="cb225-8" data-line-number="8">  <span class="co"># decide what to do</span></a>
-<a class="sourceLine" id="cb225-9" data-line-number="9">  <span class="cf">if</span> (string_length <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb225-10" data-line-number="10">    <span class="co"># one word (do nothing)</span></a>
-<a class="sourceLine" id="cb225-11" data-line-number="11">    reversed_string =<span class="st"> </span>string_split[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb225-12" data-line-number="12">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb225-13" data-line-number="13">    <span class="co"># more than one word (collapse them)</span></a>
-<a class="sourceLine" id="cb225-14" data-line-number="14">    reversed_split =<span class="st"> </span>string_split[[<span class="dv">1</span>]][string_length<span class="op">:</span><span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb225-15" data-line-number="15">    reversed_string =<span class="st"> </span><span class="kw">paste</span>(reversed_split, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)</a>
-<a class="sourceLine" id="cb225-16" data-line-number="16">  }</a>
-<a class="sourceLine" id="cb225-17" data-line-number="17">  <span class="co"># output</span></a>
-<a class="sourceLine" id="cb225-18" data-line-number="18">  <span class="kw">return</span>(reversed_string)</a>
-<a class="sourceLine" id="cb225-19" data-line-number="19">} </a></code></pre></div>
-<p>The first step inside <code>reverse_words()</code> is to split the <code>string</code> according to a blank space pattern <code>&quot; &quot;</code>. Then we are counting the number of components resulting from the splitting step. Based on this information there are two options. If there is only one word, then there is nothing to do. If we have more than one words, then we need to re-arrenge them in reverse order and collapse them in a single string.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="reversing.html#cb240-1"></a><span class="co"># function that reverses a string by words</span></span>
+<span id="cb240-2"><a href="reversing.html#cb240-2"></a>reverse_words &lt;-<span class="st"> </span><span class="cf">function</span>(string)</span>
+<span id="cb240-3"><a href="reversing.html#cb240-3"></a>{</span>
+<span id="cb240-4"><a href="reversing.html#cb240-4"></a>  <span class="co"># split string by blank spaces</span></span>
+<span id="cb240-5"><a href="reversing.html#cb240-5"></a>  string_split =<span class="st"> </span><span class="kw">strsplit</span>(<span class="kw">as.character</span>(string), <span class="dt">split =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb240-6"><a href="reversing.html#cb240-6"></a>  <span class="co"># how many split terms?</span></span>
+<span id="cb240-7"><a href="reversing.html#cb240-7"></a>  string_length =<span class="st"> </span><span class="kw">length</span>(string_split[[<span class="dv">1</span>]])</span>
+<span id="cb240-8"><a href="reversing.html#cb240-8"></a>  <span class="co"># decide what to do</span></span>
+<span id="cb240-9"><a href="reversing.html#cb240-9"></a>  <span class="cf">if</span> (string_length <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</span>
+<span id="cb240-10"><a href="reversing.html#cb240-10"></a>    <span class="co"># one word (do nothing)</span></span>
+<span id="cb240-11"><a href="reversing.html#cb240-11"></a>    reversed_string =<span class="st"> </span>string_split[[<span class="dv">1</span>]]</span>
+<span id="cb240-12"><a href="reversing.html#cb240-12"></a>  } <span class="cf">else</span> {</span>
+<span id="cb240-13"><a href="reversing.html#cb240-13"></a>    <span class="co"># more than one word (collapse them)</span></span>
+<span id="cb240-14"><a href="reversing.html#cb240-14"></a>    reversed_split =<span class="st"> </span>string_split[[<span class="dv">1</span>]][string_length<span class="op">:</span><span class="dv">1</span>]</span>
+<span id="cb240-15"><a href="reversing.html#cb240-15"></a>    reversed_string =<span class="st"> </span><span class="kw">paste</span>(reversed_split, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb240-16"><a href="reversing.html#cb240-16"></a>  }</span>
+<span id="cb240-17"><a href="reversing.html#cb240-17"></a>  <span class="co"># output</span></span>
+<span id="cb240-18"><a href="reversing.html#cb240-18"></a>  <span class="kw">return</span>(reversed_string)</span>
+<span id="cb240-19"><a href="reversing.html#cb240-19"></a>} </span></code></pre></div>
+<p>The first step inside <code>reverse_words()</code> is to split the <code>string</code> according to a blank space pattern <code>" "</code>. Then we are counting the number of components resulting from the splitting step. Based on this information there are two options. If there is only one word, then there is nothing to do. If we have more than one words, then we need to re-arrenge them in reverse order and collapse them in a single string.</p>
 <p>Once we have defined our function, we can try it on the two string examples to check that it works as expected:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1"><span class="co"># examples</span></a>
-<a class="sourceLine" id="cb226-2" data-line-number="2"><span class="kw">reverse_words</span>(<span class="st">&quot;atmosphere&quot;</span>)</a>
-<a class="sourceLine" id="cb226-3" data-line-number="3"><span class="co">#&gt; [1] &quot;atmosphere&quot;</span></a>
-<a class="sourceLine" id="cb226-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb226-5" data-line-number="5"><span class="kw">reverse_words</span>(<span class="st">&quot;the big bang theory&quot;</span>)</a>
-<a class="sourceLine" id="cb226-6" data-line-number="6"><span class="co">#&gt; [1] &quot;theory bang big the&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="reversing.html#cb241-1"></a><span class="co"># examples</span></span>
+<span id="cb241-2"><a href="reversing.html#cb241-2"></a><span class="kw">reverse_words</span>(<span class="st">&quot;atmosphere&quot;</span>)</span>
+<span id="cb241-3"><a href="reversing.html#cb241-3"></a><span class="co">#&gt; [1] &quot;atmosphere&quot;</span></span>
+<span id="cb241-4"><a href="reversing.html#cb241-4"></a></span>
+<span id="cb241-5"><a href="reversing.html#cb241-5"></a><span class="kw">reverse_words</span>(<span class="st">&quot;the big bang theory&quot;</span>)</span>
+<span id="cb241-6"><a href="reversing.html#cb241-6"></a><span class="co">#&gt; [1] &quot;theory bang big the&quot;</span></span></code></pre></div>
 <p>Similarly, to use our function on a vector with more than one element, we should call it within the <code>lapply()</code> function as follows:</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="co"># reverse vector (by words)</span></a>
-<a class="sourceLine" id="cb227-2" data-line-number="2"><span class="kw">lapply</span>(<span class="kw">c</span>(<span class="st">&quot;the big bang theory&quot;</span>, <span class="st">&quot;atmosphere&quot;</span>), reverse_words)</a>
-<a class="sourceLine" id="cb227-3" data-line-number="3"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb227-4" data-line-number="4"><span class="co">#&gt; [1] &quot;theory bang big the&quot;</span></a>
-<a class="sourceLine" id="cb227-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb227-6" data-line-number="6"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb227-7" data-line-number="7"><span class="co">#&gt; [1] &quot;atmosphere&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="reversing.html#cb242-1"></a><span class="co"># reverse vector (by words)</span></span>
+<span id="cb242-2"><a href="reversing.html#cb242-2"></a><span class="kw">lapply</span>(<span class="kw">c</span>(<span class="st">&quot;the big bang theory&quot;</span>, <span class="st">&quot;atmosphere&quot;</span>), reverse_words)</span>
+<span id="cb242-3"><a href="reversing.html#cb242-3"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb242-4"><a href="reversing.html#cb242-4"></a><span class="co">#&gt; [1] &quot;theory bang big the&quot;</span></span>
+<span id="cb242-5"><a href="reversing.html#cb242-5"></a><span class="co">#&gt; </span></span>
+<span id="cb242-6"><a href="reversing.html#cb242-6"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb242-7"><a href="reversing.html#cb242-7"></a><span class="co">#&gt; [1] &quot;atmosphere&quot;</span></span></code></pre></div>
 <hr />
 <div id="make-a-donation-10" class="section level4 unnumbered">
 <h4>Make a donation</h4>
@@ -456,11 +462,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -468,12 +476,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -483,6 +490,14 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/gastonstat/r4strings/edit/master/reversing.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -498,9 +513,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

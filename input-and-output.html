@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Handling Strings with R</title>
-  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Input and Output | Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:title" content="5 Input and Output | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -17,29 +16,32 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Handling Strings with R" />
+  <meta name="twitter:title" content="5 Input and Output | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
 
-<meta name="author" content="Gaston Sanchez">
+<meta name="author" content="Gaston Sanchez Chitra Venkatesh" />
 
 
-<meta name="date" content="2016-10-19">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="c-style-formatting.html">
-<link rel="next" href="manip.html">
+<link rel="prev" href="c-style-formatting.html"/>
+<link rel="next" href="manip.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,28 +52,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,49 +251,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
 <li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
+<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
+<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries</a></li>
 <li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="13" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>13</b> Practical Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
+<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>14</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="14.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>14.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="14.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>14.3</b> Reversing Words</a></li>
+<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
+<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
+<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>15</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="15.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
-<li class="chapter" data-level="15.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>15.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="15.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>15.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>16</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="16.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-<li class="chapter" data-level="16.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>16.2</b> Import Data</a></li>
-<li class="chapter" data-level="16.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>16.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="16.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>16.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="16.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>16.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="16.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>16.6</b> Month and Day</a></li>
-<li class="chapter" data-level="16.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>16.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="16.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>16.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="16.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>16.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>17</b> Data Log File</a><ul>
-<li class="chapter" data-level="17.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>17.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="17.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>17.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="17.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>17.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="17.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>17.1.3</b> Image files</a></li>
-<li class="chapter" data-level="17.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>17.1.4</b> How to match image files with one regex pattern?</a></li>
+<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>18</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="18.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>18.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="18.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>18.2.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
+<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
+<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
+<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
+<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
+<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
+<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>18.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="18.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>18.4</b> Common words</a></li>
-<li class="chapter" data-level="18.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>18.5</b> The top 30 words</a></li>
+<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
+<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
+<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
+<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -328,12 +334,12 @@ have a tabular format (i.e. rows and columns).</p>
 <p>You can use <code>cat()</code> to concatenate and print information to a file.</p>
 <p>To show you how to use <code>cat()</code> let’s illustrate a simple example using the data
 frame <code>mtcars</code> that comes in R.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="co"># summary statistics of unemp</span></a>
-<a class="sourceLine" id="cb95-2" data-line-number="2"><span class="kw">min</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb95-3" data-line-number="3"><span class="kw">max</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb95-4" data-line-number="4"><span class="kw">median</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb95-5" data-line-number="5"><span class="kw">mean</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb95-6" data-line-number="6"><span class="kw">sd</span>(mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="input-and-output.html#cb95-1"></a><span class="co"># summary statistics of unemp</span></span>
+<span id="cb95-2"><a href="input-and-output.html#cb95-2"></a><span class="kw">min</span>(mtcars<span class="op">$</span>mpg)</span>
+<span id="cb95-3"><a href="input-and-output.html#cb95-3"></a><span class="kw">max</span>(mtcars<span class="op">$</span>mpg)</span>
+<span id="cb95-4"><a href="input-and-output.html#cb95-4"></a><span class="kw">median</span>(mtcars<span class="op">$</span>mpg)</span>
+<span id="cb95-5"><a href="input-and-output.html#cb95-5"></a><span class="kw">mean</span>(mtcars<span class="op">$</span>mpg)</span>
+<span id="cb95-6"><a href="input-and-output.html#cb95-6"></a><span class="kw">sd</span>(mtcars<span class="op">$</span>mpg)</span></code></pre></div>
 <p>The goal is to generate a file <code>mpg-statistics.txt</code> with the following
 contents:</p>
 <pre><code>Miles per Gallon Statistics
@@ -345,31 +351,31 @@ Mean   : 20.09
 Std Dev: 6.02</code></pre>
 <p>Here is one way to do it. First, let’s assign the statistics to different
 objects:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="co"># summary statistics of mpg</span></a>
-<a class="sourceLine" id="cb97-2" data-line-number="2">mpg_min &lt;-<span class="st"> </span><span class="kw">min</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb97-3" data-line-number="3">mpg_max &lt;-<span class="st"> </span><span class="kw">max</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb97-4" data-line-number="4">mpg_med &lt;-<span class="st"> </span><span class="kw">median</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb97-5" data-line-number="5">mpg_avg &lt;-<span class="st"> </span><span class="kw">mean</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb97-6" data-line-number="6">mpg_sd &lt;-<span class="st"> </span><span class="kw">sd</span>(mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="input-and-output.html#cb97-1"></a><span class="co"># summary statistics of mpg</span></span>
+<span id="cb97-2"><a href="input-and-output.html#cb97-2"></a>mpg_min &lt;-<span class="st"> </span><span class="kw">min</span>(mtcars<span class="op">$</span>mpg)</span>
+<span id="cb97-3"><a href="input-and-output.html#cb97-3"></a>mpg_max &lt;-<span class="st"> </span><span class="kw">max</span>(mtcars<span class="op">$</span>mpg)</span>
+<span id="cb97-4"><a href="input-and-output.html#cb97-4"></a>mpg_med &lt;-<span class="st"> </span><span class="kw">median</span>(mtcars<span class="op">$</span>mpg)</span>
+<span id="cb97-5"><a href="input-and-output.html#cb97-5"></a>mpg_avg &lt;-<span class="st"> </span><span class="kw">mean</span>(mtcars<span class="op">$</span>mpg)</span>
+<span id="cb97-6"><a href="input-and-output.html#cb97-6"></a>mpg_sd &lt;-<span class="st"> </span><span class="kw">sd</span>(mtcars<span class="op">$</span>mpg)</span></code></pre></div>
 <p>After creating the objects containing the summary statistics, the next step
 is to export them to the text file <code>mpg-statistics.txt</code> via <code>cat()</code>.
 Assuming that the output file is in your working directory, here’s how you can
 send the set of strings to the text file:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="co"># name of output file</span></a>
-<a class="sourceLine" id="cb98-2" data-line-number="2">outfile &lt;-<span class="st"> &quot;mpg-statistics.txt&quot;</span></a>
-<a class="sourceLine" id="cb98-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb98-4" data-line-number="4"><span class="co"># first line of the file</span></a>
-<a class="sourceLine" id="cb98-5" data-line-number="5"><span class="kw">cat</span>(<span class="st">&quot;Miles per Gallon Statistics</span><span class="ch">\n\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile)</a>
-<a class="sourceLine" id="cb98-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb98-7" data-line-number="7"><span class="co"># subsequent lines appended to the output file</span></a>
-<a class="sourceLine" id="cb98-8" data-line-number="8"><span class="kw">cat</span>(<span class="st">&quot;Minimum:&quot;</span>, mpg_min, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb98-9" data-line-number="9"><span class="kw">cat</span>(<span class="st">&quot;Maximum:&quot;</span>, mpg_max, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb98-10" data-line-number="10"><span class="kw">cat</span>(<span class="st">&quot;Median :&quot;</span>, mpg_med, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb98-11" data-line-number="11"><span class="kw">cat</span>(<span class="st">&quot;Mean   :&quot;</span>, mpg_avg, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb98-12" data-line-number="12"><span class="kw">cat</span>(<span class="st">&quot;Std Dev:&quot;</span>, mpg_sd, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="input-and-output.html#cb98-1"></a><span class="co"># name of output file</span></span>
+<span id="cb98-2"><a href="input-and-output.html#cb98-2"></a>outfile &lt;-<span class="st"> &quot;mpg-statistics.txt&quot;</span></span>
+<span id="cb98-3"><a href="input-and-output.html#cb98-3"></a></span>
+<span id="cb98-4"><a href="input-and-output.html#cb98-4"></a><span class="co"># first line of the file</span></span>
+<span id="cb98-5"><a href="input-and-output.html#cb98-5"></a><span class="kw">cat</span>(<span class="st">&quot;Miles per Gallon Statistics</span><span class="ch">\n\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile)</span>
+<span id="cb98-6"><a href="input-and-output.html#cb98-6"></a></span>
+<span id="cb98-7"><a href="input-and-output.html#cb98-7"></a><span class="co"># subsequent lines appended to the output file</span></span>
+<span id="cb98-8"><a href="input-and-output.html#cb98-8"></a><span class="kw">cat</span>(<span class="st">&quot;Minimum:&quot;</span>, mpg_min, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb98-9"><a href="input-and-output.html#cb98-9"></a><span class="kw">cat</span>(<span class="st">&quot;Maximum:&quot;</span>, mpg_max, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb98-10"><a href="input-and-output.html#cb98-10"></a><span class="kw">cat</span>(<span class="st">&quot;Median :&quot;</span>, mpg_med, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb98-11"><a href="input-and-output.html#cb98-11"></a><span class="kw">cat</span>(<span class="st">&quot;Mean   :&quot;</span>, mpg_avg, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb98-12"><a href="input-and-output.html#cb98-12"></a><span class="kw">cat</span>(<span class="st">&quot;Std Dev:&quot;</span>, mpg_sd, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>The first line exported to <code>mpg-statistics.txt</code> is a string with the title
-<code>&quot;Miles per Gallon Statistics\n\n&quot;</code>. Observe that we are using two new line
-characters <code>&quot;\n\n&quot;</code> to add some space between the title and the statistics.
+<code>"Miles per Gallon Statistics\n\n"</code>. Observe that we are using two new line
+characters <code>"\n\n"</code> to add some space between the title and the statistics.
 The rest of calls to <code>cat()</code> use the argument <code>append = TRUE</code> to concatenate
 the specified strings to the end of the text file without overriding the
 existing lines.</p>
@@ -384,13 +390,13 @@ Mean   : 20.09062
 Std Dev: 6.026948 </code></pre>
 <p>As you can tell, the displayed values have a different number of decimal
 digits. If you just want to keep two decimal digits, you can use <code>sprintf()</code>
-and choose the format <code>&quot;%0.2f&quot;</code>. Let’s re-export the lines:</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;Miles per Gallon Statistics</span><span class="ch">\n\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile)</a>
-<a class="sourceLine" id="cb100-2" data-line-number="2"><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&#39;Minimum: %0.2f&#39;</span>, mpg_min), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb100-3" data-line-number="3"><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&#39;Maximum: %0.2f&#39;</span>, mpg_max), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb100-4" data-line-number="4"><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&#39;Median : %0.2f&#39;</span>, mpg_med), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb100-5" data-line-number="5"><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&#39;Mean   : %0.2f&#39;</span>, mpg_avg), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb100-6" data-line-number="6"><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&#39;Std Dev: %0.2f&#39;</span>, mpg_sd), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+and choose the format <code>"%0.2f"</code>. Let’s re-export the lines:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="input-and-output.html#cb100-1"></a><span class="kw">cat</span>(<span class="st">&quot;Miles per Gallon Statistics</span><span class="ch">\n\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile)</span>
+<span id="cb100-2"><a href="input-and-output.html#cb100-2"></a><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&#39;Minimum: %0.2f&#39;</span>, mpg_min), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb100-3"><a href="input-and-output.html#cb100-3"></a><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&#39;Maximum: %0.2f&#39;</span>, mpg_max), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb100-4"><a href="input-and-output.html#cb100-4"></a><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&#39;Median : %0.2f&#39;</span>, mpg_med), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb100-5"><a href="input-and-output.html#cb100-5"></a><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&#39;Mean   : %0.2f&#39;</span>, mpg_avg), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb100-6"><a href="input-and-output.html#cb100-6"></a><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&#39;Std Dev: %0.2f&#39;</span>, mpg_sd), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">file =</span> outfile, <span class="dt">append =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Now the content of <code>mpg-statistics.txt</code> should look like this:</p>
 <pre><code>Miles per Gallon Statistics
 
@@ -407,17 +413,17 @@ Std Dev: 6.03 </code></pre>
 <p>Another interesting function is <code>sink()</code>. This function is very useful when
 you want to export R output as is displayed in the R console. For example,
 consider the output from <code>summary()</code></p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1"><span class="kw">summary</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="input-and-output.html#cb102-1"></a><span class="kw">summary</span>(mtcars)</span></code></pre></div>
 <p>You could assign the output of <code>summary(mtcars)</code> to an object and then try
 <code>writeLines()</code> to export the results to a file <code>mtcars-summary.txt</code>, but
 you won’t keep the same format of R:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1">mtcars_summary &lt;-<span class="st"> </span><span class="kw">summary</span>(mtcars)</a>
-<a class="sourceLine" id="cb103-2" data-line-number="2"><span class="kw">writeLines</span>(mtcars_summary, <span class="dt">con =</span> <span class="st">&quot;mtcars-summary.txt&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="input-and-output.html#cb103-1"></a>mtcars_summary &lt;-<span class="st"> </span><span class="kw">summary</span>(mtcars)</span>
+<span id="cb103-2"><a href="input-and-output.html#cb103-2"></a><span class="kw">writeLines</span>(mtcars_summary, <span class="dt">con =</span> <span class="st">&quot;mtcars-summary.txt&quot;</span>)</span></code></pre></div>
 <p>To be able to keep the same output display of R, you must use <code>sink()</code>. This
 function will <strong>divert</strong> R output to the specified file:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="kw">sink</span>(<span class="dt">file =</span> <span class="st">&quot;mtcars-statistics.txt&quot;</span>)</a>
-<a class="sourceLine" id="cb104-2" data-line-number="2"><span class="kw">summary</span>(australia)</a>
-<a class="sourceLine" id="cb104-3" data-line-number="3"><span class="kw">sink</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="input-and-output.html#cb104-1"></a><span class="kw">sink</span>(<span class="dt">file =</span> <span class="st">&quot;mtcars-statistics.txt&quot;</span>)</span>
+<span id="cb104-2"><a href="input-and-output.html#cb104-2"></a><span class="kw">summary</span>(australia)</span>
+<span id="cb104-3"><a href="input-and-output.html#cb104-3"></a><span class="kw">sink</span>()</span></code></pre></div>
 <p><strong>Your turn:</strong> Use <code>sink()</code> to send the output from running a linear
 regression of <code>mpg</code> on <code>disp</code> with the function <code>lm()</code>. Also export the results
 from using <code>summary()</code> on the regression object. And/or try running a t-test
@@ -427,20 +433,20 @@ between <code>mpg</code> and <code>disp</code> with <code>t.test()</code>.</p>
 <div id="exporting-tables" class="section level2">
 <h2><span class="header-section-number">5.2</span> Exporting tables</h2>
 <p>Another interesting tool to export tables in LaTeX or HTML formats is provided
-by the R package <code>&quot;xtable&quot;</code> and its main function <code>xtable()</code>.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">library</span>(xtable)</a>
-<a class="sourceLine" id="cb105-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb105-3" data-line-number="3"><span class="co"># linear regression</span></a>
-<a class="sourceLine" id="cb105-4" data-line-number="4">reg &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars)</a>
-<a class="sourceLine" id="cb105-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb105-6" data-line-number="6"><span class="co"># create xtable and export it</span></a>
-<a class="sourceLine" id="cb105-7" data-line-number="7">reg_table &lt;-<span class="st"> </span><span class="kw">xtable</span>(reg)</a></code></pre></div>
-<p>The object <code>reg_table</code> is an object of class <code>&quot;xtable&quot;</code>. What you do with this
+by the R package <code>"xtable"</code> and its main function <code>xtable()</code>.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="input-and-output.html#cb105-1"></a><span class="kw">library</span>(xtable)</span>
+<span id="cb105-2"><a href="input-and-output.html#cb105-2"></a></span>
+<span id="cb105-3"><a href="input-and-output.html#cb105-3"></a><span class="co"># linear regression</span></span>
+<span id="cb105-4"><a href="input-and-output.html#cb105-4"></a>reg &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars)</span>
+<span id="cb105-5"><a href="input-and-output.html#cb105-5"></a></span>
+<span id="cb105-6"><a href="input-and-output.html#cb105-6"></a><span class="co"># create xtable and export it</span></span>
+<span id="cb105-7"><a href="input-and-output.html#cb105-7"></a>reg_table &lt;-<span class="st"> </span><span class="kw">xtable</span>(reg)</span></code></pre></div>
+<p>The object <code>reg_table</code> is an object of class <code>"xtable"</code>. What you do with this
 type of objects is <code>print()</code> them to a file.</p>
 <p>To print <code>reg_table</code> in latex format to a <code>.tex</code> file:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="kw">print</span>(reg_table, <span class="dt">type =</span> <span class="st">&quot;latex&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;reg-table.tex&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="input-and-output.html#cb106-1"></a><span class="kw">print</span>(reg_table, <span class="dt">type =</span> <span class="st">&quot;latex&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;reg-table.tex&quot;</span>)</span></code></pre></div>
 <p>To print <code>reg_table</code> in html format to an <code>.html</code> file:</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="kw">print</span>(reg_table, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;reg-table.html&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="input-and-output.html#cb107-1"></a><span class="kw">print</span>(reg_table, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;reg-table.html&quot;</span>)</span></code></pre></div>
 <hr />
 <div id="make-a-donation-3" class="section level4 unnumbered">
 <h4>Make a donation</h4>
@@ -470,11 +476,13 @@ type of objects is <code>print()</code> them to a file.</p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -482,12 +490,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -497,6 +504,14 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/gastonstat/r4strings/edit/master/input-output.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -512,9 +527,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

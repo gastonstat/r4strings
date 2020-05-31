@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Handling Strings with R</title>
-  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>18 Matching HTML Tags | Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:title" content="18 Matching HTML Tags | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -17,29 +16,32 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Handling Strings with R" />
+  <meta name="twitter:title" content="18 Matching HTML Tags | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
 
-<meta name="author" content="Gaston Sanchez">
+<meta name="author" content="Gaston Sanchez Chitra Venkatesh" />
 
 
-<meta name="date" content="2016-10-19">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="reversing.html">
-<link rel="next" href="cleaning.html">
+<link rel="prev" href="reversing.html"/>
+<link rel="next" href="cleaning.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,28 +52,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,49 +251,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
 <li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
+<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
+<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries</a></li>
 <li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="13" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>13</b> Practical Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
+<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>14</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="14.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>14.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="14.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>14.3</b> Reversing Words</a></li>
+<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
+<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
+<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>15</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="15.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
-<li class="chapter" data-level="15.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>15.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="15.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>15.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>16</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="16.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-<li class="chapter" data-level="16.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>16.2</b> Import Data</a></li>
-<li class="chapter" data-level="16.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>16.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="16.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>16.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="16.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>16.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="16.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>16.6</b> Month and Day</a></li>
-<li class="chapter" data-level="16.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>16.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="16.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>16.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="16.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>16.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>17</b> Data Log File</a><ul>
-<li class="chapter" data-level="17.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>17.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="17.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>17.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="17.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>17.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="17.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>17.1.3</b> Image files</a></li>
-<li class="chapter" data-level="17.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>17.1.4</b> How to match image files with one regex pattern?</a></li>
+<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>18</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="18.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>18.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="18.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>18.2.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
+<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
+<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
+<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
+<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
+<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
+<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>18.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="18.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>18.4</b> Common words</a></li>
-<li class="chapter" data-level="18.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>18.5</b> The top 30 words</a></li>
+<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
+<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
+<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
+<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -315,10 +321,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="html" class="section level1">
-<h1><span class="header-section-number">15</span> Matching HTML Tags</h1>
+<h1><span class="header-section-number">18</span> Matching HTML Tags</h1>
 <div id="introduction-8" class="section level2">
-<h2><span class="header-section-number">15.1</span> Introduction</h2>
-<p>In this example we will deal with some basic handling of HTML tags. The data for this practical application is the webpage for the R mailing lists: <a href="http://www.r-project.org/mail.html" class="uri">http://www.r-project.org/mail.html</a> (see screenshot below)</p>
+<h2><span class="header-section-number">18.1</span> Introduction</h2>
+<p>In this example we will deal with some basic handling of HTML tags. The data for this practical application is the webpage for the R mailing lists: <a href="http://www.r-project.org/mail.html">http://www.r-project.org/mail.html</a> (see screenshot below)</p>
 <p><img src="images/rmailing-lists-page.png" width="736" style="display: block; margin: auto;" /></p>
 <p>If you visit the previous webpage you will see that there are five general mailing lists devoted to R:</p>
 <ul>
@@ -332,67 +338,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="images/rmailing-interest-groups.png" width="501" style="display: block; margin: auto;" /></p>
 </div>
 <div id="attributes-href" class="section level2">
-<h2><span class="header-section-number">15.2</span> Attributes <code>href</code></h2>
+<h2><span class="header-section-number">18.2</span> Attributes <code>href</code></h2>
 <p>As a simple example, suppose we wanted to get the <code>href</code> attributes of all the SIG links. For instance, the <code>href</code> attribute of the R-SIG-Mac link is: <code>https://stat.ethz.ch/mailman/listinfo/r-sig-mac</code></p>
 <p>In turn the <code>href</code> attribute of the R-sig-DB link is: <code>https://stat.ethz.ch/mailman/listinfo/r-sig-db</code></p>
 <p>If we take a peek at the html source-code of the webpage, we’ll see that all the links can be found on lines like this one:</p>
 <pre><code>&quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-mac\&quot;&gt;&lt;code&gt;R-SIG-Mac&lt;/code&gt;&lt;/a&gt;: R Special Interest Group on Mac ports of R&lt;/p&gt;&lt;/li&gt;&quot;</code></pre>
 
 <div id="getting-sig-links" class="section level3">
-<h3><span class="header-section-number">15.2.1</span> Getting SIG links</h3>
+<h3><span class="header-section-number">18.2.1</span> Getting SIG links</h3>
 <p>The first step is to create a vector of character strings that will contain the lines of the mailing lists webpage. We can create this vector by simply passing the URL name to <code>readLines()</code>:</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1"><span class="co"># read html content</span></a>
-<a class="sourceLine" id="cb229-2" data-line-number="2">mail_lists =<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&quot;http://www.r-project.org/mail.html&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="html.html#cb244-1"></a><span class="co"># read html content</span></span>
+<span id="cb244-2"><a href="html.html#cb244-2"></a>mail_lists =<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&quot;http://www.r-project.org/mail.html&quot;</span>)</span></code></pre></div>
 <p>The first elements in <code>mail_lists</code> are:</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="kw">head</span>(mail_lists)</a>
-<a class="sourceLine" id="cb230-2" data-line-number="2"><span class="co">#&gt; [1] &quot;&lt;!DOCTYPE html&gt;&quot;                                                             </span></a>
-<a class="sourceLine" id="cb230-3" data-line-number="3"><span class="co">#&gt; [2] &quot;&lt;html lang=\&quot;en\&quot;&gt;&quot;                                                          </span></a>
-<a class="sourceLine" id="cb230-4" data-line-number="4"><span class="co">#&gt; [3] &quot;  &lt;head&gt;&quot;                                                                    </span></a>
-<a class="sourceLine" id="cb230-5" data-line-number="5"><span class="co">#&gt; [4] &quot;    &lt;meta charset=\&quot;utf-8\&quot;&gt;&quot;                                                </span></a>
-<a class="sourceLine" id="cb230-6" data-line-number="6"><span class="co">#&gt; [5] &quot;    &lt;meta http-equiv=\&quot;X-UA-Compatible\&quot; content=\&quot;IE=edge\&quot;&gt;&quot;               </span></a>
-<a class="sourceLine" id="cb230-7" data-line-number="7"><span class="co">#&gt; [6] &quot;    &lt;meta name=\&quot;viewport\&quot; content=\&quot;width=device-width, initial-scale=1\&quot;&gt;&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="html.html#cb245-1"></a><span class="kw">head</span>(mail_lists)</span>
+<span id="cb245-2"><a href="html.html#cb245-2"></a><span class="co">#&gt; [1] &quot;&lt;!DOCTYPE html&gt;&quot;                                                             </span></span>
+<span id="cb245-3"><a href="html.html#cb245-3"></a><span class="co">#&gt; [2] &quot;&lt;html lang=\&quot;en\&quot;&gt;&quot;                                                          </span></span>
+<span id="cb245-4"><a href="html.html#cb245-4"></a><span class="co">#&gt; [3] &quot;  &lt;head&gt;&quot;                                                                    </span></span>
+<span id="cb245-5"><a href="html.html#cb245-5"></a><span class="co">#&gt; [4] &quot;    &lt;meta charset=\&quot;utf-8\&quot;&gt;&quot;                                                </span></span>
+<span id="cb245-6"><a href="html.html#cb245-6"></a><span class="co">#&gt; [5] &quot;    &lt;meta http-equiv=\&quot;X-UA-Compatible\&quot; content=\&quot;IE=edge\&quot;&gt;&quot;               </span></span>
+<span id="cb245-7"><a href="html.html#cb245-7"></a><span class="co">#&gt; [6] &quot;    &lt;meta name=\&quot;viewport\&quot; content=\&quot;width=device-width, initial-scale=1\&quot;&gt;&quot;</span></span></code></pre></div>
 <p>Once we’ve read the HTML content of the R mailing lists webpage, the next step is to define our regex pattern that matches the SIG links.</p>
 <pre><code>&#39;^.*&lt;p&gt;&lt;a href=&quot;(https.*)&quot;&gt;.*$&#39;</code></pre>
-<p>Let’s examine the proposed pattern. By using the caret <code>^</code> and dollar sign <code>$</code> we can describe our pattern as an entire line. Next to the caret we match anything zero or more times followed by a <code>&lt;td&gt;</code> tag. Then there is a blank space matched zero or more times, followed by an anchor tag with its <code>href</code> attribute. Note that we are using double quotation marks to match the <code>href</code> attribute (<code>&quot;(https.*)&quot;</code>). Moreover, the entire regex pattern is surrounded by single quotations marks <code>' '</code>. Here is how we can get the SIG links:</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="co"># SIG&#39;s href pattern</span></a>
-<a class="sourceLine" id="cb232-2" data-line-number="2">sig_pattern =<span class="st"> &#39;^.*&lt;p&gt;&lt;a href=&quot;(https.*)&quot;&gt;.*$&#39;</span></a>
-<a class="sourceLine" id="cb232-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb232-4" data-line-number="4"><span class="co"># find SIG href attributes</span></a>
-<a class="sourceLine" id="cb232-5" data-line-number="5">sig_hrefs =<span class="st"> </span><span class="kw">grep</span>(sig_pattern, mail_lists, <span class="dt">value =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb232-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb232-7" data-line-number="7"><span class="co"># let&#39;s see first 5 elements</span></a>
-<a class="sourceLine" id="cb232-8" data-line-number="8"><span class="kw">head</span>(sig_hrefs, <span class="dt">n =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb232-9" data-line-number="9"><span class="co">#&gt; [1] &quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-mac\&quot;&gt;&lt;code&gt;R-SIG-Mac&lt;/code&gt;&lt;/a&gt;: R Special Interest Group on Mac ports of R&lt;/p&gt;&lt;/li&gt;&quot;                                     </span></a>
-<a class="sourceLine" id="cb232-10" data-line-number="10"><span class="co">#&gt; [2] &quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-db\&quot;&gt;&lt;code&gt;R-SIG-DB&lt;/code&gt;&lt;/a&gt;: R SIG on Database Interfaces&lt;/p&gt;&lt;/li&gt;&quot;                                                     </span></a>
-<a class="sourceLine" id="cb232-11" data-line-number="11"><span class="co">#&gt; [3] &quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-debian\&quot;&gt;&lt;code&gt;R-SIG-Debian&lt;/code&gt;&lt;/a&gt;: R Special Interest Group for Debian ports of R&lt;/p&gt;&lt;/li&gt;&quot;                           </span></a>
-<a class="sourceLine" id="cb232-12" data-line-number="12"><span class="co">#&gt; [4] &quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-dynamic-models\&quot;&gt;&lt;code&gt;R-SIG-dynamic-models&lt;/code&gt;&lt;/a&gt;: Special Interest Group for Dynamic Simulation Models in R&lt;/p&gt;&lt;/li&gt;&quot;</span></a>
-<a class="sourceLine" id="cb232-13" data-line-number="13"><span class="co">#&gt; [5] &quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-ecology\&quot;&gt;&lt;code&gt;R-SIG-ecology&lt;/code&gt;&lt;/a&gt;: Using R in ecological data analysis&lt;/p&gt;&lt;/li&gt;&quot;</span></a></code></pre></div>
+<p>Let’s examine the proposed pattern. By using the caret <code>^</code> and dollar sign <code>$</code> we can describe our pattern as an entire line. Next to the caret we match anything zero or more times followed by a <code>&lt;td&gt;</code> tag. Then there is a blank space matched zero or more times, followed by an anchor tag with its <code>href</code> attribute. Note that we are using double quotation marks to match the <code>href</code> attribute (<code>"(https.*)"</code>). Moreover, the entire regex pattern is surrounded by single quotations marks <code>' '</code>. Here is how we can get the SIG links:</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="html.html#cb247-1"></a><span class="co"># SIG&#39;s href pattern</span></span>
+<span id="cb247-2"><a href="html.html#cb247-2"></a>sig_pattern =<span class="st"> &#39;^.*&lt;p&gt;&lt;a href=&quot;(https.*)&quot;&gt;.*$&#39;</span></span>
+<span id="cb247-3"><a href="html.html#cb247-3"></a></span>
+<span id="cb247-4"><a href="html.html#cb247-4"></a><span class="co"># find SIG href attributes</span></span>
+<span id="cb247-5"><a href="html.html#cb247-5"></a>sig_hrefs =<span class="st"> </span><span class="kw">grep</span>(sig_pattern, mail_lists, <span class="dt">value =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb247-6"><a href="html.html#cb247-6"></a></span>
+<span id="cb247-7"><a href="html.html#cb247-7"></a><span class="co"># let&#39;s see first 5 elements</span></span>
+<span id="cb247-8"><a href="html.html#cb247-8"></a><span class="kw">head</span>(sig_hrefs, <span class="dt">n =</span> <span class="dv">5</span>)</span>
+<span id="cb247-9"><a href="html.html#cb247-9"></a><span class="co">#&gt; [1] &quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-mac\&quot;&gt;&lt;code&gt;R-SIG-Mac&lt;/code&gt;&lt;/a&gt;: R Special Interest Group on Mac ports of R&lt;/p&gt;&lt;/li&gt;&quot;                                     </span></span>
+<span id="cb247-10"><a href="html.html#cb247-10"></a><span class="co">#&gt; [2] &quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-db\&quot;&gt;&lt;code&gt;R-SIG-DB&lt;/code&gt;&lt;/a&gt;: R SIG on Database Interfaces&lt;/p&gt;&lt;/li&gt;&quot;                                                     </span></span>
+<span id="cb247-11"><a href="html.html#cb247-11"></a><span class="co">#&gt; [3] &quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-debian\&quot;&gt;&lt;code&gt;R-SIG-Debian&lt;/code&gt;&lt;/a&gt;: R Special Interest Group for Debian ports of R&lt;/p&gt;&lt;/li&gt;&quot;                           </span></span>
+<span id="cb247-12"><a href="html.html#cb247-12"></a><span class="co">#&gt; [4] &quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-dynamic-models\&quot;&gt;&lt;code&gt;R-SIG-dynamic-models&lt;/code&gt;&lt;/a&gt;: Special Interest Group for Dynamic Simulation Models in R&lt;/p&gt;&lt;/li&gt;&quot;</span></span>
+<span id="cb247-13"><a href="html.html#cb247-13"></a><span class="co">#&gt; [5] &quot;&lt;li&gt;&lt;p&gt;&lt;a href=\&quot;https://stat.ethz.ch/mailman/listinfo/r-sig-ecology\&quot;&gt;&lt;code&gt;R-SIG-ecology&lt;/code&gt;&lt;/a&gt;: Using R in ecological data analysis&lt;/p&gt;&lt;/li&gt;&quot;</span></span></code></pre></div>
 <p>We need to get rid of the extra html tags. We can easily extract the names of the note files using the <code>sub()</code> function (since there is only one link per line, we don’t need to use <code>gsub()</code>, although we could).</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="co"># get first matched group</span></a>
-<a class="sourceLine" id="cb233-2" data-line-number="2">sigs =<span class="st"> </span><span class="kw">sub</span>(sig_pattern, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">1&#39;</span>, sig_hrefs)</a>
-<a class="sourceLine" id="cb233-3" data-line-number="3">sigs</a>
-<a class="sourceLine" id="cb233-4" data-line-number="4"><span class="co">#&gt;  [1] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-mac&quot;           </span></a>
-<a class="sourceLine" id="cb233-5" data-line-number="5"><span class="co">#&gt;  [2] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-db&quot;            </span></a>
-<a class="sourceLine" id="cb233-6" data-line-number="6"><span class="co">#&gt;  [3] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-debian&quot;        </span></a>
-<a class="sourceLine" id="cb233-7" data-line-number="7"><span class="co">#&gt;  [4] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-dynamic-models&quot;</span></a>
-<a class="sourceLine" id="cb233-8" data-line-number="8"><span class="co">#&gt;  [5] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-ecology&quot;       </span></a>
-<a class="sourceLine" id="cb233-9" data-line-number="9"><span class="co">#&gt;  [6] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-epi&quot;           </span></a>
-<a class="sourceLine" id="cb233-10" data-line-number="10"><span class="co">#&gt;  [7] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-fedora&quot;        </span></a>
-<a class="sourceLine" id="cb233-11" data-line-number="11"><span class="co">#&gt;  [8] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-finance&quot;       </span></a>
-<a class="sourceLine" id="cb233-12" data-line-number="12"><span class="co">#&gt;  [9] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-geo&quot;           </span></a>
-<a class="sourceLine" id="cb233-13" data-line-number="13"><span class="co">#&gt; [10] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-gr&quot;            </span></a>
-<a class="sourceLine" id="cb233-14" data-line-number="14"><span class="co">#&gt; [11] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-gui&quot;           </span></a>
-<a class="sourceLine" id="cb233-15" data-line-number="15"><span class="co">#&gt; [12] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-hpc&quot;           </span></a>
-<a class="sourceLine" id="cb233-16" data-line-number="16"><span class="co">#&gt; [13] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-insurance&quot;     </span></a>
-<a class="sourceLine" id="cb233-17" data-line-number="17"><span class="co">#&gt; [14] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-jobs&quot;          </span></a>
-<a class="sourceLine" id="cb233-18" data-line-number="18"><span class="co">#&gt; [15] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-mediawiki&quot;     </span></a>
-<a class="sourceLine" id="cb233-19" data-line-number="19"><span class="co">#&gt; [16] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-meta-analysis&quot; </span></a>
-<a class="sourceLine" id="cb233-20" data-line-number="20"><span class="co">#&gt; [17] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-mixed-models&quot;  </span></a>
-<a class="sourceLine" id="cb233-21" data-line-number="21"><span class="co">#&gt; [18] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-networks&quot;      </span></a>
-<a class="sourceLine" id="cb233-22" data-line-number="22"><span class="co">#&gt; [19] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-phylo&quot;         </span></a>
-<a class="sourceLine" id="cb233-23" data-line-number="23"><span class="co">#&gt; [20] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-qa&quot;            </span></a>
-<a class="sourceLine" id="cb233-24" data-line-number="24"><span class="co">#&gt; [21] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-robust&quot;        </span></a>
-<a class="sourceLine" id="cb233-25" data-line-number="25"><span class="co">#&gt; [22] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-teaching&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="html.html#cb248-1"></a><span class="co"># get first matched group</span></span>
+<span id="cb248-2"><a href="html.html#cb248-2"></a>sigs =<span class="st"> </span><span class="kw">sub</span>(sig_pattern, <span class="st">&#39;</span><span class="ch">\\</span><span class="st">1&#39;</span>, sig_hrefs)</span>
+<span id="cb248-3"><a href="html.html#cb248-3"></a>sigs</span>
+<span id="cb248-4"><a href="html.html#cb248-4"></a><span class="co">#&gt;  [1] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-mac&quot;           </span></span>
+<span id="cb248-5"><a href="html.html#cb248-5"></a><span class="co">#&gt;  [2] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-db&quot;            </span></span>
+<span id="cb248-6"><a href="html.html#cb248-6"></a><span class="co">#&gt;  [3] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-debian&quot;        </span></span>
+<span id="cb248-7"><a href="html.html#cb248-7"></a><span class="co">#&gt;  [4] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-dynamic-models&quot;</span></span>
+<span id="cb248-8"><a href="html.html#cb248-8"></a><span class="co">#&gt;  [5] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-ecology&quot;       </span></span>
+<span id="cb248-9"><a href="html.html#cb248-9"></a><span class="co">#&gt;  [6] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-epi&quot;           </span></span>
+<span id="cb248-10"><a href="html.html#cb248-10"></a><span class="co">#&gt;  [7] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-fedora&quot;        </span></span>
+<span id="cb248-11"><a href="html.html#cb248-11"></a><span class="co">#&gt;  [8] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-finance&quot;       </span></span>
+<span id="cb248-12"><a href="html.html#cb248-12"></a><span class="co">#&gt;  [9] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-geo&quot;           </span></span>
+<span id="cb248-13"><a href="html.html#cb248-13"></a><span class="co">#&gt; [10] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-gr&quot;            </span></span>
+<span id="cb248-14"><a href="html.html#cb248-14"></a><span class="co">#&gt; [11] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-gui&quot;           </span></span>
+<span id="cb248-15"><a href="html.html#cb248-15"></a><span class="co">#&gt; [12] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-hpc&quot;           </span></span>
+<span id="cb248-16"><a href="html.html#cb248-16"></a><span class="co">#&gt; [13] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-insurance&quot;     </span></span>
+<span id="cb248-17"><a href="html.html#cb248-17"></a><span class="co">#&gt; [14] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-jobs&quot;          </span></span>
+<span id="cb248-18"><a href="html.html#cb248-18"></a><span class="co">#&gt; [15] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-mediawiki&quot;     </span></span>
+<span id="cb248-19"><a href="html.html#cb248-19"></a><span class="co">#&gt; [16] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-meta-analysis&quot; </span></span>
+<span id="cb248-20"><a href="html.html#cb248-20"></a><span class="co">#&gt; [17] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-mixed-models&quot;  </span></span>
+<span id="cb248-21"><a href="html.html#cb248-21"></a><span class="co">#&gt; [18] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-networks&quot;      </span></span>
+<span id="cb248-22"><a href="html.html#cb248-22"></a><span class="co">#&gt; [19] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-phylo&quot;         </span></span>
+<span id="cb248-23"><a href="html.html#cb248-23"></a><span class="co">#&gt; [20] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-qa&quot;            </span></span>
+<span id="cb248-24"><a href="html.html#cb248-24"></a><span class="co">#&gt; [21] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-robust&quot;        </span></span>
+<span id="cb248-25"><a href="html.html#cb248-25"></a><span class="co">#&gt; [22] &quot;https://stat.ethz.ch/mailman/listinfo/r-sig-teaching&quot;</span></span></code></pre></div>
 <p>As you can see, we are using the regex pattern <code>\\1</code> in the <code>sub()</code> function. Generally speaking <code>\\N</code> is replaced with the <code>N</code>-th group specified in the regular expression. The first matched group is referenced by <code>\\1</code>. In our example, the first group is everything that is contained in the curved brackets, that is: <code>(https.*)</code>, which are in fact the links we are looking for.</p>
 <hr />
 <div id="make-a-donation-11" class="section level4 unnumbered">
@@ -421,11 +427,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -433,12 +441,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -448,6 +455,14 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/gastonstat/r4strings/edit/master/html-tags.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -463,9 +478,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Handling Strings with R</title>
-  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Character Strings in R | Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:title" content="2 Character Strings in R | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -17,29 +16,32 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Handling Strings with R" />
+  <meta name="twitter:title" content="2 Character Strings in R | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
 
-<meta name="author" content="Gaston Sanchez">
+<meta name="author" content="Gaston Sanchez Chitra Venkatesh" />
 
 
-<meta name="date" content="2016-10-19">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="intro.html">
-<link rel="next" href="formatting.html">
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="formatting.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,28 +52,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,49 +251,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
 <li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
+<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
+<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries</a></li>
 <li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="13" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>13</b> Practical Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
+<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>14</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="14.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>14.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="14.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>14.3</b> Reversing Words</a></li>
+<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
+<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
+<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>15</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="15.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
-<li class="chapter" data-level="15.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>15.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="15.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>15.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>16</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="16.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-<li class="chapter" data-level="16.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>16.2</b> Import Data</a></li>
-<li class="chapter" data-level="16.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>16.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="16.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>16.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="16.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>16.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="16.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>16.6</b> Month and Day</a></li>
-<li class="chapter" data-level="16.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>16.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="16.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>16.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="16.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>16.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>17</b> Data Log File</a><ul>
-<li class="chapter" data-level="17.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>17.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="17.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>17.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="17.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>17.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="17.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>17.1.3</b> Image files</a></li>
-<li class="chapter" data-level="17.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>17.1.4</b> How to match image files with one regex pattern?</a></li>
+<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>18</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="18.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>18.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="18.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>18.2.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
+<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
+<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
+<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
+<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
+<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
+<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>18.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="18.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>18.4</b> Common words</a></li>
-<li class="chapter" data-level="18.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>18.5</b> The top 30 words</a></li>
+<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
+<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
+<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
+<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -324,41 +330,41 @@ containing characters.</p>
 <p>In R, a piece of text is represented as a sequence of characters (letters,
 numbers, and symbols). The data type R provides for storing sequences of
 characters is <em>character</em>. Formally, the <strong>mode</strong> of an object that holds
-character strings in R is <code>&quot;character&quot;</code>.</p>
+character strings in R is <code>"character"</code>.</p>
 <p>You express character strings by surrounding text within double quotes:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="st">&quot;a character string using double quotes&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="chars.html#cb2-1"></a><span class="st">&quot;a character string using double quotes&quot;</span></span></code></pre></div>
 <p>or you can also surround text within single quotes:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="st">&#39;a character string using single quotes&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="chars.html#cb3-1"></a><span class="st">&#39;a character string using single quotes&#39;</span></span></code></pre></div>
 <p>The important thing is that you must match the type of quotes that your are
 using. A starting double quote must have an ending double quote. Likewise, a
 string with an opening single quote must be closed with a single quote.</p>
 <p>Typing characters in R like in above examples is not very useful. Typically,
 you are going to create objects or variables containing some strings. For
 example, you can create a variable <code>string</code> that stores some string:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">string &lt;-<span class="st"> &#39;do more with less&#39;</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">string</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; [1] &quot;do more with less&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="chars.html#cb4-1"></a>string &lt;-<span class="st"> &#39;do more with less&#39;</span></span>
+<span id="cb4-2"><a href="chars.html#cb4-2"></a>string</span>
+<span id="cb4-3"><a href="chars.html#cb4-3"></a><span class="co">#&gt; [1] &quot;do more with less&quot;</span></span></code></pre></div>
 <p>Notice that when you print a character object, R displays it using double
 quotes (regardless of whether the string was created using single or double
 quotes). This allows you to quickly identify when an object contains character
 values.</p>
 <p>When writing strings, you can insert single quotes in a string with double
 quotes, and vice versa:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># single quotes within double quotes</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">ex1 &lt;-<span class="st"> &quot;The &#39;R&#39; project for statistical computing&quot;</span></a></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># double quotes within single quotes</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">ex2 &lt;-<span class="st"> &#39;The &quot;R&quot; project for statistical computing&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="chars.html#cb5-1"></a><span class="co"># single quotes within double quotes</span></span>
+<span id="cb5-2"><a href="chars.html#cb5-2"></a>ex1 &lt;-<span class="st"> &quot;The &#39;R&#39; project for statistical computing&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="chars.html#cb6-1"></a><span class="co"># double quotes within single quotes</span></span>
+<span id="cb6-2"><a href="chars.html#cb6-2"></a>ex2 &lt;-<span class="st"> &#39;The &quot;R&quot; project for statistical computing&#39;</span></span></code></pre></div>
 <p>However, you cannot directly insert single quotes in a string with single
 quotes, neither you can insert double quotes in a string with double quotes
 (Don’t do this!):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">ex3 &lt;-<span class="st"> &quot;This &quot;</span>is<span class="st">&quot; totally unacceptable&quot;</span></a></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">ex4 &lt;-<span class="st"> &#39;This &#39;</span>is<span class="st">&#39; absolutely wrong&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="chars.html#cb7-1"></a>ex3 &lt;-<span class="st"> &quot;This &quot;</span>is<span class="st">&quot; totally unacceptable&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="chars.html#cb8-1"></a>ex4 &lt;-<span class="st"> &#39;This &#39;</span>is<span class="st">&#39; absolutely wrong&#39;</span></span></code></pre></div>
 <p>In both cases R will give you an error due to the unexpected presence of
 either a double quote within double quotes, or a single quote within single
 quotes.</p>
 <p>If you really want to include a double quote as part of the string, you need
 to <em>escape</em> the double quote using a backslash <code>\</code> before it:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="st">&quot;The </span><span class="ch">\&quot;</span><span class="st">R</span><span class="ch">\&quot;</span><span class="st"> project for statistical computing&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="chars.html#cb9-1"></a><span class="st">&quot;The </span><span class="ch">\&quot;</span><span class="st">R</span><span class="ch">\&quot;</span><span class="st"> project for statistical computing&quot;</span></span></code></pre></div>
 <p>We will talk more about escaping characters in the following chapters.</p>
 </div>
 <div id="common-use-of-strings-in-r" class="section level2">
@@ -370,166 +376,166 @@ to <em>escape</em> the double quote using a backslash <code>\</code> before it:<
 <li>text elements displayed in plots and graphs</li>
 </ul>
 <p>When you read a file, for instance a data table stored in a csv file,
-you typically use the <code>read.table()</code> function and friends—e.g. <code>read.csv()</code>,
+you typically use the <code>read.table()</code> function and friends—e.g. <code>read.csv()</code>,
 <code>read.delim()</code>. Assuming that the file <code>dataset.csv</code> is in your working directory:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&#39;dataset.csv&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="chars.html#cb10-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&#39;dataset.csv&#39;</span>)</span></code></pre></div>
 <p>The main parameter for the function <code>read.csv()</code> is <code>file</code> which requires a
 character string with the pathname of the file.</p>
 <p>Another example of a basic use of characters is when you assign names to the
 elements of some data structure in R. For instance, if you want to name the
 elements of a (numeric) vector, you can use the function <code>names()</code> as follows:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">num_vec &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">names</span>(num_vec) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;uno&#39;</span>, <span class="st">&#39;dos&#39;</span>, <span class="st">&#39;tres&#39;</span>, <span class="st">&#39;cuatro&#39;</span>, <span class="st">&#39;cinco&#39;</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">num_vec</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="chars.html#cb11-1"></a>num_vec &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb11-2"><a href="chars.html#cb11-2"></a><span class="kw">names</span>(num_vec) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;uno&#39;</span>, <span class="st">&#39;dos&#39;</span>, <span class="st">&#39;tres&#39;</span>, <span class="st">&#39;cuatro&#39;</span>, <span class="st">&#39;cinco&#39;</span>)</span>
+<span id="cb11-3"><a href="chars.html#cb11-3"></a>num_vec</span></code></pre></div>
 <p>Likewise, many of the parameters in the plotting functions require some sort
 of input string. Below is a hypothetical example of a scatterplot that includes
 several graphical elements like the main title (<code>main</code>), subtitle (<code>sub</code>),
 labels for both x-axis and y-axis (<code>xlab</code>, <code>ylab</code>), the name of the color
 (<code>col</code>), and the symbol for the point character (<code>pch</code>).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">plot</span>(x, y, </a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">     <span class="dt">main =</span> <span class="st">&#39;Main Title&#39;</span>, </a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">     <span class="dt">sub =</span> <span class="st">&#39;Subtitle&#39;</span>,</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4">     <span class="dt">xlab =</span> <span class="st">&#39;x-axis label&#39;</span>, </a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">     <span class="dt">ylab =</span> <span class="st">&#39;y-axis label&#39;</span>,</a>
-<a class="sourceLine" id="cb12-6" data-line-number="6">     <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, </a>
-<a class="sourceLine" id="cb12-7" data-line-number="7">     <span class="dt">pch =</span> <span class="st">&#39;x&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="chars.html#cb12-1"></a><span class="kw">plot</span>(x, y, </span>
+<span id="cb12-2"><a href="chars.html#cb12-2"></a>     <span class="dt">main =</span> <span class="st">&#39;Main Title&#39;</span>, </span>
+<span id="cb12-3"><a href="chars.html#cb12-3"></a>     <span class="dt">sub =</span> <span class="st">&#39;Subtitle&#39;</span>,</span>
+<span id="cb12-4"><a href="chars.html#cb12-4"></a>     <span class="dt">xlab =</span> <span class="st">&#39;x-axis label&#39;</span>, </span>
+<span id="cb12-5"><a href="chars.html#cb12-5"></a>     <span class="dt">ylab =</span> <span class="st">&#39;y-axis label&#39;</span>,</span>
+<span id="cb12-6"><a href="chars.html#cb12-6"></a>     <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, </span>
+<span id="cb12-7"><a href="chars.html#cb12-7"></a>     <span class="dt">pch =</span> <span class="st">&#39;x&#39;</span>)</span></code></pre></div>
 </div>
 <div id="creating-character-strings" class="section level2">
 <h2><span class="header-section-number">2.3</span> Creating Character Strings</h2>
-<p>Besides the single quotes <code>''</code> or double quotes <code>&quot;&quot;</code>, R provides the function
+<p>Besides the single quotes <code>''</code> or double quotes <code>""</code>, R provides the function
 <code>character()</code> to create character vectors. More specifically, <code>character()</code>
-is the function that creates vector objects of type <code>&quot;character&quot;</code>.</p>
+is the function that creates vector objects of type <code>"character"</code>.</p>
 <p>When using <code>character()</code> you just have to specify the length of the vector.
 The output will be a character vector filled of empty strings:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># character vector with 5 empty strings</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">char_vector &lt;-<span class="st"> </span><span class="kw">character</span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">char_vector</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; [1] &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="chars.html#cb13-1"></a><span class="co"># character vector with 5 empty strings</span></span>
+<span id="cb13-2"><a href="chars.html#cb13-2"></a>char_vector &lt;-<span class="st"> </span><span class="kw">character</span>(<span class="dv">5</span>)</span>
+<span id="cb13-3"><a href="chars.html#cb13-3"></a>char_vector</span>
+<span id="cb13-4"><a href="chars.html#cb13-4"></a><span class="co">#&gt; [1] &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;</span></span></code></pre></div>
 <p>When would you use <code>character()</code>? A typical usage case is when you want to
 initialize an <em>empty</em> character vector of a given length. The idea is to
 create an object that you will modify later with some computation.</p>
 <p>As with any other vector, once an empty character vector has been created,
 you can add new components to it by simply giving it an index value outside
 its previous range:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># another example</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">example &lt;-<span class="st"> </span><span class="kw">character</span>(<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">example</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; character(0)</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co"># check its length</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="kw">length</span>(example)</a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; [1] 0</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co"># add first element</span></a>
-<a class="sourceLine" id="cb14-11" data-line-number="11">example[<span class="dv">1</span>] &lt;-<span class="st"> &quot;first&quot;</span></a>
-<a class="sourceLine" id="cb14-12" data-line-number="12">example</a>
-<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt; [1] &quot;first&quot;</span></a>
-<a class="sourceLine" id="cb14-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb14-15" data-line-number="15"><span class="co"># check its length again</span></a>
-<a class="sourceLine" id="cb14-16" data-line-number="16"><span class="kw">length</span>(example)</a>
-<a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#&gt; [1] 1</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="chars.html#cb14-1"></a><span class="co"># another example</span></span>
+<span id="cb14-2"><a href="chars.html#cb14-2"></a>example &lt;-<span class="st"> </span><span class="kw">character</span>(<span class="dv">0</span>)</span>
+<span id="cb14-3"><a href="chars.html#cb14-3"></a>example</span>
+<span id="cb14-4"><a href="chars.html#cb14-4"></a><span class="co">#&gt; character(0)</span></span>
+<span id="cb14-5"><a href="chars.html#cb14-5"></a></span>
+<span id="cb14-6"><a href="chars.html#cb14-6"></a><span class="co"># check its length</span></span>
+<span id="cb14-7"><a href="chars.html#cb14-7"></a><span class="kw">length</span>(example)</span>
+<span id="cb14-8"><a href="chars.html#cb14-8"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb14-9"><a href="chars.html#cb14-9"></a></span>
+<span id="cb14-10"><a href="chars.html#cb14-10"></a><span class="co"># add first element</span></span>
+<span id="cb14-11"><a href="chars.html#cb14-11"></a>example[<span class="dv">1</span>] &lt;-<span class="st"> &quot;first&quot;</span></span>
+<span id="cb14-12"><a href="chars.html#cb14-12"></a>example</span>
+<span id="cb14-13"><a href="chars.html#cb14-13"></a><span class="co">#&gt; [1] &quot;first&quot;</span></span>
+<span id="cb14-14"><a href="chars.html#cb14-14"></a></span>
+<span id="cb14-15"><a href="chars.html#cb14-15"></a><span class="co"># check its length again</span></span>
+<span id="cb14-16"><a href="chars.html#cb14-16"></a><span class="kw">length</span>(example)</span>
+<span id="cb14-17"><a href="chars.html#cb14-17"></a><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 <p>You can add more elements without the need to follow a consecutive index range:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">example[<span class="dv">4</span>] &lt;-<span class="st"> &quot;fourth&quot;</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">example</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; [1] &quot;first&quot;  NA       NA       &quot;fourth&quot;</span></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="kw">length</span>(example)</a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; [1] 4</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="chars.html#cb15-1"></a>example[<span class="dv">4</span>] &lt;-<span class="st"> &quot;fourth&quot;</span></span>
+<span id="cb15-2"><a href="chars.html#cb15-2"></a>example</span>
+<span id="cb15-3"><a href="chars.html#cb15-3"></a><span class="co">#&gt; [1] &quot;first&quot;  NA       NA       &quot;fourth&quot;</span></span>
+<span id="cb15-4"><a href="chars.html#cb15-4"></a><span class="kw">length</span>(example)</span>
+<span id="cb15-5"><a href="chars.html#cb15-5"></a><span class="co">#&gt; [1] 4</span></span></code></pre></div>
 <p>Notice that the vector <code>example</code> went from containing one-element to contain
 four-elements without specifying the second and third elements. R fills this
 gap with missing values <code>NA</code>.</p>
 <div id="empty-string" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Empty string</h3>
 <p>The most basic type of string is the <strong>empty string</strong> produced by
-consecutive quotation marks: <code>&quot;&quot;</code>. Technically, <code>&quot;&quot;</code> is a string with
+consecutive quotation marks: <code>""</code>. Technically, <code>""</code> is a string with
 no characters in it, hence the name “empty string”:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># empty string</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2">empty_str &lt;-<span class="st"> &quot;&quot;</span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3">empty_str</a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt; [1] &quot;&quot;</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co"># class</span></a>
-<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="kw">class</span>(empty_str)</a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt; [1] &quot;character&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="chars.html#cb16-1"></a><span class="co"># empty string</span></span>
+<span id="cb16-2"><a href="chars.html#cb16-2"></a>empty_str &lt;-<span class="st"> &quot;&quot;</span></span>
+<span id="cb16-3"><a href="chars.html#cb16-3"></a>empty_str</span>
+<span id="cb16-4"><a href="chars.html#cb16-4"></a><span class="co">#&gt; [1] &quot;&quot;</span></span>
+<span id="cb16-5"><a href="chars.html#cb16-5"></a></span>
+<span id="cb16-6"><a href="chars.html#cb16-6"></a><span class="co"># class</span></span>
+<span id="cb16-7"><a href="chars.html#cb16-7"></a><span class="kw">class</span>(empty_str)</span>
+<span id="cb16-8"><a href="chars.html#cb16-8"></a><span class="co">#&gt; [1] &quot;character&quot;</span></span></code></pre></div>
 </div>
 <div id="empty-character-vector" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Empty character vector</h3>
 <p>Another basic string structure is the <strong>empty character vector</strong> produced
 by the function <code>character()</code> and its argument <code>length=0</code>:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># empty character vector</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">empty_chr &lt;-<span class="st"> </span><span class="kw">character</span>(<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb17-3" data-line-number="3">empty_chr</a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt; character(0)</span></a>
-<a class="sourceLine" id="cb17-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="co"># class</span></a>
-<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="kw">class</span>(empty_chr)</a>
-<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co">#&gt; [1] &quot;character&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="chars.html#cb17-1"></a><span class="co"># empty character vector</span></span>
+<span id="cb17-2"><a href="chars.html#cb17-2"></a>empty_chr &lt;-<span class="st"> </span><span class="kw">character</span>(<span class="dv">0</span>)</span>
+<span id="cb17-3"><a href="chars.html#cb17-3"></a>empty_chr</span>
+<span id="cb17-4"><a href="chars.html#cb17-4"></a><span class="co">#&gt; character(0)</span></span>
+<span id="cb17-5"><a href="chars.html#cb17-5"></a></span>
+<span id="cb17-6"><a href="chars.html#cb17-6"></a><span class="co"># class</span></span>
+<span id="cb17-7"><a href="chars.html#cb17-7"></a><span class="kw">class</span>(empty_chr)</span>
+<span id="cb17-8"><a href="chars.html#cb17-8"></a><span class="co">#&gt; [1] &quot;character&quot;</span></span></code></pre></div>
 <p>It is important not to confuse the empty character vector <code>character(0)</code>
-with the empty string <code>&quot;&quot;</code>; one of the main differences between them is
+with the empty string <code>""</code>; one of the main differences between them is
 that they have different lengths:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># length of empty string</span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">length</span>(empty_str)</a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="co">#&gt; [1] 1</span></a>
-<a class="sourceLine" id="cb18-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="co"># length of empty character vector</span></a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="kw">length</span>(empty_chr)</a>
-<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#&gt; [1] 0</span></a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="chars.html#cb18-1"></a><span class="co"># length of empty string</span></span>
+<span id="cb18-2"><a href="chars.html#cb18-2"></a><span class="kw">length</span>(empty_str)</span>
+<span id="cb18-3"><a href="chars.html#cb18-3"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb18-4"><a href="chars.html#cb18-4"></a></span>
+<span id="cb18-5"><a href="chars.html#cb18-5"></a><span class="co"># length of empty character vector</span></span>
+<span id="cb18-6"><a href="chars.html#cb18-6"></a><span class="kw">length</span>(empty_chr)</span>
+<span id="cb18-7"><a href="chars.html#cb18-7"></a><span class="co">#&gt; [1] 0</span></span></code></pre></div>
 <p>Notice that the empty string <code>empty_str</code> has length 1, while the empty
 character vector <code>empty_chr</code> has length 0.</p>
 <p>Also, <code>character(0)</code> occurs when you have a character vector with one or
 more elements, and you attempt to subset the position 0:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">string &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;sun&#39;</span>, <span class="st">&#39;sky&#39;</span>, <span class="st">&#39;clouds&#39;</span>)</a>
-<a class="sourceLine" id="cb19-2" data-line-number="2">string</a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co">#&gt; [1] &quot;sun&quot;    &quot;sky&quot;    &quot;clouds&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="chars.html#cb19-1"></a>string &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;sun&#39;</span>, <span class="st">&#39;sky&#39;</span>, <span class="st">&#39;clouds&#39;</span>)</span>
+<span id="cb19-2"><a href="chars.html#cb19-2"></a>string</span>
+<span id="cb19-3"><a href="chars.html#cb19-3"></a><span class="co">#&gt; [1] &quot;sun&quot;    &quot;sky&quot;    &quot;clouds&quot;</span></span></code></pre></div>
 <p>If you try to retrieve the element in position 0 you get:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">string[<span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co">#&gt; character(0)</span></a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="chars.html#cb20-1"></a>string[<span class="dv">0</span>]</span>
+<span id="cb20-2"><a href="chars.html#cb20-2"></a><span class="co">#&gt; character(0)</span></span></code></pre></div>
 </div>
 <div id="function-c" class="section level3">
 <h3><span class="header-section-number">2.3.3</span> Function <code>c()</code></h3>
 <p>There is also the generic function <code>c()</code> (concatenate or combine) that you
 can use to create character vectors. Simply pass any number of character
 elements separated by commas:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">string &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;sun&#39;</span>, <span class="st">&#39;sky&#39;</span>, <span class="st">&#39;clouds&#39;</span>)</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2">string</a>
-<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="co">#&gt; [1] &quot;sun&quot;    &quot;sky&quot;    &quot;clouds&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="chars.html#cb21-1"></a>string &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;sun&#39;</span>, <span class="st">&#39;sky&#39;</span>, <span class="st">&#39;clouds&#39;</span>)</span>
+<span id="cb21-2"><a href="chars.html#cb21-2"></a>string</span>
+<span id="cb21-3"><a href="chars.html#cb21-3"></a><span class="co">#&gt; [1] &quot;sun&quot;    &quot;sky&quot;    &quot;clouds&quot;</span></span></code></pre></div>
 <p>Again, notice that you can use single or double quotes to define the character
 elements inside <code>c()</code></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">planets &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;mercury&quot;</span>, <span class="st">&#39;venus&#39;</span>, <span class="st">&quot;mars&quot;</span>)</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">planets</a>
-<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="co">#&gt; [1] &quot;mercury&quot; &quot;venus&quot;   &quot;mars&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="chars.html#cb22-1"></a>planets &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;mercury&quot;</span>, <span class="st">&#39;venus&#39;</span>, <span class="st">&quot;mars&quot;</span>)</span>
+<span id="cb22-2"><a href="chars.html#cb22-2"></a>planets</span>
+<span id="cb22-3"><a href="chars.html#cb22-3"></a><span class="co">#&gt; [1] &quot;mercury&quot; &quot;venus&quot;   &quot;mars&quot;</span></span></code></pre></div>
 </div>
 <div id="is.character-and-as.character" class="section level3">
 <h3><span class="header-section-number">2.3.4</span> <code>is.character()</code> and <code>as.character()</code></h3>
 <p>Related to <code>character()</code> R provides two related functions:
 <code>as.character()</code> and <code>is.character()</code>. These two functions are methods for
-coercing objects to type <code>&quot;character&quot;</code>, and testing whether an
-R object is of type <code>&quot;character&quot;</code>. For instance, let’s define two
+coercing objects to type <code>"character"</code>, and testing whether an
+R object is of type <code>"character"</code>. For instance, let’s define two
 objects <code>a</code> and <code>b</code> as follows:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># define two objects &#39;a&#39; and &#39;b&#39;</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2">a &lt;-<span class="st"> &quot;test me&quot;</span></a>
-<a class="sourceLine" id="cb23-3" data-line-number="3">b &lt;-<span class="st"> </span><span class="dv">8</span> <span class="op">+</span><span class="st"> </span><span class="dv">9</span></a></code></pre></div>
-<p>To test if <code>a</code> and <code>b</code> are of type <code>&quot;character&quot;</code> use the function
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="chars.html#cb23-1"></a><span class="co"># define two objects &#39;a&#39; and &#39;b&#39;</span></span>
+<span id="cb23-2"><a href="chars.html#cb23-2"></a>a &lt;-<span class="st"> &quot;test me&quot;</span></span>
+<span id="cb23-3"><a href="chars.html#cb23-3"></a>b &lt;-<span class="st"> </span><span class="dv">8</span> <span class="op">+</span><span class="st"> </span><span class="dv">9</span></span></code></pre></div>
+<p>To test if <code>a</code> and <code>b</code> are of type <code>"character"</code> use the function
 <code>is.character()</code>:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># are &#39;a&#39; and &#39;b&#39; characters?</span></a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">is.character</span>(a)</a>
-<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb24-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb24-5" data-line-number="5"><span class="kw">is.character</span>(b)</a>
-<a class="sourceLine" id="cb24-6" data-line-number="6"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chars.html#cb24-1"></a><span class="co"># are &#39;a&#39; and &#39;b&#39; characters?</span></span>
+<span id="cb24-2"><a href="chars.html#cb24-2"></a><span class="kw">is.character</span>(a)</span>
+<span id="cb24-3"><a href="chars.html#cb24-3"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb24-4"><a href="chars.html#cb24-4"></a></span>
+<span id="cb24-5"><a href="chars.html#cb24-5"></a><span class="kw">is.character</span>(b)</span>
+<span id="cb24-6"><a href="chars.html#cb24-6"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 <p>Likewise, you can also use the function <code>class()</code> to get the class of an
 object:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># classes of &#39;a&#39; and &#39;b&#39;</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">class</span>(a)</a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="co">#&gt; [1] &quot;character&quot;</span></a>
-<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="kw">class</span>(b)</a>
-<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="co">#&gt; [1] &quot;numeric&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="chars.html#cb25-1"></a><span class="co"># classes of &#39;a&#39; and &#39;b&#39;</span></span>
+<span id="cb25-2"><a href="chars.html#cb25-2"></a><span class="kw">class</span>(a)</span>
+<span id="cb25-3"><a href="chars.html#cb25-3"></a><span class="co">#&gt; [1] &quot;character&quot;</span></span>
+<span id="cb25-4"><a href="chars.html#cb25-4"></a><span class="kw">class</span>(b)</span>
+<span id="cb25-5"><a href="chars.html#cb25-5"></a><span class="co">#&gt; [1] &quot;numeric&quot;</span></span></code></pre></div>
 <p>The function <code>as.character()</code> is a coercing method. For better or worse,
 R allows you to convert (i.e. coerce) non-character objects into character
 strings with the function <code>as.character()</code>:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># converting &#39;b&#39; as character</span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2">b &lt;-<span class="st"> </span><span class="kw">as.character</span>(b)</a>
-<a class="sourceLine" id="cb26-3" data-line-number="3">b</a>
-<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co">#&gt; [1] &quot;17&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="chars.html#cb26-1"></a><span class="co"># converting &#39;b&#39; as character</span></span>
+<span id="cb26-2"><a href="chars.html#cb26-2"></a>b &lt;-<span class="st"> </span><span class="kw">as.character</span>(b)</span>
+<span id="cb26-3"><a href="chars.html#cb26-3"></a>b</span>
+<span id="cb26-4"><a href="chars.html#cb26-4"></a><span class="co">#&gt; [1] &quot;17&quot;</span></span></code></pre></div>
 </div>
 </div>
 <div id="behavior-of-r-objects-with-character-strings" class="section level2">
@@ -540,21 +546,20 @@ must be unambiguously either logical, numeric, complex, character or raw.
 In R we say that vectors are <strong>atomic</strong> structures, with their elements
 having all the same type or mode.</p>
 <p>So what happens when you mix different types of data in a vector?</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># vector with numbers and characters</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, pi, <span class="st">&quot;text&quot;</span>)</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="co">#&gt; [1] &quot;1&quot;                &quot;2&quot;                &quot;3&quot;               </span></a>
-<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="co">#&gt; [4] &quot;4&quot;                &quot;5&quot;                &quot;3.14159265358979&quot;</span></a>
-<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="co">#&gt; [7] &quot;text&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="chars.html#cb27-1"></a><span class="co"># vector with numbers and characters</span></span>
+<span id="cb27-2"><a href="chars.html#cb27-2"></a><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, pi, <span class="st">&quot;text&quot;</span>)</span>
+<span id="cb27-3"><a href="chars.html#cb27-3"></a><span class="co">#&gt; [1] &quot;1&quot;                &quot;2&quot;                &quot;3&quot;                &quot;4&quot;               </span></span>
+<span id="cb27-4"><a href="chars.html#cb27-4"></a><span class="co">#&gt; [5] &quot;5&quot;                &quot;3.14159265358979&quot; &quot;text&quot;</span></span></code></pre></div>
 <p>As you can tell, the resulting vector from combining integers <code>1:5</code>, the
-number <code>pi</code>, and some <code>&quot;text&quot;</code> is a vector with all its elements
+number <code>pi</code>, and some <code>"text"</code> is a vector with all its elements
 treated as character strings. In other words, when you combine mixed data in
 vectors, strings will dominate. This means that the mode of the vector will be
-<code>&quot;character&quot;</code>, even if you mix logical values:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># vector with numbers, logicals, and characters</span></a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="ot">TRUE</span>, pi, <span class="st">&quot;text&quot;</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="co">#&gt; [1] &quot;1&quot;                &quot;2&quot;                &quot;3&quot;               </span></a>
-<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="co">#&gt; [4] &quot;4&quot;                &quot;5&quot;                &quot;TRUE&quot;            </span></a>
-<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="co">#&gt; [7] &quot;3.14159265358979&quot; &quot;text&quot;             &quot;FALSE&quot;</span></a></code></pre></div>
+<code>"character"</code>, even if you mix logical values:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="chars.html#cb28-1"></a><span class="co"># vector with numbers, logicals, and characters</span></span>
+<span id="cb28-2"><a href="chars.html#cb28-2"></a><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="ot">TRUE</span>, pi, <span class="st">&quot;text&quot;</span>, <span class="ot">FALSE</span>)</span>
+<span id="cb28-3"><a href="chars.html#cb28-3"></a><span class="co">#&gt; [1] &quot;1&quot;                &quot;2&quot;                &quot;3&quot;                &quot;4&quot;               </span></span>
+<span id="cb28-4"><a href="chars.html#cb28-4"></a><span class="co">#&gt; [5] &quot;5&quot;                &quot;TRUE&quot;             &quot;3.14159265358979&quot; &quot;text&quot;            </span></span>
+<span id="cb28-5"><a href="chars.html#cb28-5"></a><span class="co">#&gt; [9] &quot;FALSE&quot;</span></span></code></pre></div>
 <p>In fact, R follows two basic rules of data types coercion. The most strict
 rule is: if a character string is present in a vector, everything else in the
 vector will be converted to character strings. The other coercing rule is: if a
@@ -566,119 +571,119 @@ useful ways.</p>
 <p><strong>Matrices.</strong>
 The same behavior of vectors happens when you mix characters and numbers in
 matrices. Again, everything will be treated as characters:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># matrix with numbers and characters</span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">rbind</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</a>
-<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span></a>
-<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="co">#&gt; [1,] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot; </span></a>
-<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="co">#&gt; [2,] &quot;a&quot;  &quot;b&quot;  &quot;c&quot;  &quot;d&quot;  &quot;e&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="chars.html#cb29-1"></a><span class="co"># matrix with numbers and characters</span></span>
+<span id="cb29-2"><a href="chars.html#cb29-2"></a><span class="kw">rbind</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span>
+<span id="cb29-3"><a href="chars.html#cb29-3"></a><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span></span>
+<span id="cb29-4"><a href="chars.html#cb29-4"></a><span class="co">#&gt; [1,] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot; </span></span>
+<span id="cb29-5"><a href="chars.html#cb29-5"></a><span class="co">#&gt; [2,] &quot;a&quot;  &quot;b&quot;  &quot;c&quot;  &quot;d&quot;  &quot;e&quot;</span></span></code></pre></div>
 <p><strong>Data frames.</strong>
 With data frames, things are a bit different. By default, character strings
 inside a data frame will be converted to factors:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="co"># data frame with numbers and characters</span></a>
-<a class="sourceLine" id="cb30-2" data-line-number="2">df1 =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">numbers=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">letters=</span>letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</a>
-<a class="sourceLine" id="cb30-3" data-line-number="3">df1</a>
-<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="co">#&gt;   numbers letters</span></a>
-<a class="sourceLine" id="cb30-5" data-line-number="5"><span class="co">#&gt; 1       1       a</span></a>
-<a class="sourceLine" id="cb30-6" data-line-number="6"><span class="co">#&gt; 2       2       b</span></a>
-<a class="sourceLine" id="cb30-7" data-line-number="7"><span class="co">#&gt; 3       3       c</span></a>
-<a class="sourceLine" id="cb30-8" data-line-number="8"><span class="co">#&gt; 4       4       d</span></a>
-<a class="sourceLine" id="cb30-9" data-line-number="9"><span class="co">#&gt; 5       5       e</span></a>
-<a class="sourceLine" id="cb30-10" data-line-number="10"><span class="co"># examine the data frame structure</span></a>
-<a class="sourceLine" id="cb30-11" data-line-number="11"><span class="kw">str</span>(df1)</a>
-<a class="sourceLine" id="cb30-12" data-line-number="12"><span class="co">#&gt; &#39;data.frame&#39;:    5 obs. of  2 variables:</span></a>
-<a class="sourceLine" id="cb30-13" data-line-number="13"><span class="co">#&gt;  $ numbers: int  1 2 3 4 5</span></a>
-<a class="sourceLine" id="cb30-14" data-line-number="14"><span class="co">#&gt;  $ letters: Factor w/ 5 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,..: 1 2 3 4 5</span></a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="chars.html#cb30-1"></a><span class="co"># data frame with numbers and characters</span></span>
+<span id="cb30-2"><a href="chars.html#cb30-2"></a>df1 =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">numbers=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">letters=</span>letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span>
+<span id="cb30-3"><a href="chars.html#cb30-3"></a>df1</span>
+<span id="cb30-4"><a href="chars.html#cb30-4"></a><span class="co">#&gt;   numbers letters</span></span>
+<span id="cb30-5"><a href="chars.html#cb30-5"></a><span class="co">#&gt; 1       1       a</span></span>
+<span id="cb30-6"><a href="chars.html#cb30-6"></a><span class="co">#&gt; 2       2       b</span></span>
+<span id="cb30-7"><a href="chars.html#cb30-7"></a><span class="co">#&gt; 3       3       c</span></span>
+<span id="cb30-8"><a href="chars.html#cb30-8"></a><span class="co">#&gt; 4       4       d</span></span>
+<span id="cb30-9"><a href="chars.html#cb30-9"></a><span class="co">#&gt; 5       5       e</span></span>
+<span id="cb30-10"><a href="chars.html#cb30-10"></a><span class="co"># examine the data frame structure</span></span>
+<span id="cb30-11"><a href="chars.html#cb30-11"></a><span class="kw">str</span>(df1)</span>
+<span id="cb30-12"><a href="chars.html#cb30-12"></a><span class="co">#&gt; &#39;data.frame&#39;:    5 obs. of  2 variables:</span></span>
+<span id="cb30-13"><a href="chars.html#cb30-13"></a><span class="co">#&gt;  $ numbers: int  1 2 3 4 5</span></span>
+<span id="cb30-14"><a href="chars.html#cb30-14"></a><span class="co">#&gt;  $ letters: Factor w/ 5 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,..: 1 2 3 4 5</span></span></code></pre></div>
 <p>To turn-off the <code>data.frame()</code>’s default behavior of converting strings
 into factors, use the argument <code>stringsAsFactors = FALSE</code>:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># data frame with numbers and characters</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb31-3" data-line-number="3">  <span class="dt">numbers =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </a>
-<a class="sourceLine" id="cb31-4" data-line-number="4">  <span class="dt">letters =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], </a>
-<a class="sourceLine" id="cb31-5" data-line-number="5">  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb31-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb31-7" data-line-number="7">df2</a>
-<a class="sourceLine" id="cb31-8" data-line-number="8"><span class="co">#&gt;   numbers letters</span></a>
-<a class="sourceLine" id="cb31-9" data-line-number="9"><span class="co">#&gt; 1       1       a</span></a>
-<a class="sourceLine" id="cb31-10" data-line-number="10"><span class="co">#&gt; 2       2       b</span></a>
-<a class="sourceLine" id="cb31-11" data-line-number="11"><span class="co">#&gt; 3       3       c</span></a>
-<a class="sourceLine" id="cb31-12" data-line-number="12"><span class="co">#&gt; 4       4       d</span></a>
-<a class="sourceLine" id="cb31-13" data-line-number="13"><span class="co">#&gt; 5       5       e</span></a>
-<a class="sourceLine" id="cb31-14" data-line-number="14"><span class="co"># examine the data frame structure</span></a>
-<a class="sourceLine" id="cb31-15" data-line-number="15"><span class="kw">str</span>(df2)</a>
-<a class="sourceLine" id="cb31-16" data-line-number="16"><span class="co">#&gt; &#39;data.frame&#39;:    5 obs. of  2 variables:</span></a>
-<a class="sourceLine" id="cb31-17" data-line-number="17"><span class="co">#&gt;  $ numbers: int  1 2 3 4 5</span></a>
-<a class="sourceLine" id="cb31-18" data-line-number="18"><span class="co">#&gt;  $ letters: chr  &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="chars.html#cb31-1"></a><span class="co"># data frame with numbers and characters</span></span>
+<span id="cb31-2"><a href="chars.html#cb31-2"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb31-3"><a href="chars.html#cb31-3"></a>  <span class="dt">numbers =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </span>
+<span id="cb31-4"><a href="chars.html#cb31-4"></a>  <span class="dt">letters =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], </span>
+<span id="cb31-5"><a href="chars.html#cb31-5"></a>  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb31-6"><a href="chars.html#cb31-6"></a></span>
+<span id="cb31-7"><a href="chars.html#cb31-7"></a>df2</span>
+<span id="cb31-8"><a href="chars.html#cb31-8"></a><span class="co">#&gt;   numbers letters</span></span>
+<span id="cb31-9"><a href="chars.html#cb31-9"></a><span class="co">#&gt; 1       1       a</span></span>
+<span id="cb31-10"><a href="chars.html#cb31-10"></a><span class="co">#&gt; 2       2       b</span></span>
+<span id="cb31-11"><a href="chars.html#cb31-11"></a><span class="co">#&gt; 3       3       c</span></span>
+<span id="cb31-12"><a href="chars.html#cb31-12"></a><span class="co">#&gt; 4       4       d</span></span>
+<span id="cb31-13"><a href="chars.html#cb31-13"></a><span class="co">#&gt; 5       5       e</span></span>
+<span id="cb31-14"><a href="chars.html#cb31-14"></a><span class="co"># examine the data frame structure</span></span>
+<span id="cb31-15"><a href="chars.html#cb31-15"></a><span class="kw">str</span>(df2)</span>
+<span id="cb31-16"><a href="chars.html#cb31-16"></a><span class="co">#&gt; &#39;data.frame&#39;:    5 obs. of  2 variables:</span></span>
+<span id="cb31-17"><a href="chars.html#cb31-17"></a><span class="co">#&gt;  $ numbers: int  1 2 3 4 5</span></span>
+<span id="cb31-18"><a href="chars.html#cb31-18"></a><span class="co">#&gt;  $ letters: chr  &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...</span></span></code></pre></div>
 <p>Even though <code>df1</code> and <code>df2</code> are identically displayed, their structure is
-different. While <code>df1$letters</code> is stored as a <code>&quot;factor&quot;</code>, <code>df2$letters</code> is
-stored as a <code>&quot;character&quot;</code>.</p>
+different. While <code>df1$letters</code> is stored as a <code>"factor"</code>, <code>df2$letters</code> is
+stored as a <code>"character"</code>.</p>
 <p><strong>Lists.</strong>
 With lists, you can combine any type of data objects. The type of data in
 each element of the list will maintain its corresponding mode:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co"># list with elements of different mode</span></a>
-<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="kw">rnorm</span>(<span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="co">#&gt; [1] 1 2 3 4 5</span></a>
-<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb32-6" data-line-number="6"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb32-7" data-line-number="7"><span class="co">#&gt; [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;</span></a>
-<a class="sourceLine" id="cb32-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb32-9" data-line-number="9"><span class="co">#&gt; [[3]]</span></a>
-<a class="sourceLine" id="cb32-10" data-line-number="10"><span class="co">#&gt; [1] -0.507  0.192 -1.172 -2.088 -2.106</span></a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="chars.html#cb32-1"></a><span class="co"># list with elements of different mode</span></span>
+<span id="cb32-2"><a href="chars.html#cb32-2"></a><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="kw">rnorm</span>(<span class="dv">5</span>))</span>
+<span id="cb32-3"><a href="chars.html#cb32-3"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb32-4"><a href="chars.html#cb32-4"></a><span class="co">#&gt; [1] 1 2 3 4 5</span></span>
+<span id="cb32-5"><a href="chars.html#cb32-5"></a><span class="co">#&gt; </span></span>
+<span id="cb32-6"><a href="chars.html#cb32-6"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb32-7"><a href="chars.html#cb32-7"></a><span class="co">#&gt; [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;</span></span>
+<span id="cb32-8"><a href="chars.html#cb32-8"></a><span class="co">#&gt; </span></span>
+<span id="cb32-9"><a href="chars.html#cb32-9"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb32-10"><a href="chars.html#cb32-10"></a><span class="co">#&gt; [1] -0.507  0.192 -1.172 -2.088 -2.106</span></span></code></pre></div>
 </div>
 <div id="the-workhorse-function-paste" class="section level2">
 <h2><span class="header-section-number">2.5</span> The workhorse function <code>paste()</code></h2>
 <p>The function <code>paste()</code> is perhaps one of the most important functions that you
 can use to create and build strings. <code>paste()</code> takes one or more R objects,
-converts them to <code>&quot;character&quot;</code>, and then it concatenates (pastes) them to form
+converts them to <code>"character"</code>, and then it concatenates (pastes) them to form
 one or several character strings. Its usage has the following form:</p>
 <pre><code>paste(..., sep = &quot; &quot;, collapse = NULL)</code></pre>
 <p>The argument <code>...</code> means that it takes any number of objects. The argument
 <code>sep</code> is a character string that is used as a separator. The argument
 <code>collapse</code> is an optional string to indicate if you want all the terms to be
 collapsed into a single string. Here is a simple example with <code>paste()</code>:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co"># paste</span></a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">PI &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;The life of&quot;</span>, pi)</a>
-<a class="sourceLine" id="cb34-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb34-4" data-line-number="4">PI</a>
-<a class="sourceLine" id="cb34-5" data-line-number="5"><span class="co">#&gt; [1] &quot;The life of 3.14159265358979&quot;</span></a></code></pre></div>
-<p>As you can see, the default separator is a blank space (<code>sep = &quot; &quot;</code>). But you
-can select another character, for example <code>sep = &quot;-&quot;</code>:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># paste</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">IloveR &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;love&quot;</span>, <span class="st">&quot;R&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</a>
-<a class="sourceLine" id="cb35-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb35-4" data-line-number="4">IloveR</a>
-<a class="sourceLine" id="cb35-5" data-line-number="5"><span class="co">#&gt; [1] &quot;I-love-R&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="chars.html#cb34-1"></a><span class="co"># paste</span></span>
+<span id="cb34-2"><a href="chars.html#cb34-2"></a>PI &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;The life of&quot;</span>, pi)</span>
+<span id="cb34-3"><a href="chars.html#cb34-3"></a></span>
+<span id="cb34-4"><a href="chars.html#cb34-4"></a>PI</span>
+<span id="cb34-5"><a href="chars.html#cb34-5"></a><span class="co">#&gt; [1] &quot;The life of 3.14159265358979&quot;</span></span></code></pre></div>
+<p>As you can see, the default separator is a blank space (<code>sep = " "</code>). But you
+can select another character, for example <code>sep = "-"</code>:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="chars.html#cb35-1"></a><span class="co"># paste</span></span>
+<span id="cb35-2"><a href="chars.html#cb35-2"></a>IloveR &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;love&quot;</span>, <span class="st">&quot;R&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb35-3"><a href="chars.html#cb35-3"></a></span>
+<span id="cb35-4"><a href="chars.html#cb35-4"></a>IloveR</span>
+<span id="cb35-5"><a href="chars.html#cb35-5"></a><span class="co">#&gt; [1] &quot;I-love-R&quot;</span></span></code></pre></div>
 <p>If you give <code>paste()</code> objects of different length, then it will apply a
-recycling rule. For example, if you paste a single character <code>&quot;X&quot;</code> with the
-sequence <code>1:5</code>, and separator <code>sep = &quot;.&quot;</code>, this is what you get:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># paste with objects of different lengths</span></a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">paste</span>(<span class="st">&quot;X&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>)</a>
-<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="co">#&gt; [1] &quot;X.1&quot; &quot;X.2&quot; &quot;X.3&quot; &quot;X.4&quot; &quot;X.5&quot;</span></a></code></pre></div>
+recycling rule. For example, if you paste a single character <code>"X"</code> with the
+sequence <code>1:5</code>, and separator <code>sep = "."</code>, this is what you get:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="chars.html#cb36-1"></a><span class="co"># paste with objects of different lengths</span></span>
+<span id="cb36-2"><a href="chars.html#cb36-2"></a><span class="kw">paste</span>(<span class="st">&quot;X&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb36-3"><a href="chars.html#cb36-3"></a><span class="co">#&gt; [1] &quot;X.1&quot; &quot;X.2&quot; &quot;X.3&quot; &quot;X.4&quot; &quot;X.5&quot;</span></span></code></pre></div>
 <p>To see the effect of the <code>collapse</code> argument, let’s compare the difference with
 collapsing and without it:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># paste with collapsing</span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">paste</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="st">&quot;!&quot;</span>,<span class="st">&quot;?&quot;</span>,<span class="st">&quot;+&quot;</span>), <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>, <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="co">#&gt; [1] &quot;1!2?3+&quot;</span></a>
-<a class="sourceLine" id="cb37-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb37-5" data-line-number="5"><span class="co"># paste without collapsing</span></a>
-<a class="sourceLine" id="cb37-6" data-line-number="6"><span class="kw">paste</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="st">&quot;!&quot;</span>,<span class="st">&quot;?&quot;</span>,<span class="st">&quot;+&quot;</span>), <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>)</a>
-<a class="sourceLine" id="cb37-7" data-line-number="7"><span class="co">#&gt; [1] &quot;1!&quot; &quot;2?&quot; &quot;3+&quot;</span></a></code></pre></div>
-<p>One of the potential problems with <code>paste()</code> is that it coerces missing values <code>NA</code> into the character <code>&quot;NA&quot;</code>:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="co"># with missing values NA</span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2">evalue &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;the value of &#39;e&#39; is&quot;</span>, <span class="kw">exp</span>(<span class="dv">1</span>), <span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb38-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb38-4" data-line-number="4">evalue</a>
-<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="co">#&gt; [1] &quot;the value of &#39;e&#39; is 2.71828182845905 NA&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="chars.html#cb37-1"></a><span class="co"># paste with collapsing</span></span>
+<span id="cb37-2"><a href="chars.html#cb37-2"></a><span class="kw">paste</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="st">&quot;!&quot;</span>,<span class="st">&quot;?&quot;</span>,<span class="st">&quot;+&quot;</span>), <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>, <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb37-3"><a href="chars.html#cb37-3"></a><span class="co">#&gt; [1] &quot;1!2?3+&quot;</span></span>
+<span id="cb37-4"><a href="chars.html#cb37-4"></a></span>
+<span id="cb37-5"><a href="chars.html#cb37-5"></a><span class="co"># paste without collapsing</span></span>
+<span id="cb37-6"><a href="chars.html#cb37-6"></a><span class="kw">paste</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="st">&quot;!&quot;</span>,<span class="st">&quot;?&quot;</span>,<span class="st">&quot;+&quot;</span>), <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb37-7"><a href="chars.html#cb37-7"></a><span class="co">#&gt; [1] &quot;1!&quot; &quot;2?&quot; &quot;3+&quot;</span></span></code></pre></div>
+<p>One of the potential problems with <code>paste()</code> is that it coerces missing values <code>NA</code> into the character <code>"NA"</code>:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="chars.html#cb38-1"></a><span class="co"># with missing values NA</span></span>
+<span id="cb38-2"><a href="chars.html#cb38-2"></a>evalue &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;the value of &#39;e&#39; is&quot;</span>, <span class="kw">exp</span>(<span class="dv">1</span>), <span class="ot">NA</span>)</span>
+<span id="cb38-3"><a href="chars.html#cb38-3"></a></span>
+<span id="cb38-4"><a href="chars.html#cb38-4"></a>evalue</span>
+<span id="cb38-5"><a href="chars.html#cb38-5"></a><span class="co">#&gt; [1] &quot;the value of &#39;e&#39; is 2.71828182845905 NA&quot;</span></span></code></pre></div>
 <p>In addition to <code>paste()</code>, there’s also the function <code>paste0()</code> which is the equivalent of</p>
 <pre><code>paste(..., sep = &quot;&quot;, collapse)</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># collapsing with paste0</span></a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">paste0</span>(<span class="st">&quot;let&#39;s&quot;</span>, <span class="st">&quot;collapse&quot;</span>, <span class="st">&quot;all&quot;</span>, <span class="st">&quot;these&quot;</span>, <span class="st">&quot;words&quot;</span>)</a>
-<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="co">#&gt; [1] &quot;let&#39;scollapseallthesewords&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="chars.html#cb40-1"></a><span class="co"># collapsing with paste0</span></span>
+<span id="cb40-2"><a href="chars.html#cb40-2"></a><span class="kw">paste0</span>(<span class="st">&quot;let&#39;s&quot;</span>, <span class="st">&quot;collapse&quot;</span>, <span class="st">&quot;all&quot;</span>, <span class="st">&quot;these&quot;</span>, <span class="st">&quot;words&quot;</span>)</span>
+<span id="cb40-3"><a href="chars.html#cb40-3"></a><span class="co">#&gt; [1] &quot;let&#39;scollapseallthesewords&quot;</span></span></code></pre></div>
 </div>
 <div id="exercises" class="section level2">
 <h2><span class="header-section-number">2.6</span> Exercises</h2>
 <ol style="list-style-type: decimal">
-<li><p>What is the difference between the empty character <code>&quot;&quot;</code> and the output
+<li><p>What is the difference between the empty character <code>""</code> and the output
 of invoking <code>character()</code>?</p></li>
 <li><p>When you combine logical values, numeric values, and character
 values in one single vector, what will be the mode of the resulting vector?</p></li>
@@ -690,9 +695,9 @@ values in one single vector, what will be the mode of the resulting vector?</p><
 <ol start="4" style="list-style-type: decimal">
 <li>Given the following vectors <code>go</code>, <code>bears</code>, and <code>bang</code>:</li>
 </ol>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">go &lt;-<span class="st"> &#39;Go&#39;</span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">bears &lt;-<span class="st"> &#39;Bears&#39;</span></a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">bang &lt;-<span class="st"> &#39;!&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="chars.html#cb42-1"></a>go &lt;-<span class="st"> &#39;Go&#39;</span></span>
+<span id="cb42-2"><a href="chars.html#cb42-2"></a>bears &lt;-<span class="st"> &#39;Bears&#39;</span></span>
+<span id="cb42-3"><a href="chars.html#cb42-3"></a>bang &lt;-<span class="st"> &#39;!&#39;</span></span></code></pre></div>
 <p>how would you use <code>paste()</code> and <code>paste0()</code> to get the following strings:</p>
 <pre><code>&quot;Go Bears !&quot;
 &quot;GoBears!&quot;
@@ -729,11 +734,13 @@ values in one single vector, what will be the mode of the resulting vector?</p><
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -741,12 +748,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -756,6 +762,14 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/gastonstat/r4strings/edit/master/characters.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -771,9 +785,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Handling Strings with R</title>
-  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Stringr Basics | Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:title" content="7 Stringr Basics | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -17,29 +16,32 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Handling Strings with R" />
+  <meta name="twitter:title" content="7 Stringr Basics | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
 
-<meta name="author" content="Gaston Sanchez">
+<meta name="author" content="Gaston Sanchez Chitra Venkatesh" />
 
 
-<meta name="date" content="2016-10-19">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="manip.html">
-<link rel="next" href="basic-manipulation-examples.html">
+<link rel="prev" href="manip.html"/>
+<link rel="next" href="basic-manipulation-examples.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,28 +52,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,49 +251,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
 <li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
+<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
+<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries</a></li>
 <li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="13" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>13</b> Practical Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
+<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>14</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="14.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>14.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="14.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>14.3</b> Reversing Words</a></li>
+<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
+<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
+<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>15</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="15.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
-<li class="chapter" data-level="15.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>15.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="15.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>15.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>16</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="16.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-<li class="chapter" data-level="16.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>16.2</b> Import Data</a></li>
-<li class="chapter" data-level="16.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>16.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="16.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>16.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="16.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>16.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="16.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>16.6</b> Month and Day</a></li>
-<li class="chapter" data-level="16.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>16.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="16.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>16.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="16.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>16.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>17</b> Data Log File</a><ul>
-<li class="chapter" data-level="17.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>17.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="17.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>17.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="17.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>17.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="17.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>17.1.3</b> Image files</a></li>
-<li class="chapter" data-level="17.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>17.1.4</b> How to match image files with one regex pattern?</a></li>
+<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>18</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="18.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>18.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="18.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>18.2.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
+<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
+<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
+<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
+<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
+<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
+<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>18.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="18.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>18.4</b> Common words</a></li>
-<li class="chapter" data-level="18.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>18.5</b> The top 30 words</a></li>
+<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
+<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
+<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
+<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -319,15 +325,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="introduction-3" class="section level2">
 <h2><span class="header-section-number">7.1</span> Introduction</h2>
 <p>So far we’ve seen the various functions R provides to perform basic string
-processing and manipulations of <code>&quot;character&quot;</code> data. Most of the times these
+processing and manipulations of <code>"character"</code> data. Most of the times these
 functions are enough and they will allow you to get your job done. However,
 they have some drawbacks. For instance, consider the following example:</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1"><span class="co"># some text vector</span></a>
-<a class="sourceLine" id="cb139-2" data-line-number="2">text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;five&quot;</span>)</a>
-<a class="sourceLine" id="cb139-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb139-4" data-line-number="4"><span class="co"># how many characters in each string?</span></a>
-<a class="sourceLine" id="cb139-5" data-line-number="5"><span class="kw">nchar</span>(text)</a>
-<a class="sourceLine" id="cb139-6" data-line-number="6"><span class="co">#&gt; [1]  3  3  5 NA  4</span></a></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="stringr-basics.html#cb139-1"></a><span class="co"># some text vector</span></span>
+<span id="cb139-2"><a href="stringr-basics.html#cb139-2"></a>text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;five&quot;</span>)</span>
+<span id="cb139-3"><a href="stringr-basics.html#cb139-3"></a></span>
+<span id="cb139-4"><a href="stringr-basics.html#cb139-4"></a><span class="co"># how many characters in each string?</span></span>
+<span id="cb139-5"><a href="stringr-basics.html#cb139-5"></a><span class="kw">nchar</span>(text)</span>
+<span id="cb139-6"><a href="stringr-basics.html#cb139-6"></a><span class="co">#&gt; [1]  3  3  5 NA  4</span></span></code></pre></div>
 <p>As you can tell, <code>nchar()</code> gives <code>NA</code> a value of 2, as if it were a string
 formed by two characters. Perhaps this may be acceptable in some cases, but
 taking into account all the operations in R, it would be better to leave <code>NA</code>
@@ -335,27 +341,27 @@ as a missing value, instead of treating it as a string of two characters.</p>
 <p>Another awkward example can be found with <code>paste()</code>. The default separator is
 a blank space, which more often than not is what you want to use. But that’s
 secondary. The really annoying thing is when you want to paste things that
-include zero length arguments (e.g. <code>NULL</code>, <code>character(0)</code>). How does <code>paste()</code>
+include zero length arguments (e.g. <code>NULL</code>, <code>character(0)</code>). How does <code>paste()</code>
 behave in those cases? See below:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1"><span class="co"># this works fine</span></a>
-<a class="sourceLine" id="cb140-2" data-line-number="2"><span class="kw">paste</span>(<span class="st">&quot;University&quot;</span>, <span class="st">&quot;of&quot;</span>, <span class="st">&quot;California&quot;</span>, <span class="st">&quot;Berkeley&quot;</span>)</a>
-<a class="sourceLine" id="cb140-3" data-line-number="3"><span class="co">#&gt; [1] &quot;University of California Berkeley&quot;</span></a>
-<a class="sourceLine" id="cb140-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb140-5" data-line-number="5"><span class="co"># this works fine too</span></a>
-<a class="sourceLine" id="cb140-6" data-line-number="6"><span class="kw">paste</span>(<span class="st">&quot;University&quot;</span>, <span class="st">&quot;of&quot;</span>, <span class="st">&quot;California&quot;</span>, <span class="st">&quot;Berkeley&quot;</span>)</a>
-<a class="sourceLine" id="cb140-7" data-line-number="7"><span class="co">#&gt; [1] &quot;University of California Berkeley&quot;</span></a>
-<a class="sourceLine" id="cb140-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb140-9" data-line-number="9"><span class="co"># this is weird</span></a>
-<a class="sourceLine" id="cb140-10" data-line-number="10"><span class="kw">paste</span>(<span class="st">&quot;University&quot;</span>, <span class="st">&quot;of&quot;</span>, <span class="st">&quot;California&quot;</span>, <span class="st">&quot;Berkeley&quot;</span>, <span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb140-11" data-line-number="11"><span class="co">#&gt; [1] &quot;University of California Berkeley &quot;</span></a>
-<a class="sourceLine" id="cb140-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb140-13" data-line-number="13"><span class="co"># this is ugly</span></a>
-<a class="sourceLine" id="cb140-14" data-line-number="14"><span class="kw">paste</span>(<span class="st">&quot;University&quot;</span>, <span class="st">&quot;of&quot;</span>, <span class="st">&quot;California&quot;</span>, <span class="st">&quot;Berkeley&quot;</span>, <span class="ot">NULL</span>, <span class="kw">character</span>(<span class="dv">0</span>), </a>
-<a class="sourceLine" id="cb140-15" data-line-number="15">      <span class="st">&quot;Go Bears!&quot;</span>)</a>
-<a class="sourceLine" id="cb140-16" data-line-number="16"><span class="co">#&gt; [1] &quot;University of California Berkeley   Go Bears!&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="stringr-basics.html#cb140-1"></a><span class="co"># this works fine</span></span>
+<span id="cb140-2"><a href="stringr-basics.html#cb140-2"></a><span class="kw">paste</span>(<span class="st">&quot;University&quot;</span>, <span class="st">&quot;of&quot;</span>, <span class="st">&quot;California&quot;</span>, <span class="st">&quot;Berkeley&quot;</span>)</span>
+<span id="cb140-3"><a href="stringr-basics.html#cb140-3"></a><span class="co">#&gt; [1] &quot;University of California Berkeley&quot;</span></span>
+<span id="cb140-4"><a href="stringr-basics.html#cb140-4"></a></span>
+<span id="cb140-5"><a href="stringr-basics.html#cb140-5"></a><span class="co"># this works fine too</span></span>
+<span id="cb140-6"><a href="stringr-basics.html#cb140-6"></a><span class="kw">paste</span>(<span class="st">&quot;University&quot;</span>, <span class="st">&quot;of&quot;</span>, <span class="st">&quot;California&quot;</span>, <span class="st">&quot;Berkeley&quot;</span>)</span>
+<span id="cb140-7"><a href="stringr-basics.html#cb140-7"></a><span class="co">#&gt; [1] &quot;University of California Berkeley&quot;</span></span>
+<span id="cb140-8"><a href="stringr-basics.html#cb140-8"></a></span>
+<span id="cb140-9"><a href="stringr-basics.html#cb140-9"></a><span class="co"># this is weird</span></span>
+<span id="cb140-10"><a href="stringr-basics.html#cb140-10"></a><span class="kw">paste</span>(<span class="st">&quot;University&quot;</span>, <span class="st">&quot;of&quot;</span>, <span class="st">&quot;California&quot;</span>, <span class="st">&quot;Berkeley&quot;</span>, <span class="ot">NULL</span>)</span>
+<span id="cb140-11"><a href="stringr-basics.html#cb140-11"></a><span class="co">#&gt; [1] &quot;University of California Berkeley &quot;</span></span>
+<span id="cb140-12"><a href="stringr-basics.html#cb140-12"></a></span>
+<span id="cb140-13"><a href="stringr-basics.html#cb140-13"></a><span class="co"># this is ugly</span></span>
+<span id="cb140-14"><a href="stringr-basics.html#cb140-14"></a><span class="kw">paste</span>(<span class="st">&quot;University&quot;</span>, <span class="st">&quot;of&quot;</span>, <span class="st">&quot;California&quot;</span>, <span class="st">&quot;Berkeley&quot;</span>, <span class="ot">NULL</span>, <span class="kw">character</span>(<span class="dv">0</span>), </span>
+<span id="cb140-15"><a href="stringr-basics.html#cb140-15"></a>      <span class="st">&quot;Go Bears!&quot;</span>)</span>
+<span id="cb140-16"><a href="stringr-basics.html#cb140-16"></a><span class="co">#&gt; [1] &quot;University of California Berkeley   Go Bears!&quot;</span></span></code></pre></div>
 <p>Notice the output from the last example (the <em>ugly</em> one). The objects <code>NULL</code>
 and <code>character(0)</code> have zero length, yet when included inside <code>paste()</code> they
-are treated as an empty string <code>&quot;&quot;</code>. Wouldn’t be good if <code>paste()</code> removed
+are treated as an empty string <code>""</code>. Wouldn’t be good if <code>paste()</code> removed
 zero length arguments? Sadly, there’s nothing we can do to change <code>nchar()</code> and
 <code>paste()</code>. But fear not. There is a very nice package that solves these
 problems and provides several functions for carrying out consistent string
@@ -365,7 +371,7 @@ processing.</p>
 <h2><span class="header-section-number">7.2</span> Package <code>stringr</code></h2>
 <p>Thanks to Hadley Wickham, we have the package <code>stringr</code> that adds more
 functionality to the base functions for handling strings in R.</p>
-<p><a href="http://cran.r-project.org/web/packages/stringr/index.html" class="uri">http://cran.r-project.org/web/packages/stringr/index.html</a></p>
+<p><a href="http://cran.r-project.org/web/packages/stringr/index.html">http://cran.r-project.org/web/packages/stringr/index.html</a></p>
 <p>According to the description of the package:</p>
 <blockquote>
 <p>“is a set of simple wrappers that make R’s string functions more consistent,
@@ -374,17 +380,17 @@ argument names (and positions) are consistent, all functions deal with NA’s
 and zero length character appropriately, and the output data structures from
 each function matches the input data structures of other functions.”</p>
 </blockquote>
-<p>To install <code>&quot;stringr&quot;</code> use the function <code>install.packages()</code>. Once installed,
+<p>To install <code>"stringr"</code> use the function <code>install.packages()</code>. Once installed,
 load it to your current session with <code>library()</code>:</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1"><span class="co"># installing &#39;stringr&#39;</span></a>
-<a class="sourceLine" id="cb141-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">&quot;stringr&quot;</span>)</a>
-<a class="sourceLine" id="cb141-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb141-4" data-line-number="4"><span class="co"># load &#39;stringr&#39;</span></a>
-<a class="sourceLine" id="cb141-5" data-line-number="5"><span class="kw">library</span>(stringr)</a></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="stringr-basics.html#cb141-1"></a><span class="co"># installing &#39;stringr&#39;</span></span>
+<span id="cb141-2"><a href="stringr-basics.html#cb141-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;stringr&quot;</span>)</span>
+<span id="cb141-3"><a href="stringr-basics.html#cb141-3"></a></span>
+<span id="cb141-4"><a href="stringr-basics.html#cb141-4"></a><span class="co"># load &#39;stringr&#39;</span></span>
+<span id="cb141-5"><a href="stringr-basics.html#cb141-5"></a><span class="kw">library</span>(stringr)</span></code></pre></div>
 </div>
 <div id="basic-string-operations" class="section level2">
 <h2><span class="header-section-number">7.3</span> Basic String Operations</h2>
-<p><code>&quot;stringr&quot;</code> provides functions for both 1) basic manipulations and 2) for
+<p><code>"stringr"</code> provides functions for both 1) basic manipulations and 2) for
 regular expression operations. In this chapter we cover those functions that
 have to do with basic manipulations.</p>
 <p>The following table contains the <code>stringr</code> functions for basic string operations:</p>
@@ -439,7 +445,7 @@ have to do with basic manipulations.</p>
 </tr>
 </tbody>
 </table>
-<p>Notice that all functions in <code>stringr</code> start with <code>&quot;str_&quot;</code> followed by a term
+<p>Notice that all functions in <code>stringr</code> start with <code>"str_"</code> followed by a term
 associated to the task they perform. For example, <code>str_length()</code> gives you the
 number (i.e. length) of characters in a string. In addition, some functions are
 designed to provide a better alternative to already existing functions. This is
@@ -450,21 +456,21 @@ Other functions, however, don’t have a corresponding alternative such as
 <h3><span class="header-section-number">7.3.1</span> Concatenating with <code>str_c()</code></h3>
 <p>Let’s begin with <code>str_c()</code>. This function is equivalent to <code>paste()</code> but
 instead of using the white space as the default separator, <code>str_c()</code> uses the
-empty string <code>&quot;&quot;</code> which is a more common separator when <em>pasting</em> strings:</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1"><span class="co"># default usage</span></a>
-<a class="sourceLine" id="cb142-2" data-line-number="2"><span class="kw">str_c</span>(<span class="st">&quot;May&quot;</span>, <span class="st">&quot;The&quot;</span>, <span class="st">&quot;Force&quot;</span>, <span class="st">&quot;Be&quot;</span>, <span class="st">&quot;With&quot;</span>, <span class="st">&quot;You&quot;</span>)</a>
-<a class="sourceLine" id="cb142-3" data-line-number="3"><span class="co">#&gt; [1] &quot;MayTheForceBeWithYou&quot;</span></a>
-<a class="sourceLine" id="cb142-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb142-5" data-line-number="5"><span class="co"># removing zero length objects</span></a>
-<a class="sourceLine" id="cb142-6" data-line-number="6"><span class="kw">str_c</span>(<span class="st">&quot;May&quot;</span>, <span class="st">&quot;The&quot;</span>, <span class="st">&quot;Force&quot;</span>, <span class="ot">NULL</span>, <span class="st">&quot;Be&quot;</span>, <span class="st">&quot;With&quot;</span>, <span class="st">&quot;You&quot;</span>, <span class="kw">character</span>(<span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb142-7" data-line-number="7"><span class="co">#&gt; [1] &quot;MayTheForceBeWithYou&quot;</span></a></code></pre></div>
+empty string <code>""</code> which is a more common separator when <em>pasting</em> strings:</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="stringr-basics.html#cb142-1"></a><span class="co"># default usage</span></span>
+<span id="cb142-2"><a href="stringr-basics.html#cb142-2"></a><span class="kw">str_c</span>(<span class="st">&quot;May&quot;</span>, <span class="st">&quot;The&quot;</span>, <span class="st">&quot;Force&quot;</span>, <span class="st">&quot;Be&quot;</span>, <span class="st">&quot;With&quot;</span>, <span class="st">&quot;You&quot;</span>)</span>
+<span id="cb142-3"><a href="stringr-basics.html#cb142-3"></a><span class="co">#&gt; [1] &quot;MayTheForceBeWithYou&quot;</span></span>
+<span id="cb142-4"><a href="stringr-basics.html#cb142-4"></a></span>
+<span id="cb142-5"><a href="stringr-basics.html#cb142-5"></a><span class="co"># removing zero length objects</span></span>
+<span id="cb142-6"><a href="stringr-basics.html#cb142-6"></a><span class="kw">str_c</span>(<span class="st">&quot;May&quot;</span>, <span class="st">&quot;The&quot;</span>, <span class="st">&quot;Force&quot;</span>, <span class="ot">NULL</span>, <span class="st">&quot;Be&quot;</span>, <span class="st">&quot;With&quot;</span>, <span class="st">&quot;You&quot;</span>, <span class="kw">character</span>(<span class="dv">0</span>))</span>
+<span id="cb142-7"><a href="stringr-basics.html#cb142-7"></a><span class="co">#&gt; [1] &quot;MayTheForceBeWithYou&quot;</span></span></code></pre></div>
 <p>Observe another major difference between <code>str_c()</code> and <code>paste()</code>: zero length
 arguments like <code>NULL</code> and <code>character(0)</code> are silently removed by <code>str_c()</code>.</p>
 <p>If you want to change the default separator, you can do that as usual by
 specifying the argument <code>sep</code>:</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1"><span class="co"># changing separator</span></a>
-<a class="sourceLine" id="cb143-2" data-line-number="2"><span class="kw">str_c</span>(<span class="st">&quot;May&quot;</span>, <span class="st">&quot;The&quot;</span>, <span class="st">&quot;Force&quot;</span>, <span class="st">&quot;Be&quot;</span>, <span class="st">&quot;With&quot;</span>, <span class="st">&quot;You&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>
-<a class="sourceLine" id="cb143-3" data-line-number="3"><span class="co">#&gt; [1] &quot;May_The_Force_Be_With_You&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="stringr-basics.html#cb143-1"></a><span class="co"># changing separator</span></span>
+<span id="cb143-2"><a href="stringr-basics.html#cb143-2"></a><span class="kw">str_c</span>(<span class="st">&quot;May&quot;</span>, <span class="st">&quot;The&quot;</span>, <span class="st">&quot;Force&quot;</span>, <span class="st">&quot;Be&quot;</span>, <span class="st">&quot;With&quot;</span>, <span class="st">&quot;You&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb143-3"><a href="stringr-basics.html#cb143-3"></a><span class="co">#&gt; [1] &quot;May_The_Force_Be_With_You&quot;</span></span></code></pre></div>
 </div>
 <div id="number-of-characters-with-str_length" class="section level3">
 <h3><span class="header-section-number">7.3.2</span> Number of characters with <code>str_length()</code></h3>
@@ -474,28 +480,28 @@ the <em>length</em> of a string (do not confuse it with the <code>length()</code
 Compared to <code>nchar()</code>, <code>str_length()</code> has a more consistent behavior when
 dealing with <code>NA</code> values. Instead of giving <code>NA</code> a length of 2, <code>str_length()</code>
 preserves missing values just as <code>NA</code>s.</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1"><span class="co"># some text (NA included)</span></a>
-<a class="sourceLine" id="cb144-2" data-line-number="2">some_text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;five&quot;</span>)</a>
-<a class="sourceLine" id="cb144-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb144-4" data-line-number="4"><span class="co"># compare &#39;str_length&#39; with &#39;nchar&#39;</span></a>
-<a class="sourceLine" id="cb144-5" data-line-number="5"><span class="kw">nchar</span>(some_text)</a>
-<a class="sourceLine" id="cb144-6" data-line-number="6"><span class="co">#&gt; [1]  3  3  5 NA  4</span></a>
-<a class="sourceLine" id="cb144-7" data-line-number="7"><span class="kw">str_length</span>(some_text)</a>
-<a class="sourceLine" id="cb144-8" data-line-number="8"><span class="co">#&gt; [1]  3  3  5 NA  4</span></a></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="stringr-basics.html#cb144-1"></a><span class="co"># some text (NA included)</span></span>
+<span id="cb144-2"><a href="stringr-basics.html#cb144-2"></a>some_text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;five&quot;</span>)</span>
+<span id="cb144-3"><a href="stringr-basics.html#cb144-3"></a></span>
+<span id="cb144-4"><a href="stringr-basics.html#cb144-4"></a><span class="co"># compare &#39;str_length&#39; with &#39;nchar&#39;</span></span>
+<span id="cb144-5"><a href="stringr-basics.html#cb144-5"></a><span class="kw">nchar</span>(some_text)</span>
+<span id="cb144-6"><a href="stringr-basics.html#cb144-6"></a><span class="co">#&gt; [1]  3  3  5 NA  4</span></span>
+<span id="cb144-7"><a href="stringr-basics.html#cb144-7"></a><span class="kw">str_length</span>(some_text)</span>
+<span id="cb144-8"><a href="stringr-basics.html#cb144-8"></a><span class="co">#&gt; [1]  3  3  5 NA  4</span></span></code></pre></div>
 <p>In addition, <code>str_length()</code> has the nice feature that it converts factors to
 characters, something that <code>nchar()</code> is not able to handle:</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">some_factor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>))</a>
-<a class="sourceLine" id="cb145-2" data-line-number="2">some_factor</a>
-<a class="sourceLine" id="cb145-3" data-line-number="3"><span class="co">#&gt; [1] good good good bad  bad  bad </span></a>
-<a class="sourceLine" id="cb145-4" data-line-number="4"><span class="co">#&gt; Levels: good bad</span></a>
-<a class="sourceLine" id="cb145-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb145-6" data-line-number="6"><span class="co"># try &#39;nchar&#39; on a factor</span></a>
-<a class="sourceLine" id="cb145-7" data-line-number="7"><span class="kw">nchar</span>(some_factor)</a>
-<a class="sourceLine" id="cb145-8" data-line-number="8"><span class="co">#&gt; Error in nchar(some_factor): &#39;nchar()&#39; requires a character vector</span></a>
-<a class="sourceLine" id="cb145-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb145-10" data-line-number="10"><span class="co"># now compare it with &#39;str_length&#39;</span></a>
-<a class="sourceLine" id="cb145-11" data-line-number="11"><span class="kw">str_length</span>(some_factor)</a>
-<a class="sourceLine" id="cb145-12" data-line-number="12"><span class="co">#&gt; [1] 4 4 4 3 3 3</span></a></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="stringr-basics.html#cb145-1"></a>some_factor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>))</span>
+<span id="cb145-2"><a href="stringr-basics.html#cb145-2"></a>some_factor</span>
+<span id="cb145-3"><a href="stringr-basics.html#cb145-3"></a><span class="co">#&gt; [1] good good good bad  bad  bad </span></span>
+<span id="cb145-4"><a href="stringr-basics.html#cb145-4"></a><span class="co">#&gt; Levels: good bad</span></span>
+<span id="cb145-5"><a href="stringr-basics.html#cb145-5"></a></span>
+<span id="cb145-6"><a href="stringr-basics.html#cb145-6"></a><span class="co"># try &#39;nchar&#39; on a factor</span></span>
+<span id="cb145-7"><a href="stringr-basics.html#cb145-7"></a><span class="kw">nchar</span>(some_factor)</span>
+<span id="cb145-8"><a href="stringr-basics.html#cb145-8"></a><span class="co">#&gt; Error in nchar(some_factor): &#39;nchar()&#39; requires a character vector</span></span>
+<span id="cb145-9"><a href="stringr-basics.html#cb145-9"></a></span>
+<span id="cb145-10"><a href="stringr-basics.html#cb145-10"></a><span class="co"># now compare it with &#39;str_length&#39;</span></span>
+<span id="cb145-11"><a href="stringr-basics.html#cb145-11"></a><span class="kw">str_length</span>(some_factor)</span>
+<span id="cb145-12"><a href="stringr-basics.html#cb145-12"></a><span class="co">#&gt; [1] 4 4 4 3 3 3</span></span></code></pre></div>
 </div>
 <div id="substring-with-str_sub" class="section level3">
 <h3><span class="header-section-number">7.3.3</span> Substring with <code>str_sub()</code></h3>
@@ -507,71 +513,71 @@ following usage form:</p>
 indicating the position of the first character in substring, and an <code>end</code> value
 indicating the position of the last character. Here’s a simple example with a
 single string in which characters from 1 to 5 are extracted:</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1">lorem &lt;-<span class="st"> &quot;Lorem Ipsum&quot;</span></a>
-<a class="sourceLine" id="cb147-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb147-3" data-line-number="3"><span class="co"># apply &#39;str_sub&#39;</span></a>
-<a class="sourceLine" id="cb147-4" data-line-number="4"><span class="kw">str_sub</span>(lorem, <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">end =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb147-5" data-line-number="5"><span class="co">#&gt; [1] &quot;Lorem&quot;</span></a>
-<a class="sourceLine" id="cb147-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb147-7" data-line-number="7"><span class="co"># equivalent to &#39;substring&#39;</span></a>
-<a class="sourceLine" id="cb147-8" data-line-number="8"><span class="kw">substring</span>(lorem, <span class="dt">first =</span> <span class="dv">1</span>, <span class="dt">last =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb147-9" data-line-number="9"><span class="co">#&gt; [1] &quot;Lorem&quot;</span></a>
-<a class="sourceLine" id="cb147-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb147-11" data-line-number="11"><span class="co"># another example</span></a>
-<a class="sourceLine" id="cb147-12" data-line-number="12"><span class="kw">str_sub</span>(<span class="st">&quot;adios&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb147-13" data-line-number="13"><span class="co">#&gt; [1] &quot;adios&quot; &quot;dios&quot;  &quot;ios&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="stringr-basics.html#cb147-1"></a>lorem &lt;-<span class="st"> &quot;Lorem Ipsum&quot;</span></span>
+<span id="cb147-2"><a href="stringr-basics.html#cb147-2"></a></span>
+<span id="cb147-3"><a href="stringr-basics.html#cb147-3"></a><span class="co"># apply &#39;str_sub&#39;</span></span>
+<span id="cb147-4"><a href="stringr-basics.html#cb147-4"></a><span class="kw">str_sub</span>(lorem, <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">end =</span> <span class="dv">5</span>)</span>
+<span id="cb147-5"><a href="stringr-basics.html#cb147-5"></a><span class="co">#&gt; [1] &quot;Lorem&quot;</span></span>
+<span id="cb147-6"><a href="stringr-basics.html#cb147-6"></a></span>
+<span id="cb147-7"><a href="stringr-basics.html#cb147-7"></a><span class="co"># equivalent to &#39;substring&#39;</span></span>
+<span id="cb147-8"><a href="stringr-basics.html#cb147-8"></a><span class="kw">substring</span>(lorem, <span class="dt">first =</span> <span class="dv">1</span>, <span class="dt">last =</span> <span class="dv">5</span>)</span>
+<span id="cb147-9"><a href="stringr-basics.html#cb147-9"></a><span class="co">#&gt; [1] &quot;Lorem&quot;</span></span>
+<span id="cb147-10"><a href="stringr-basics.html#cb147-10"></a></span>
+<span id="cb147-11"><a href="stringr-basics.html#cb147-11"></a><span class="co"># another example</span></span>
+<span id="cb147-12"><a href="stringr-basics.html#cb147-12"></a><span class="kw">str_sub</span>(<span class="st">&quot;adios&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</span>
+<span id="cb147-13"><a href="stringr-basics.html#cb147-13"></a><span class="co">#&gt; [1] &quot;adios&quot; &quot;dios&quot;  &quot;ios&quot;</span></span></code></pre></div>
 <p>An interesting feature of <code>str_sub()</code> is its ability to work with negative
 indices in the <code>start</code> and <code>end</code> positions. When we use a negative position, <code>str_sub()</code> counts backwards from last character:</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1">resto =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;brasserie&quot;</span>, <span class="st">&quot;bistrot&quot;</span>, <span class="st">&quot;creperie&quot;</span>, <span class="st">&quot;bouchon&quot;</span>)</a>
-<a class="sourceLine" id="cb148-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb148-3" data-line-number="3"><span class="co"># &#39;str_sub&#39; with negative positions</span></a>
-<a class="sourceLine" id="cb148-4" data-line-number="4"><span class="kw">str_sub</span>(resto, <span class="dt">start =</span> <span class="dv">-4</span>, <span class="dt">end =</span> <span class="dv">-1</span>)</a>
-<a class="sourceLine" id="cb148-5" data-line-number="5"><span class="co">#&gt; [1] &quot;erie&quot; &quot;trot&quot; &quot;erie&quot; &quot;chon&quot;</span></a>
-<a class="sourceLine" id="cb148-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb148-7" data-line-number="7"><span class="co"># compared to substring (useless)</span></a>
-<a class="sourceLine" id="cb148-8" data-line-number="8"><span class="kw">substring</span>(resto, <span class="dt">first =</span> <span class="dv">-4</span>, <span class="dt">last =</span> <span class="dv">-1</span>)</a>
-<a class="sourceLine" id="cb148-9" data-line-number="9"><span class="co">#&gt; [1] &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="stringr-basics.html#cb148-1"></a>resto =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;brasserie&quot;</span>, <span class="st">&quot;bistrot&quot;</span>, <span class="st">&quot;creperie&quot;</span>, <span class="st">&quot;bouchon&quot;</span>)</span>
+<span id="cb148-2"><a href="stringr-basics.html#cb148-2"></a></span>
+<span id="cb148-3"><a href="stringr-basics.html#cb148-3"></a><span class="co"># &#39;str_sub&#39; with negative positions</span></span>
+<span id="cb148-4"><a href="stringr-basics.html#cb148-4"></a><span class="kw">str_sub</span>(resto, <span class="dt">start =</span> <span class="dv">-4</span>, <span class="dt">end =</span> <span class="dv">-1</span>)</span>
+<span id="cb148-5"><a href="stringr-basics.html#cb148-5"></a><span class="co">#&gt; [1] &quot;erie&quot; &quot;trot&quot; &quot;erie&quot; &quot;chon&quot;</span></span>
+<span id="cb148-6"><a href="stringr-basics.html#cb148-6"></a></span>
+<span id="cb148-7"><a href="stringr-basics.html#cb148-7"></a><span class="co"># compared to substring (useless)</span></span>
+<span id="cb148-8"><a href="stringr-basics.html#cb148-8"></a><span class="kw">substring</span>(resto, <span class="dt">first =</span> <span class="dv">-4</span>, <span class="dt">last =</span> <span class="dv">-1</span>)</span>
+<span id="cb148-9"><a href="stringr-basics.html#cb148-9"></a><span class="co">#&gt; [1] &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;</span></span></code></pre></div>
 <p>Similar to <code>substring()</code>, we can also give <code>str_sub()</code> a set of positions which
 will be recycled over the string. But even better, we can give <code>str_sub()</code>
 a negative sequence, something that <code>substring()</code> ignores:</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="co"># extracting sequentially</span></a>
-<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="kw">str_sub</span>(lorem, <span class="kw">seq_len</span>(<span class="kw">nchar</span>(lorem)))</a>
-<a class="sourceLine" id="cb149-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;Lorem Ipsum&quot; &quot;orem Ipsum&quot;  &quot;rem Ipsum&quot;   &quot;em Ipsum&quot;    &quot;m Ipsum&quot;    </span></a>
-<a class="sourceLine" id="cb149-4" data-line-number="4"><span class="co">#&gt;  [6] &quot; Ipsum&quot;      &quot;Ipsum&quot;       &quot;psum&quot;        &quot;sum&quot;         &quot;um&quot;         </span></a>
-<a class="sourceLine" id="cb149-5" data-line-number="5"><span class="co">#&gt; [11] &quot;m&quot;</span></a>
-<a class="sourceLine" id="cb149-6" data-line-number="6"><span class="kw">substring</span>(lorem, <span class="kw">seq_len</span>(<span class="kw">nchar</span>(lorem)))</a>
-<a class="sourceLine" id="cb149-7" data-line-number="7"><span class="co">#&gt;  [1] &quot;Lorem Ipsum&quot; &quot;orem Ipsum&quot;  &quot;rem Ipsum&quot;   &quot;em Ipsum&quot;    &quot;m Ipsum&quot;    </span></a>
-<a class="sourceLine" id="cb149-8" data-line-number="8"><span class="co">#&gt;  [6] &quot; Ipsum&quot;      &quot;Ipsum&quot;       &quot;psum&quot;        &quot;sum&quot;         &quot;um&quot;         </span></a>
-<a class="sourceLine" id="cb149-9" data-line-number="9"><span class="co">#&gt; [11] &quot;m&quot;</span></a>
-<a class="sourceLine" id="cb149-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb149-11" data-line-number="11"><span class="co"># reverse substrings with negative positions</span></a>
-<a class="sourceLine" id="cb149-12" data-line-number="12"><span class="kw">str_sub</span>(lorem, <span class="op">-</span><span class="kw">seq_len</span>(<span class="kw">nchar</span>(lorem)))</a>
-<a class="sourceLine" id="cb149-13" data-line-number="13"><span class="co">#&gt;  [1] &quot;m&quot;           &quot;um&quot;          &quot;sum&quot;         &quot;psum&quot;        &quot;Ipsum&quot;      </span></a>
-<a class="sourceLine" id="cb149-14" data-line-number="14"><span class="co">#&gt;  [6] &quot; Ipsum&quot;      &quot;m Ipsum&quot;     &quot;em Ipsum&quot;    &quot;rem Ipsum&quot;   &quot;orem Ipsum&quot; </span></a>
-<a class="sourceLine" id="cb149-15" data-line-number="15"><span class="co">#&gt; [11] &quot;Lorem Ipsum&quot;</span></a>
-<a class="sourceLine" id="cb149-16" data-line-number="16"><span class="kw">substring</span>(lorem, <span class="op">-</span><span class="kw">seq_len</span>(<span class="kw">nchar</span>(lorem)))</a>
-<a class="sourceLine" id="cb149-17" data-line-number="17"><span class="co">#&gt;  [1] &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot;</span></a>
-<a class="sourceLine" id="cb149-18" data-line-number="18"><span class="co">#&gt;  [6] &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot;</span></a>
-<a class="sourceLine" id="cb149-19" data-line-number="19"><span class="co">#&gt; [11] &quot;Lorem Ipsum&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="stringr-basics.html#cb149-1"></a><span class="co"># extracting sequentially</span></span>
+<span id="cb149-2"><a href="stringr-basics.html#cb149-2"></a><span class="kw">str_sub</span>(lorem, <span class="kw">seq_len</span>(<span class="kw">nchar</span>(lorem)))</span>
+<span id="cb149-3"><a href="stringr-basics.html#cb149-3"></a><span class="co">#&gt;  [1] &quot;Lorem Ipsum&quot; &quot;orem Ipsum&quot;  &quot;rem Ipsum&quot;   &quot;em Ipsum&quot;    &quot;m Ipsum&quot;    </span></span>
+<span id="cb149-4"><a href="stringr-basics.html#cb149-4"></a><span class="co">#&gt;  [6] &quot; Ipsum&quot;      &quot;Ipsum&quot;       &quot;psum&quot;        &quot;sum&quot;         &quot;um&quot;         </span></span>
+<span id="cb149-5"><a href="stringr-basics.html#cb149-5"></a><span class="co">#&gt; [11] &quot;m&quot;</span></span>
+<span id="cb149-6"><a href="stringr-basics.html#cb149-6"></a><span class="kw">substring</span>(lorem, <span class="kw">seq_len</span>(<span class="kw">nchar</span>(lorem)))</span>
+<span id="cb149-7"><a href="stringr-basics.html#cb149-7"></a><span class="co">#&gt;  [1] &quot;Lorem Ipsum&quot; &quot;orem Ipsum&quot;  &quot;rem Ipsum&quot;   &quot;em Ipsum&quot;    &quot;m Ipsum&quot;    </span></span>
+<span id="cb149-8"><a href="stringr-basics.html#cb149-8"></a><span class="co">#&gt;  [6] &quot; Ipsum&quot;      &quot;Ipsum&quot;       &quot;psum&quot;        &quot;sum&quot;         &quot;um&quot;         </span></span>
+<span id="cb149-9"><a href="stringr-basics.html#cb149-9"></a><span class="co">#&gt; [11] &quot;m&quot;</span></span>
+<span id="cb149-10"><a href="stringr-basics.html#cb149-10"></a></span>
+<span id="cb149-11"><a href="stringr-basics.html#cb149-11"></a><span class="co"># reverse substrings with negative positions</span></span>
+<span id="cb149-12"><a href="stringr-basics.html#cb149-12"></a><span class="kw">str_sub</span>(lorem, <span class="op">-</span><span class="kw">seq_len</span>(<span class="kw">nchar</span>(lorem)))</span>
+<span id="cb149-13"><a href="stringr-basics.html#cb149-13"></a><span class="co">#&gt;  [1] &quot;m&quot;           &quot;um&quot;          &quot;sum&quot;         &quot;psum&quot;        &quot;Ipsum&quot;      </span></span>
+<span id="cb149-14"><a href="stringr-basics.html#cb149-14"></a><span class="co">#&gt;  [6] &quot; Ipsum&quot;      &quot;m Ipsum&quot;     &quot;em Ipsum&quot;    &quot;rem Ipsum&quot;   &quot;orem Ipsum&quot; </span></span>
+<span id="cb149-15"><a href="stringr-basics.html#cb149-15"></a><span class="co">#&gt; [11] &quot;Lorem Ipsum&quot;</span></span>
+<span id="cb149-16"><a href="stringr-basics.html#cb149-16"></a><span class="kw">substring</span>(lorem, <span class="op">-</span><span class="kw">seq_len</span>(<span class="kw">nchar</span>(lorem)))</span>
+<span id="cb149-17"><a href="stringr-basics.html#cb149-17"></a><span class="co">#&gt;  [1] &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot;</span></span>
+<span id="cb149-18"><a href="stringr-basics.html#cb149-18"></a><span class="co">#&gt;  [6] &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot; &quot;Lorem Ipsum&quot;</span></span>
+<span id="cb149-19"><a href="stringr-basics.html#cb149-19"></a><span class="co">#&gt; [11] &quot;Lorem Ipsum&quot;</span></span></code></pre></div>
 <p>We can use <code>str_sub()</code> not only for extracting subtrings but also for replacing
 substrings:</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="co"># replacing &#39;Lorem&#39; with &#39;Nullam&#39;</span></a>
-<a class="sourceLine" id="cb150-2" data-line-number="2">lorem &lt;-<span class="st"> &quot;Lorem Ipsum&quot;</span></a>
-<a class="sourceLine" id="cb150-3" data-line-number="3"><span class="kw">str_sub</span>(lorem, <span class="dv">1</span>, <span class="dv">5</span>) &lt;-<span class="st"> &quot;Nullam&quot;</span></a>
-<a class="sourceLine" id="cb150-4" data-line-number="4">lorem</a>
-<a class="sourceLine" id="cb150-5" data-line-number="5"><span class="co">#&gt; [1] &quot;Nullam Ipsum&quot;</span></a>
-<a class="sourceLine" id="cb150-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb150-7" data-line-number="7"><span class="co"># replacing with negative positions</span></a>
-<a class="sourceLine" id="cb150-8" data-line-number="8">lorem &lt;-<span class="st"> &quot;Lorem Ipsum&quot;</span></a>
-<a class="sourceLine" id="cb150-9" data-line-number="9"><span class="kw">str_sub</span>(lorem, <span class="dv">-1</span>) &lt;-<span class="st"> &quot;Nullam&quot;</span></a>
-<a class="sourceLine" id="cb150-10" data-line-number="10">lorem</a>
-<a class="sourceLine" id="cb150-11" data-line-number="11"><span class="co">#&gt; [1] &quot;Lorem IpsuNullam&quot;</span></a>
-<a class="sourceLine" id="cb150-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb150-13" data-line-number="13"><span class="co"># multiple replacements </span></a>
-<a class="sourceLine" id="cb150-14" data-line-number="14">lorem &lt;-<span class="st"> &quot;Lorem Ipsum&quot;</span></a>
-<a class="sourceLine" id="cb150-15" data-line-number="15"><span class="kw">str_sub</span>(lorem, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span>), <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">8</span>)) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Nullam&quot;</span>, <span class="st">&quot;Enim&quot;</span>)</a>
-<a class="sourceLine" id="cb150-16" data-line-number="16">lorem</a>
-<a class="sourceLine" id="cb150-17" data-line-number="17"><span class="co">#&gt; [1] &quot;Nullam Ipsum&quot;  &quot;Lorem Enimsum&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="stringr-basics.html#cb150-1"></a><span class="co"># replacing &#39;Lorem&#39; with &#39;Nullam&#39;</span></span>
+<span id="cb150-2"><a href="stringr-basics.html#cb150-2"></a>lorem &lt;-<span class="st"> &quot;Lorem Ipsum&quot;</span></span>
+<span id="cb150-3"><a href="stringr-basics.html#cb150-3"></a><span class="kw">str_sub</span>(lorem, <span class="dv">1</span>, <span class="dv">5</span>) &lt;-<span class="st"> &quot;Nullam&quot;</span></span>
+<span id="cb150-4"><a href="stringr-basics.html#cb150-4"></a>lorem</span>
+<span id="cb150-5"><a href="stringr-basics.html#cb150-5"></a><span class="co">#&gt; [1] &quot;Nullam Ipsum&quot;</span></span>
+<span id="cb150-6"><a href="stringr-basics.html#cb150-6"></a></span>
+<span id="cb150-7"><a href="stringr-basics.html#cb150-7"></a><span class="co"># replacing with negative positions</span></span>
+<span id="cb150-8"><a href="stringr-basics.html#cb150-8"></a>lorem &lt;-<span class="st"> &quot;Lorem Ipsum&quot;</span></span>
+<span id="cb150-9"><a href="stringr-basics.html#cb150-9"></a><span class="kw">str_sub</span>(lorem, <span class="dv">-1</span>) &lt;-<span class="st"> &quot;Nullam&quot;</span></span>
+<span id="cb150-10"><a href="stringr-basics.html#cb150-10"></a>lorem</span>
+<span id="cb150-11"><a href="stringr-basics.html#cb150-11"></a><span class="co">#&gt; [1] &quot;Lorem IpsuNullam&quot;</span></span>
+<span id="cb150-12"><a href="stringr-basics.html#cb150-12"></a></span>
+<span id="cb150-13"><a href="stringr-basics.html#cb150-13"></a><span class="co"># multiple replacements </span></span>
+<span id="cb150-14"><a href="stringr-basics.html#cb150-14"></a>lorem &lt;-<span class="st"> &quot;Lorem Ipsum&quot;</span></span>
+<span id="cb150-15"><a href="stringr-basics.html#cb150-15"></a><span class="kw">str_sub</span>(lorem, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span>), <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">8</span>)) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Nullam&quot;</span>, <span class="st">&quot;Enim&quot;</span>)</span>
+<span id="cb150-16"><a href="stringr-basics.html#cb150-16"></a>lorem</span>
+<span id="cb150-17"><a href="stringr-basics.html#cb150-17"></a><span class="co">#&gt; [1] &quot;Nullam Ipsum&quot;  &quot;Lorem Enimsum&quot;</span></span></code></pre></div>
 </div>
 <div id="duplication-with-str_dup" class="section level3">
 <h3><span class="header-section-number">7.3.4</span> Duplication with <code>str_dup()</code></h3>
@@ -581,22 +587,22 @@ Its usage requires two arguments:</p>
 <pre><code>str_dup(string, times)</code></pre>
 <p>The first input is the <code>string</code> that you want to dplicate. The second input,
 <code>times</code>, is the number of times to duplicate each string:</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1"><span class="co"># default usage</span></a>
-<a class="sourceLine" id="cb152-2" data-line-number="2"><span class="kw">str_dup</span>(<span class="st">&quot;hola&quot;</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb152-3" data-line-number="3"><span class="co">#&gt; [1] &quot;holaholahola&quot;</span></a>
-<a class="sourceLine" id="cb152-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb152-5" data-line-number="5"><span class="co"># use with differetn &#39;times&#39;</span></a>
-<a class="sourceLine" id="cb152-6" data-line-number="6"><span class="kw">str_dup</span>(<span class="st">&quot;adios&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb152-7" data-line-number="7"><span class="co">#&gt; [1] &quot;adios&quot;           &quot;adiosadios&quot;      &quot;adiosadiosadios&quot;</span></a>
-<a class="sourceLine" id="cb152-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb152-9" data-line-number="9"><span class="co"># use with a string vector</span></a>
-<a class="sourceLine" id="cb152-10" data-line-number="10">words &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;lorem&quot;</span>, <span class="st">&quot;ipsum&quot;</span>, <span class="st">&quot;dolor&quot;</span>, <span class="st">&quot;sit&quot;</span>, <span class="st">&quot;amet&quot;</span>)</a>
-<a class="sourceLine" id="cb152-11" data-line-number="11"><span class="kw">str_dup</span>(words, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb152-12" data-line-number="12"><span class="co">#&gt; [1] &quot;loremlorem&quot; &quot;ipsumipsum&quot; &quot;dolordolor&quot; &quot;sitsit&quot;     &quot;ametamet&quot;</span></a>
-<a class="sourceLine" id="cb152-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb152-14" data-line-number="14"><span class="kw">str_dup</span>(words, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb152-15" data-line-number="15"><span class="co">#&gt; [1] &quot;lorem&quot;                &quot;ipsumipsum&quot;           &quot;dolordolordolor&quot;     </span></a>
-<a class="sourceLine" id="cb152-16" data-line-number="16"><span class="co">#&gt; [4] &quot;sitsitsitsit&quot;         &quot;ametametametametamet&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="stringr-basics.html#cb152-1"></a><span class="co"># default usage</span></span>
+<span id="cb152-2"><a href="stringr-basics.html#cb152-2"></a><span class="kw">str_dup</span>(<span class="st">&quot;hola&quot;</span>, <span class="dv">3</span>)</span>
+<span id="cb152-3"><a href="stringr-basics.html#cb152-3"></a><span class="co">#&gt; [1] &quot;holaholahola&quot;</span></span>
+<span id="cb152-4"><a href="stringr-basics.html#cb152-4"></a></span>
+<span id="cb152-5"><a href="stringr-basics.html#cb152-5"></a><span class="co"># use with differetn &#39;times&#39;</span></span>
+<span id="cb152-6"><a href="stringr-basics.html#cb152-6"></a><span class="kw">str_dup</span>(<span class="st">&quot;adios&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</span>
+<span id="cb152-7"><a href="stringr-basics.html#cb152-7"></a><span class="co">#&gt; [1] &quot;adios&quot;           &quot;adiosadios&quot;      &quot;adiosadiosadios&quot;</span></span>
+<span id="cb152-8"><a href="stringr-basics.html#cb152-8"></a></span>
+<span id="cb152-9"><a href="stringr-basics.html#cb152-9"></a><span class="co"># use with a string vector</span></span>
+<span id="cb152-10"><a href="stringr-basics.html#cb152-10"></a>words &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;lorem&quot;</span>, <span class="st">&quot;ipsum&quot;</span>, <span class="st">&quot;dolor&quot;</span>, <span class="st">&quot;sit&quot;</span>, <span class="st">&quot;amet&quot;</span>)</span>
+<span id="cb152-11"><a href="stringr-basics.html#cb152-11"></a><span class="kw">str_dup</span>(words, <span class="dv">2</span>)</span>
+<span id="cb152-12"><a href="stringr-basics.html#cb152-12"></a><span class="co">#&gt; [1] &quot;loremlorem&quot; &quot;ipsumipsum&quot; &quot;dolordolor&quot; &quot;sitsit&quot;     &quot;ametamet&quot;</span></span>
+<span id="cb152-13"><a href="stringr-basics.html#cb152-13"></a></span>
+<span id="cb152-14"><a href="stringr-basics.html#cb152-14"></a><span class="kw">str_dup</span>(words, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb152-15"><a href="stringr-basics.html#cb152-15"></a><span class="co">#&gt; [1] &quot;lorem&quot;                &quot;ipsumipsum&quot;           &quot;dolordolordolor&quot;     </span></span>
+<span id="cb152-16"><a href="stringr-basics.html#cb152-16"></a><span class="co">#&gt; [4] &quot;sitsitsitsit&quot;         &quot;ametametametametamet&quot;</span></span></code></pre></div>
 </div>
 <div id="padding-with-str_pad" class="section level3">
 <h3><span class="header-section-number">7.3.5</span> Padding with <code>str_pad()</code></h3>
@@ -605,25 +611,25 @@ Its usage requires two arguments:</p>
 <pre><code>str_pad(string, width, side = &quot;left&quot;, pad = &quot; &quot;)</code></pre>
 <p>The idea of <code>str_pad()</code> is to take a string and pad it with leading or trailing
 characters to a specified total <code>width</code>. The default padding character is a
-space (<code>pad = &quot; &quot;</code>), and consequently the returned string will appear to be
-either left-aligned (<code>side = &quot;left&quot;</code>), right-aligned (<code>side = &quot;right&quot;</code>), or
-both (<code>side = &quot;both&quot;</code>).</p>
+space (<code>pad = " "</code>), and consequently the returned string will appear to be
+either left-aligned (<code>side = "left"</code>), right-aligned (<code>side = "right"</code>), or
+both (<code>side = "both"</code>).</p>
 <p>Let’s see some examples:</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1"><span class="co"># default usage</span></a>
-<a class="sourceLine" id="cb154-2" data-line-number="2"><span class="kw">str_pad</span>(<span class="st">&quot;hola&quot;</span>, <span class="dt">width =</span> <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb154-3" data-line-number="3"><span class="co">#&gt; [1] &quot;   hola&quot;</span></a>
-<a class="sourceLine" id="cb154-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb154-5" data-line-number="5"><span class="co"># pad both sides</span></a>
-<a class="sourceLine" id="cb154-6" data-line-number="6"><span class="kw">str_pad</span>(<span class="st">&quot;adios&quot;</span>, <span class="dt">width =</span> <span class="dv">7</span>, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>)</a>
-<a class="sourceLine" id="cb154-7" data-line-number="7"><span class="co">#&gt; [1] &quot; adios &quot;</span></a>
-<a class="sourceLine" id="cb154-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb154-9" data-line-number="9"><span class="co"># left padding with &#39;#&#39;</span></a>
-<a class="sourceLine" id="cb154-10" data-line-number="10"><span class="kw">str_pad</span>(<span class="st">&quot;hashtag&quot;</span>, <span class="dt">width =</span> <span class="dv">8</span>, <span class="dt">pad =</span> <span class="st">&quot;#&quot;</span>)</a>
-<a class="sourceLine" id="cb154-11" data-line-number="11"><span class="co">#&gt; [1] &quot;#hashtag&quot;</span></a>
-<a class="sourceLine" id="cb154-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb154-13" data-line-number="13"><span class="co"># pad both sides with &#39;-&#39;</span></a>
-<a class="sourceLine" id="cb154-14" data-line-number="14"><span class="kw">str_pad</span>(<span class="st">&quot;hashtag&quot;</span>, <span class="dt">width =</span> <span class="dv">9</span>, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">pad =</span> <span class="st">&quot;-&quot;</span>)</a>
-<a class="sourceLine" id="cb154-15" data-line-number="15"><span class="co">#&gt; [1] &quot;-hashtag-&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="stringr-basics.html#cb154-1"></a><span class="co"># default usage</span></span>
+<span id="cb154-2"><a href="stringr-basics.html#cb154-2"></a><span class="kw">str_pad</span>(<span class="st">&quot;hola&quot;</span>, <span class="dt">width =</span> <span class="dv">7</span>)</span>
+<span id="cb154-3"><a href="stringr-basics.html#cb154-3"></a><span class="co">#&gt; [1] &quot;   hola&quot;</span></span>
+<span id="cb154-4"><a href="stringr-basics.html#cb154-4"></a></span>
+<span id="cb154-5"><a href="stringr-basics.html#cb154-5"></a><span class="co"># pad both sides</span></span>
+<span id="cb154-6"><a href="stringr-basics.html#cb154-6"></a><span class="kw">str_pad</span>(<span class="st">&quot;adios&quot;</span>, <span class="dt">width =</span> <span class="dv">7</span>, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>)</span>
+<span id="cb154-7"><a href="stringr-basics.html#cb154-7"></a><span class="co">#&gt; [1] &quot; adios &quot;</span></span>
+<span id="cb154-8"><a href="stringr-basics.html#cb154-8"></a></span>
+<span id="cb154-9"><a href="stringr-basics.html#cb154-9"></a><span class="co"># left padding with &#39;#&#39;</span></span>
+<span id="cb154-10"><a href="stringr-basics.html#cb154-10"></a><span class="kw">str_pad</span>(<span class="st">&quot;hashtag&quot;</span>, <span class="dt">width =</span> <span class="dv">8</span>, <span class="dt">pad =</span> <span class="st">&quot;#&quot;</span>)</span>
+<span id="cb154-11"><a href="stringr-basics.html#cb154-11"></a><span class="co">#&gt; [1] &quot;#hashtag&quot;</span></span>
+<span id="cb154-12"><a href="stringr-basics.html#cb154-12"></a></span>
+<span id="cb154-13"><a href="stringr-basics.html#cb154-13"></a><span class="co"># pad both sides with &#39;-&#39;</span></span>
+<span id="cb154-14"><a href="stringr-basics.html#cb154-14"></a><span class="kw">str_pad</span>(<span class="st">&quot;hashtag&quot;</span>, <span class="dt">width =</span> <span class="dv">9</span>, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">pad =</span> <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb154-15"><a href="stringr-basics.html#cb154-15"></a><span class="co">#&gt; [1] &quot;-hashtag-&quot;</span></span></code></pre></div>
 </div>
 <div id="wrapping-with-str_wrap" class="section level3">
 <h3><span class="header-section-number">7.3.6</span> Wrapping with <code>str_wrap()</code></h3>
@@ -635,40 +641,40 @@ lines with <code>exdent</code>). Its default usage has the following form:</p>
 <pre><code>str_wrap(string, width = 80, indent = 0, exdent = 0)</code></pre>
 <p>For instance, consider the following quote (from Douglas Adams) converted into
 a paragraph:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="co"># quote (by Douglas Adams)</span></a>
-<a class="sourceLine" id="cb156-2" data-line-number="2">some_quote &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb156-3" data-line-number="3">  <span class="st">&quot;I may not have gone&quot;</span>,</a>
-<a class="sourceLine" id="cb156-4" data-line-number="4">  <span class="st">&quot;where I intended to go,&quot;</span>, </a>
-<a class="sourceLine" id="cb156-5" data-line-number="5">  <span class="st">&quot;but I think I have ended up&quot;</span>,</a>
-<a class="sourceLine" id="cb156-6" data-line-number="6">  <span class="st">&quot;where I needed to be&quot;</span>)</a>
-<a class="sourceLine" id="cb156-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb156-8" data-line-number="8"><span class="co"># some_quote in a single paragraph</span></a>
-<a class="sourceLine" id="cb156-9" data-line-number="9">some_quote &lt;-<span class="st"> </span><span class="kw">paste</span>(some_quote, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="stringr-basics.html#cb156-1"></a><span class="co"># quote (by Douglas Adams)</span></span>
+<span id="cb156-2"><a href="stringr-basics.html#cb156-2"></a>some_quote &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb156-3"><a href="stringr-basics.html#cb156-3"></a>  <span class="st">&quot;I may not have gone&quot;</span>,</span>
+<span id="cb156-4"><a href="stringr-basics.html#cb156-4"></a>  <span class="st">&quot;where I intended to go,&quot;</span>, </span>
+<span id="cb156-5"><a href="stringr-basics.html#cb156-5"></a>  <span class="st">&quot;but I think I have ended up&quot;</span>,</span>
+<span id="cb156-6"><a href="stringr-basics.html#cb156-6"></a>  <span class="st">&quot;where I needed to be&quot;</span>)</span>
+<span id="cb156-7"><a href="stringr-basics.html#cb156-7"></a></span>
+<span id="cb156-8"><a href="stringr-basics.html#cb156-8"></a><span class="co"># some_quote in a single paragraph</span></span>
+<span id="cb156-9"><a href="stringr-basics.html#cb156-9"></a>some_quote &lt;-<span class="st"> </span><span class="kw">paste</span>(some_quote, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)</span></code></pre></div>
 <p>Now, say you want to display the text of <code>some_quote</code> within some pre-specified
 column width (e.g. width of 30). You can achieve this by applying <code>str_wrap()</code>
 and setting the argument <code>width = 30</code></p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="co"># display paragraph with width=30</span></a>
-<a class="sourceLine" id="cb157-2" data-line-number="2"><span class="kw">cat</span>(<span class="kw">str_wrap</span>(some_quote, <span class="dt">width =</span> <span class="dv">30</span>))</a>
-<a class="sourceLine" id="cb157-3" data-line-number="3"><span class="co">#&gt; I may not have gone where I</span></a>
-<a class="sourceLine" id="cb157-4" data-line-number="4"><span class="co">#&gt; intended to go, but I think I</span></a>
-<a class="sourceLine" id="cb157-5" data-line-number="5"><span class="co">#&gt; have ended up where I needed</span></a>
-<a class="sourceLine" id="cb157-6" data-line-number="6"><span class="co">#&gt; to be</span></a></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="stringr-basics.html#cb157-1"></a><span class="co"># display paragraph with width=30</span></span>
+<span id="cb157-2"><a href="stringr-basics.html#cb157-2"></a><span class="kw">cat</span>(<span class="kw">str_wrap</span>(some_quote, <span class="dt">width =</span> <span class="dv">30</span>))</span>
+<span id="cb157-3"><a href="stringr-basics.html#cb157-3"></a><span class="co">#&gt; I may not have gone where I</span></span>
+<span id="cb157-4"><a href="stringr-basics.html#cb157-4"></a><span class="co">#&gt; intended to go, but I think I</span></span>
+<span id="cb157-5"><a href="stringr-basics.html#cb157-5"></a><span class="co">#&gt; have ended up where I needed</span></span>
+<span id="cb157-6"><a href="stringr-basics.html#cb157-6"></a><span class="co">#&gt; to be</span></span></code></pre></div>
 <p>Besides displaying a (long) paragraph into several lines, you may also wish to
 add some indentation. Here’s how you can indent the first line, as well as the
 following lines:</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="co"># display paragraph with first line indentation of 2</span></a>
-<a class="sourceLine" id="cb158-2" data-line-number="2"><span class="kw">cat</span>(<span class="kw">str_wrap</span>(some_quote, <span class="dt">width =</span> <span class="dv">30</span>, <span class="dt">indent =</span> <span class="dv">2</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb158-3" data-line-number="3"><span class="co">#&gt;   I may not have gone where I</span></a>
-<a class="sourceLine" id="cb158-4" data-line-number="4"><span class="co">#&gt; intended to go, but I think I</span></a>
-<a class="sourceLine" id="cb158-5" data-line-number="5"><span class="co">#&gt; have ended up where I needed</span></a>
-<a class="sourceLine" id="cb158-6" data-line-number="6"><span class="co">#&gt; to be</span></a>
-<a class="sourceLine" id="cb158-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb158-8" data-line-number="8"><span class="co"># display paragraph with following lines indentation of 3</span></a>
-<a class="sourceLine" id="cb158-9" data-line-number="9"><span class="kw">cat</span>(<span class="kw">str_wrap</span>(some_quote, <span class="dt">width =</span> <span class="dv">30</span>, <span class="dt">exdent =</span> <span class="dv">3</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb158-10" data-line-number="10"><span class="co">#&gt; I may not have gone where I</span></a>
-<a class="sourceLine" id="cb158-11" data-line-number="11"><span class="co">#&gt;    intended to go, but I think I</span></a>
-<a class="sourceLine" id="cb158-12" data-line-number="12"><span class="co">#&gt;    have ended up where I needed</span></a>
-<a class="sourceLine" id="cb158-13" data-line-number="13"><span class="co">#&gt;    to be</span></a></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="stringr-basics.html#cb158-1"></a><span class="co"># display paragraph with first line indentation of 2</span></span>
+<span id="cb158-2"><a href="stringr-basics.html#cb158-2"></a><span class="kw">cat</span>(<span class="kw">str_wrap</span>(some_quote, <span class="dt">width =</span> <span class="dv">30</span>, <span class="dt">indent =</span> <span class="dv">2</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb158-3"><a href="stringr-basics.html#cb158-3"></a><span class="co">#&gt;   I may not have gone where I</span></span>
+<span id="cb158-4"><a href="stringr-basics.html#cb158-4"></a><span class="co">#&gt; intended to go, but I think I</span></span>
+<span id="cb158-5"><a href="stringr-basics.html#cb158-5"></a><span class="co">#&gt; have ended up where I needed</span></span>
+<span id="cb158-6"><a href="stringr-basics.html#cb158-6"></a><span class="co">#&gt; to be</span></span>
+<span id="cb158-7"><a href="stringr-basics.html#cb158-7"></a></span>
+<span id="cb158-8"><a href="stringr-basics.html#cb158-8"></a><span class="co"># display paragraph with following lines indentation of 3</span></span>
+<span id="cb158-9"><a href="stringr-basics.html#cb158-9"></a><span class="kw">cat</span>(<span class="kw">str_wrap</span>(some_quote, <span class="dt">width =</span> <span class="dv">30</span>, <span class="dt">exdent =</span> <span class="dv">3</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb158-10"><a href="stringr-basics.html#cb158-10"></a><span class="co">#&gt; I may not have gone where I</span></span>
+<span id="cb158-11"><a href="stringr-basics.html#cb158-11"></a><span class="co">#&gt;    intended to go, but I think I</span></span>
+<span id="cb158-12"><a href="stringr-basics.html#cb158-12"></a><span class="co">#&gt;    have ended up where I needed</span></span>
+<span id="cb158-13"><a href="stringr-basics.html#cb158-13"></a><span class="co">#&gt;    to be</span></span></code></pre></div>
 </div>
 <div id="trimming-with-str_trim" class="section level3">
 <h3><span class="header-section-number">7.3.7</span> Trimming with <code>str_trim()</code></h3>
@@ -682,20 +688,20 @@ the <code>side</code> on which the whitespace will be removed.</p>
 <p>Consider the following vector of strings, some of which have whitespaces either
 on the left, on the right, or on both sides. Here’s what <code>str_trim()</code> would do
 to them under different settings of <code>side</code></p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="co"># text with whitespaces</span></a>
-<a class="sourceLine" id="cb160-2" data-line-number="2">bad_text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;This&quot;</span>, <span class="st">&quot; example &quot;</span>, <span class="st">&quot;has several   &quot;</span>, <span class="st">&quot;   whitespaces &quot;</span>)</a>
-<a class="sourceLine" id="cb160-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb160-4" data-line-number="4"><span class="co"># remove whitespaces on the left side</span></a>
-<a class="sourceLine" id="cb160-5" data-line-number="5"><span class="kw">str_trim</span>(bad_text, <span class="dt">side =</span> <span class="st">&quot;left&quot;</span>)</a>
-<a class="sourceLine" id="cb160-6" data-line-number="6"><span class="co">#&gt; [1] &quot;This&quot;           &quot;example &quot;       &quot;has several   &quot; &quot;whitespaces &quot;</span></a>
-<a class="sourceLine" id="cb160-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb160-8" data-line-number="8"><span class="co"># remove whitespaces on the right side</span></a>
-<a class="sourceLine" id="cb160-9" data-line-number="9"><span class="kw">str_trim</span>(bad_text, <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>)</a>
-<a class="sourceLine" id="cb160-10" data-line-number="10"><span class="co">#&gt; [1] &quot;This&quot;           &quot; example&quot;       &quot;has several&quot;    &quot;   whitespaces&quot;</span></a>
-<a class="sourceLine" id="cb160-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb160-12" data-line-number="12"><span class="co"># remove whitespaces on both sides</span></a>
-<a class="sourceLine" id="cb160-13" data-line-number="13"><span class="kw">str_trim</span>(bad_text, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>)</a>
-<a class="sourceLine" id="cb160-14" data-line-number="14"><span class="co">#&gt; [1] &quot;This&quot;        &quot;example&quot;     &quot;has several&quot; &quot;whitespaces&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="stringr-basics.html#cb160-1"></a><span class="co"># text with whitespaces</span></span>
+<span id="cb160-2"><a href="stringr-basics.html#cb160-2"></a>bad_text &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;This&quot;</span>, <span class="st">&quot; example &quot;</span>, <span class="st">&quot;has several   &quot;</span>, <span class="st">&quot;   whitespaces &quot;</span>)</span>
+<span id="cb160-3"><a href="stringr-basics.html#cb160-3"></a></span>
+<span id="cb160-4"><a href="stringr-basics.html#cb160-4"></a><span class="co"># remove whitespaces on the left side</span></span>
+<span id="cb160-5"><a href="stringr-basics.html#cb160-5"></a><span class="kw">str_trim</span>(bad_text, <span class="dt">side =</span> <span class="st">&quot;left&quot;</span>)</span>
+<span id="cb160-6"><a href="stringr-basics.html#cb160-6"></a><span class="co">#&gt; [1] &quot;This&quot;           &quot;example &quot;       &quot;has several   &quot; &quot;whitespaces &quot;</span></span>
+<span id="cb160-7"><a href="stringr-basics.html#cb160-7"></a></span>
+<span id="cb160-8"><a href="stringr-basics.html#cb160-8"></a><span class="co"># remove whitespaces on the right side</span></span>
+<span id="cb160-9"><a href="stringr-basics.html#cb160-9"></a><span class="kw">str_trim</span>(bad_text, <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>)</span>
+<span id="cb160-10"><a href="stringr-basics.html#cb160-10"></a><span class="co">#&gt; [1] &quot;This&quot;           &quot; example&quot;       &quot;has several&quot;    &quot;   whitespaces&quot;</span></span>
+<span id="cb160-11"><a href="stringr-basics.html#cb160-11"></a></span>
+<span id="cb160-12"><a href="stringr-basics.html#cb160-12"></a><span class="co"># remove whitespaces on both sides</span></span>
+<span id="cb160-13"><a href="stringr-basics.html#cb160-13"></a><span class="kw">str_trim</span>(bad_text, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>)</span>
+<span id="cb160-14"><a href="stringr-basics.html#cb160-14"></a><span class="co">#&gt; [1] &quot;This&quot;        &quot;example&quot;     &quot;has several&quot; &quot;whitespaces&quot;</span></span></code></pre></div>
 </div>
 <div id="word-extraction-with-word" class="section level3">
 <h3><span class="header-section-number">7.3.8</span> Word extraction with <code>word()</code></h3>
@@ -707,24 +713,24 @@ extract words from a sentence:</p>
 last word to extract. By default, the separator <code>sep</code> used between words is a
 single space.</p>
 <p>Let’s see some examples:</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1"><span class="co"># some sentence</span></a>
-<a class="sourceLine" id="cb162-2" data-line-number="2">change &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Be the change&quot;</span>, <span class="st">&quot;you want to be&quot;</span>)</a>
-<a class="sourceLine" id="cb162-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb162-4" data-line-number="4"><span class="co"># extract first word</span></a>
-<a class="sourceLine" id="cb162-5" data-line-number="5"><span class="kw">word</span>(change, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb162-6" data-line-number="6"><span class="co">#&gt; [1] &quot;Be&quot;  &quot;you&quot;</span></a>
-<a class="sourceLine" id="cb162-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb162-8" data-line-number="8"><span class="co"># extract second word</span></a>
-<a class="sourceLine" id="cb162-9" data-line-number="9"><span class="kw">word</span>(change, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb162-10" data-line-number="10"><span class="co">#&gt; [1] &quot;the&quot;  &quot;want&quot;</span></a>
-<a class="sourceLine" id="cb162-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb162-12" data-line-number="12"><span class="co"># extract last word</span></a>
-<a class="sourceLine" id="cb162-13" data-line-number="13"><span class="kw">word</span>(change, <span class="dv">-1</span>)</a>
-<a class="sourceLine" id="cb162-14" data-line-number="14"><span class="co">#&gt; [1] &quot;change&quot; &quot;be&quot;</span></a>
-<a class="sourceLine" id="cb162-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb162-16" data-line-number="16"><span class="co"># extract all but the first words</span></a>
-<a class="sourceLine" id="cb162-17" data-line-number="17"><span class="kw">word</span>(change, <span class="dv">2</span>, <span class="dv">-1</span>)</a>
-<a class="sourceLine" id="cb162-18" data-line-number="18"><span class="co">#&gt; [1] &quot;the change&quot; &quot;want to be&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="stringr-basics.html#cb162-1"></a><span class="co"># some sentence</span></span>
+<span id="cb162-2"><a href="stringr-basics.html#cb162-2"></a>change &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Be the change&quot;</span>, <span class="st">&quot;you want to be&quot;</span>)</span>
+<span id="cb162-3"><a href="stringr-basics.html#cb162-3"></a></span>
+<span id="cb162-4"><a href="stringr-basics.html#cb162-4"></a><span class="co"># extract first word</span></span>
+<span id="cb162-5"><a href="stringr-basics.html#cb162-5"></a><span class="kw">word</span>(change, <span class="dv">1</span>)</span>
+<span id="cb162-6"><a href="stringr-basics.html#cb162-6"></a><span class="co">#&gt; [1] &quot;Be&quot;  &quot;you&quot;</span></span>
+<span id="cb162-7"><a href="stringr-basics.html#cb162-7"></a></span>
+<span id="cb162-8"><a href="stringr-basics.html#cb162-8"></a><span class="co"># extract second word</span></span>
+<span id="cb162-9"><a href="stringr-basics.html#cb162-9"></a><span class="kw">word</span>(change, <span class="dv">2</span>)</span>
+<span id="cb162-10"><a href="stringr-basics.html#cb162-10"></a><span class="co">#&gt; [1] &quot;the&quot;  &quot;want&quot;</span></span>
+<span id="cb162-11"><a href="stringr-basics.html#cb162-11"></a></span>
+<span id="cb162-12"><a href="stringr-basics.html#cb162-12"></a><span class="co"># extract last word</span></span>
+<span id="cb162-13"><a href="stringr-basics.html#cb162-13"></a><span class="kw">word</span>(change, <span class="dv">-1</span>)</span>
+<span id="cb162-14"><a href="stringr-basics.html#cb162-14"></a><span class="co">#&gt; [1] &quot;change&quot; &quot;be&quot;</span></span>
+<span id="cb162-15"><a href="stringr-basics.html#cb162-15"></a></span>
+<span id="cb162-16"><a href="stringr-basics.html#cb162-16"></a><span class="co"># extract all but the first words</span></span>
+<span id="cb162-17"><a href="stringr-basics.html#cb162-17"></a><span class="kw">word</span>(change, <span class="dv">2</span>, <span class="dv">-1</span>)</span>
+<span id="cb162-18"><a href="stringr-basics.html#cb162-18"></a><span class="co">#&gt; [1] &quot;the change&quot; &quot;want to be&quot;</span></span></code></pre></div>
 <p><code>stringr</code> has more functions but we’ll discuss them in the chapters about
 <a href="regex1.html#regex1">regular expressions</a>.</p>
 <hr />
@@ -754,11 +760,13 @@ single space.</p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -766,12 +774,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -781,6 +788,14 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/gastonstat/r4strings/edit/master/stringr-basics.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -796,9 +811,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

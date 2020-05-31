@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Handling Strings with R</title>
-  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>19 Data Cleaning | Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:title" content="19 Data Cleaning | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -17,29 +16,32 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Handling Strings with R" />
+  <meta name="twitter:title" content="19 Data Cleaning | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
 
-<meta name="author" content="Gaston Sanchez">
+<meta name="author" content="Gaston Sanchez Chitra Venkatesh" />
 
 
-<meta name="date" content="2016-10-19">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="html.html">
-<link rel="next" href="logs.html">
+<link rel="prev" href="html.html"/>
+<link rel="next" href="logs.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,28 +52,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,49 +251,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
 <li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
+<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
+<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries</a></li>
 <li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="13" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>13</b> Practical Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
+<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>14</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="14.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>14.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="14.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>14.3</b> Reversing Words</a></li>
+<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
+<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
+<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>15</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="15.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
-<li class="chapter" data-level="15.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>15.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="15.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>15.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>16</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="16.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-<li class="chapter" data-level="16.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>16.2</b> Import Data</a></li>
-<li class="chapter" data-level="16.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>16.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="16.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>16.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="16.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>16.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="16.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>16.6</b> Month and Day</a></li>
-<li class="chapter" data-level="16.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>16.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="16.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>16.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="16.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>16.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>17</b> Data Log File</a><ul>
-<li class="chapter" data-level="17.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>17.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="17.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>17.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="17.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>17.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="17.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>17.1.3</b> Image files</a></li>
-<li class="chapter" data-level="17.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>17.1.4</b> How to match image files with one regex pattern?</a></li>
+<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>18</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="18.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>18.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="18.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>18.2.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
+<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
+<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
+<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
+<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
+<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
+<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>18.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="18.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>18.4</b> Common words</a></li>
-<li class="chapter" data-level="18.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>18.5</b> The top 30 words</a></li>
+<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
+<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
+<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
+<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -315,275 +321,272 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="cleaning" class="section level1">
-<h1><span class="header-section-number">16</span> Data Cleaning</h1>
+<h1><span class="header-section-number">19</span> Data Cleaning</h1>
 <div id="introduction-9" class="section level2">
-<h2><span class="header-section-number">16.1</span> Introduction</h2>
+<h2><span class="header-section-number">19.1</span> Introduction</h2>
 <p>In this application we are going to work with the Men’s Long Jump World Record Progression data from wikipedia (see screenshot below).</p>
-<p><a href="https://en.wikipedia.org/wiki/Men%27s_long_jump_world_record_progression#Low_altitude_record_progression_1965%E2%80%931991">https://en.wikipedia.org/wiki/Men%27s_long_jump_world_record_progression#Low_altitude_record_progression_1965%E2%80%931991</a></p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-105"></span>
+<p><a href="https://en.wikipedia.org/wiki/Men%27s_long_jump_world_record_progression#Low_altitude_record_progression_1965%E2%80%931991" class="uri">https://en.wikipedia.org/wiki/Men%27s_long_jump_world_record_progression#Low_altitude_record_progression_1965%E2%80%931991</a></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-123"></span>
 <img src="images/men-long-jump.png" alt="Men's Long Jump World Record Progression" width="745" />
 <p class="caption">
-Figure 16.1: Men’s Long Jump World Record Progression
+Figure 19.1: Men’s Long Jump World Record Progression
 </p>
 </div>
 </div>
 <div id="import-data" class="section level2">
-<h2><span class="header-section-number">16.2</span> Import Data</h2>
+<h2><span class="header-section-number">19.2</span> Import Data</h2>
 <p>To import the data of the Record Progression table you can use a couple of functions from the package <code>rvest</code>.</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="kw">library</span>(rvest)</a>
-<a class="sourceLine" id="cb234-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb234-3" data-line-number="3">wiki_jump &lt;-<span class="st"> &#39;https://en.wikipedia.org/wiki/Men%27s_long_jump_world_record_progression&#39;</span></a>
-<a class="sourceLine" id="cb234-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb234-5" data-line-number="5">long_jump &lt;-<span class="st"> </span><span class="kw">read_html</span>(wiki_jump)</a>
-<a class="sourceLine" id="cb234-6" data-line-number="6">tbl &lt;-<span class="st"> </span><span class="kw">html_table</span>(<span class="kw">html_node</span>(long_jump, <span class="st">&#39;table&#39;</span>))</a></code></pre></div>
-<p>The function <code>read_html()</code> reads the html file of the wikipedia page. This will produce an object of type <code>&quot;xml_document&quot;</code> which we can further manipulate with other functions in <code>&quot;rvest&quot;</code>.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="cleaning.html#cb249-1"></a><span class="kw">library</span>(rvest)</span>
+<span id="cb249-2"><a href="cleaning.html#cb249-2"></a></span>
+<span id="cb249-3"><a href="cleaning.html#cb249-3"></a>wiki_jump &lt;-<span class="st"> &#39;https://en.wikipedia.org/wiki/Men%27s_long_jump_world_record_progression&#39;</span></span>
+<span id="cb249-4"><a href="cleaning.html#cb249-4"></a></span>
+<span id="cb249-5"><a href="cleaning.html#cb249-5"></a>long_jump &lt;-<span class="st"> </span><span class="kw">read_html</span>(wiki_jump)</span>
+<span id="cb249-6"><a href="cleaning.html#cb249-6"></a>tbl &lt;-<span class="st"> </span><span class="kw">html_table</span>(<span class="kw">html_node</span>(long_jump, <span class="st">&#39;table&#39;</span>))</span></code></pre></div>
+<p>The function <code>read_html()</code> reads the html file of the wikipedia page. This will produce an object of type <code>"xml_document"</code> which we can further manipulate with other functions in <code>"rvest"</code>.</p>
 <p>Because the <em>Record progression</em> data is in an html <code>table</code> node, you can use <code>html_node()</code> to locate such table in the XML document. And then <em>extract</em> it with <code>html_table()</code>.</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1"><span class="kw">str</span>(tbl, <span class="dt">vec.len =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb235-2" data-line-number="2"><span class="co">#&gt; &#39;data.frame&#39;:    18 obs. of  5 variables:</span></a>
-<a class="sourceLine" id="cb235-3" data-line-number="3"><span class="co">#&gt;  $ Mark   : chr  &quot;7.61 m (24 ft 11 1⁄2 in)&quot; ...</span></a>
-<a class="sourceLine" id="cb235-4" data-line-number="4"><span class="co">#&gt;  $ Wind   : num  NA NA ...</span></a>
-<a class="sourceLine" id="cb235-5" data-line-number="5"><span class="co">#&gt;  $ Athlete: chr  &quot;Peter O&#39;Connor (IRE)&quot; ...</span></a>
-<a class="sourceLine" id="cb235-6" data-line-number="6"><span class="co">#&gt;  $ Venue  : chr  &quot;Dublin, Ireland&quot; ...</span></a>
-<a class="sourceLine" id="cb235-7" data-line-number="7"><span class="co">#&gt;  $ Date   : chr  &quot;5 August 1901[1]&quot; ...</span></a></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="cleaning.html#cb250-1"></a><span class="kw">str</span>(tbl, <span class="dt">vec.len =</span> <span class="dv">1</span>)</span>
+<span id="cb250-2"><a href="cleaning.html#cb250-2"></a><span class="co">#&gt; &#39;data.frame&#39;:    18 obs. of  5 variables:</span></span>
+<span id="cb250-3"><a href="cleaning.html#cb250-3"></a><span class="co">#&gt;  $ Mark   : chr  &quot;7.61 m (24 ft 11 1⁄2 in)&quot; ...</span></span>
+<span id="cb250-4"><a href="cleaning.html#cb250-4"></a><span class="co">#&gt;  $ Wind   : num  NA NA ...</span></span>
+<span id="cb250-5"><a href="cleaning.html#cb250-5"></a><span class="co">#&gt;  $ Athlete: chr  &quot;Peter O&#39;Connor (IRE)&quot; ...</span></span>
+<span id="cb250-6"><a href="cleaning.html#cb250-6"></a><span class="co">#&gt;  $ Venue  : chr  &quot;Dublin, Ireland&quot; ...</span></span>
+<span id="cb250-7"><a href="cleaning.html#cb250-7"></a><span class="co">#&gt;  $ Date   : chr  &quot;5 August 1901[1]&quot; ...</span></span></code></pre></div>
 <p>As you can tell, the extracted table <code>tbl</code> is a data frame with 18 rows and 5 columns.</p>
 </div>
 <div id="extracting-meters" class="section level2">
-<h2><span class="header-section-number">16.3</span> Extracting Meters</h2>
+<h2><span class="header-section-number">19.3</span> Extracting Meters</h2>
 <p>The first task consists of looking at the values in column <code>Mark</code>, and find how to retrieve the distance values expressed in meters. For example, the first element in <code>Mark</code> is:</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">tbl<span class="op">$</span>Mark[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb236-2" data-line-number="2"><span class="co">#&gt; [1] &quot;7.61 m (24 ft 11 1⁄2 in)&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="cleaning.html#cb251-1"></a>tbl<span class="op">$</span>Mark[<span class="dv">1</span>]</span>
+<span id="cb251-2"><a href="cleaning.html#cb251-2"></a><span class="co">#&gt; [1] &quot;7.61 m (24 ft 11 1⁄2 in)&quot;</span></span></code></pre></div>
 <p>The goal is to obtain the number <code>7.61</code>. One way to achieve this task is via the <code>substr()</code> function.</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1"><span class="kw">substr</span>(tbl<span class="op">$</span>Mark[<span class="dv">1</span>], <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">stop =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb237-2" data-line-number="2"><span class="co">#&gt; [1] &quot;7.61&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="cleaning.html#cb252-1"></a><span class="kw">substr</span>(tbl<span class="op">$</span>Mark[<span class="dv">1</span>], <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">stop =</span> <span class="dv">4</span>)</span>
+<span id="cb252-2"><a href="cleaning.html#cb252-2"></a><span class="co">#&gt; [1] &quot;7.61&quot;</span></span></code></pre></div>
 <p>We can do that for the entire vector:</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1">meters &lt;-<span class="st"> </span><span class="kw">substr</span>(tbl<span class="op">$</span>Mark, <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">stop =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb238-2" data-line-number="2">meters</a>
-<a class="sourceLine" id="cb238-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;7.61&quot; &quot;7.69&quot; &quot;7.76&quot; &quot;7.89&quot; &quot;7.90&quot; &quot;7.93&quot; &quot;7.98&quot; &quot;8.13&quot; &quot;8.21&quot; &quot;8.24&quot;</span></a>
-<a class="sourceLine" id="cb238-4" data-line-number="4"><span class="co">#&gt; [11] &quot;8.28&quot; &quot;8.31&quot; &quot;8.31&quot; &quot;8.34&quot; &quot;8.35&quot; &quot;8.35&quot; &quot;8.90&quot; &quot;8.95&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="cleaning.html#cb253-1"></a>meters &lt;-<span class="st"> </span><span class="kw">substr</span>(tbl<span class="op">$</span>Mark, <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">stop =</span> <span class="dv">4</span>)</span>
+<span id="cb253-2"><a href="cleaning.html#cb253-2"></a>meters</span>
+<span id="cb253-3"><a href="cleaning.html#cb253-3"></a><span class="co">#&gt;  [1] &quot;7.61&quot; &quot;7.69&quot; &quot;7.76&quot; &quot;7.89&quot; &quot;7.90&quot; &quot;7.93&quot; &quot;7.98&quot; &quot;8.13&quot; &quot;8.21&quot; &quot;8.24&quot;</span></span>
+<span id="cb253-4"><a href="cleaning.html#cb253-4"></a><span class="co">#&gt; [11] &quot;8.28&quot; &quot;8.31&quot; &quot;8.31&quot; &quot;8.34&quot; &quot;8.35&quot; &quot;8.35&quot; &quot;8.90&quot; &quot;8.95&quot;</span></span></code></pre></div>
 <p>Notice that the meter values are not really numeric but character. In order to have <code>meters</code> as numbers, we should coerce them with <code>as.numeric()</code></p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1">meters &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">substr</span>(tbl<span class="op">$</span>Mark, <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">stop =</span> <span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb239-2" data-line-number="2">meters</a>
-<a class="sourceLine" id="cb239-3" data-line-number="3"><span class="co">#&gt;  [1] 7.61 7.69 7.76 7.89 7.90 7.93 7.98 8.13 8.21 8.24 8.28 8.31 8.31 8.34</span></a>
-<a class="sourceLine" id="cb239-4" data-line-number="4"><span class="co">#&gt; [15] 8.35 8.35 8.90 8.95</span></a></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="cleaning.html#cb254-1"></a>meters &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">substr</span>(tbl<span class="op">$</span>Mark, <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">stop =</span> <span class="dv">4</span>))</span>
+<span id="cb254-2"><a href="cleaning.html#cb254-2"></a>meters</span>
+<span id="cb254-3"><a href="cleaning.html#cb254-3"></a><span class="co">#&gt;  [1] 7.61 7.69 7.76 7.89 7.90 7.93 7.98 8.13 8.21 8.24 8.28 8.31 8.31 8.34 8.35</span></span>
+<span id="cb254-4"><a href="cleaning.html#cb254-4"></a><span class="co">#&gt; [16] 8.35 8.90 8.95</span></span></code></pre></div>
 <div id="extracting-meters-with-regular-expressions" class="section level4 unnumbered">
 <h4>Extracting Meters with Regular Expressions</h4>
 <p>Instead of using the function <code>substr()</code> to obtain the distance values, let’s see how to achieve the same task using regular expressions. To do this we must determine a pattern to be matched. So, what is the pattern that all the distance values (in meters) have in common?</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1">mark1 &lt;-<span class="st"> </span>tbl<span class="op">$</span>Mark[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb240-2" data-line-number="2">mark1</a>
-<a class="sourceLine" id="cb240-3" data-line-number="3"><span class="co">#&gt; [1] &quot;7.61 m (24 ft 11 1⁄2 in)&quot;</span></a></code></pre></div>
-<p>If you look at the <code>Mark</code> content, you will notice that the target pattern is formed by: a digit, followed by a dot, followed by two digits. Such pattern can be codified as: <code>&quot;[0-9]\\.[0-9][0-9]&quot;</code>. So let’s test it and see if there’s match:</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1"><span class="kw">str_detect</span>(mark1, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]</span><span class="ch">\\</span><span class="st">.[0-9][0-9]&quot;</span>)</a>
-<a class="sourceLine" id="cb241-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="cleaning.html#cb255-1"></a>mark1 &lt;-<span class="st"> </span>tbl<span class="op">$</span>Mark[<span class="dv">1</span>]</span>
+<span id="cb255-2"><a href="cleaning.html#cb255-2"></a>mark1</span>
+<span id="cb255-3"><a href="cleaning.html#cb255-3"></a><span class="co">#&gt; [1] &quot;7.61 m (24 ft 11 1⁄2 in)&quot;</span></span></code></pre></div>
+<p>If you look at the <code>Mark</code> content, you will notice that the target pattern is formed by: a digit, followed by a dot, followed by two digits. Such pattern can be codified as: <code>"[0-9]\\.[0-9][0-9]"</code>. So let’s test it and see if there’s match:</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="cleaning.html#cb256-1"></a><span class="kw">str_detect</span>(mark1, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]</span><span class="ch">\\</span><span class="st">.[0-9][0-9]&quot;</span>)</span>
+<span id="cb256-2"><a href="cleaning.html#cb256-2"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <p>To extract the distance pattern we use <code>str_extract()</code></p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1"><span class="kw">str_extract</span>(mark1, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]</span><span class="ch">\\</span><span class="st">.[0-9][0-9]&quot;</span>)</a>
-<a class="sourceLine" id="cb242-2" data-line-number="2"><span class="co">#&gt; [1] &quot;7.61&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="cleaning.html#cb257-1"></a><span class="kw">str_extract</span>(mark1, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]</span><span class="ch">\\</span><span class="st">.[0-9][0-9]&quot;</span>)</span>
+<span id="cb257-2"><a href="cleaning.html#cb257-2"></a><span class="co">#&gt; [1] &quot;7.61&quot;</span></span></code></pre></div>
 <p>And then we can apply it on the entire column to get:</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Mark, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]</span><span class="ch">\\</span><span class="st">.[0-9][0-9]&quot;</span>)</a>
-<a class="sourceLine" id="cb243-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;7.61&quot; &quot;7.69&quot; &quot;7.76&quot; &quot;7.89&quot; &quot;7.90&quot; &quot;7.93&quot; &quot;7.98&quot; &quot;8.13&quot; &quot;8.21&quot; &quot;8.24&quot;</span></a>
-<a class="sourceLine" id="cb243-3" data-line-number="3"><span class="co">#&gt; [11] &quot;8.28&quot; &quot;8.31&quot; &quot;8.31&quot; &quot;8.34&quot; &quot;8.35&quot; &quot;8.35&quot; &quot;8.90&quot; &quot;8.95&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="cleaning.html#cb258-1"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Mark, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]</span><span class="ch">\\</span><span class="st">.[0-9][0-9]&quot;</span>)</span>
+<span id="cb258-2"><a href="cleaning.html#cb258-2"></a><span class="co">#&gt;  [1] &quot;7.61&quot; &quot;7.69&quot; &quot;7.76&quot; &quot;7.89&quot; &quot;7.90&quot; &quot;7.93&quot; &quot;7.98&quot; &quot;8.13&quot; &quot;8.21&quot; &quot;8.24&quot;</span></span>
+<span id="cb258-3"><a href="cleaning.html#cb258-3"></a><span class="co">#&gt; [11] &quot;8.28&quot; &quot;8.31&quot; &quot;8.31&quot; &quot;8.34&quot; &quot;8.35&quot; &quot;8.35&quot; &quot;8.90&quot; &quot;8.95&quot;</span></span></code></pre></div>
 </div>
 </div>
 <div id="extracting-country" class="section level2">
-<h2><span class="header-section-number">16.4</span> Extracting Country</h2>
+<h2><span class="header-section-number">19.4</span> Extracting Country</h2>
 <p>Consider the column <code>Athlete</code>. The first value corresponds to <code>Petter O'Connor</code> from Ireland.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1">tbl<span class="op">$</span>Athlete[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb244-2" data-line-number="2"><span class="co">#&gt; [1] &quot;Peter O&#39;Connor (IRE)&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="cleaning.html#cb259-1"></a>tbl<span class="op">$</span>Athlete[<span class="dv">1</span>]</span>
+<span id="cb259-2"><a href="cleaning.html#cb259-2"></a><span class="co">#&gt; [1] &quot;Peter O&#39;Connor (IRE)&quot;</span></span></code></pre></div>
 <p>Let’s create a vector <code>peter</code> for this athlete:</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1">peter &lt;-<span class="st"> </span>tbl<span class="op">$</span>Athlete[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="cleaning.html#cb260-1"></a>peter &lt;-<span class="st"> </span>tbl<span class="op">$</span>Athlete[<span class="dv">1</span>]</span></code></pre></div>
 <p>How can we get the country abbreviation?</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1"><span class="kw">substr</span>(peter, <span class="kw">nchar</span>(peter)<span class="op">-</span><span class="dv">4</span>, <span class="kw">nchar</span>(peter))</a>
-<a class="sourceLine" id="cb246-2" data-line-number="2"><span class="co">#&gt; [1] &quot;(IRE)&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="cleaning.html#cb261-1"></a><span class="kw">substr</span>(peter, <span class="kw">nchar</span>(peter)<span class="op">-</span><span class="dv">4</span>, <span class="kw">nchar</span>(peter))</span>
+<span id="cb261-2"><a href="cleaning.html#cb261-2"></a><span class="co">#&gt; [1] &quot;(IRE)&quot;</span></span></code></pre></div>
 <p>That works but it is preferable to exclude the parentheses, that is, the third to last character, as well as the last character:</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" data-line-number="1"><span class="kw">substr</span>(peter, <span class="kw">nchar</span>(peter)<span class="op">-</span><span class="dv">3</span>, <span class="kw">nchar</span>(peter)<span class="op">-</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb247-2" data-line-number="2"><span class="co">#&gt; [1] &quot;IRE&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="cleaning.html#cb262-1"></a><span class="kw">substr</span>(peter, <span class="kw">nchar</span>(peter)<span class="op">-</span><span class="dv">3</span>, <span class="kw">nchar</span>(peter)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb262-2"><a href="cleaning.html#cb262-2"></a><span class="co">#&gt; [1] &quot;IRE&quot;</span></span></code></pre></div>
 <p>Now we can apply the <code>substr()</code> command with all the athletes:</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" data-line-number="1"><span class="co"># extract country</span></a>
-<a class="sourceLine" id="cb248-2" data-line-number="2"><span class="kw">substr</span>(tbl<span class="op">$</span>Athlete, <span class="kw">nchar</span>(tbl<span class="op">$</span>Athlete)<span class="op">-</span><span class="dv">4</span>, <span class="kw">nchar</span>(tbl<span class="op">$</span>Athlete))</a>
-<a class="sourceLine" id="cb248-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;(IRE)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(HAI)&quot; &quot;(JPN)&quot; &quot;(USA)&quot;</span></a>
-<a class="sourceLine" id="cb248-4" data-line-number="4"><span class="co">#&gt;  [9] &quot;(USA)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(URS)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(URS)&quot;</span></a>
-<a class="sourceLine" id="cb248-5" data-line-number="5"><span class="co">#&gt; [17] &quot;(USA)&quot; &quot;(USA)&quot;</span></a>
-<a class="sourceLine" id="cb248-6" data-line-number="6">country &lt;-<span class="st"> </span><span class="kw">substr</span>(tbl<span class="op">$</span>Athlete, <span class="kw">nchar</span>(tbl<span class="op">$</span>Athlete)<span class="op">-</span><span class="dv">3</span>, <span class="kw">nchar</span>(tbl<span class="op">$</span>Athlete)<span class="op">-</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb248-7" data-line-number="7">country</a>
-<a class="sourceLine" id="cb248-8" data-line-number="8"><span class="co">#&gt;  [1] &quot;IRE&quot; &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; &quot;HAI&quot; &quot;JPN&quot; &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; &quot;USA&quot;</span></a>
-<a class="sourceLine" id="cb248-9" data-line-number="9"><span class="co">#&gt; [12] &quot;URS&quot; &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; &quot;URS&quot; &quot;USA&quot; &quot;USA&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="cleaning.html#cb263-1"></a><span class="co"># extract country</span></span>
+<span id="cb263-2"><a href="cleaning.html#cb263-2"></a><span class="kw">substr</span>(tbl<span class="op">$</span>Athlete, <span class="kw">nchar</span>(tbl<span class="op">$</span>Athlete)<span class="op">-</span><span class="dv">4</span>, <span class="kw">nchar</span>(tbl<span class="op">$</span>Athlete))</span>
+<span id="cb263-3"><a href="cleaning.html#cb263-3"></a><span class="co">#&gt;  [1] &quot;(IRE)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(HAI)&quot; &quot;(JPN)&quot; &quot;(USA)&quot; &quot;(USA)&quot;</span></span>
+<span id="cb263-4"><a href="cleaning.html#cb263-4"></a><span class="co">#&gt; [10] &quot;(USA)&quot; &quot;(USA)&quot; &quot;(URS)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(USA)&quot; &quot;(URS)&quot; &quot;(USA)&quot; &quot;(USA)&quot;</span></span>
+<span id="cb263-5"><a href="cleaning.html#cb263-5"></a>country &lt;-<span class="st"> </span><span class="kw">substr</span>(tbl<span class="op">$</span>Athlete, <span class="kw">nchar</span>(tbl<span class="op">$</span>Athlete)<span class="op">-</span><span class="dv">3</span>, <span class="kw">nchar</span>(tbl<span class="op">$</span>Athlete)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb263-6"><a href="cleaning.html#cb263-6"></a>country</span>
+<span id="cb263-7"><a href="cleaning.html#cb263-7"></a><span class="co">#&gt;  [1] &quot;IRE&quot; &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; &quot;HAI&quot; &quot;JPN&quot; &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; &quot;URS&quot;</span></span>
+<span id="cb263-8"><a href="cleaning.html#cb263-8"></a><span class="co">#&gt; [13] &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; &quot;URS&quot; &quot;USA&quot; &quot;USA&quot;</span></span></code></pre></div>
 </div>
 <div id="cleaning-dates" class="section level2">
-<h2><span class="header-section-number">16.5</span> Cleaning Dates</h2>
+<h2><span class="header-section-number">19.5</span> Cleaning Dates</h2>
 <p>Now let’s consider tha values in column <code>Date</code>:</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" data-line-number="1"><span class="co"># first 5 dates</span></a>
-<a class="sourceLine" id="cb249-2" data-line-number="2">tbl<span class="op">$</span>Date[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb249-3" data-line-number="3"><span class="co">#&gt; [1] &quot;5 August 1901[1]&quot; &quot;23 July 1921[1]&quot;  &quot;7 July 1924[1]&quot;  </span></a>
-<a class="sourceLine" id="cb249-4" data-line-number="4"><span class="co">#&gt; [4] &quot;13 June 1925[1]&quot;  &quot;7 July 1928[1]&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="cleaning.html#cb264-1"></a><span class="co"># first 5 dates</span></span>
+<span id="cb264-2"><a href="cleaning.html#cb264-2"></a>tbl<span class="op">$</span>Date[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span>
+<span id="cb264-3"><a href="cleaning.html#cb264-3"></a><span class="co">#&gt; [1] &quot;5 August 1901[1]&quot; &quot;23 July 1921[1]&quot;  &quot;7 July 1924[1]&quot;   &quot;13 June 1925[1]&quot; </span></span>
+<span id="cb264-4"><a href="cleaning.html#cb264-4"></a><span class="co">#&gt; [5] &quot;7 July 1928[1]&quot;</span></span></code></pre></div>
 <p>Notice that all the date values are formed by the day-number, the name of the month, the year, and then the characters <code>[1]</code>. Obviously we don’t need those last three characters <code>[1]</code>.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1">date1 &lt;-<span class="st"> </span>tbl<span class="op">$</span>Date[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb250-2" data-line-number="2">date1</a>
-<a class="sourceLine" id="cb250-3" data-line-number="3"><span class="co">#&gt; [1] &quot;5 August 1901[1]&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="cleaning.html#cb265-1"></a>date1 &lt;-<span class="st"> </span>tbl<span class="op">$</span>Date[<span class="dv">1</span>]</span>
+<span id="cb265-2"><a href="cleaning.html#cb265-2"></a>date1</span>
+<span id="cb265-3"><a href="cleaning.html#cb265-3"></a><span class="co">#&gt; [1] &quot;5 August 1901[1]&quot;</span></span></code></pre></div>
 <p>First let’s see how to match the pattern <code>[1]</code>. Perhaps the first option that an inexperience user would try is:</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1"><span class="kw">str_detect</span>(date1, <span class="dt">pattern =</span> <span class="st">&quot;[1]&quot;</span>)</a>
-<a class="sourceLine" id="cb251-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
-<p>According to <code>str_detect()</code>, there’s is a match, so let’s see what exactly <code>&quot;[1]&quot;</code> is matching:</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" data-line-number="1"><span class="kw">str_match</span>(date1, <span class="dt">pattern =</span> <span class="st">&quot;[1]&quot;</span>)</a>
-<a class="sourceLine" id="cb252-2" data-line-number="2"><span class="co">#&gt;      [,1]</span></a>
-<a class="sourceLine" id="cb252-3" data-line-number="3"><span class="co">#&gt; [1,] &quot;1&quot;</span></a></code></pre></div>
-<p>Mmmm, not quite right. We are matching the character <code>&quot;1&quot;</code> but not <code>&quot;[1]&quot;</code>. Why? Because brackets are metacharacters. So in order to match brackets <em>as brackets</em> we need to escape them:</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1"><span class="kw">str_match</span>(date1, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">[1</span><span class="ch">\\</span><span class="st">]&quot;</span>)</a>
-<a class="sourceLine" id="cb253-2" data-line-number="2"><span class="co">#&gt;      [,1] </span></a>
-<a class="sourceLine" id="cb253-3" data-line-number="3"><span class="co">#&gt; [1,] &quot;[1]&quot;</span></a></code></pre></div>
-<p>Now we are talking. The next step involves using <code>str_replace()</code> to match the pattern <code>&quot;\\[1\\]&quot;</code> and replace it with an empty string <code>&quot;&quot;</code>:</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" data-line-number="1"><span class="kw">str_replace</span>(date1, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">[1</span><span class="ch">\\</span><span class="st">]&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb254-2" data-line-number="2"><span class="co">#&gt; [1] &quot;5 August 1901&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="cleaning.html#cb266-1"></a><span class="kw">str_detect</span>(date1, <span class="dt">pattern =</span> <span class="st">&quot;[1]&quot;</span>)</span>
+<span id="cb266-2"><a href="cleaning.html#cb266-2"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<p>According to <code>str_detect()</code>, there’s is a match, so let’s see what exactly <code>"[1]"</code> is matching:</p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="cleaning.html#cb267-1"></a><span class="kw">str_match</span>(date1, <span class="dt">pattern =</span> <span class="st">&quot;[1]&quot;</span>)</span>
+<span id="cb267-2"><a href="cleaning.html#cb267-2"></a><span class="co">#&gt;      [,1]</span></span>
+<span id="cb267-3"><a href="cleaning.html#cb267-3"></a><span class="co">#&gt; [1,] &quot;1&quot;</span></span></code></pre></div>
+<p>Mmmm, not quite right. We are matching the character <code>"1"</code> but not <code>"[1]"</code>. Why? Because brackets are metacharacters. So in order to match brackets <em>as brackets</em> we need to escape them:</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="cleaning.html#cb268-1"></a><span class="kw">str_match</span>(date1, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">[1</span><span class="ch">\\</span><span class="st">]&quot;</span>)</span>
+<span id="cb268-2"><a href="cleaning.html#cb268-2"></a><span class="co">#&gt;      [,1] </span></span>
+<span id="cb268-3"><a href="cleaning.html#cb268-3"></a><span class="co">#&gt; [1,] &quot;[1]&quot;</span></span></code></pre></div>
+<p>Now we are talking. The next step involves using <code>str_replace()</code> to match the pattern <code>"\\[1\\]"</code> and replace it with an empty string <code>""</code>:</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="cleaning.html#cb269-1"></a><span class="kw">str_replace</span>(date1, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">[1</span><span class="ch">\\</span><span class="st">]&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb269-2"><a href="cleaning.html#cb269-2"></a><span class="co">#&gt; [1] &quot;5 August 1901&quot;</span></span></code></pre></div>
 <p>Then, we can get an entire vector of clean dates:</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1"><span class="co"># clean dates</span></a>
-<a class="sourceLine" id="cb255-2" data-line-number="2">dates &lt;-<span class="st"> </span><span class="kw">str_replace</span>(tbl<span class="op">$</span>Date, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">[1</span><span class="ch">\\</span><span class="st">]&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb255-3" data-line-number="3">dates</a>
-<a class="sourceLine" id="cb255-4" data-line-number="4"><span class="co">#&gt;  [1] &quot;5 August 1901&quot;     &quot;23 July 1921&quot;      &quot;7 July 1924&quot;      </span></a>
-<a class="sourceLine" id="cb255-5" data-line-number="5"><span class="co">#&gt;  [4] &quot;13 June 1925&quot;      &quot;7 July 1928&quot;       &quot;9 September 1928&quot; </span></a>
-<a class="sourceLine" id="cb255-6" data-line-number="6"><span class="co">#&gt;  [7] &quot;27 October 1931&quot;   &quot;25 May 1935&quot;       &quot;12 August 1960&quot;   </span></a>
-<a class="sourceLine" id="cb255-7" data-line-number="7"><span class="co">#&gt; [10] &quot;27 May 1961&quot;       &quot;16 July 1961&quot;      &quot;10 June 1962&quot;     </span></a>
-<a class="sourceLine" id="cb255-8" data-line-number="8"><span class="co">#&gt; [13] &quot;15 August 1964&quot;    &quot;12 September 1964&quot; &quot;29 May 1965&quot;      </span></a>
-<a class="sourceLine" id="cb255-9" data-line-number="9"><span class="co">#&gt; [16] &quot;19 October 1967&quot;   &quot;18 October 1968&quot;   &quot;30 August 1991&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="cleaning.html#cb270-1"></a><span class="co"># clean dates</span></span>
+<span id="cb270-2"><a href="cleaning.html#cb270-2"></a>dates &lt;-<span class="st"> </span><span class="kw">str_replace</span>(tbl<span class="op">$</span>Date, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">[1</span><span class="ch">\\</span><span class="st">]&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb270-3"><a href="cleaning.html#cb270-3"></a>dates</span>
+<span id="cb270-4"><a href="cleaning.html#cb270-4"></a><span class="co">#&gt;  [1] &quot;5 August 1901&quot;     &quot;23 July 1921&quot;      &quot;7 July 1924&quot;      </span></span>
+<span id="cb270-5"><a href="cleaning.html#cb270-5"></a><span class="co">#&gt;  [4] &quot;13 June 1925&quot;      &quot;7 July 1928&quot;       &quot;9 September 1928&quot; </span></span>
+<span id="cb270-6"><a href="cleaning.html#cb270-6"></a><span class="co">#&gt;  [7] &quot;27 October 1931&quot;   &quot;25 May 1935&quot;       &quot;12 August 1960&quot;   </span></span>
+<span id="cb270-7"><a href="cleaning.html#cb270-7"></a><span class="co">#&gt; [10] &quot;27 May 1961&quot;       &quot;16 July 1961&quot;      &quot;10 June 1962&quot;     </span></span>
+<span id="cb270-8"><a href="cleaning.html#cb270-8"></a><span class="co">#&gt; [13] &quot;15 August 1964&quot;    &quot;12 September 1964&quot; &quot;29 May 1965&quot;      </span></span>
+<span id="cb270-9"><a href="cleaning.html#cb270-9"></a><span class="co">#&gt; [16] &quot;19 October 1967&quot;   &quot;18 October 1968&quot;   &quot;30 August 1991&quot;</span></span></code></pre></div>
 </div>
 <div id="month-and-day" class="section level2">
-<h2><span class="header-section-number">16.6</span> Month and Day</h2>
-<p>We can further manipulate the dates. For example, say we are interested in extracting the name of the month. In the first date, this corresponds to extracting <code>&quot;August&quot;</code>:</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1">dates[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb256-2" data-line-number="2"><span class="co">#&gt; [1] &quot;5 August 1901&quot;</span></a></code></pre></div>
+<h2><span class="header-section-number">19.6</span> Month and Day</h2>
+<p>We can further manipulate the dates. For example, say we are interested in extracting the name of the month. In the first date, this corresponds to extracting <code>"August"</code>:</p>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="cleaning.html#cb271-1"></a>dates[<span class="dv">1</span>]</span>
+<span id="cb271-2"><a href="cleaning.html#cb271-2"></a><span class="co">#&gt; [1] &quot;5 August 1901&quot;</span></span></code></pre></div>
 <p>How can we do that? Several approaches can be applied in this case. For example, let’s inspect the format of the month names:</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" data-line-number="1">dates[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb257-2" data-line-number="2"><span class="co">#&gt; [1] &quot;5 August 1901&quot; &quot;23 July 1921&quot;  &quot;7 July 1924&quot;   &quot;13 June 1925&quot; </span></a>
-<a class="sourceLine" id="cb257-3" data-line-number="3"><span class="co">#&gt; [5] &quot;7 July 1928&quot;</span></a></code></pre></div>
-<p>They all begin with an upper case letter, followed by the rest of the characters in lower case. If we want to match month names formed by four letters (e.g. June, July), we could look for the pattern <code>&quot;[A-Z][a-z][a-z][a-z]&quot;</code></p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1"><span class="kw">str_extract</span>(dates, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][a-z][a-z]&quot;</span>)</a>
-<a class="sourceLine" id="cb258-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;Augu&quot; &quot;July&quot; &quot;July&quot; &quot;June&quot; &quot;July&quot; &quot;Sept&quot; &quot;Octo&quot; NA     &quot;Augu&quot; NA    </span></a>
-<a class="sourceLine" id="cb258-3" data-line-number="3"><span class="co">#&gt; [11] &quot;July&quot; &quot;June&quot; &quot;Augu&quot; &quot;Sept&quot; NA     &quot;Octo&quot; &quot;Octo&quot; &quot;Augu&quot;</span></a></code></pre></div>
-<p>The previous pattern <code>&quot;[A-Z][a-z][a-z][a-z]&quot;</code> not only matches <code>&quot;June&quot;</code> and <code>&quot;July&quot;</code> but also <code>&quot;Augu&quot;</code>, <code>&quot;Sept&quot;</code>, <code>&quot;Octo&quot;</code>. In addition, we have some missing values.</p>
-<p>Because the month names have variable lengths, we can use a repetition or quantifier operator. More specifically, we could look for the pattern <code>&quot;[A-Z][a-z]+&quot;</code>, that is: an upper case letter, followed by a lower case letter, repeated one or more times. The plus <code>+</code> tells the regex engine to attempt to match the preceding token once or more:</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" data-line-number="1">month_names &lt;-<span class="st"> </span><span class="kw">str_extract</span>(dates, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z]+&quot;</span>)</a>
-<a class="sourceLine" id="cb259-2" data-line-number="2">month_names</a>
-<a class="sourceLine" id="cb259-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;August&quot;    &quot;July&quot;      &quot;July&quot;      &quot;June&quot;      &quot;July&quot;     </span></a>
-<a class="sourceLine" id="cb259-4" data-line-number="4"><span class="co">#&gt;  [6] &quot;September&quot; &quot;October&quot;   &quot;May&quot;       &quot;August&quot;    &quot;May&quot;      </span></a>
-<a class="sourceLine" id="cb259-5" data-line-number="5"><span class="co">#&gt; [11] &quot;July&quot;      &quot;June&quot;      &quot;August&quot;    &quot;September&quot; &quot;May&quot;      </span></a>
-<a class="sourceLine" id="cb259-6" data-line-number="6"><span class="co">#&gt; [16] &quot;October&quot;   &quot;October&quot;   &quot;August&quot;</span></a></code></pre></div>
-<p>Having extracted the name of the months, we can take advantage of a similar pattern to extract the days. How? Using a pattern formed by one digit range and the plus sign: <code>&quot;[0-9]+&quot;</code></p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1"><span class="kw">str_extract</span>(dates, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]+&quot;</span>)</a>
-<a class="sourceLine" id="cb260-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;5&quot;  &quot;23&quot; &quot;7&quot;  &quot;13&quot; &quot;7&quot;  &quot;9&quot;  &quot;27&quot; &quot;25&quot; &quot;12&quot; &quot;27&quot; &quot;16&quot; &quot;10&quot; &quot;15&quot; &quot;12&quot;</span></a>
-<a class="sourceLine" id="cb260-3" data-line-number="3"><span class="co">#&gt; [15] &quot;29&quot; &quot;19&quot; &quot;18&quot; &quot;30&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="cleaning.html#cb272-1"></a>dates[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span>
+<span id="cb272-2"><a href="cleaning.html#cb272-2"></a><span class="co">#&gt; [1] &quot;5 August 1901&quot; &quot;23 July 1921&quot;  &quot;7 July 1924&quot;   &quot;13 June 1925&quot; </span></span>
+<span id="cb272-3"><a href="cleaning.html#cb272-3"></a><span class="co">#&gt; [5] &quot;7 July 1928&quot;</span></span></code></pre></div>
+<p>They all begin with an upper case letter, followed by the rest of the characters in lower case. If we want to match month names formed by four letters (e.g. June, July), we could look for the pattern <code>"[A-Z][a-z][a-z][a-z]"</code></p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="cleaning.html#cb273-1"></a><span class="kw">str_extract</span>(dates, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][a-z][a-z]&quot;</span>)</span>
+<span id="cb273-2"><a href="cleaning.html#cb273-2"></a><span class="co">#&gt;  [1] &quot;Augu&quot; &quot;July&quot; &quot;July&quot; &quot;June&quot; &quot;July&quot; &quot;Sept&quot; &quot;Octo&quot; NA     &quot;Augu&quot; NA    </span></span>
+<span id="cb273-3"><a href="cleaning.html#cb273-3"></a><span class="co">#&gt; [11] &quot;July&quot; &quot;June&quot; &quot;Augu&quot; &quot;Sept&quot; NA     &quot;Octo&quot; &quot;Octo&quot; &quot;Augu&quot;</span></span></code></pre></div>
+<p>The previous pattern <code>"[A-Z][a-z][a-z][a-z]"</code> not only matches <code>"June"</code> and <code>"July"</code> but also <code>"Augu"</code>, <code>"Sept"</code>, <code>"Octo"</code>. In addition, we have some missing values.</p>
+<p>Because the month names have variable lengths, we can use a repetition or quantifier operator. More specifically, we could look for the pattern <code>"[A-Z][a-z]+"</code>, that is: an upper case letter, followed by a lower case letter, repeated one or more times. The plus <code>+</code> tells the regex engine to attempt to match the preceding token once or more:</p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="cleaning.html#cb274-1"></a>month_names &lt;-<span class="st"> </span><span class="kw">str_extract</span>(dates, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z]+&quot;</span>)</span>
+<span id="cb274-2"><a href="cleaning.html#cb274-2"></a>month_names</span>
+<span id="cb274-3"><a href="cleaning.html#cb274-3"></a><span class="co">#&gt;  [1] &quot;August&quot;    &quot;July&quot;      &quot;July&quot;      &quot;June&quot;      &quot;July&quot;      &quot;September&quot;</span></span>
+<span id="cb274-4"><a href="cleaning.html#cb274-4"></a><span class="co">#&gt;  [7] &quot;October&quot;   &quot;May&quot;       &quot;August&quot;    &quot;May&quot;       &quot;July&quot;      &quot;June&quot;     </span></span>
+<span id="cb274-5"><a href="cleaning.html#cb274-5"></a><span class="co">#&gt; [13] &quot;August&quot;    &quot;September&quot; &quot;May&quot;       &quot;October&quot;   &quot;October&quot;   &quot;August&quot;</span></span></code></pre></div>
+<p>Having extracted the name of the months, we can take advantage of a similar pattern to extract the days. How? Using a pattern formed by one digit range and the plus sign: <code>"[0-9]+"</code></p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="cleaning.html#cb275-1"></a><span class="kw">str_extract</span>(dates, <span class="dt">pattern =</span> <span class="st">&quot;[0-9]+&quot;</span>)</span>
+<span id="cb275-2"><a href="cleaning.html#cb275-2"></a><span class="co">#&gt;  [1] &quot;5&quot;  &quot;23&quot; &quot;7&quot;  &quot;13&quot; &quot;7&quot;  &quot;9&quot;  &quot;27&quot; &quot;25&quot; &quot;12&quot; &quot;27&quot; &quot;16&quot; &quot;10&quot; &quot;15&quot; &quot;12&quot; &quot;29&quot;</span></span>
+<span id="cb275-3"><a href="cleaning.html#cb275-3"></a><span class="co">#&gt; [16] &quot;19&quot; &quot;18&quot; &quot;30&quot;</span></span></code></pre></div>
 </div>
 <div id="extracting-year" class="section level2">
-<h2><span class="header-section-number">16.7</span> Extracting Year</h2>
+<h2><span class="header-section-number">19.7</span> Extracting Year</h2>
 <p>What about extracting the year number?</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" data-line-number="1">dates[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb261-2" data-line-number="2"><span class="co">#&gt; [1] &quot;5 August 1901&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="cleaning.html#cb276-1"></a>dates[<span class="dv">1</span>]</span>
+<span id="cb276-2"><a href="cleaning.html#cb276-2"></a><span class="co">#&gt; [1] &quot;5 August 1901&quot;</span></span></code></pre></div>
 <p>One option that we have discussed already is to use <code>substr()</code> or <code>str_sub()</code></p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" data-line-number="1"><span class="kw">str_sub</span>(dates, <span class="dt">start =</span> <span class="kw">nchar</span>(dates)<span class="op">-</span><span class="dv">3</span>, <span class="dt">end =</span> <span class="kw">nchar</span>(dates))</a>
-<a class="sourceLine" id="cb262-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;1901&quot; &quot;1921&quot; &quot;1924&quot; &quot;1925&quot; &quot;1928&quot; &quot;1928&quot; &quot;1931&quot; &quot;1935&quot; &quot;1960&quot; &quot;1961&quot;</span></a>
-<a class="sourceLine" id="cb262-3" data-line-number="3"><span class="co">#&gt; [11] &quot;1961&quot; &quot;1962&quot; &quot;1964&quot; &quot;1964&quot; &quot;1965&quot; &quot;1967&quot; &quot;1968&quot; &quot;1991&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="cleaning.html#cb277-1"></a><span class="kw">str_sub</span>(dates, <span class="dt">start =</span> <span class="kw">nchar</span>(dates)<span class="op">-</span><span class="dv">3</span>, <span class="dt">end =</span> <span class="kw">nchar</span>(dates))</span>
+<span id="cb277-2"><a href="cleaning.html#cb277-2"></a><span class="co">#&gt;  [1] &quot;1901&quot; &quot;1921&quot; &quot;1924&quot; &quot;1925&quot; &quot;1928&quot; &quot;1928&quot; &quot;1931&quot; &quot;1935&quot; &quot;1960&quot; &quot;1961&quot;</span></span>
+<span id="cb277-3"><a href="cleaning.html#cb277-3"></a><span class="co">#&gt; [11] &quot;1961&quot; &quot;1962&quot; &quot;1964&quot; &quot;1964&quot; &quot;1965&quot; &quot;1967&quot; &quot;1968&quot; &quot;1991&quot;</span></span></code></pre></div>
 <p>or simply indicate a negative starting position (to counting from the end of the string):</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" data-line-number="1"><span class="kw">str_sub</span>(dates, <span class="dt">start =</span> <span class="dv">-4</span>)</a>
-<a class="sourceLine" id="cb263-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;1901&quot; &quot;1921&quot; &quot;1924&quot; &quot;1925&quot; &quot;1928&quot; &quot;1928&quot; &quot;1931&quot; &quot;1935&quot; &quot;1960&quot; &quot;1961&quot;</span></a>
-<a class="sourceLine" id="cb263-3" data-line-number="3"><span class="co">#&gt; [11] &quot;1961&quot; &quot;1962&quot; &quot;1964&quot; &quot;1964&quot; &quot;1965&quot; &quot;1967&quot; &quot;1968&quot; &quot;1991&quot;</span></a></code></pre></div>
-<p>Another option consists in using a pattern formed by four digits: <code>&quot;[0-9][0-9][0-9][0-9]&quot;</code>:</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1"><span class="kw">str_extract</span>(dates[<span class="dv">1</span>], <span class="dt">pattern =</span> <span class="st">&quot;[0-9][0-9][0-9][0-9]&quot;</span>)</a>
-<a class="sourceLine" id="cb264-2" data-line-number="2"><span class="co">#&gt; [1] &quot;1901&quot;</span></a></code></pre></div>
-<p>An additional option consists in using an <em>end of string anchor</em> with the metacharacter <code>&quot;$&quot;</code> (dollar sign), and combine with a repetition operator <code>&quot;+&quot;</code> like: <code>&quot;[0-9]+$&quot;</code>:</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" data-line-number="1"><span class="kw">str_extract</span>(dates[<span class="dv">1</span>], <span class="dt">pattern =</span> <span class="st">&quot;[0-9]+$&quot;</span>)</a>
-<a class="sourceLine" id="cb265-2" data-line-number="2"><span class="co">#&gt; [1] &quot;1901&quot;</span></a></code></pre></div>
-<p>What is this pattern doing? The part of the pattern <code>&quot;[0-9]+&quot;</code> indicates that we want to match one or more digits. In order to tell the engine to match the pattern at the end of the string, we must use the anchor <code>&quot;$&quot;</code>.</p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="cleaning.html#cb278-1"></a><span class="kw">str_sub</span>(dates, <span class="dt">start =</span> <span class="dv">-4</span>)</span>
+<span id="cb278-2"><a href="cleaning.html#cb278-2"></a><span class="co">#&gt;  [1] &quot;1901&quot; &quot;1921&quot; &quot;1924&quot; &quot;1925&quot; &quot;1928&quot; &quot;1928&quot; &quot;1931&quot; &quot;1935&quot; &quot;1960&quot; &quot;1961&quot;</span></span>
+<span id="cb278-3"><a href="cleaning.html#cb278-3"></a><span class="co">#&gt; [11] &quot;1961&quot; &quot;1962&quot; &quot;1964&quot; &quot;1964&quot; &quot;1965&quot; &quot;1967&quot; &quot;1968&quot; &quot;1991&quot;</span></span></code></pre></div>
+<p>Another option consists in using a pattern formed by four digits: <code>"[0-9][0-9][0-9][0-9]"</code>:</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="cleaning.html#cb279-1"></a><span class="kw">str_extract</span>(dates[<span class="dv">1</span>], <span class="dt">pattern =</span> <span class="st">&quot;[0-9][0-9][0-9][0-9]&quot;</span>)</span>
+<span id="cb279-2"><a href="cleaning.html#cb279-2"></a><span class="co">#&gt; [1] &quot;1901&quot;</span></span></code></pre></div>
+<p>An additional option consists in using an <em>end of string anchor</em> with the metacharacter <code>"$"</code> (dollar sign), and combine with a repetition operator <code>"+"</code> like: <code>"[0-9]+$"</code>:</p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="cleaning.html#cb280-1"></a><span class="kw">str_extract</span>(dates[<span class="dv">1</span>], <span class="dt">pattern =</span> <span class="st">&quot;[0-9]+$&quot;</span>)</span>
+<span id="cb280-2"><a href="cleaning.html#cb280-2"></a><span class="co">#&gt; [1] &quot;1901&quot;</span></span></code></pre></div>
+<p>What is this pattern doing? The part of the pattern <code>"[0-9]+"</code> indicates that we want to match one or more digits. In order to tell the engine to match the pattern at the end of the string, we must use the anchor <code>"$"</code>.</p>
 <p>The same task can be achieved with a digit character class <code>\\d</code> and the repetition operator <code>+</code>:</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" data-line-number="1"><span class="kw">str_extract</span>(dates[<span class="dv">1</span>], <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d+$&quot;</span>)</a>
-<a class="sourceLine" id="cb266-2" data-line-number="2"><span class="co">#&gt; [1] &quot;1901&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="cleaning.html#cb281-1"></a><span class="kw">str_extract</span>(dates[<span class="dv">1</span>], <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d+$&quot;</span>)</span>
+<span id="cb281-2"><a href="cleaning.html#cb281-2"></a><span class="co">#&gt; [1] &quot;1901&quot;</span></span></code></pre></div>
 <div id="athletes-name" class="section level3">
-<h3><span class="header-section-number">16.7.1</span> Athlete’s Name</h3>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" data-line-number="1"><span class="co"># First name</span></a>
-<a class="sourceLine" id="cb267-2" data-line-number="2"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z]+&quot;</span>)</a>
-<a class="sourceLine" id="cb267-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;Peter&quot;  &quot;Edward&quot; &quot;Robert&quot; &quot;De&quot;     &quot;Edward&quot; &quot;Sylvio&quot; &quot;Chuhei&quot;</span></a>
-<a class="sourceLine" id="cb267-4" data-line-number="4"><span class="co">#&gt;  [8] &quot;Jesse&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Igor&quot;   &quot;Ralph&quot;  &quot;Ralph&quot; </span></a>
-<a class="sourceLine" id="cb267-5" data-line-number="5"><span class="co">#&gt; [15] &quot;Ralph&quot;  &quot;Igor&quot;   &quot;Bob&quot;    &quot;Mike&quot;</span></a></code></pre></div>
-<p>The pattern <code>&quot;[A-Z][a-z]+&quot;</code> fails to match the name of the fourth athlete DeHart Hubbard (USA). One way to match an optional upper case in the third position is with the following pattern: <code>&quot;[A-Z][a-z][A-Z]?[a-z]+&quot;</code>:</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" data-line-number="1"><span class="co"># First name</span></a>
-<a class="sourceLine" id="cb268-2" data-line-number="2"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+&quot;</span>)</a>
-<a class="sourceLine" id="cb268-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;Peter&quot;  &quot;Edward&quot; &quot;Robert&quot; &quot;DeHart&quot; &quot;Edward&quot; &quot;Sylvio&quot; &quot;Chuhei&quot;</span></a>
-<a class="sourceLine" id="cb268-4" data-line-number="4"><span class="co">#&gt;  [8] &quot;Jesse&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Igor&quot;   &quot;Ralph&quot;  &quot;Ralph&quot; </span></a>
-<a class="sourceLine" id="cb268-5" data-line-number="5"><span class="co">#&gt; [15] &quot;Ralph&quot;  &quot;Igor&quot;   &quot;Bob&quot;    &quot;Mike&quot;</span></a></code></pre></div>
-<p>An alternative option is to use the <em>word</em> character class <code>\\w</code> repeated one or more times: <code>&quot;\\w+&quot;</code></p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" data-line-number="1"><span class="co"># First name</span></a>
-<a class="sourceLine" id="cb269-2" data-line-number="2"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">w+&quot;</span>)</a>
-<a class="sourceLine" id="cb269-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;Peter&quot;  &quot;Edward&quot; &quot;Robert&quot; &quot;DeHart&quot; &quot;Edward&quot; &quot;Sylvio&quot; &quot;Chuhei&quot;</span></a>
-<a class="sourceLine" id="cb269-4" data-line-number="4"><span class="co">#&gt;  [8] &quot;Jesse&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Igor&quot;   &quot;Ralph&quot;  &quot;Ralph&quot; </span></a>
-<a class="sourceLine" id="cb269-5" data-line-number="5"><span class="co">#&gt; [15] &quot;Ralph&quot;  &quot;Igor&quot;   &quot;Bob&quot;    &quot;Mike&quot;</span></a></code></pre></div>
+<h3><span class="header-section-number">19.7.1</span> Athlete’s Name</h3>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="cleaning.html#cb282-1"></a><span class="co"># First name</span></span>
+<span id="cb282-2"><a href="cleaning.html#cb282-2"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z]+&quot;</span>)</span>
+<span id="cb282-3"><a href="cleaning.html#cb282-3"></a><span class="co">#&gt;  [1] &quot;Peter&quot;  &quot;Edward&quot; &quot;Robert&quot; &quot;De&quot;     &quot;Edward&quot; &quot;Sylvio&quot; &quot;Chuhei&quot; &quot;Jesse&quot; </span></span>
+<span id="cb282-4"><a href="cleaning.html#cb282-4"></a><span class="co">#&gt;  [9] &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Igor&quot;   &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Igor&quot;  </span></span>
+<span id="cb282-5"><a href="cleaning.html#cb282-5"></a><span class="co">#&gt; [17] &quot;Bob&quot;    &quot;Mike&quot;</span></span></code></pre></div>
+<p>The pattern <code>"[A-Z][a-z]+"</code> fails to match the name of the fourth athlete DeHart Hubbard (USA). One way to match an optional upper case in the third position is with the following pattern: <code>"[A-Z][a-z][A-Z]?[a-z]+"</code>:</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="cleaning.html#cb283-1"></a><span class="co"># First name</span></span>
+<span id="cb283-2"><a href="cleaning.html#cb283-2"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+&quot;</span>)</span>
+<span id="cb283-3"><a href="cleaning.html#cb283-3"></a><span class="co">#&gt;  [1] &quot;Peter&quot;  &quot;Edward&quot; &quot;Robert&quot; &quot;DeHart&quot; &quot;Edward&quot; &quot;Sylvio&quot; &quot;Chuhei&quot; &quot;Jesse&quot; </span></span>
+<span id="cb283-4"><a href="cleaning.html#cb283-4"></a><span class="co">#&gt;  [9] &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Igor&quot;   &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Igor&quot;  </span></span>
+<span id="cb283-5"><a href="cleaning.html#cb283-5"></a><span class="co">#&gt; [17] &quot;Bob&quot;    &quot;Mike&quot;</span></span></code></pre></div>
+<p>An alternative option is to use the <em>word</em> character class <code>\\w</code> repeated one or more times: <code>"\\w+"</code></p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="cleaning.html#cb284-1"></a><span class="co"># First name</span></span>
+<span id="cb284-2"><a href="cleaning.html#cb284-2"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">w+&quot;</span>)</span>
+<span id="cb284-3"><a href="cleaning.html#cb284-3"></a><span class="co">#&gt;  [1] &quot;Peter&quot;  &quot;Edward&quot; &quot;Robert&quot; &quot;DeHart&quot; &quot;Edward&quot; &quot;Sylvio&quot; &quot;Chuhei&quot; &quot;Jesse&quot; </span></span>
+<span id="cb284-4"><a href="cleaning.html#cb284-4"></a><span class="co">#&gt;  [9] &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Igor&quot;   &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Ralph&quot;  &quot;Igor&quot;  </span></span>
+<span id="cb284-5"><a href="cleaning.html#cb284-5"></a><span class="co">#&gt; [17] &quot;Bob&quot;    &quot;Mike&quot;</span></span></code></pre></div>
 </div>
 </div>
 <div id="athlete-names" class="section level2">
-<h2><span class="header-section-number">16.8</span> Athlete Names</h2>
+<h2><span class="header-section-number">19.8</span> Athlete Names</h2>
 <p>Now let’s try to extract the athletes’ first and last names. We could specify a regex pattern for the first name <code>[A-Z][a-z][A-Z]?[a-z]+</code>, followed by a space, followed by an uper case letter, and one or more lower case letters <code>[A-Z][a-z]+</code>:</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" data-line-number="1"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z][a-z]+&quot;</span>)</a>
-<a class="sourceLine" id="cb270-2" data-line-number="2"><span class="co">#&gt;  [1] NA               &quot;Edward Gourdin&quot; &quot;Robert Le&quot;      &quot;DeHart Hubbard&quot;</span></a>
-<a class="sourceLine" id="cb270-3" data-line-number="3"><span class="co">#&gt;  [5] &quot;Edward Hamm&quot;    &quot;Sylvio Cator&quot;   &quot;Chuhei Nambu&quot;   &quot;Jesse Owens&quot;   </span></a>
-<a class="sourceLine" id="cb270-4" data-line-number="4"><span class="co">#&gt;  [9] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></a>
-<a class="sourceLine" id="cb270-5" data-line-number="5"><span class="co">#&gt; [13] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></a>
-<a class="sourceLine" id="cb270-6" data-line-number="6"><span class="co">#&gt; [17] &quot;Bob Beamon&quot;     &quot;Mike Powell&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="cleaning.html#cb285-1"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z][a-z]+&quot;</span>)</span>
+<span id="cb285-2"><a href="cleaning.html#cb285-2"></a><span class="co">#&gt;  [1] NA               &quot;Edward Gourdin&quot; &quot;Robert Le&quot;      &quot;DeHart Hubbard&quot;</span></span>
+<span id="cb285-3"><a href="cleaning.html#cb285-3"></a><span class="co">#&gt;  [5] &quot;Edward Hamm&quot;    &quot;Sylvio Cator&quot;   &quot;Chuhei Nambu&quot;   &quot;Jesse Owens&quot;   </span></span>
+<span id="cb285-4"><a href="cleaning.html#cb285-4"></a><span class="co">#&gt;  [9] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></span>
+<span id="cb285-5"><a href="cleaning.html#cb285-5"></a><span class="co">#&gt; [13] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></span>
+<span id="cb285-6"><a href="cleaning.html#cb285-6"></a><span class="co">#&gt; [17] &quot;Bob Beamon&quot;     &quot;Mike Powell&quot;</span></span></code></pre></div>
 <p>What about the first athlete Peter O’Connor? The previous pattern does not include the apostrophe.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" data-line-number="1"><span class="co"># works for Peter O&#39;Connor only</span></a>
-<a class="sourceLine" id="cb271-2" data-line-number="2"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z]&#39;[A-Z][a-z]+&quot;</span>)</a>
-<a class="sourceLine" id="cb271-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot; NA               NA               NA              </span></a>
-<a class="sourceLine" id="cb271-4" data-line-number="4"><span class="co">#&gt;  [5] NA               NA               NA               NA              </span></a>
-<a class="sourceLine" id="cb271-5" data-line-number="5"><span class="co">#&gt;  [9] NA               NA               NA               NA              </span></a>
-<a class="sourceLine" id="cb271-6" data-line-number="6"><span class="co">#&gt; [13] NA               NA               NA               NA              </span></a>
-<a class="sourceLine" id="cb271-7" data-line-number="7"><span class="co">#&gt; [17] NA               NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="cleaning.html#cb286-1"></a><span class="co"># works for Peter O&#39;Connor only</span></span>
+<span id="cb286-2"><a href="cleaning.html#cb286-2"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z]&#39;[A-Z][a-z]+&quot;</span>)</span>
+<span id="cb286-3"><a href="cleaning.html#cb286-3"></a><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot; NA               NA               NA              </span></span>
+<span id="cb286-4"><a href="cleaning.html#cb286-4"></a><span class="co">#&gt;  [5] NA               NA               NA               NA              </span></span>
+<span id="cb286-5"><a href="cleaning.html#cb286-5"></a><span class="co">#&gt;  [9] NA               NA               NA               NA              </span></span>
+<span id="cb286-6"><a href="cleaning.html#cb286-6"></a><span class="co">#&gt; [13] NA               NA               NA               NA              </span></span>
+<span id="cb286-7"><a href="cleaning.html#cb286-7"></a><span class="co">#&gt; [17] NA               NA</span></span></code></pre></div>
 <p>What about this other pattern?</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" data-line-number="1"><span class="co"># still only works for Peter O&#39;Connor</span></a>
-<a class="sourceLine" id="cb272-2" data-line-number="2"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z]&#39;[A-Z]?[a-z]+&quot;</span>)</a>
-<a class="sourceLine" id="cb272-3" data-line-number="3"><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot; NA               NA               NA              </span></a>
-<a class="sourceLine" id="cb272-4" data-line-number="4"><span class="co">#&gt;  [5] NA               NA               NA               NA              </span></a>
-<a class="sourceLine" id="cb272-5" data-line-number="5"><span class="co">#&gt;  [9] NA               NA               NA               NA              </span></a>
-<a class="sourceLine" id="cb272-6" data-line-number="6"><span class="co">#&gt; [13] NA               NA               NA               NA              </span></a>
-<a class="sourceLine" id="cb272-7" data-line-number="7"><span class="co">#&gt; [17] NA               NA</span></a></code></pre></div>
-<p>Recall that the quantifier (or repetition) operators have an effect on the preceding token. So, the pattern <code>&quot;[A-Z]'[A-Z]?[a-z]+&quot;</code> means: an upper case letter, followed by an apostrophe, followed by an optional upper case, followed by one or more lower case letters. In other words, the quantifier <code>&quot;?&quot;</code> only has an effect on the second upper case letter.</p>
-<p>In reality, we want both the apostrophe and the second upper case letters to be optional, so we need to add quantifiers <code>&quot;?&quot;</code> to both of them:</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" data-line-number="1"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z]&#39;?[A-Z]?[a-z]+&quot;</span>)</a>
-<a class="sourceLine" id="cb273-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot; &quot;Edward Gourdin&quot; &quot;Robert Le&quot;      &quot;DeHart Hubbard&quot;</span></a>
-<a class="sourceLine" id="cb273-3" data-line-number="3"><span class="co">#&gt;  [5] &quot;Edward Hamm&quot;    &quot;Sylvio Cator&quot;   &quot;Chuhei Nambu&quot;   &quot;Jesse Owens&quot;   </span></a>
-<a class="sourceLine" id="cb273-4" data-line-number="4"><span class="co">#&gt;  [9] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></a>
-<a class="sourceLine" id="cb273-5" data-line-number="5"><span class="co">#&gt; [13] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></a>
-<a class="sourceLine" id="cb273-6" data-line-number="6"><span class="co">#&gt; [17] &quot;Bob Beamon&quot;     &quot;Mike Powell&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="cleaning.html#cb287-1"></a><span class="co"># still only works for Peter O&#39;Connor</span></span>
+<span id="cb287-2"><a href="cleaning.html#cb287-2"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z]&#39;[A-Z]?[a-z]+&quot;</span>)</span>
+<span id="cb287-3"><a href="cleaning.html#cb287-3"></a><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot; NA               NA               NA              </span></span>
+<span id="cb287-4"><a href="cleaning.html#cb287-4"></a><span class="co">#&gt;  [5] NA               NA               NA               NA              </span></span>
+<span id="cb287-5"><a href="cleaning.html#cb287-5"></a><span class="co">#&gt;  [9] NA               NA               NA               NA              </span></span>
+<span id="cb287-6"><a href="cleaning.html#cb287-6"></a><span class="co">#&gt; [13] NA               NA               NA               NA              </span></span>
+<span id="cb287-7"><a href="cleaning.html#cb287-7"></a><span class="co">#&gt; [17] NA               NA</span></span></code></pre></div>
+<p>Recall that the quantifier (or repetition) operators have an effect on the preceding token. So, the pattern <code>"[A-Z]'[A-Z]?[a-z]+"</code> means: an upper case letter, followed by an apostrophe, followed by an optional upper case, followed by one or more lower case letters. In other words, the quantifier <code>"?"</code> only has an effect on the second upper case letter.</p>
+<p>In reality, we want both the apostrophe and the second upper case letters to be optional, so we need to add quantifiers <code>"?"</code> to both of them:</p>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="cleaning.html#cb288-1"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z]&#39;?[A-Z]?[a-z]+&quot;</span>)</span>
+<span id="cb288-2"><a href="cleaning.html#cb288-2"></a><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot; &quot;Edward Gourdin&quot; &quot;Robert Le&quot;      &quot;DeHart Hubbard&quot;</span></span>
+<span id="cb288-3"><a href="cleaning.html#cb288-3"></a><span class="co">#&gt;  [5] &quot;Edward Hamm&quot;    &quot;Sylvio Cator&quot;   &quot;Chuhei Nambu&quot;   &quot;Jesse Owens&quot;   </span></span>
+<span id="cb288-4"><a href="cleaning.html#cb288-4"></a><span class="co">#&gt;  [9] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></span>
+<span id="cb288-5"><a href="cleaning.html#cb288-5"></a><span class="co">#&gt; [13] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></span>
+<span id="cb288-6"><a href="cleaning.html#cb288-6"></a><span class="co">#&gt; [17] &quot;Bob Beamon&quot;     &quot;Mike Powell&quot;</span></span></code></pre></div>
 <p>If you want to treat a set of characters as a single unit, you must wrap them inside parentheses:</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" data-line-number="1"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z](&#39;[A-Z])?[a-z]+&quot;</span>)</a>
-<a class="sourceLine" id="cb274-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot; &quot;Edward Gourdin&quot; &quot;Robert Le&quot;      &quot;DeHart Hubbard&quot;</span></a>
-<a class="sourceLine" id="cb274-3" data-line-number="3"><span class="co">#&gt;  [5] &quot;Edward Hamm&quot;    &quot;Sylvio Cator&quot;   &quot;Chuhei Nambu&quot;   &quot;Jesse Owens&quot;   </span></a>
-<a class="sourceLine" id="cb274-4" data-line-number="4"><span class="co">#&gt;  [9] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></a>
-<a class="sourceLine" id="cb274-5" data-line-number="5"><span class="co">#&gt; [13] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></a>
-<a class="sourceLine" id="cb274-6" data-line-number="6"><span class="co">#&gt; [17] &quot;Bob Beamon&quot;     &quot;Mike Powell&quot;</span></a></code></pre></div>
-<p>We still have an issue with athlete <code>Igor Ter-Ovanesyan</code>. The patterns used so far are only matching the the characters in his last name before the hyphen. We can start by adding a escaped hyphen inside the character set <code>&quot;[a-z\\-]&quot;</code> at the end of the pattern:</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" data-line-number="1"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z](&#39;[A-Z])?[a-z</span><span class="ch">\\</span><span class="st">-]+&quot;</span>)</a>
-<a class="sourceLine" id="cb275-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot; &quot;Edward Gourdin&quot; &quot;Robert Le&quot;      &quot;DeHart Hubbard&quot;</span></a>
-<a class="sourceLine" id="cb275-3" data-line-number="3"><span class="co">#&gt;  [5] &quot;Edward Hamm&quot;    &quot;Sylvio Cator&quot;   &quot;Chuhei Nambu&quot;   &quot;Jesse Owens&quot;   </span></a>
-<a class="sourceLine" id="cb275-4" data-line-number="4"><span class="co">#&gt;  [9] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter-&quot;     </span></a>
-<a class="sourceLine" id="cb275-5" data-line-number="5"><span class="co">#&gt; [13] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter-&quot;     </span></a>
-<a class="sourceLine" id="cb275-6" data-line-number="6"><span class="co">#&gt; [17] &quot;Bob Beamon&quot;     &quot;Mike Powell&quot;</span></a></code></pre></div>
-<p>Notice that this pattern does match the hyphen but fails to match the second part of the last name (the one after the hyphen). This is because our token is only matching lower case letters. So we also need to include upper case letters in the character set: <code>&quot;[a-zA-Z\\-]&quot;</code></p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" data-line-number="1"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z](&#39;[A-Z])?[a-zA-Z</span><span class="ch">\\</span><span class="st">-]+&quot;</span>)</a>
-<a class="sourceLine" id="cb276-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot;     &quot;Edward Gourdin&quot;     &quot;Robert LeGendre&quot;   </span></a>
-<a class="sourceLine" id="cb276-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;DeHart Hubbard&quot;     &quot;Edward Hamm&quot;        &quot;Sylvio Cator&quot;      </span></a>
-<a class="sourceLine" id="cb276-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Chuhei Nambu&quot;       &quot;Jesse Owens&quot;        &quot;Ralph Boston&quot;      </span></a>
-<a class="sourceLine" id="cb276-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;       &quot;Igor Ter-Ovanesyan&quot;</span></a>
-<a class="sourceLine" id="cb276-6" data-line-number="6"><span class="co">#&gt; [13] &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;      </span></a>
-<a class="sourceLine" id="cb276-7" data-line-number="7"><span class="co">#&gt; [16] &quot;Igor Ter-Ovanesyan&quot; &quot;Bob Beamon&quot;         &quot;Mike Powell&quot;</span></a></code></pre></div>
-<p>The regex patterns that involve a set such as <code>&quot;[a-zA-Z]&quot;</code> can be simplified with a repeated <strong>word</strong> character class <code>&quot;\\w+&quot;</code> (recall that <code>&quot;\\w+&quot;</code> is equivalent to <code>&quot;[0-9A-Za-z_]&quot;</code>). We can try to use two repeated word classes:</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">w+ </span><span class="ch">\\</span><span class="st">w+&quot;</span>)</a>
-<a class="sourceLine" id="cb277-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;Peter O&quot;         &quot;Edward Gourdin&quot;  &quot;Robert LeGendre&quot;</span></a>
-<a class="sourceLine" id="cb277-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;DeHart Hubbard&quot;  &quot;Edward Hamm&quot;     &quot;Sylvio Cator&quot;   </span></a>
-<a class="sourceLine" id="cb277-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Chuhei Nambu&quot;    &quot;Jesse Owens&quot;     &quot;Ralph Boston&quot;   </span></a>
-<a class="sourceLine" id="cb277-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Ralph Boston&quot;    &quot;Ralph Boston&quot;    &quot;Igor Ter&quot;       </span></a>
-<a class="sourceLine" id="cb277-6" data-line-number="6"><span class="co">#&gt; [13] &quot;Ralph Boston&quot;    &quot;Ralph Boston&quot;    &quot;Ralph Boston&quot;   </span></a>
-<a class="sourceLine" id="cb277-7" data-line-number="7"><span class="co">#&gt; [16] &quot;Igor Ter&quot;        &quot;Bob Beamon&quot;      &quot;Mike Powell&quot;</span></a></code></pre></div>
-<p>As you know, we also need to include an apostrphe and the hyphen. In this case, we can include them inside parentheses and separating them with the OR operator <code>&quot;|&quot;</code>:</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" data-line-number="1"><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">w+ (</span><span class="ch">\\</span><span class="st">w|-|&#39;)+&quot;</span>)</a>
-<a class="sourceLine" id="cb278-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot;     &quot;Edward Gourdin&quot;     &quot;Robert LeGendre&quot;   </span></a>
-<a class="sourceLine" id="cb278-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;DeHart Hubbard&quot;     &quot;Edward Hamm&quot;        &quot;Sylvio Cator&quot;      </span></a>
-<a class="sourceLine" id="cb278-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Chuhei Nambu&quot;       &quot;Jesse Owens&quot;        &quot;Ralph Boston&quot;      </span></a>
-<a class="sourceLine" id="cb278-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;       &quot;Igor Ter-Ovanesyan&quot;</span></a>
-<a class="sourceLine" id="cb278-6" data-line-number="6"><span class="co">#&gt; [13] &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;      </span></a>
-<a class="sourceLine" id="cb278-7" data-line-number="7"><span class="co">#&gt; [16] &quot;Igor Ter-Ovanesyan&quot; &quot;Bob Beamon&quot;         &quot;Mike Powell&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="cleaning.html#cb289-1"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z](&#39;[A-Z])?[a-z]+&quot;</span>)</span>
+<span id="cb289-2"><a href="cleaning.html#cb289-2"></a><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot; &quot;Edward Gourdin&quot; &quot;Robert Le&quot;      &quot;DeHart Hubbard&quot;</span></span>
+<span id="cb289-3"><a href="cleaning.html#cb289-3"></a><span class="co">#&gt;  [5] &quot;Edward Hamm&quot;    &quot;Sylvio Cator&quot;   &quot;Chuhei Nambu&quot;   &quot;Jesse Owens&quot;   </span></span>
+<span id="cb289-4"><a href="cleaning.html#cb289-4"></a><span class="co">#&gt;  [9] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></span>
+<span id="cb289-5"><a href="cleaning.html#cb289-5"></a><span class="co">#&gt; [13] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter&quot;      </span></span>
+<span id="cb289-6"><a href="cleaning.html#cb289-6"></a><span class="co">#&gt; [17] &quot;Bob Beamon&quot;     &quot;Mike Powell&quot;</span></span></code></pre></div>
+<p>We still have an issue with athlete <code>Igor Ter-Ovanesyan</code>. The patterns used so far are only matching the the characters in his last name before the hyphen. We can start by adding a escaped hyphen inside the character set <code>"[a-z\\-]"</code> at the end of the pattern:</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="cleaning.html#cb290-1"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z](&#39;[A-Z])?[a-z</span><span class="ch">\\</span><span class="st">-]+&quot;</span>)</span>
+<span id="cb290-2"><a href="cleaning.html#cb290-2"></a><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot; &quot;Edward Gourdin&quot; &quot;Robert Le&quot;      &quot;DeHart Hubbard&quot;</span></span>
+<span id="cb290-3"><a href="cleaning.html#cb290-3"></a><span class="co">#&gt;  [5] &quot;Edward Hamm&quot;    &quot;Sylvio Cator&quot;   &quot;Chuhei Nambu&quot;   &quot;Jesse Owens&quot;   </span></span>
+<span id="cb290-4"><a href="cleaning.html#cb290-4"></a><span class="co">#&gt;  [9] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter-&quot;     </span></span>
+<span id="cb290-5"><a href="cleaning.html#cb290-5"></a><span class="co">#&gt; [13] &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Ralph Boston&quot;   &quot;Igor Ter-&quot;     </span></span>
+<span id="cb290-6"><a href="cleaning.html#cb290-6"></a><span class="co">#&gt; [17] &quot;Bob Beamon&quot;     &quot;Mike Powell&quot;</span></span></code></pre></div>
+<p>Notice that this pattern does match the hyphen but fails to match the second part of the last name (the one after the hyphen). This is because our token is only matching lower case letters. So we also need to include upper case letters in the character set: <code>"[a-zA-Z\\-]"</code></p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="cleaning.html#cb291-1"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;[A-Z][a-z][A-Z]?[a-z]+ [A-Z](&#39;[A-Z])?[a-zA-Z</span><span class="ch">\\</span><span class="st">-]+&quot;</span>)</span>
+<span id="cb291-2"><a href="cleaning.html#cb291-2"></a><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot;     &quot;Edward Gourdin&quot;     &quot;Robert LeGendre&quot;   </span></span>
+<span id="cb291-3"><a href="cleaning.html#cb291-3"></a><span class="co">#&gt;  [4] &quot;DeHart Hubbard&quot;     &quot;Edward Hamm&quot;        &quot;Sylvio Cator&quot;      </span></span>
+<span id="cb291-4"><a href="cleaning.html#cb291-4"></a><span class="co">#&gt;  [7] &quot;Chuhei Nambu&quot;       &quot;Jesse Owens&quot;        &quot;Ralph Boston&quot;      </span></span>
+<span id="cb291-5"><a href="cleaning.html#cb291-5"></a><span class="co">#&gt; [10] &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;       &quot;Igor Ter-Ovanesyan&quot;</span></span>
+<span id="cb291-6"><a href="cleaning.html#cb291-6"></a><span class="co">#&gt; [13] &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;      </span></span>
+<span id="cb291-7"><a href="cleaning.html#cb291-7"></a><span class="co">#&gt; [16] &quot;Igor Ter-Ovanesyan&quot; &quot;Bob Beamon&quot;         &quot;Mike Powell&quot;</span></span></code></pre></div>
+<p>The regex patterns that involve a set such as <code>"[a-zA-Z]"</code> can be simplified with a repeated <strong>word</strong> character class <code>"\\w+"</code> (recall that <code>"\\w+"</code> is equivalent to <code>"[0-9A-Za-z_]"</code>). We can try to use two repeated word classes:</p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="cleaning.html#cb292-1"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">w+ </span><span class="ch">\\</span><span class="st">w+&quot;</span>)</span>
+<span id="cb292-2"><a href="cleaning.html#cb292-2"></a><span class="co">#&gt;  [1] &quot;Peter O&quot;         &quot;Edward Gourdin&quot;  &quot;Robert LeGendre&quot; &quot;DeHart Hubbard&quot; </span></span>
+<span id="cb292-3"><a href="cleaning.html#cb292-3"></a><span class="co">#&gt;  [5] &quot;Edward Hamm&quot;     &quot;Sylvio Cator&quot;    &quot;Chuhei Nambu&quot;    &quot;Jesse Owens&quot;    </span></span>
+<span id="cb292-4"><a href="cleaning.html#cb292-4"></a><span class="co">#&gt;  [9] &quot;Ralph Boston&quot;    &quot;Ralph Boston&quot;    &quot;Ralph Boston&quot;    &quot;Igor Ter&quot;       </span></span>
+<span id="cb292-5"><a href="cleaning.html#cb292-5"></a><span class="co">#&gt; [13] &quot;Ralph Boston&quot;    &quot;Ralph Boston&quot;    &quot;Ralph Boston&quot;    &quot;Igor Ter&quot;       </span></span>
+<span id="cb292-6"><a href="cleaning.html#cb292-6"></a><span class="co">#&gt; [17] &quot;Bob Beamon&quot;      &quot;Mike Powell&quot;</span></span></code></pre></div>
+<p>As you know, we also need to include an apostrphe and the hyphen. In this case, we can include them inside parentheses and separating them with the OR operator <code>"|"</code>:</p>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="cleaning.html#cb293-1"></a><span class="kw">str_extract</span>(tbl<span class="op">$</span>Athlete, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">w+ (</span><span class="ch">\\</span><span class="st">w|-|&#39;)+&quot;</span>)</span>
+<span id="cb293-2"><a href="cleaning.html#cb293-2"></a><span class="co">#&gt;  [1] &quot;Peter O&#39;Connor&quot;     &quot;Edward Gourdin&quot;     &quot;Robert LeGendre&quot;   </span></span>
+<span id="cb293-3"><a href="cleaning.html#cb293-3"></a><span class="co">#&gt;  [4] &quot;DeHart Hubbard&quot;     &quot;Edward Hamm&quot;        &quot;Sylvio Cator&quot;      </span></span>
+<span id="cb293-4"><a href="cleaning.html#cb293-4"></a><span class="co">#&gt;  [7] &quot;Chuhei Nambu&quot;       &quot;Jesse Owens&quot;        &quot;Ralph Boston&quot;      </span></span>
+<span id="cb293-5"><a href="cleaning.html#cb293-5"></a><span class="co">#&gt; [10] &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;       &quot;Igor Ter-Ovanesyan&quot;</span></span>
+<span id="cb293-6"><a href="cleaning.html#cb293-6"></a><span class="co">#&gt; [13] &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;       &quot;Ralph Boston&quot;      </span></span>
+<span id="cb293-7"><a href="cleaning.html#cb293-7"></a><span class="co">#&gt; [16] &quot;Igor Ter-Ovanesyan&quot; &quot;Bob Beamon&quot;         &quot;Mike Powell&quot;</span></span></code></pre></div>
 <hr />
 <div id="make-a-donation-12" class="section level4 unnumbered">
 <h4>Make a donation</h4>
@@ -610,11 +613,13 @@ Figure 16.1: Men’s Long Jump World Record Progression
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -622,12 +627,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -637,6 +641,14 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/gastonstat/r4strings/edit/master/data-cleaning.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -652,9 +664,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

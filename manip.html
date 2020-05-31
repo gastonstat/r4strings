@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Handling Strings with R</title>
-  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Basic String Manipulations | Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:title" content="6 Basic String Manipulations | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -17,29 +16,32 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Handling Strings with R" />
+  <meta name="twitter:title" content="6 Basic String Manipulations | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
 
-<meta name="author" content="Gaston Sanchez">
+<meta name="author" content="Gaston Sanchez Chitra Venkatesh" />
 
 
-<meta name="date" content="2016-10-19">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="input-and-output.html">
-<link rel="next" href="stringr-basics.html">
+<link rel="prev" href="input-and-output.html"/>
+<link rel="next" href="stringr-basics.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,28 +52,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,49 +251,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
 <li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
+<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
+<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries</a></li>
 <li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="13" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>13</b> Practical Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
+<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>14</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="14.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>14.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="14.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>14.3</b> Reversing Words</a></li>
+<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
+<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
+<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>15</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="15.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
-<li class="chapter" data-level="15.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>15.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="15.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>15.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>16</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="16.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-<li class="chapter" data-level="16.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>16.2</b> Import Data</a></li>
-<li class="chapter" data-level="16.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>16.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="16.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>16.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="16.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>16.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="16.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>16.6</b> Month and Day</a></li>
-<li class="chapter" data-level="16.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>16.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="16.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>16.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="16.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>16.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>17</b> Data Log File</a><ul>
-<li class="chapter" data-level="17.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>17.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="17.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>17.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="17.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>17.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="17.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>17.1.3</b> Image files</a></li>
-<li class="chapter" data-level="17.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>17.1.4</b> How to match image files with one regex pattern?</a></li>
+<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>18</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="18.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>18.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="18.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>18.2.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
+<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
+<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
+<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
+<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
+<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
+<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>18.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="18.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>18.4</b> Common words</a></li>
-<li class="chapter" data-level="18.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>18.5</b> The top 30 words</a></li>
+<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
+<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
+<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
+<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -378,25 +384,25 @@ we will review the following functions:</p>
 <p>One of the main functions for manipulating character strings is <code>nchar()</code>
 which counts the number of characters in a string. In other words, <code>nchar()</code>
 provides the length of a string:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="co"># how many characters?</span></a>
-<a class="sourceLine" id="cb108-2" data-line-number="2"><span class="kw">nchar</span>(<span class="kw">c</span>(<span class="st">&quot;How&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;characters?&quot;</span>))</a>
-<a class="sourceLine" id="cb108-3" data-line-number="3"><span class="co">#&gt; [1]  3  4 11</span></a>
-<a class="sourceLine" id="cb108-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb108-5" data-line-number="5"><span class="co"># how many characters?</span></a>
-<a class="sourceLine" id="cb108-6" data-line-number="6"><span class="kw">nchar</span>(<span class="st">&quot;How many characters?&quot;</span>)</a>
-<a class="sourceLine" id="cb108-7" data-line-number="7"><span class="co">#&gt; [1] 20</span></a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="manip.html#cb108-1"></a><span class="co"># how many characters?</span></span>
+<span id="cb108-2"><a href="manip.html#cb108-2"></a><span class="kw">nchar</span>(<span class="kw">c</span>(<span class="st">&quot;How&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;characters?&quot;</span>))</span>
+<span id="cb108-3"><a href="manip.html#cb108-3"></a><span class="co">#&gt; [1]  3  4 11</span></span>
+<span id="cb108-4"><a href="manip.html#cb108-4"></a></span>
+<span id="cb108-5"><a href="manip.html#cb108-5"></a><span class="co"># how many characters?</span></span>
+<span id="cb108-6"><a href="manip.html#cb108-6"></a><span class="kw">nchar</span>(<span class="st">&quot;How many characters?&quot;</span>)</span>
+<span id="cb108-7"><a href="manip.html#cb108-7"></a><span class="co">#&gt; [1] 20</span></span></code></pre></div>
 <p>Notice that the white spaces between words in the second example are also
 counted as characters.</p>
 <p>It is important not to confuse <code>nchar()</code> with <code>length()</code>. While the former
 gives us the <strong>number of characters</strong>, the later only gives the number of
 elements in a vector.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="co"># how many elements?</span></a>
-<a class="sourceLine" id="cb109-2" data-line-number="2"><span class="kw">length</span>(<span class="kw">c</span>(<span class="st">&quot;How&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;characters?&quot;</span>))</a>
-<a class="sourceLine" id="cb109-3" data-line-number="3"><span class="co">#&gt; [1] 3</span></a>
-<a class="sourceLine" id="cb109-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb109-5" data-line-number="5"><span class="co"># how many elements?</span></a>
-<a class="sourceLine" id="cb109-6" data-line-number="6"><span class="kw">length</span>(<span class="st">&quot;How many characters?&quot;</span>)</a>
-<a class="sourceLine" id="cb109-7" data-line-number="7"><span class="co">#&gt; [1] 1</span></a></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="manip.html#cb109-1"></a><span class="co"># how many elements?</span></span>
+<span id="cb109-2"><a href="manip.html#cb109-2"></a><span class="kw">length</span>(<span class="kw">c</span>(<span class="st">&quot;How&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;characters?&quot;</span>))</span>
+<span id="cb109-3"><a href="manip.html#cb109-3"></a><span class="co">#&gt; [1] 3</span></span>
+<span id="cb109-4"><a href="manip.html#cb109-4"></a></span>
+<span id="cb109-5"><a href="manip.html#cb109-5"></a><span class="co"># how many elements?</span></span>
+<span id="cb109-6"><a href="manip.html#cb109-6"></a><span class="kw">length</span>(<span class="st">&quot;How many characters?&quot;</span>)</span>
+<span id="cb109-7"><a href="manip.html#cb109-7"></a><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 </div>
 <div id="casefolding" class="section level2">
 <h2><span class="header-section-number">6.4</span> Casefolding</h2>
@@ -407,59 +413,59 @@ elements in a vector.</p>
 <li><code>casefold()</code></li>
 </ol>
 <p>The function <code>tolower()</code> converts any upper case characters into lower case:</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="co"># to lower case</span></a>
-<a class="sourceLine" id="cb110-2" data-line-number="2"><span class="kw">tolower</span>(<span class="kw">c</span>(<span class="st">&quot;aLL ChaRacterS in LoweR caSe&quot;</span>, <span class="st">&quot;ABCDE&quot;</span>))</a>
-<a class="sourceLine" id="cb110-3" data-line-number="3"><span class="co">#&gt; [1] &quot;all characters in lower case&quot; &quot;abcde&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="manip.html#cb110-1"></a><span class="co"># to lower case</span></span>
+<span id="cb110-2"><a href="manip.html#cb110-2"></a><span class="kw">tolower</span>(<span class="kw">c</span>(<span class="st">&quot;aLL ChaRacterS in LoweR caSe&quot;</span>, <span class="st">&quot;ABCDE&quot;</span>))</span>
+<span id="cb110-3"><a href="manip.html#cb110-3"></a><span class="co">#&gt; [1] &quot;all characters in lower case&quot; &quot;abcde&quot;</span></span></code></pre></div>
 <p>The opposite function of <code>tolower()</code> is <code>toupper</code>. As you may guess, this
 function converts any lower case characters into upper case:</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="co"># to upper case</span></a>
-<a class="sourceLine" id="cb111-2" data-line-number="2"><span class="kw">toupper</span>(<span class="kw">c</span>(<span class="st">&quot;All ChaRacterS in Upper Case&quot;</span>, <span class="st">&quot;abcde&quot;</span>))</a>
-<a class="sourceLine" id="cb111-3" data-line-number="3"><span class="co">#&gt; [1] &quot;ALL CHARACTERS IN UPPER CASE&quot; &quot;ABCDE&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="manip.html#cb111-1"></a><span class="co"># to upper case</span></span>
+<span id="cb111-2"><a href="manip.html#cb111-2"></a><span class="kw">toupper</span>(<span class="kw">c</span>(<span class="st">&quot;All ChaRacterS in Upper Case&quot;</span>, <span class="st">&quot;abcde&quot;</span>))</span>
+<span id="cb111-3"><a href="manip.html#cb111-3"></a><span class="co">#&gt; [1] &quot;ALL CHARACTERS IN UPPER CASE&quot; &quot;ABCDE&quot;</span></span></code></pre></div>
 <p>The third function for case-folding is <code>casefold()</code> which is a wrapper for both <code>tolower()</code> and <code>toupper()</code>. Its uasge has the following form:</p>
 <pre><code>casefold(x, upper = FALSE)</code></pre>
 <p>By default, <code>casefold()</code> converts all characters to lower case, but you can
 use the argument <code>upper = TRUE</code> to indicate the opposite (characters in upper
 case):</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="co"># lower case folding</span></a>
-<a class="sourceLine" id="cb113-2" data-line-number="2"><span class="kw">casefold</span>(<span class="st">&quot;aLL ChaRacterS in LoweR caSe&quot;</span>)</a>
-<a class="sourceLine" id="cb113-3" data-line-number="3"><span class="co">#&gt; [1] &quot;all characters in lower case&quot;</span></a>
-<a class="sourceLine" id="cb113-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb113-5" data-line-number="5"><span class="co"># upper case folding</span></a>
-<a class="sourceLine" id="cb113-6" data-line-number="6"><span class="kw">casefold</span>(<span class="st">&quot;All ChaRacterS in Upper Case&quot;</span>, <span class="dt">upper =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb113-7" data-line-number="7"><span class="co">#&gt; [1] &quot;ALL CHARACTERS IN UPPER CASE&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="manip.html#cb113-1"></a><span class="co"># lower case folding</span></span>
+<span id="cb113-2"><a href="manip.html#cb113-2"></a><span class="kw">casefold</span>(<span class="st">&quot;aLL ChaRacterS in LoweR caSe&quot;</span>)</span>
+<span id="cb113-3"><a href="manip.html#cb113-3"></a><span class="co">#&gt; [1] &quot;all characters in lower case&quot;</span></span>
+<span id="cb113-4"><a href="manip.html#cb113-4"></a></span>
+<span id="cb113-5"><a href="manip.html#cb113-5"></a><span class="co"># upper case folding</span></span>
+<span id="cb113-6"><a href="manip.html#cb113-6"></a><span class="kw">casefold</span>(<span class="st">&quot;All ChaRacterS in Upper Case&quot;</span>, <span class="dt">upper =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb113-7"><a href="manip.html#cb113-7"></a><span class="co">#&gt; [1] &quot;ALL CHARACTERS IN UPPER CASE&quot;</span></span></code></pre></div>
 <p>I’ve found the case-folding functions to be very helpful when I write functions
 that take a character input which may be specified in lower or upper case, or
 perhaps as a mix of both cases. For instance, consider the function
 <code>temp_convert()</code> that takes a temperature value in Fahrenheit degress, and
 a character string indicating the name of the scale to be converted.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1">temp_convert &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">deg =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="st">&quot;celsius&quot;</span>) {</a>
-<a class="sourceLine" id="cb114-2" data-line-number="2">  <span class="cf">switch</span>(to,</a>
-<a class="sourceLine" id="cb114-3" data-line-number="3">         <span class="st">&quot;celsius&quot;</span> =<span class="st"> </span>(deg <span class="op">-</span><span class="st"> </span><span class="dv">32</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">5</span><span class="op">/</span><span class="dv">9</span>),</a>
-<a class="sourceLine" id="cb114-4" data-line-number="4">         <span class="st">&quot;kelvin&quot;</span> =<span class="st"> </span>(deg <span class="op">+</span><span class="st"> </span><span class="fl">459.67</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">5</span><span class="op">/</span><span class="dv">9</span>),</a>
-<a class="sourceLine" id="cb114-5" data-line-number="5">         <span class="st">&quot;reaumur&quot;</span> =<span class="st"> </span>(deg <span class="op">-</span><span class="st"> </span><span class="dv">32</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">4</span><span class="op">/</span><span class="dv">9</span>),</a>
-<a class="sourceLine" id="cb114-6" data-line-number="6">         <span class="st">&quot;rankine&quot;</span> =<span class="st"> </span>deg <span class="op">+</span><span class="st"> </span><span class="fl">459.67</span>)</a>
-<a class="sourceLine" id="cb114-7" data-line-number="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="manip.html#cb114-1"></a>temp_convert &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">deg =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="st">&quot;celsius&quot;</span>) {</span>
+<span id="cb114-2"><a href="manip.html#cb114-2"></a>  <span class="cf">switch</span>(to,</span>
+<span id="cb114-3"><a href="manip.html#cb114-3"></a>         <span class="st">&quot;celsius&quot;</span> =<span class="st"> </span>(deg <span class="op">-</span><span class="st"> </span><span class="dv">32</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">5</span><span class="op">/</span><span class="dv">9</span>),</span>
+<span id="cb114-4"><a href="manip.html#cb114-4"></a>         <span class="st">&quot;kelvin&quot;</span> =<span class="st"> </span>(deg <span class="op">+</span><span class="st"> </span><span class="fl">459.67</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">5</span><span class="op">/</span><span class="dv">9</span>),</span>
+<span id="cb114-5"><a href="manip.html#cb114-5"></a>         <span class="st">&quot;reaumur&quot;</span> =<span class="st"> </span>(deg <span class="op">-</span><span class="st"> </span><span class="dv">32</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">4</span><span class="op">/</span><span class="dv">9</span>),</span>
+<span id="cb114-6"><a href="manip.html#cb114-6"></a>         <span class="st">&quot;rankine&quot;</span> =<span class="st"> </span>deg <span class="op">+</span><span class="st"> </span><span class="fl">459.67</span>)</span>
+<span id="cb114-7"><a href="manip.html#cb114-7"></a>}</span></code></pre></div>
 <p>Here is how you call <code>temp_convert()</code> to convert 10 Fahrenheit degrees into
 celsius degrees:</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="kw">temp_convert</span>(<span class="dt">deg =</span> <span class="dv">10</span>, <span class="dt">to =</span> <span class="st">&quot;celsius&quot;</span>)</a>
-<a class="sourceLine" id="cb115-2" data-line-number="2"><span class="co">#&gt; [1] -12.2</span></a></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="manip.html#cb115-1"></a><span class="kw">temp_convert</span>(<span class="dt">deg =</span> <span class="dv">10</span>, <span class="dt">to =</span> <span class="st">&quot;celsius&quot;</span>)</span>
+<span id="cb115-2"><a href="manip.html#cb115-2"></a><span class="co">#&gt; [1] -12.2</span></span></code></pre></div>
 <p><code>temp_convert()</code> works fine when the argument <code>to = 'celsius'</code>. But what
 happens if you try <code>temp_convert(30, 'Celsius')</code> or
 <code>temp_convert(30, 'CELSIUS')</code>?</p>
 <p>To have a more flexible function <code>temp_convert()</code> you can apply <code>tolower()</code>
 to the argument <code>to</code>, and in this way guarantee that the provided string by
 the user is always in lower case:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1">temp_convert &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">deg =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="st">&quot;celsius&quot;</span>) {</a>
-<a class="sourceLine" id="cb116-2" data-line-number="2">  <span class="cf">switch</span>(<span class="kw">tolower</span>(to),</a>
-<a class="sourceLine" id="cb116-3" data-line-number="3">         <span class="st">&quot;celsius&quot;</span> =<span class="st"> </span>(deg <span class="op">-</span><span class="st"> </span><span class="dv">32</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">5</span><span class="op">/</span><span class="dv">9</span>),</a>
-<a class="sourceLine" id="cb116-4" data-line-number="4">         <span class="st">&quot;kelvin&quot;</span> =<span class="st"> </span>(deg <span class="op">+</span><span class="st"> </span><span class="fl">459.67</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">5</span><span class="op">/</span><span class="dv">9</span>),</a>
-<a class="sourceLine" id="cb116-5" data-line-number="5">         <span class="st">&quot;reaumur&quot;</span> =<span class="st"> </span>(deg <span class="op">-</span><span class="st"> </span><span class="dv">32</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">4</span><span class="op">/</span><span class="dv">9</span>),</a>
-<a class="sourceLine" id="cb116-6" data-line-number="6">         <span class="st">&quot;rankine&quot;</span> =<span class="st"> </span>deg <span class="op">+</span><span class="st"> </span><span class="fl">459.67</span>)</a>
-<a class="sourceLine" id="cb116-7" data-line-number="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="manip.html#cb116-1"></a>temp_convert &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">deg =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="st">&quot;celsius&quot;</span>) {</span>
+<span id="cb116-2"><a href="manip.html#cb116-2"></a>  <span class="cf">switch</span>(<span class="kw">tolower</span>(to),</span>
+<span id="cb116-3"><a href="manip.html#cb116-3"></a>         <span class="st">&quot;celsius&quot;</span> =<span class="st"> </span>(deg <span class="op">-</span><span class="st"> </span><span class="dv">32</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">5</span><span class="op">/</span><span class="dv">9</span>),</span>
+<span id="cb116-4"><a href="manip.html#cb116-4"></a>         <span class="st">&quot;kelvin&quot;</span> =<span class="st"> </span>(deg <span class="op">+</span><span class="st"> </span><span class="fl">459.67</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">5</span><span class="op">/</span><span class="dv">9</span>),</span>
+<span id="cb116-5"><a href="manip.html#cb116-5"></a>         <span class="st">&quot;reaumur&quot;</span> =<span class="st"> </span>(deg <span class="op">-</span><span class="st"> </span><span class="dv">32</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">4</span><span class="op">/</span><span class="dv">9</span>),</span>
+<span id="cb116-6"><a href="manip.html#cb116-6"></a>         <span class="st">&quot;rankine&quot;</span> =<span class="st"> </span>deg <span class="op">+</span><span class="st"> </span><span class="fl">459.67</span>)</span>
+<span id="cb116-7"><a href="manip.html#cb116-7"></a>}</span></code></pre></div>
 <p>Now all the following three calls are equivalent:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="kw">temp_convert</span>(<span class="dv">30</span>, <span class="st">&#39;celsius&#39;</span>)</a>
-<a class="sourceLine" id="cb117-2" data-line-number="2"><span class="kw">temp_convert</span>(<span class="dv">30</span>, <span class="st">&#39;Celsius&#39;</span>)</a>
-<a class="sourceLine" id="cb117-3" data-line-number="3"><span class="kw">temp_convert</span>(<span class="dv">30</span>, <span class="st">&#39;CELSIUS&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="manip.html#cb117-1"></a><span class="kw">temp_convert</span>(<span class="dv">30</span>, <span class="st">&#39;celsius&#39;</span>)</span>
+<span id="cb117-2"><a href="manip.html#cb117-2"></a><span class="kw">temp_convert</span>(<span class="dv">30</span>, <span class="st">&#39;Celsius&#39;</span>)</span>
+<span id="cb117-3"><a href="manip.html#cb117-3"></a><span class="kw">temp_convert</span>(<span class="dv">30</span>, <span class="st">&#39;CELSIUS&#39;</span>)</span></code></pre></div>
 </div>
 <div id="translating-characters" class="section level2">
 <h2><span class="header-section-number">6.5</span> Translating characters</h2>
@@ -468,25 +474,25 @@ character vector <code>x</code>:</p>
 <pre><code>chartr(old, new, x)</code></pre>
 <p>The way <code>chartr()</code> works is by replacing the characters in <code>old</code> that appear
 in <code>x</code> by those indicated in <code>new</code>. For example, suppose we want to translate
-the letter <code>&quot;a&quot;</code> (lower case) with <code>&quot;A&quot;</code> (upper case) in the sentence
-<code>&quot;This is a boring string&quot;</code>:</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="co"># replace &#39;a&#39; by &#39;A&#39;</span></a>
-<a class="sourceLine" id="cb119-2" data-line-number="2"><span class="kw">chartr</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;This is a boring string&quot;</span>)</a>
-<a class="sourceLine" id="cb119-3" data-line-number="3"><span class="co">#&gt; [1] &quot;This is A boring string&quot;</span></a></code></pre></div>
+the letter <code>"a"</code> (lower case) with <code>"A"</code> (upper case) in the sentence
+<code>"This is a boring string"</code>:</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="manip.html#cb119-1"></a><span class="co"># replace &#39;a&#39; by &#39;A&#39;</span></span>
+<span id="cb119-2"><a href="manip.html#cb119-2"></a><span class="kw">chartr</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;This is a boring string&quot;</span>)</span>
+<span id="cb119-3"><a href="manip.html#cb119-3"></a><span class="co">#&gt; [1] &quot;This is A boring string&quot;</span></span></code></pre></div>
 <p>It is important to note that <code>old</code> and <code>new</code> must have the same number of
 characters, otherwise you will get a nasty error message like this one:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="co"># incorrect use</span></a>
-<a class="sourceLine" id="cb120-2" data-line-number="2"><span class="kw">chartr</span>(<span class="st">&quot;ai&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;This is a bad example&quot;</span>)</a>
-<a class="sourceLine" id="cb120-3" data-line-number="3"><span class="co">#&gt; Error in chartr(&quot;ai&quot;, &quot;X&quot;, &quot;This is a bad example&quot;): &#39;old&#39; is longer than &#39;new&#39;</span></a></code></pre></div>
-<p>Here’s a more interesting example with <code>old = &quot;aei&quot;</code> and <code>new = &quot;\#!?&quot;</code>.
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="manip.html#cb120-1"></a><span class="co"># incorrect use</span></span>
+<span id="cb120-2"><a href="manip.html#cb120-2"></a><span class="kw">chartr</span>(<span class="st">&quot;ai&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;This is a bad example&quot;</span>)</span>
+<span id="cb120-3"><a href="manip.html#cb120-3"></a><span class="co">#&gt; Error in chartr(&quot;ai&quot;, &quot;X&quot;, &quot;This is a bad example&quot;): &#39;old&#39; is longer than &#39;new&#39;</span></span></code></pre></div>
+<p>Here’s a more interesting example with <code>old = "aei"</code> and <code>new = "\#!?"</code>.
 This implies that any <code>'a'</code> in <code>'x'</code> will be replaced by <code>'\#'</code>, any <code>'e'</code> in
 <code>'x'</code> will be replaced by <code>'?'</code>, and any <code>'i'</code> in <code>'x'</code> will be replaced by
 <code>'?'</code>:</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" data-line-number="1"><span class="co"># multiple replacements</span></a>
-<a class="sourceLine" id="cb121-2" data-line-number="2">crazy &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Here&#39;s to the crazy ones&quot;</span>, <span class="st">&quot;The misfits&quot;</span>, <span class="st">&quot;The rebels&quot;</span>)</a>
-<a class="sourceLine" id="cb121-3" data-line-number="3"><span class="kw">chartr</span>(<span class="st">&quot;aei&quot;</span>, <span class="st">&quot;#!?&quot;</span>, crazy)</a>
-<a class="sourceLine" id="cb121-4" data-line-number="4"><span class="co">#&gt; [1] &quot;H!r!&#39;s to th! cr#zy on!s&quot; &quot;Th! m?sf?ts&quot;             </span></a>
-<a class="sourceLine" id="cb121-5" data-line-number="5"><span class="co">#&gt; [3] &quot;Th! r!b!ls&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="manip.html#cb121-1"></a><span class="co"># multiple replacements</span></span>
+<span id="cb121-2"><a href="manip.html#cb121-2"></a>crazy &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Here&#39;s to the crazy ones&quot;</span>, <span class="st">&quot;The misfits&quot;</span>, <span class="st">&quot;The rebels&quot;</span>)</span>
+<span id="cb121-3"><a href="manip.html#cb121-3"></a><span class="kw">chartr</span>(<span class="st">&quot;aei&quot;</span>, <span class="st">&quot;#!?&quot;</span>, crazy)</span>
+<span id="cb121-4"><a href="manip.html#cb121-4"></a><span class="co">#&gt; [1] &quot;H!r!&#39;s to th! cr#zy on!s&quot; &quot;Th! m?sf?ts&quot;             </span></span>
+<span id="cb121-5"><a href="manip.html#cb121-5"></a><span class="co">#&gt; [3] &quot;Th! r!b!ls&quot;</span></span></code></pre></div>
 </div>
 <div id="abbreviating-strings" class="section level2">
 <h2><span class="header-section-number">6.6</span> Abbreviating strings</h2>
@@ -496,40 +502,40 @@ This implies that any <code>'a'</code> in <code>'x'</code> will be replaced by <
             method = c(&quot;left.keep&quot;, &quot;both.sides&quot;))</code></pre>
 <p>Although there are several arguments, the main parameter is the character
 vector (<code>names.org</code>) which will contain the names that we want to abbreviate:</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1"><span class="co"># some color names</span></a>
-<a class="sourceLine" id="cb123-2" data-line-number="2">some_colors &lt;-<span class="st"> </span><span class="kw">colors</span>()[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a>
-<a class="sourceLine" id="cb123-3" data-line-number="3">some_colors</a>
-<a class="sourceLine" id="cb123-4" data-line-number="4"><span class="co">#&gt; [1] &quot;white&quot;         &quot;aliceblue&quot;     &quot;antiquewhite&quot;  &quot;antiquewhite1&quot;</span></a>
-<a class="sourceLine" id="cb123-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb123-6" data-line-number="6"><span class="co"># abbreviate (default usage)</span></a>
-<a class="sourceLine" id="cb123-7" data-line-number="7">colors1 &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(some_colors)</a>
-<a class="sourceLine" id="cb123-8" data-line-number="8">colors1</a>
-<a class="sourceLine" id="cb123-9" data-line-number="9"><span class="co">#&gt;         white     aliceblue  antiquewhite antiquewhite1 </span></a>
-<a class="sourceLine" id="cb123-10" data-line-number="10"><span class="co">#&gt;        &quot;whit&quot;        &quot;alcb&quot;        &quot;antq&quot;        &quot;ant1&quot;</span></a>
-<a class="sourceLine" id="cb123-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb123-12" data-line-number="12"><span class="co"># abbreviate with &#39;minlength&#39;</span></a>
-<a class="sourceLine" id="cb123-13" data-line-number="13">colors2 &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(some_colors, <span class="dt">minlength =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb123-14" data-line-number="14">colors2</a>
-<a class="sourceLine" id="cb123-15" data-line-number="15"><span class="co">#&gt;         white     aliceblue  antiquewhite antiquewhite1 </span></a>
-<a class="sourceLine" id="cb123-16" data-line-number="16"><span class="co">#&gt;       &quot;white&quot;       &quot;alcbl&quot;       &quot;antqw&quot;       &quot;antq1&quot;</span></a>
-<a class="sourceLine" id="cb123-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb123-18" data-line-number="18"><span class="co"># abbreviate</span></a>
-<a class="sourceLine" id="cb123-19" data-line-number="19">colors3 &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(some_colors, <span class="dt">minlength =</span> <span class="dv">3</span>, <span class="dt">method =</span> <span class="st">&quot;both.sides&quot;</span>)</a>
-<a class="sourceLine" id="cb123-20" data-line-number="20">colors3</a>
-<a class="sourceLine" id="cb123-21" data-line-number="21"><span class="co">#&gt;         white     aliceblue  antiquewhite antiquewhite1 </span></a>
-<a class="sourceLine" id="cb123-22" data-line-number="22"><span class="co">#&gt;         &quot;wht&quot;         &quot;alc&quot;         &quot;ant&quot;         &quot;an1&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="manip.html#cb123-1"></a><span class="co"># some color names</span></span>
+<span id="cb123-2"><a href="manip.html#cb123-2"></a>some_colors &lt;-<span class="st"> </span><span class="kw">colors</span>()[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</span>
+<span id="cb123-3"><a href="manip.html#cb123-3"></a>some_colors</span>
+<span id="cb123-4"><a href="manip.html#cb123-4"></a><span class="co">#&gt; [1] &quot;white&quot;         &quot;aliceblue&quot;     &quot;antiquewhite&quot;  &quot;antiquewhite1&quot;</span></span>
+<span id="cb123-5"><a href="manip.html#cb123-5"></a></span>
+<span id="cb123-6"><a href="manip.html#cb123-6"></a><span class="co"># abbreviate (default usage)</span></span>
+<span id="cb123-7"><a href="manip.html#cb123-7"></a>colors1 &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(some_colors)</span>
+<span id="cb123-8"><a href="manip.html#cb123-8"></a>colors1</span>
+<span id="cb123-9"><a href="manip.html#cb123-9"></a><span class="co">#&gt;         white     aliceblue  antiquewhite antiquewhite1 </span></span>
+<span id="cb123-10"><a href="manip.html#cb123-10"></a><span class="co">#&gt;        &quot;whit&quot;        &quot;alcb&quot;        &quot;antq&quot;        &quot;ant1&quot;</span></span>
+<span id="cb123-11"><a href="manip.html#cb123-11"></a></span>
+<span id="cb123-12"><a href="manip.html#cb123-12"></a><span class="co"># abbreviate with &#39;minlength&#39;</span></span>
+<span id="cb123-13"><a href="manip.html#cb123-13"></a>colors2 &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(some_colors, <span class="dt">minlength =</span> <span class="dv">5</span>)</span>
+<span id="cb123-14"><a href="manip.html#cb123-14"></a>colors2</span>
+<span id="cb123-15"><a href="manip.html#cb123-15"></a><span class="co">#&gt;         white     aliceblue  antiquewhite antiquewhite1 </span></span>
+<span id="cb123-16"><a href="manip.html#cb123-16"></a><span class="co">#&gt;       &quot;white&quot;       &quot;alcbl&quot;       &quot;antqw&quot;       &quot;antq1&quot;</span></span>
+<span id="cb123-17"><a href="manip.html#cb123-17"></a></span>
+<span id="cb123-18"><a href="manip.html#cb123-18"></a><span class="co"># abbreviate</span></span>
+<span id="cb123-19"><a href="manip.html#cb123-19"></a>colors3 &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(some_colors, <span class="dt">minlength =</span> <span class="dv">3</span>, <span class="dt">method =</span> <span class="st">&quot;both.sides&quot;</span>)</span>
+<span id="cb123-20"><a href="manip.html#cb123-20"></a>colors3</span>
+<span id="cb123-21"><a href="manip.html#cb123-21"></a><span class="co">#&gt;         white     aliceblue  antiquewhite antiquewhite1 </span></span>
+<span id="cb123-22"><a href="manip.html#cb123-22"></a><span class="co">#&gt;         &quot;wht&quot;         &quot;alc&quot;         &quot;ant&quot;         &quot;an1&quot;</span></span></code></pre></div>
 <p>A common use for <code>abbreviate()</code> is when plotting names of objects or variables
 in a graphic. I will use the built-in data set <code>mtcars</code> to show you a simple
 example with a scatterplot between variables <code>mpg</code> and <code>disp</code></p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>disp, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)</a>
-<a class="sourceLine" id="cb124-2" data-line-number="2"><span class="kw">text</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>disp, <span class="kw">rownames</span>(mtcars))</a></code></pre></div>
-<p><img src="_main_files/figure-html4/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="manip.html#cb124-1"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>disp, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb124-2"><a href="manip.html#cb124-2"></a><span class="kw">text</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>disp, <span class="kw">rownames</span>(mtcars))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The names of the cars are all over the plot. In this situation you may want to
 consider using <code>abbreviate()</code> to shrink the names of the cars and produce a
 less “crowded” plot:</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>disp, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)</a>
-<a class="sourceLine" id="cb125-2" data-line-number="2"><span class="kw">text</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>disp, <span class="kw">abbreviate</span>(<span class="kw">rownames</span>(mtcars)))</a></code></pre></div>
-<p><img src="_main_files/figure-html4/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="manip.html#cb125-1"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>disp, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb125-2"><a href="manip.html#cb125-2"></a><span class="kw">text</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>disp, <span class="kw">abbreviate</span>(<span class="kw">rownames</span>(mtcars)))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="replacing-strings" class="section level2">
 <h2><span class="header-section-number">6.7</span> Replacing strings</h2>
@@ -542,53 +548,53 @@ the following form:</p>
 <pre><code>substr(x, start, stop)</code></pre>
 <p><code>x</code> is a character vector, <code>start</code> indicates the first element to be replaced,
 and <code>stop</code> indicates the last element to be replaced:</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="co"># extract &#39;bcd&#39;</span></a>
-<a class="sourceLine" id="cb127-2" data-line-number="2"><span class="kw">substr</span>(<span class="st">&quot;abcdef&quot;</span>, <span class="dv">2</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb127-3" data-line-number="3"><span class="co">#&gt; [1] &quot;bcd&quot;</span></a>
-<a class="sourceLine" id="cb127-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb127-5" data-line-number="5"><span class="co"># replace 2nd letter with hash symbol</span></a>
-<a class="sourceLine" id="cb127-6" data-line-number="6">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;may&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;force&quot;</span>, <span class="st">&quot;be&quot;</span>, <span class="st">&quot;with&quot;</span>, <span class="st">&quot;you&quot;</span>)</a>
-<a class="sourceLine" id="cb127-7" data-line-number="7"><span class="kw">substr</span>(x, <span class="dv">2</span>, <span class="dv">2</span>) &lt;-<span class="st"> &quot;#&quot;</span></a>
-<a class="sourceLine" id="cb127-8" data-line-number="8">x</a>
-<a class="sourceLine" id="cb127-9" data-line-number="9"><span class="co">#&gt; [1] &quot;m#y&quot;   &quot;t#e&quot;   &quot;f#rce&quot; &quot;b#&quot;    &quot;w#th&quot;  &quot;y#u&quot;</span></a>
-<a class="sourceLine" id="cb127-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb127-11" data-line-number="11"><span class="co"># replace 2nd and 3rd letters with happy face</span></a>
-<a class="sourceLine" id="cb127-12" data-line-number="12">y =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;may&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;force&quot;</span>, <span class="st">&quot;be&quot;</span>, <span class="st">&quot;with&quot;</span>, <span class="st">&quot;you&quot;</span>)</a>
-<a class="sourceLine" id="cb127-13" data-line-number="13"><span class="kw">substr</span>(y, <span class="dv">2</span>, <span class="dv">3</span>) &lt;-<span class="st"> &quot;:)&quot;</span></a>
-<a class="sourceLine" id="cb127-14" data-line-number="14">y</a>
-<a class="sourceLine" id="cb127-15" data-line-number="15"><span class="co">#&gt; [1] &quot;m:)&quot;   &quot;t:)&quot;   &quot;f:)ce&quot; &quot;b:&quot;    &quot;w:)h&quot;  &quot;y:)&quot;</span></a>
-<a class="sourceLine" id="cb127-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb127-17" data-line-number="17"><span class="co"># replacement with recycling</span></a>
-<a class="sourceLine" id="cb127-18" data-line-number="18">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;may&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;force&quot;</span>, <span class="st">&quot;be&quot;</span>, <span class="st">&quot;with&quot;</span>, <span class="st">&quot;you&quot;</span>)</a>
-<a class="sourceLine" id="cb127-19" data-line-number="19"><span class="kw">substr</span>(z, <span class="dv">2</span>, <span class="dv">3</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#&quot;</span>, <span class="st">&quot;```&quot;</span>)</a>
-<a class="sourceLine" id="cb127-20" data-line-number="20">z</a>
-<a class="sourceLine" id="cb127-21" data-line-number="21"><span class="co">#&gt; [1] &quot;m#y&quot;   &quot;t``&quot;   &quot;f#rce&quot; &quot;b`&quot;    &quot;w#th&quot;  &quot;y``&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="manip.html#cb127-1"></a><span class="co"># extract &#39;bcd&#39;</span></span>
+<span id="cb127-2"><a href="manip.html#cb127-2"></a><span class="kw">substr</span>(<span class="st">&quot;abcdef&quot;</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb127-3"><a href="manip.html#cb127-3"></a><span class="co">#&gt; [1] &quot;bcd&quot;</span></span>
+<span id="cb127-4"><a href="manip.html#cb127-4"></a></span>
+<span id="cb127-5"><a href="manip.html#cb127-5"></a><span class="co"># replace 2nd letter with hash symbol</span></span>
+<span id="cb127-6"><a href="manip.html#cb127-6"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;may&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;force&quot;</span>, <span class="st">&quot;be&quot;</span>, <span class="st">&quot;with&quot;</span>, <span class="st">&quot;you&quot;</span>)</span>
+<span id="cb127-7"><a href="manip.html#cb127-7"></a><span class="kw">substr</span>(x, <span class="dv">2</span>, <span class="dv">2</span>) &lt;-<span class="st"> &quot;#&quot;</span></span>
+<span id="cb127-8"><a href="manip.html#cb127-8"></a>x</span>
+<span id="cb127-9"><a href="manip.html#cb127-9"></a><span class="co">#&gt; [1] &quot;m#y&quot;   &quot;t#e&quot;   &quot;f#rce&quot; &quot;b#&quot;    &quot;w#th&quot;  &quot;y#u&quot;</span></span>
+<span id="cb127-10"><a href="manip.html#cb127-10"></a></span>
+<span id="cb127-11"><a href="manip.html#cb127-11"></a><span class="co"># replace 2nd and 3rd letters with happy face</span></span>
+<span id="cb127-12"><a href="manip.html#cb127-12"></a>y =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;may&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;force&quot;</span>, <span class="st">&quot;be&quot;</span>, <span class="st">&quot;with&quot;</span>, <span class="st">&quot;you&quot;</span>)</span>
+<span id="cb127-13"><a href="manip.html#cb127-13"></a><span class="kw">substr</span>(y, <span class="dv">2</span>, <span class="dv">3</span>) &lt;-<span class="st"> &quot;:)&quot;</span></span>
+<span id="cb127-14"><a href="manip.html#cb127-14"></a>y</span>
+<span id="cb127-15"><a href="manip.html#cb127-15"></a><span class="co">#&gt; [1] &quot;m:)&quot;   &quot;t:)&quot;   &quot;f:)ce&quot; &quot;b:&quot;    &quot;w:)h&quot;  &quot;y:)&quot;</span></span>
+<span id="cb127-16"><a href="manip.html#cb127-16"></a></span>
+<span id="cb127-17"><a href="manip.html#cb127-17"></a><span class="co"># replacement with recycling</span></span>
+<span id="cb127-18"><a href="manip.html#cb127-18"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;may&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;force&quot;</span>, <span class="st">&quot;be&quot;</span>, <span class="st">&quot;with&quot;</span>, <span class="st">&quot;you&quot;</span>)</span>
+<span id="cb127-19"><a href="manip.html#cb127-19"></a><span class="kw">substr</span>(z, <span class="dv">2</span>, <span class="dv">3</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#&quot;</span>, <span class="st">&quot;```&quot;</span>)</span>
+<span id="cb127-20"><a href="manip.html#cb127-20"></a>z</span>
+<span id="cb127-21"><a href="manip.html#cb127-21"></a><span class="co">#&gt; [1] &quot;m#y&quot;   &quot;t``&quot;   &quot;f#rce&quot; &quot;b`&quot;    &quot;w#th&quot;  &quot;y``&quot;</span></span></code></pre></div>
 <p>Closely related to <code>substr()</code> is the function <code>substring()</code> which extracts or
 replaces substrings in a character vector. Its usage has the following form:</p>
 <pre><code>substring(text, first, last = 1000000L)</code></pre>
 <p><code>text</code> is a character vector, <code>first</code> indicates the first element to be
 replaced, and <code>last</code> indicates the last element to be replaced:</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" data-line-number="1"><span class="co"># same as &#39;substr&#39;</span></a>
-<a class="sourceLine" id="cb129-2" data-line-number="2"><span class="kw">substring</span>(<span class="st">&quot;ABCDEF&quot;</span>, <span class="dv">2</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb129-3" data-line-number="3"><span class="co">#&gt; [1] &quot;BCD&quot;</span></a>
-<a class="sourceLine" id="cb129-4" data-line-number="4"><span class="kw">substr</span>(<span class="st">&quot;ABCDEF&quot;</span>, <span class="dv">2</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb129-5" data-line-number="5"><span class="co">#&gt; [1] &quot;BCD&quot;</span></a>
-<a class="sourceLine" id="cb129-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb129-7" data-line-number="7"><span class="co"># extract each letter</span></a>
-<a class="sourceLine" id="cb129-8" data-line-number="8"><span class="kw">substring</span>(<span class="st">&quot;ABCDEF&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb129-9" data-line-number="9"><span class="co">#&gt; [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span></a>
-<a class="sourceLine" id="cb129-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb129-11" data-line-number="11"><span class="co"># multiple replacement with recycling</span></a>
-<a class="sourceLine" id="cb129-12" data-line-number="12">text6 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;more&quot;</span>, <span class="st">&quot;emotions&quot;</span>, <span class="st">&quot;are&quot;</span>, <span class="st">&quot;better&quot;</span>, <span class="st">&quot;than&quot;</span>, <span class="st">&quot;less&quot;</span>)</a>
-<a class="sourceLine" id="cb129-13" data-line-number="13"><span class="kw">substring</span>(text6, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;zzz&quot;</span>)</a>
-<a class="sourceLine" id="cb129-14" data-line-number="14">text6</a>
-<a class="sourceLine" id="cb129-15" data-line-number="15"><span class="co">#&gt; [1] &quot; ore&quot;     &quot;ezzzions&quot; &quot;ar &quot;      &quot;zzzter&quot;   &quot;t an&quot;     &quot;lezz&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="manip.html#cb129-1"></a><span class="co"># same as &#39;substr&#39;</span></span>
+<span id="cb129-2"><a href="manip.html#cb129-2"></a><span class="kw">substring</span>(<span class="st">&quot;ABCDEF&quot;</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb129-3"><a href="manip.html#cb129-3"></a><span class="co">#&gt; [1] &quot;BCD&quot;</span></span>
+<span id="cb129-4"><a href="manip.html#cb129-4"></a><span class="kw">substr</span>(<span class="st">&quot;ABCDEF&quot;</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb129-5"><a href="manip.html#cb129-5"></a><span class="co">#&gt; [1] &quot;BCD&quot;</span></span>
+<span id="cb129-6"><a href="manip.html#cb129-6"></a></span>
+<span id="cb129-7"><a href="manip.html#cb129-7"></a><span class="co"># extract each letter</span></span>
+<span id="cb129-8"><a href="manip.html#cb129-8"></a><span class="kw">substring</span>(<span class="st">&quot;ABCDEF&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>)</span>
+<span id="cb129-9"><a href="manip.html#cb129-9"></a><span class="co">#&gt; [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span></span>
+<span id="cb129-10"><a href="manip.html#cb129-10"></a></span>
+<span id="cb129-11"><a href="manip.html#cb129-11"></a><span class="co"># multiple replacement with recycling</span></span>
+<span id="cb129-12"><a href="manip.html#cb129-12"></a>text6 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;more&quot;</span>, <span class="st">&quot;emotions&quot;</span>, <span class="st">&quot;are&quot;</span>, <span class="st">&quot;better&quot;</span>, <span class="st">&quot;than&quot;</span>, <span class="st">&quot;less&quot;</span>)</span>
+<span id="cb129-13"><a href="manip.html#cb129-13"></a><span class="kw">substring</span>(text6, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;zzz&quot;</span>)</span>
+<span id="cb129-14"><a href="manip.html#cb129-14"></a>text6</span>
+<span id="cb129-15"><a href="manip.html#cb129-15"></a><span class="co">#&gt; [1] &quot; ore&quot;     &quot;ezzzions&quot; &quot;ar &quot;      &quot;zzzter&quot;   &quot;t an&quot;     &quot;lezz&quot;</span></span></code></pre></div>
 </div>
 <div id="set-operations" class="section level2">
 <h2><span class="header-section-number">6.8</span> Set Operations</h2>
 <p>R has dedicated functions for performing set operations on two given vectors.
 This implies that we can apply functions such as set union, intersection,
-difference, equality and membership, on <code>&quot;character&quot;</code> vectors.</p>
+difference, equality and membership, on <code>"character"</code> vectors.</p>
 <table>
 <thead>
 <tr class="header">
@@ -636,15 +642,15 @@ difference, equality and membership, on <code>&quot;character&quot;</code> vecto
 <p>Let’s start our reviewing of set functions with <code>union()</code>. As its name
 indicates, you can use `union()} when you want to obtain the elements of
 the union between two character vectors:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1"><span class="co"># two character vectors</span></a>
-<a class="sourceLine" id="cb130-2" data-line-number="2">set1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;words&quot;</span>, <span class="st">&quot;some&quot;</span>)</a>
-<a class="sourceLine" id="cb130-3" data-line-number="3">set2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)</a>
-<a class="sourceLine" id="cb130-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb130-5" data-line-number="5"><span class="co"># union of set1 and set2</span></a>
-<a class="sourceLine" id="cb130-6" data-line-number="6"><span class="kw">union</span>(set1, set2)</a>
-<a class="sourceLine" id="cb130-7" data-line-number="7"><span class="co">#&gt; [1] &quot;some&quot;   &quot;random&quot; &quot;words&quot;  &quot;many&quot;   &quot;none&quot;   &quot;few&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="manip.html#cb130-1"></a><span class="co"># two character vectors</span></span>
+<span id="cb130-2"><a href="manip.html#cb130-2"></a>set1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;words&quot;</span>, <span class="st">&quot;some&quot;</span>)</span>
+<span id="cb130-3"><a href="manip.html#cb130-3"></a>set2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)</span>
+<span id="cb130-4"><a href="manip.html#cb130-4"></a></span>
+<span id="cb130-5"><a href="manip.html#cb130-5"></a><span class="co"># union of set1 and set2</span></span>
+<span id="cb130-6"><a href="manip.html#cb130-6"></a><span class="kw">union</span>(set1, set2)</span>
+<span id="cb130-7"><a href="manip.html#cb130-7"></a><span class="co">#&gt; [1] &quot;some&quot;   &quot;random&quot; &quot;words&quot;  &quot;many&quot;   &quot;none&quot;   &quot;few&quot;</span></span></code></pre></div>
 <p>Notice that <code>union()</code> discards any duplicated values in the provided vectors.
-In the previous example the word <code>&quot;some&quot;</code> appears twice inside <code>set1</code> but it
+In the previous example the word <code>"some"</code> appears twice inside <code>set1</code> but it
 appears only once in the union. In fact all the set operation functions will
 discard any duplicated values.</p>
 </div>
@@ -652,42 +658,42 @@ discard any duplicated values.</p>
 <h3><span class="header-section-number">6.8.2</span> Set intersection with <code>intersect()</code></h3>
 <p>Set intersection is performed with the function <code>intersect()</code>. You can use this
 function when you wish to get those elements that are common to both vectors:</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1"><span class="co"># two character vectors</span></a>
-<a class="sourceLine" id="cb131-2" data-line-number="2">set3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;few&quot;</span>, <span class="st">&quot;words&quot;</span>)</a>
-<a class="sourceLine" id="cb131-3" data-line-number="3">set4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)</a>
-<a class="sourceLine" id="cb131-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb131-5" data-line-number="5"><span class="co"># intersect of set3 and set4</span></a>
-<a class="sourceLine" id="cb131-6" data-line-number="6"><span class="kw">intersect</span>(set3, set4)</a>
-<a class="sourceLine" id="cb131-7" data-line-number="7"><span class="co">#&gt; [1] &quot;some&quot; &quot;few&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="manip.html#cb131-1"></a><span class="co"># two character vectors</span></span>
+<span id="cb131-2"><a href="manip.html#cb131-2"></a>set3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;few&quot;</span>, <span class="st">&quot;words&quot;</span>)</span>
+<span id="cb131-3"><a href="manip.html#cb131-3"></a>set4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)</span>
+<span id="cb131-4"><a href="manip.html#cb131-4"></a></span>
+<span id="cb131-5"><a href="manip.html#cb131-5"></a><span class="co"># intersect of set3 and set4</span></span>
+<span id="cb131-6"><a href="manip.html#cb131-6"></a><span class="kw">intersect</span>(set3, set4)</span>
+<span id="cb131-7"><a href="manip.html#cb131-7"></a><span class="co">#&gt; [1] &quot;some&quot; &quot;few&quot;</span></span></code></pre></div>
 </div>
 <div id="set-difference-with-setdiff" class="section level3">
 <h3><span class="header-section-number">6.8.3</span> Set difference with <code>setdiff()</code></h3>
 <p>Related to the intersection, you might be interested in getting the difference
 of the elements between two character vectors. This can be done with <code>setdiff()</code>:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1"><span class="co"># two character vectors</span></a>
-<a class="sourceLine" id="cb132-2" data-line-number="2">set5 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;few&quot;</span>, <span class="st">&quot;words&quot;</span>)</a>
-<a class="sourceLine" id="cb132-3" data-line-number="3">set6 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)</a>
-<a class="sourceLine" id="cb132-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb132-5" data-line-number="5"><span class="co"># difference between set5 and set6</span></a>
-<a class="sourceLine" id="cb132-6" data-line-number="6"><span class="kw">setdiff</span>(set5, set6)</a>
-<a class="sourceLine" id="cb132-7" data-line-number="7"><span class="co">#&gt; [1] &quot;random&quot; &quot;words&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="manip.html#cb132-1"></a><span class="co"># two character vectors</span></span>
+<span id="cb132-2"><a href="manip.html#cb132-2"></a>set5 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;few&quot;</span>, <span class="st">&quot;words&quot;</span>)</span>
+<span id="cb132-3"><a href="manip.html#cb132-3"></a>set6 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)</span>
+<span id="cb132-4"><a href="manip.html#cb132-4"></a></span>
+<span id="cb132-5"><a href="manip.html#cb132-5"></a><span class="co"># difference between set5 and set6</span></span>
+<span id="cb132-6"><a href="manip.html#cb132-6"></a><span class="kw">setdiff</span>(set5, set6)</span>
+<span id="cb132-7"><a href="manip.html#cb132-7"></a><span class="co">#&gt; [1] &quot;random&quot; &quot;words&quot;</span></span></code></pre></div>
 </div>
 <div id="set-equality-with-setequal" class="section level3">
 <h3><span class="header-section-number">6.8.4</span> Set equality with <code>setequal()</code></h3>
 <p>The function <code>setequal()</code> allows you to test the equality of two character
 vectors. If the vectors contain the same elements, <code>setequal()</code> returns <code>TRUE</code> (<code>FALSE</code> otherwise)</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1"><span class="co"># three character vectors</span></a>
-<a class="sourceLine" id="cb133-2" data-line-number="2">set7 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;strings&quot;</span>)</a>
-<a class="sourceLine" id="cb133-3" data-line-number="3">set8 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)</a>
-<a class="sourceLine" id="cb133-4" data-line-number="4">set9 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;strings&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;some&quot;</span>)</a>
-<a class="sourceLine" id="cb133-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb133-6" data-line-number="6"><span class="co"># set7 == set8?</span></a>
-<a class="sourceLine" id="cb133-7" data-line-number="7"><span class="kw">setequal</span>(set7, set8)</a>
-<a class="sourceLine" id="cb133-8" data-line-number="8"><span class="co">#&gt; [1] FALSE</span></a>
-<a class="sourceLine" id="cb133-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb133-10" data-line-number="10"><span class="co"># set7 == set9?</span></a>
-<a class="sourceLine" id="cb133-11" data-line-number="11"><span class="kw">setequal</span>(set7, set9)</a>
-<a class="sourceLine" id="cb133-12" data-line-number="12"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="manip.html#cb133-1"></a><span class="co"># three character vectors</span></span>
+<span id="cb133-2"><a href="manip.html#cb133-2"></a>set7 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;strings&quot;</span>)</span>
+<span id="cb133-3"><a href="manip.html#cb133-3"></a>set8 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;none&quot;</span>, <span class="st">&quot;few&quot;</span>)</span>
+<span id="cb133-4"><a href="manip.html#cb133-4"></a>set9 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;strings&quot;</span>, <span class="st">&quot;random&quot;</span>, <span class="st">&quot;some&quot;</span>)</span>
+<span id="cb133-5"><a href="manip.html#cb133-5"></a></span>
+<span id="cb133-6"><a href="manip.html#cb133-6"></a><span class="co"># set7 == set8?</span></span>
+<span id="cb133-7"><a href="manip.html#cb133-7"></a><span class="kw">setequal</span>(set7, set8)</span>
+<span id="cb133-8"><a href="manip.html#cb133-8"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb133-9"><a href="manip.html#cb133-9"></a></span>
+<span id="cb133-10"><a href="manip.html#cb133-10"></a><span class="co"># set7 == set9?</span></span>
+<span id="cb133-11"><a href="manip.html#cb133-11"></a><span class="kw">setequal</span>(set7, set9)</span>
+<span id="cb133-12"><a href="manip.html#cb133-12"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>
 <div id="exact-equality-with-identical" class="section level3">
 <h3><span class="header-section-number">6.8.5</span> Exact equality with <code>identical()</code></h3>
@@ -696,13 +702,13 @@ that you want to test whether two vectors are <em>exactly equal</em> (element by
 element). For instance, testing if <code>set7</code> is exactly equal to <code>set9</code>. Although
 both vectors contain the same set of elements, they are not exactly the same
 vector. Such test can be performed with the function <code>identical()</code></p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1"><span class="co"># set7 identical to set7?</span></a>
-<a class="sourceLine" id="cb134-2" data-line-number="2"><span class="kw">identical</span>(set7, set7)</a>
-<a class="sourceLine" id="cb134-3" data-line-number="3"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb134-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb134-5" data-line-number="5"><span class="co"># set7 identical to set9?</span></a>
-<a class="sourceLine" id="cb134-6" data-line-number="6"><span class="kw">identical</span>(set7, set9)</a>
-<a class="sourceLine" id="cb134-7" data-line-number="7"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="manip.html#cb134-1"></a><span class="co"># set7 identical to set7?</span></span>
+<span id="cb134-2"><a href="manip.html#cb134-2"></a><span class="kw">identical</span>(set7, set7)</span>
+<span id="cb134-3"><a href="manip.html#cb134-3"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb134-4"><a href="manip.html#cb134-4"></a></span>
+<span id="cb134-5"><a href="manip.html#cb134-5"></a><span class="co"># set7 identical to set9?</span></span>
+<span id="cb134-6"><a href="manip.html#cb134-6"></a><span class="kw">identical</span>(set7, set9)</span>
+<span id="cb134-7"><a href="manip.html#cb134-7"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 <p>If you consult the help documentation of <code>identical()</code>, you will see that this
 function is the “safe and reliable way to test two objects for being exactly
 equal”.</p>
@@ -711,53 +717,53 @@ equal”.</p>
 <h3><span class="header-section-number">6.8.6</span> Element contained with <code>is.element()</code></h3>
 <p>If you wish to test if an element is contained in a given set of character
 strings you can do so with <code>is.element()</code>:</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1"><span class="co"># three vectors</span></a>
-<a class="sourceLine" id="cb135-2" data-line-number="2">set10 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;stuff&quot;</span>, <span class="st">&quot;to&quot;</span>, <span class="st">&quot;play&quot;</span>, <span class="st">&quot;with&quot;</span>)</a>
-<a class="sourceLine" id="cb135-3" data-line-number="3">elem1 &lt;-<span class="st"> &quot;play&quot;</span></a>
-<a class="sourceLine" id="cb135-4" data-line-number="4">elem2 &lt;-<span class="st"> &quot;crazy&quot;</span></a>
-<a class="sourceLine" id="cb135-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb135-6" data-line-number="6"><span class="co"># elem1 in set10?</span></a>
-<a class="sourceLine" id="cb135-7" data-line-number="7"><span class="kw">is.element</span>(elem1, set10)</a>
-<a class="sourceLine" id="cb135-8" data-line-number="8"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb135-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb135-10" data-line-number="10"><span class="co"># elem2 in set10?</span></a>
-<a class="sourceLine" id="cb135-11" data-line-number="11"><span class="kw">is.element</span>(elem2, set10)</a>
-<a class="sourceLine" id="cb135-12" data-line-number="12"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="manip.html#cb135-1"></a><span class="co"># three vectors</span></span>
+<span id="cb135-2"><a href="manip.html#cb135-2"></a>set10 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;some&quot;</span>, <span class="st">&quot;stuff&quot;</span>, <span class="st">&quot;to&quot;</span>, <span class="st">&quot;play&quot;</span>, <span class="st">&quot;with&quot;</span>)</span>
+<span id="cb135-3"><a href="manip.html#cb135-3"></a>elem1 &lt;-<span class="st"> &quot;play&quot;</span></span>
+<span id="cb135-4"><a href="manip.html#cb135-4"></a>elem2 &lt;-<span class="st"> &quot;crazy&quot;</span></span>
+<span id="cb135-5"><a href="manip.html#cb135-5"></a></span>
+<span id="cb135-6"><a href="manip.html#cb135-6"></a><span class="co"># elem1 in set10?</span></span>
+<span id="cb135-7"><a href="manip.html#cb135-7"></a><span class="kw">is.element</span>(elem1, set10)</span>
+<span id="cb135-8"><a href="manip.html#cb135-8"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb135-9"><a href="manip.html#cb135-9"></a></span>
+<span id="cb135-10"><a href="manip.html#cb135-10"></a><span class="co"># elem2 in set10?</span></span>
+<span id="cb135-11"><a href="manip.html#cb135-11"></a><span class="kw">is.element</span>(elem2, set10)</span>
+<span id="cb135-12"><a href="manip.html#cb135-12"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 <p>Alternatively, you can use the binary operator <code>%in%</code> to test if an element
 is contained in a given set. The function <code>%in%</code> returns <code>TRUE</code> if the first
 operand is contained in the second, and it returns <code>FALSE</code> otherwise:</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1"><span class="co"># elem1 in set10?</span></a>
-<a class="sourceLine" id="cb136-2" data-line-number="2">elem1 <span class="op">%in%</span><span class="st"> </span>set10</a>
-<a class="sourceLine" id="cb136-3" data-line-number="3"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb136-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb136-5" data-line-number="5"><span class="co"># elem2 in set10?</span></a>
-<a class="sourceLine" id="cb136-6" data-line-number="6">elem2 <span class="op">%in%</span><span class="st"> </span>set10</a>
-<a class="sourceLine" id="cb136-7" data-line-number="7"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="manip.html#cb136-1"></a><span class="co"># elem1 in set10?</span></span>
+<span id="cb136-2"><a href="manip.html#cb136-2"></a>elem1 <span class="op">%in%</span><span class="st"> </span>set10</span>
+<span id="cb136-3"><a href="manip.html#cb136-3"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb136-4"><a href="manip.html#cb136-4"></a></span>
+<span id="cb136-5"><a href="manip.html#cb136-5"></a><span class="co"># elem2 in set10?</span></span>
+<span id="cb136-6"><a href="manip.html#cb136-6"></a>elem2 <span class="op">%in%</span><span class="st"> </span>set10</span>
+<span id="cb136-7"><a href="manip.html#cb136-7"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 </div>
 <div id="sorting-with-sort" class="section level3">
 <h3><span class="header-section-number">6.8.7</span> Sorting with <code>sort()</code></h3>
 <p>The function <code>sort()</code> allows you to sort the elements of a vector, either in
 increasing order (by default) or in decreasing order using the argument <code>decreasing</code>:</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1">set11 =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;today&quot;</span>, <span class="st">&quot;produced&quot;</span>, <span class="st">&quot;example&quot;</span>, <span class="st">&quot;beautiful&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;nicely&quot;</span>)</a>
-<a class="sourceLine" id="cb137-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb137-3" data-line-number="3"><span class="co"># sort (decreasing order)</span></a>
-<a class="sourceLine" id="cb137-4" data-line-number="4"><span class="kw">sort</span>(set11)</a>
-<a class="sourceLine" id="cb137-5" data-line-number="5"><span class="co">#&gt; [1] &quot;a&quot;         &quot;beautiful&quot; &quot;example&quot;   &quot;nicely&quot;    &quot;produced&quot;  &quot;today&quot;</span></a>
-<a class="sourceLine" id="cb137-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb137-7" data-line-number="7"><span class="co"># sort (increasing order)</span></a>
-<a class="sourceLine" id="cb137-8" data-line-number="8"><span class="kw">sort</span>(set11, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb137-9" data-line-number="9"><span class="co">#&gt; [1] &quot;today&quot;     &quot;produced&quot;  &quot;nicely&quot;    &quot;example&quot;   &quot;beautiful&quot; &quot;a&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="manip.html#cb137-1"></a>set11 =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;today&quot;</span>, <span class="st">&quot;produced&quot;</span>, <span class="st">&quot;example&quot;</span>, <span class="st">&quot;beautiful&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;nicely&quot;</span>)</span>
+<span id="cb137-2"><a href="manip.html#cb137-2"></a></span>
+<span id="cb137-3"><a href="manip.html#cb137-3"></a><span class="co"># sort (decreasing order)</span></span>
+<span id="cb137-4"><a href="manip.html#cb137-4"></a><span class="kw">sort</span>(set11)</span>
+<span id="cb137-5"><a href="manip.html#cb137-5"></a><span class="co">#&gt; [1] &quot;a&quot;         &quot;beautiful&quot; &quot;example&quot;   &quot;nicely&quot;    &quot;produced&quot;  &quot;today&quot;</span></span>
+<span id="cb137-6"><a href="manip.html#cb137-6"></a></span>
+<span id="cb137-7"><a href="manip.html#cb137-7"></a><span class="co"># sort (increasing order)</span></span>
+<span id="cb137-8"><a href="manip.html#cb137-8"></a><span class="kw">sort</span>(set11, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb137-9"><a href="manip.html#cb137-9"></a><span class="co">#&gt; [1] &quot;today&quot;     &quot;produced&quot;  &quot;nicely&quot;    &quot;example&quot;   &quot;beautiful&quot; &quot;a&quot;</span></span></code></pre></div>
 <p>If you have alpha-numeric strings, <code>sort()</code> will put the numbers first when
 sorting in increasing order:</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1">set12 =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;today&quot;</span>, <span class="st">&quot;produced&quot;</span>, <span class="st">&quot;example&quot;</span>, <span class="st">&quot;beautiful&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;nicely&quot;</span>)</a>
-<a class="sourceLine" id="cb138-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb138-3" data-line-number="3"><span class="co"># sort (decreasing order)</span></a>
-<a class="sourceLine" id="cb138-4" data-line-number="4"><span class="kw">sort</span>(set12)</a>
-<a class="sourceLine" id="cb138-5" data-line-number="5"><span class="co">#&gt; [1] &quot;1&quot;         &quot;beautiful&quot; &quot;example&quot;   &quot;nicely&quot;    &quot;produced&quot;  &quot;today&quot;</span></a>
-<a class="sourceLine" id="cb138-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb138-7" data-line-number="7"><span class="co"># sort (increasing order)</span></a>
-<a class="sourceLine" id="cb138-8" data-line-number="8"><span class="kw">sort</span>(set12, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb138-9" data-line-number="9"><span class="co">#&gt; [1] &quot;today&quot;     &quot;produced&quot;  &quot;nicely&quot;    &quot;example&quot;   &quot;beautiful&quot; &quot;1&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="manip.html#cb138-1"></a>set12 =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;today&quot;</span>, <span class="st">&quot;produced&quot;</span>, <span class="st">&quot;example&quot;</span>, <span class="st">&quot;beautiful&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;nicely&quot;</span>)</span>
+<span id="cb138-2"><a href="manip.html#cb138-2"></a></span>
+<span id="cb138-3"><a href="manip.html#cb138-3"></a><span class="co"># sort (decreasing order)</span></span>
+<span id="cb138-4"><a href="manip.html#cb138-4"></a><span class="kw">sort</span>(set12)</span>
+<span id="cb138-5"><a href="manip.html#cb138-5"></a><span class="co">#&gt; [1] &quot;1&quot;         &quot;beautiful&quot; &quot;example&quot;   &quot;nicely&quot;    &quot;produced&quot;  &quot;today&quot;</span></span>
+<span id="cb138-6"><a href="manip.html#cb138-6"></a></span>
+<span id="cb138-7"><a href="manip.html#cb138-7"></a><span class="co"># sort (increasing order)</span></span>
+<span id="cb138-8"><a href="manip.html#cb138-8"></a><span class="kw">sort</span>(set12, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb138-9"><a href="manip.html#cb138-9"></a><span class="co">#&gt; [1] &quot;today&quot;     &quot;produced&quot;  &quot;nicely&quot;    &quot;example&quot;   &quot;beautiful&quot; &quot;1&quot;</span></span></code></pre></div>
 <hr />
 <div id="make-a-donation-4" class="section level4 unnumbered">
 <h4>Make a donation</h4>
@@ -785,11 +791,13 @@ sorting in increasing order:</p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -797,12 +805,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -812,6 +819,14 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/gastonstat/r4strings/edit/master/basic-manipulations.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -827,9 +842,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

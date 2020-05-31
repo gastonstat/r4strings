@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>21 BMC Journals Data | Handling Strings with R</title>
+  <title>14 Quantifiers | Handling Strings with R</title>
   <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="21 BMC Journals Data | Handling Strings with R" />
+  <meta property="og:title" content="14 Quantifiers | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="21 BMC Journals Data | Handling Strings with R" />
+  <meta name="twitter:title" content="14 Quantifiers | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="logs.html"/>
-
+<link rel="prev" href="anchors.html"/>
+<link rel="next" href="boundaries.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -320,218 +320,95 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="biomed" class="section level1">
-<h1><span class="header-section-number">21</span> BMC Journals Data</h1>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="biomed.html#cb315-1"></a><span class="kw">library</span>(stringr)</span></code></pre></div>
-<div id="introduction-10" class="section level2">
-<h2><span class="header-section-number">21.1</span> Introduction</h2>
-<p>In this example we will work analyzing some text data. We will analyze an old catalog of journals from the <em>BioMed Central</em> (BMC), a scientific publisher that specializes in open access journal publication. You can find more informaiton of BMC at: <a href="https://www.biomedcentral.com/journals">https://www.biomedcentral.com/journals</a></p>
-<p>The data with the journal catalog is no longer available at BioMed’s website, but you can find a copy in the book’s github repository:</p>
-<p><a href="https://raw.githubusercontent.com/gastonstat/r4strings/master/data/biomedcentral.txt">https://raw.githubusercontent.com/gastonstat/r4strings/master/data/biomedcentral.txt</a></p>
-<p>To download a copy of the text file to your working directory, run the following code:</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="biomed.html#cb316-1"></a><span class="co"># download file</span></span>
-<span id="cb316-2"><a href="biomed.html#cb316-2"></a>github &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/gastonstat/r4strings&quot;</span></span>
-<span id="cb316-3"><a href="biomed.html#cb316-3"></a>textfile &lt;-<span class="st"> &quot;/master/data/biomedcentral.txt&quot;</span></span>
-<span id="cb316-4"><a href="biomed.html#cb316-4"></a><span class="kw">download.file</span>(<span class="dt">url =</span> <span class="kw">paste0</span>(github, textfile), <span class="dt">destfile =</span> <span class="st">&quot;biomedcentral.txt&quot;</span>)</span></code></pre></div>
-<p>To import the data in R you can read the file with <code>read.table()</code>:</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="biomed.html#cb317-1"></a><span class="co"># read data (stringsAsFactors=FALSE)</span></span>
-<span id="cb317-2"><a href="biomed.html#cb317-2"></a>biomed &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&#39;biomedcentral.txt&#39;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
-<p>You can check the structure of the data with the function <code>str()</code>:</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="biomed.html#cb318-1"></a><span class="co"># structure of the dataset</span></span>
-<span id="cb318-2"><a href="biomed.html#cb318-2"></a>utils<span class="op">::</span><span class="kw">str</span>(biomed, <span class="dt">vec.len =</span> <span class="dv">1</span>)</span>
-<span id="cb318-3"><a href="biomed.html#cb318-3"></a><span class="co">#&gt; &#39;data.frame&#39;:    336 obs. of  7 variables:</span></span>
-<span id="cb318-4"><a href="biomed.html#cb318-4"></a><span class="co">#&gt;  $ Publisher     : chr  &quot;BioMed Central Ltd&quot; ...</span></span>
-<span id="cb318-5"><a href="biomed.html#cb318-5"></a><span class="co">#&gt;  $ Journal.name  : chr  &quot;AIDS Research and Therapy&quot; ...</span></span>
-<span id="cb318-6"><a href="biomed.html#cb318-6"></a><span class="co">#&gt;  $ Abbreviation  : chr  &quot;AIDS Res Ther&quot; ...</span></span>
-<span id="cb318-7"><a href="biomed.html#cb318-7"></a><span class="co">#&gt;  $ ISSN          : chr  &quot;1742-6405&quot; ...</span></span>
-<span id="cb318-8"><a href="biomed.html#cb318-8"></a><span class="co">#&gt;  $ URL           : chr  &quot;http://www.aidsrestherapy.com&quot; ...</span></span>
-<span id="cb318-9"><a href="biomed.html#cb318-9"></a><span class="co">#&gt;  $ Start.Date    : int  2004 2011 ...</span></span>
-<span id="cb318-10"><a href="biomed.html#cb318-10"></a><span class="co">#&gt;  $ Citation.Style: chr  &quot;BIOMEDCENTRAL&quot; ...</span></span></code></pre></div>
-<p>As you can see, the data frame <code>biomed</code> has 336 observations and 7 variables. Actually, all the variables except for <code>Start.Date</code> are in character mode.</p>
-</div>
-<div id="analyzing-journal-names" class="section level2">
-<h2><span class="header-section-number">21.2</span> Analyzing Journal Names</h2>
-<p>We will do a simple analysis of the journal names. The goal is to study what are the more common terms used in the title of the journals. We are going to keep things at a basic level but for a more formal (and sophisticated) analysis you can check the package <code>tm</code> —text mining— (by Ingo Feinerer).</p>
-<p>To have a better idea of what the data looks like, let’s check the first journal names.</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="biomed.html#cb319-1"></a><span class="co"># first 5 journal names</span></span>
-<span id="cb319-2"><a href="biomed.html#cb319-2"></a><span class="kw">head</span>(biomed<span class="op">$</span>Journal.name, <span class="dt">n =</span> <span class="dv">5</span>)</span>
-<span id="cb319-3"><a href="biomed.html#cb319-3"></a><span class="co">#&gt; [1] &quot;AIDS Research and Therapy&quot;            </span></span>
-<span id="cb319-4"><a href="biomed.html#cb319-4"></a><span class="co">#&gt; [2] &quot;AMB Express&quot;                          </span></span>
-<span id="cb319-5"><a href="biomed.html#cb319-5"></a><span class="co">#&gt; [3] &quot;Acta Neuropathologica Communications&quot; </span></span>
-<span id="cb319-6"><a href="biomed.html#cb319-6"></a><span class="co">#&gt; [4] &quot;Acta Veterinaria Scandinavica&quot;        </span></span>
-<span id="cb319-7"><a href="biomed.html#cb319-7"></a><span class="co">#&gt; [5] &quot;Addiction Science &amp; Clinical Practice&quot;</span></span></code></pre></div>
-<p>As you can tell, the fifth journal <code>"Addiction Science &amp; Clinical Practice"</code> has an ampersand <code>&amp;</code> symbol. Whether to keep the ampersand and other punctutation symbols depends on the objectives of the analysis. In our case, we will remove those elements.</p>
-<div id="preprocessing" class="section level3">
-<h3><span class="header-section-number">21.2.1</span> Preprocessing</h3>
-<p>The preprocessing steps implies to get rid of the punctuation symbols. For convenience, I recommended that you start working with a small subset of the data. In this way you can experiment at a small scale until we are confident with the right manipulations. Let’s take the first 10 journals:</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="biomed.html#cb320-1"></a><span class="co"># get first 10 names</span></span>
-<span id="cb320-2"><a href="biomed.html#cb320-2"></a>titles10a &lt;-<span class="st"> </span>biomed<span class="op">$</span>Journal.name[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</span>
-<span id="cb320-3"><a href="biomed.html#cb320-3"></a>titles10a</span>
-<span id="cb320-4"><a href="biomed.html#cb320-4"></a><span class="co">#&gt;  [1] &quot;AIDS Research and Therapy&quot;            </span></span>
-<span id="cb320-5"><a href="biomed.html#cb320-5"></a><span class="co">#&gt;  [2] &quot;AMB Express&quot;                          </span></span>
-<span id="cb320-6"><a href="biomed.html#cb320-6"></a><span class="co">#&gt;  [3] &quot;Acta Neuropathologica Communications&quot; </span></span>
-<span id="cb320-7"><a href="biomed.html#cb320-7"></a><span class="co">#&gt;  [4] &quot;Acta Veterinaria Scandinavica&quot;        </span></span>
-<span id="cb320-8"><a href="biomed.html#cb320-8"></a><span class="co">#&gt;  [5] &quot;Addiction Science &amp; Clinical Practice&quot;</span></span>
-<span id="cb320-9"><a href="biomed.html#cb320-9"></a><span class="co">#&gt;  [6] &quot;Agriculture &amp; Food Security&quot;          </span></span>
-<span id="cb320-10"><a href="biomed.html#cb320-10"></a><span class="co">#&gt;  [7] &quot;Algorithms for Molecular Biology&quot;     </span></span>
-<span id="cb320-11"><a href="biomed.html#cb320-11"></a><span class="co">#&gt;  [8] &quot;Allergy, Asthma &amp; Clinical Immunology&quot;</span></span>
-<span id="cb320-12"><a href="biomed.html#cb320-12"></a><span class="co">#&gt;  [9] &quot;Alzheimer&#39;s Research &amp; Therapy&quot;       </span></span>
-<span id="cb320-13"><a href="biomed.html#cb320-13"></a><span class="co">#&gt; [10] &quot;Animal Biotelemetry&quot;</span></span></code></pre></div>
-<p>We want to get rid of the ampersand signs <code>&amp;</code>, as well as other punctuation marks. This can be done with <code>str_replace_all()</code> and replacing the pattern <code>[[:punct:]]</code> with empty strings <code>""</code> (don’t forget to load the <code>"stringr"</code> package)</p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="biomed.html#cb321-1"></a><span class="co"># remove punctuation</span></span>
-<span id="cb321-2"><a href="biomed.html#cb321-2"></a>titles10b &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(titles10a, <span class="dt">pattern =</span> <span class="st">&quot;[[:punct:]]&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
-<span id="cb321-3"><a href="biomed.html#cb321-3"></a>titles10b</span>
-<span id="cb321-4"><a href="biomed.html#cb321-4"></a><span class="co">#&gt;  [1] &quot;AIDS Research and Therapy&quot;           </span></span>
-<span id="cb321-5"><a href="biomed.html#cb321-5"></a><span class="co">#&gt;  [2] &quot;AMB Express&quot;                         </span></span>
-<span id="cb321-6"><a href="biomed.html#cb321-6"></a><span class="co">#&gt;  [3] &quot;Acta Neuropathologica Communications&quot;</span></span>
-<span id="cb321-7"><a href="biomed.html#cb321-7"></a><span class="co">#&gt;  [4] &quot;Acta Veterinaria Scandinavica&quot;       </span></span>
-<span id="cb321-8"><a href="biomed.html#cb321-8"></a><span class="co">#&gt;  [5] &quot;Addiction Science  Clinical Practice&quot;</span></span>
-<span id="cb321-9"><a href="biomed.html#cb321-9"></a><span class="co">#&gt;  [6] &quot;Agriculture  Food Security&quot;          </span></span>
-<span id="cb321-10"><a href="biomed.html#cb321-10"></a><span class="co">#&gt;  [7] &quot;Algorithms for Molecular Biology&quot;    </span></span>
-<span id="cb321-11"><a href="biomed.html#cb321-11"></a><span class="co">#&gt;  [8] &quot;Allergy Asthma  Clinical Immunology&quot; </span></span>
-<span id="cb321-12"><a href="biomed.html#cb321-12"></a><span class="co">#&gt;  [9] &quot;Alzheimers Research  Therapy&quot;        </span></span>
-<span id="cb321-13"><a href="biomed.html#cb321-13"></a><span class="co">#&gt; [10] &quot;Animal Biotelemetry&quot;</span></span></code></pre></div>
-<p>We succesfully replaced the punctuation symbols with empty strings, but now we have extra whitespaces. To remove the whitespaces we will use again <code>str_replace_all()</code> to replace any one or more whitespaces<br />
-<code>\\s+</code> with a single blank space <code>" "</code>.</p>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="biomed.html#cb322-1"></a><span class="co"># trim extra whitespaces</span></span>
-<span id="cb322-2"><a href="biomed.html#cb322-2"></a>titles10c &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(titles10b, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>)</span>
-<span id="cb322-3"><a href="biomed.html#cb322-3"></a>titles10c</span>
-<span id="cb322-4"><a href="biomed.html#cb322-4"></a><span class="co">#&gt;  [1] &quot;AIDS Research and Therapy&quot;           </span></span>
-<span id="cb322-5"><a href="biomed.html#cb322-5"></a><span class="co">#&gt;  [2] &quot;AMB Express&quot;                         </span></span>
-<span id="cb322-6"><a href="biomed.html#cb322-6"></a><span class="co">#&gt;  [3] &quot;Acta Neuropathologica Communications&quot;</span></span>
-<span id="cb322-7"><a href="biomed.html#cb322-7"></a><span class="co">#&gt;  [4] &quot;Acta Veterinaria Scandinavica&quot;       </span></span>
-<span id="cb322-8"><a href="biomed.html#cb322-8"></a><span class="co">#&gt;  [5] &quot;Addiction Science Clinical Practice&quot; </span></span>
-<span id="cb322-9"><a href="biomed.html#cb322-9"></a><span class="co">#&gt;  [6] &quot;Agriculture Food Security&quot;           </span></span>
-<span id="cb322-10"><a href="biomed.html#cb322-10"></a><span class="co">#&gt;  [7] &quot;Algorithms for Molecular Biology&quot;    </span></span>
-<span id="cb322-11"><a href="biomed.html#cb322-11"></a><span class="co">#&gt;  [8] &quot;Allergy Asthma Clinical Immunology&quot;  </span></span>
-<span id="cb322-12"><a href="biomed.html#cb322-12"></a><span class="co">#&gt;  [9] &quot;Alzheimers Research Therapy&quot;         </span></span>
-<span id="cb322-13"><a href="biomed.html#cb322-13"></a><span class="co">#&gt; [10] &quot;Animal Biotelemetry&quot;</span></span></code></pre></div>
-<p>Once we have a better idea of how to preprocess the journal names, we can proceed with all the 336 titles.</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="biomed.html#cb323-1"></a><span class="co"># remove punctuation symbols</span></span>
-<span id="cb323-2"><a href="biomed.html#cb323-2"></a>all_titles &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(biomed<span class="op">$</span>Journal.name, <span class="dt">pattern =</span> <span class="st">&quot;[[:punct:]]&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
-<span id="cb323-3"><a href="biomed.html#cb323-3"></a></span>
-<span id="cb323-4"><a href="biomed.html#cb323-4"></a><span class="co"># trim extra whitespaces</span></span>
-<span id="cb323-5"><a href="biomed.html#cb323-5"></a>all_titles &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(all_titles, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>)</span></code></pre></div>
-<p>The next step is to split up the titles into its different terms (the output is a list).</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="biomed.html#cb324-1"></a><span class="co"># split titles by words</span></span>
-<span id="cb324-2"><a href="biomed.html#cb324-2"></a>all_titles_list &lt;-<span class="st"> </span><span class="kw">str_split</span>(all_titles, <span class="dt">pattern =</span> <span class="st">&quot; &quot;</span>)</span>
-<span id="cb324-3"><a href="biomed.html#cb324-3"></a></span>
-<span id="cb324-4"><a href="biomed.html#cb324-4"></a><span class="co"># show first 2 elements</span></span>
-<span id="cb324-5"><a href="biomed.html#cb324-5"></a>all_titles_list[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span>
-<span id="cb324-6"><a href="biomed.html#cb324-6"></a><span class="co">#&gt; [[1]]</span></span>
-<span id="cb324-7"><a href="biomed.html#cb324-7"></a><span class="co">#&gt; [1] &quot;AIDS&quot;     &quot;Research&quot; &quot;and&quot;      &quot;Therapy&quot; </span></span>
-<span id="cb324-8"><a href="biomed.html#cb324-8"></a><span class="co">#&gt; </span></span>
-<span id="cb324-9"><a href="biomed.html#cb324-9"></a><span class="co">#&gt; [[2]]</span></span>
-<span id="cb324-10"><a href="biomed.html#cb324-10"></a><span class="co">#&gt; [1] &quot;AMB&quot;     &quot;Express&quot;</span></span></code></pre></div>
-</div>
-</div>
-<div id="summary-statistics" class="section level2">
-<h2><span class="header-section-number">21.3</span> Summary statistics</h2>
-<p>So far we have a list that contains the words of each journal name. Wouldn’t be interesting to know more about the distribution of the number of terms in each title? This means that we need to calculate how many words are in each title. To get these numbers let’s use <code>length()</code> within <code>sapply()</code>; and then let’s tabulate the obtained frequencies:</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="biomed.html#cb325-1"></a><span class="co"># how many words per title</span></span>
-<span id="cb325-2"><a href="biomed.html#cb325-2"></a>words_per_title &lt;-<span class="st"> </span><span class="kw">sapply</span>(all_titles_list, length)</span>
-<span id="cb325-3"><a href="biomed.html#cb325-3"></a></span>
-<span id="cb325-4"><a href="biomed.html#cb325-4"></a><span class="co"># table of frequencies</span></span>
-<span id="cb325-5"><a href="biomed.html#cb325-5"></a><span class="kw">table</span>(words_per_title)</span>
-<span id="cb325-6"><a href="biomed.html#cb325-6"></a><span class="co">#&gt; words_per_title</span></span>
-<span id="cb325-7"><a href="biomed.html#cb325-7"></a><span class="co">#&gt;   1   2   3   4   5   6   7   8   9 </span></span>
-<span id="cb325-8"><a href="biomed.html#cb325-8"></a><span class="co">#&gt;  17 108  81  55  33  31   6   4   1</span></span></code></pre></div>
-<p>We can also express the distribution as percentages, and we can get some summary statistics with <code>summary()</code></p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="biomed.html#cb326-1"></a><span class="co"># distribution</span></span>
-<span id="cb326-2"><a href="biomed.html#cb326-2"></a><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="kw">round</span>(<span class="kw">table</span>(words_per_title) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(words_per_title), <span class="dv">4</span>)</span>
-<span id="cb326-3"><a href="biomed.html#cb326-3"></a><span class="co">#&gt; words_per_title</span></span>
-<span id="cb326-4"><a href="biomed.html#cb326-4"></a><span class="co">#&gt;     1     2     3     4     5     6     7     8     9 </span></span>
-<span id="cb326-5"><a href="biomed.html#cb326-5"></a><span class="co">#&gt;  5.06 32.14 24.11 16.37  9.82  9.23  1.79  1.19  0.30</span></span>
-<span id="cb326-6"><a href="biomed.html#cb326-6"></a></span>
-<span id="cb326-7"><a href="biomed.html#cb326-7"></a><span class="co"># summary</span></span>
-<span id="cb326-8"><a href="biomed.html#cb326-8"></a><span class="kw">summary</span>(words_per_title)</span>
-<span id="cb326-9"><a href="biomed.html#cb326-9"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb326-10"><a href="biomed.html#cb326-10"></a><span class="co">#&gt;    1.00    2.00    3.00    3.36    4.00    9.00</span></span></code></pre></div>
-<p>Looking at summary statistics we can say that around 30% of journal names have 2 words. Likewise, the median number of words per title is 3 words.</p>
-<p>Interestingly the maximum value is 9 words. What is the journal with 9 terms in its title? We can find the longest journal name as follows:</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="biomed.html#cb327-1"></a><span class="co"># longest journal</span></span>
-<span id="cb327-2"><a href="biomed.html#cb327-2"></a>all_titles[<span class="kw">which</span>(words_per_title <span class="op">==</span><span class="st"> </span><span class="dv">9</span>)]</span>
-<span id="cb327-3"><a href="biomed.html#cb327-3"></a><span class="co">#&gt; [1] &quot;Journal of Venomous Animals and Toxins including Tropical Diseases&quot;</span></span></code></pre></div>
-</div>
-<div id="common-words" class="section level2">
-<h2><span class="header-section-number">21.4</span> Common words</h2>
-<p>Remember that our main goal with this example is to find out what words are the most common in the journal titles. To answer this question we first need to create something like a <em>dictionary</em> of words. How do get such dictionary? Easy, we just have to obtain a vector containing all the words in the titles:</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="biomed.html#cb328-1"></a><span class="co"># vector of words in titles</span></span>
-<span id="cb328-2"><a href="biomed.html#cb328-2"></a>title_words &lt;-<span class="st"> </span><span class="kw">unlist</span>(all_titles_list)</span>
-<span id="cb328-3"><a href="biomed.html#cb328-3"></a></span>
-<span id="cb328-4"><a href="biomed.html#cb328-4"></a><span class="co"># get unique words</span></span>
-<span id="cb328-5"><a href="biomed.html#cb328-5"></a>unique_words &lt;-<span class="st"> </span><span class="kw">unique</span>(title_words)</span>
-<span id="cb328-6"><a href="biomed.html#cb328-6"></a></span>
-<span id="cb328-7"><a href="biomed.html#cb328-7"></a><span class="co"># how many unique words in total</span></span>
-<span id="cb328-8"><a href="biomed.html#cb328-8"></a>num_unique_words &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(title_words))</span>
-<span id="cb328-9"><a href="biomed.html#cb328-9"></a>num_unique_words</span>
-<span id="cb328-10"><a href="biomed.html#cb328-10"></a><span class="co">#&gt; [1] 441</span></span></code></pre></div>
-<p>Applying <code>unique()</code> to the vector <code>title_words</code> we get the desired dictionary of terms, which has a total of 441 words.</p>
-<p>Once we have the unique words, we need to count how many times each of them appears in the titles. Here’s a way to do that:</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="biomed.html#cb329-1"></a><span class="co"># vector to store counts</span></span>
-<span id="cb329-2"><a href="biomed.html#cb329-2"></a>count_words &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, num_unique_words)</span>
-<span id="cb329-3"><a href="biomed.html#cb329-3"></a></span>
-<span id="cb329-4"><a href="biomed.html#cb329-4"></a><span class="co"># count number of occurrences</span></span>
-<span id="cb329-5"><a href="biomed.html#cb329-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num_unique_words) {</span>
-<span id="cb329-6"><a href="biomed.html#cb329-6"></a>  count_words[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(title_words <span class="op">==</span><span class="st"> </span>unique_words[i])</span>
-<span id="cb329-7"><a href="biomed.html#cb329-7"></a>}</span></code></pre></div>
-<p>An alternative simpler way to count the number of word occurrences is by using the <code>table()</code> function on <code>title\_words</code>:</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="biomed.html#cb330-1"></a><span class="co"># table with word frequencies</span></span>
-<span id="cb330-2"><a href="biomed.html#cb330-2"></a>count_words_alt &lt;-<span class="st"> </span><span class="kw">table</span>(title_words)</span></code></pre></div>
-<p>In any of both cases (<code>count_words</code> or <code>count_words_alt</code>), we can examine the obtained frequencies with a simple table:</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="biomed.html#cb331-1"></a><span class="co"># table of frequencies</span></span>
-<span id="cb331-2"><a href="biomed.html#cb331-2"></a><span class="kw">table</span>(count_words)</span>
-<span id="cb331-3"><a href="biomed.html#cb331-3"></a><span class="co">#&gt; count_words</span></span>
-<span id="cb331-4"><a href="biomed.html#cb331-4"></a><span class="co">#&gt;   1   2   3   4   5   6   7   9  10  12  13  16  22  24  28  30  65  67  83  86 </span></span>
-<span id="cb331-5"><a href="biomed.html#cb331-5"></a><span class="co">#&gt; 318  61  24   8   5   7   1   2   2   2   1   2   1   1   1   1   1   1   1   1</span></span>
-<span id="cb331-6"><a href="biomed.html#cb331-6"></a></span>
-<span id="cb331-7"><a href="biomed.html#cb331-7"></a><span class="co"># equivalently</span></span>
-<span id="cb331-8"><a href="biomed.html#cb331-8"></a><span class="kw">table</span>(count_words_alt)</span>
-<span id="cb331-9"><a href="biomed.html#cb331-9"></a><span class="co">#&gt; count_words_alt</span></span>
-<span id="cb331-10"><a href="biomed.html#cb331-10"></a><span class="co">#&gt;   1   2   3   4   5   6   7   9  10  12  13  16  22  24  28  30  65  67  83  86 </span></span>
-<span id="cb331-11"><a href="biomed.html#cb331-11"></a><span class="co">#&gt; 318  61  24   8   5   7   1   2   2   2   1   2   1   1   1   1   1   1   1   1</span></span></code></pre></div>
-</div>
-<div id="the-top-30-words" class="section level2">
-<h2><span class="header-section-number">21.5</span> The top 30 words</h2>
-<p>For illustration purposes let’s examine which are the top 30 common words.</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="biomed.html#cb332-1"></a><span class="co"># index values in decreasing order</span></span>
-<span id="cb332-2"><a href="biomed.html#cb332-2"></a>top_<span class="dv">30</span>_order &lt;-<span class="st"> </span><span class="kw">order</span>(count_words, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>]</span>
-<span id="cb332-3"><a href="biomed.html#cb332-3"></a></span>
-<span id="cb332-4"><a href="biomed.html#cb332-4"></a><span class="co"># top 30 frequencies</span></span>
-<span id="cb332-5"><a href="biomed.html#cb332-5"></a>top_<span class="dv">30</span>_freqs &lt;-<span class="st"> </span><span class="kw">sort</span>(count_words, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>]</span>
-<span id="cb332-6"><a href="biomed.html#cb332-6"></a></span>
-<span id="cb332-7"><a href="biomed.html#cb332-7"></a><span class="co"># select top 30 words</span></span>
-<span id="cb332-8"><a href="biomed.html#cb332-8"></a>top_<span class="dv">30</span>_words &lt;-<span class="st"> </span>unique_words[top_<span class="dv">30</span>_order]</span>
-<span id="cb332-9"><a href="biomed.html#cb332-9"></a>top_<span class="dv">30</span>_words</span>
-<span id="cb332-10"><a href="biomed.html#cb332-10"></a><span class="co">#&gt;  [1] &quot;Journal&quot;        &quot;of&quot;             &quot;BMC&quot;            &quot;and&quot;           </span></span>
-<span id="cb332-11"><a href="biomed.html#cb332-11"></a><span class="co">#&gt;  [5] &quot;Research&quot;       &quot;Medicine&quot;       &quot;Health&quot;         &quot;Biology&quot;       </span></span>
-<span id="cb332-12"><a href="biomed.html#cb332-12"></a><span class="co">#&gt;  [9] &quot;Clinical&quot;       &quot;International&quot;  &quot;Medical&quot;        &quot;Molecular&quot;     </span></span>
-<span id="cb332-13"><a href="biomed.html#cb332-13"></a><span class="co">#&gt; [13] &quot;in&quot;             &quot;Science&quot;        &quot;Cell&quot;           &quot;Cancer&quot;        </span></span>
-<span id="cb332-14"><a href="biomed.html#cb332-14"></a><span class="co">#&gt; [17] &quot;Disorders&quot;      &quot;Systems&quot;        &quot;Therapy&quot;        &quot;for&quot;           </span></span>
-<span id="cb332-15"><a href="biomed.html#cb332-15"></a><span class="co">#&gt; [21] &quot;Environmental&quot;  &quot;Diseases&quot;       &quot;Surgery&quot;        &quot;Translational&quot; </span></span>
-<span id="cb332-16"><a href="biomed.html#cb332-16"></a><span class="co">#&gt; [25] &quot;Oncology&quot;       &quot;Practice&quot;       &quot;Annals&quot;         &quot;Policy&quot;        </span></span>
-<span id="cb332-17"><a href="biomed.html#cb332-17"></a><span class="co">#&gt; [29] &quot;Cardiovascular&quot; &quot;Biomedical&quot;</span></span></code></pre></div>
-<p>To visualize the <code>top_30_words</code> we can plot them with a barchart using <code>barplot()</code>:</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="biomed.html#cb333-1"></a><span class="co"># barplot</span></span>
-<span id="cb333-2"><a href="biomed.html#cb333-2"></a><span class="kw">barplot</span>(top_<span class="dv">30</span>_freqs, </span>
-<span id="cb333-3"><a href="biomed.html#cb333-3"></a>        <span class="dt">border =</span> <span class="ot">NA</span>, </span>
-<span id="cb333-4"><a href="biomed.html#cb333-4"></a>        <span class="dt">names.arg =</span> top_<span class="dv">30</span>_words, </span>
-<span id="cb333-5"><a href="biomed.html#cb333-5"></a>        <span class="dt">las =</span> <span class="dv">2</span>, </span>
-<span id="cb333-6"><a href="biomed.html#cb333-6"></a>        <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/top30barplot-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<hr />
-<div id="make-a-donation-14" class="section level4 unnumbered">
-<h4>Make a donation</h4>
-<p>If you find this resource useful, please consider making a one-time donation in any amount. Your support really matters.</p>
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_donations" />
-<input type="hidden" name="business" value="ZF6U7K5MW25W2" />
-<input type="hidden" name="currency_code" value="USD" />
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-</form>
+<div id="quantifiers" class="section level1">
+<h1><span class="header-section-number">14</span> Quantifiers</h1>
+<p>Quantifiers quantify the number of instances of a character, group or character
+class, denoted as <code>P</code> in the table below. Your quantifier should be placed after
+the character/group/character class that is being quantified. We will also
+explain what groups are in this context.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Quantifier</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>P*</code></td>
+<td align="left">0 or more instances of P</td>
+</tr>
+<tr class="even">
+<td align="left"><code>P+</code></td>
+<td align="left">1 or more instances of P</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>P?</code></td>
+<td align="left">0 or 1 instance of P</td>
+</tr>
+<tr class="even">
+<td align="left"><code>P{m}</code></td>
+<td align="left">Exactly m instances of P</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>P{m,}</code></td>
+<td align="left">At least m instances of P</td>
+</tr>
+<tr class="even">
+<td align="left"><code>P{m,n}</code></td>
+<td align="left">Between m and n instances of P</td>
+</tr>
+</tbody>
+</table>
+<p>In the following example, let us try to extract all those names that contain
+more than 4 characters and less than 7 characters.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="quantifiers.html#cb225-1"></a>student_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lee&quot;</span>, <span class="st">&quot;Carol&quot;</span>, <span class="st">&quot;Sameer&quot;</span>, <span class="st">&quot;Luca&quot;</span>, <span class="st">&quot;Rajan&quot;</span>, <span class="st">&quot;George Jr.&quot;</span>)</span>
+<span id="cb225-2"><a href="quantifiers.html#cb225-2"></a></span>
+<span id="cb225-3"><a href="quantifiers.html#cb225-3"></a><span class="kw">str_extract</span>(student_names, <span class="kw">regex</span>(<span class="st">&quot;^[A-z]{5,7}$&quot;</span>))</span>
+<span id="cb225-4"><a href="quantifiers.html#cb225-4"></a><span class="co">#&gt; [1] NA       &quot;Carol&quot;  &quot;Sameer&quot; NA       &quot;Rajan&quot;  NA</span></span></code></pre></div>
+<p>In the above example, we used anchors <code>^</code> and <code>$</code> to indicate an exact match.
+In absence of which a substring of <code>George Jr.</code> also gets displayed.</p>
+<p>Let’s try to detect names of those individuals with one or more <code>e</code> or <code>u</code>.</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="quantifiers.html#cb226-1"></a><span class="kw">str_detect</span>(student_names, <span class="kw">regex</span>(<span class="st">&quot;[eu]+&quot;</span>))</span>
+<span id="cb226-2"><a href="quantifiers.html#cb226-2"></a><span class="co">#&gt; [1]  TRUE FALSE  TRUE  TRUE FALSE  TRUE</span></span></code></pre></div>
+<p>In the last example, if we want to extract names that contain <code>e</code> or <code>u</code> we
+could follow this simple implementation . Points to note here:</p>
+<ul>
+<li><p>Character set <code>[eu]</code> could appear 1 or more times so we use quantifier <code>+</code>.</p></li>
+<li><p><code>.*</code> matches 0 or any number of characters where <code>.</code> is a wildcard dot and
+<code>*</code> represents the quantifier 0 or many</p></li>
+<li><p>Pattern <code>.*[eu]+.*</code> looks for 1 or more numbers of <code>[eu]</code> that can be
+preceeded/followed by any number of other characters.</p></li>
+</ul>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="quantifiers.html#cb227-1"></a>student_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lee&quot;</span>, <span class="st">&quot;Carol&quot;</span>, <span class="st">&quot;Sameer&quot;</span>, <span class="st">&quot;Luca&quot;</span>, <span class="st">&quot;Rajan&quot;</span>, <span class="st">&quot;George Jr.&quot;</span>)</span>
+<span id="cb227-2"><a href="quantifiers.html#cb227-2"></a></span>
+<span id="cb227-3"><a href="quantifiers.html#cb227-3"></a><span class="kw">str_extract</span>(student_names, <span class="kw">regex</span>(<span class="st">&quot;.*[eu]+.*&quot;</span>))</span>
+<span id="cb227-4"><a href="quantifiers.html#cb227-4"></a><span class="co">#&gt; [1] &quot;Lee&quot;        NA           &quot;Sameer&quot;     &quot;Luca&quot;       NA          </span></span>
+<span id="cb227-5"><a href="quantifiers.html#cb227-5"></a><span class="co">#&gt; [6] &quot;George Jr.&quot;</span></span></code></pre></div>
+<div id="what-do-groups-mean-in-regex" class="section level3">
+<h3><span class="header-section-number">14.0.1</span> What do groups mean in Regex?</h3>
+<p>We visited character classes in one of the sections. For situations where we
+would like to group character classes or regex pattern before using a quantifier,
+we indicate grouping using paranthesis.</p>
+<p>Consider an example where we would like to extract only strings with two names
+separated by a whitespace. For illustrative purpose, the strings end with a
+whitespace.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="quantifiers.html#cb228-1"></a>student_names &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb228-2"><a href="quantifiers.html#cb228-2"></a>  <span class="st">&quot;Lee Zhang &quot;</span>, </span>
+<span id="cb228-3"><a href="quantifiers.html#cb228-3"></a>  <span class="st">&quot;Carol Roberts &quot;</span>, </span>
+<span id="cb228-4"><a href="quantifiers.html#cb228-4"></a>  <span class="st">&quot;Sameer &quot;</span>, </span>
+<span id="cb228-5"><a href="quantifiers.html#cb228-5"></a>  <span class="st">&quot;Luca &quot;</span>, </span>
+<span id="cb228-6"><a href="quantifiers.html#cb228-6"></a>  <span class="st">&quot;Rajan &quot;</span>, </span>
+<span id="cb228-7"><a href="quantifiers.html#cb228-7"></a>  <span class="st">&quot;George Smith &quot;</span>)</span>
+<span id="cb228-8"><a href="quantifiers.html#cb228-8"></a></span>
+<span id="cb228-9"><a href="quantifiers.html#cb228-9"></a><span class="kw">str_extract</span>(student_names, <span class="kw">regex</span>(<span class="st">&quot;([A-z]+[ ]){2}&quot;</span>))</span>
+<span id="cb228-10"><a href="quantifiers.html#cb228-10"></a><span class="co">#&gt; [1] &quot;Lee Zhang &quot;     &quot;Carol Roberts &quot; NA               NA              </span></span>
+<span id="cb228-11"><a href="quantifiers.html#cb228-11"></a><span class="co">#&gt; [5] NA               &quot;George Smith &quot;</span></span></code></pre></div>
+<p>We could also use pre-built class <code>[:alpha:]</code> in the above example.</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="quantifiers.html#cb229-1"></a><span class="kw">str_extract</span>(student_names, <span class="kw">regex</span>(<span class="st">&quot;([:alpha:]+[ ]){2}&quot;</span>))</span>
+<span id="cb229-2"><a href="quantifiers.html#cb229-2"></a><span class="co">#&gt; [1] &quot;Lee Zhang &quot;     &quot;Carol Roberts &quot; NA               NA              </span></span>
+<span id="cb229-3"><a href="quantifiers.html#cb229-3"></a><span class="co">#&gt; [5] NA               &quot;George Smith &quot;</span></span></code></pre></div>
 
-</div>
 </div>
 </div>
             </section>
@@ -539,8 +416,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="logs.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="anchors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="boundaries.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -571,7 +448,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/gastonstat/r4strings/edit/master/biomed.Rmd",
+"link": "https://github.com/gastonstat/r4strings/edit/master/quantifiers.Rmd",
 "text": "Edit"
 },
 "history": {

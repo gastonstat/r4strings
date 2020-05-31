@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Handling Strings with R</title>
-  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Basic Manipulation Examples | Handling Strings with R</title>
+  <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Handling Strings with R" />
+  <meta property="og:title" content="8 Basic Manipulation Examples | Handling Strings with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
   
@@ -17,29 +16,32 @@
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Handling Strings with R" />
+  <meta name="twitter:title" content="8 Basic Manipulation Examples | Handling Strings with R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   
 
-<meta name="author" content="Gaston Sanchez">
+<meta name="author" content="Gaston Sanchez Chitra Venkatesh" />
 
 
-<meta name="date" content="2016-10-19">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="stringr-basics.html">
-<link rel="next" href="regex1.html">
+<link rel="prev" href="stringr-basics.html"/>
+<link rel="next" href="regex1.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,28 +52,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,49 +251,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
 <li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
+<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
+<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries</a></li>
 <li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="13" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>13</b> Practical Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
+<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>14</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="14.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
-<li class="chapter" data-level="14.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>14.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="14.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>14.3</b> Reversing Words</a></li>
+<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
+<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
+<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>15</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="15.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
-<li class="chapter" data-level="15.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>15.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="15.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>15.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>16</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="16.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-<li class="chapter" data-level="16.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>16.2</b> Import Data</a></li>
-<li class="chapter" data-level="16.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>16.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="16.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>16.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="16.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>16.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="16.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>16.6</b> Month and Day</a></li>
-<li class="chapter" data-level="16.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>16.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="16.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>16.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="16.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>16.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>17</b> Data Log File</a><ul>
-<li class="chapter" data-level="17.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>17.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="17.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>17.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="17.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>17.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="17.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>17.1.3</b> Image files</a></li>
-<li class="chapter" data-level="17.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>17.1.4</b> How to match image files with one regex pattern?</a></li>
+<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
+<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
+<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
+<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>18</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="18.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>18.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="18.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>18.2.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
+<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
+<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
+<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
+<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
+<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
+<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>18.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="18.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>18.4</b> Common words</a></li>
-<li class="chapter" data-level="18.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>18.5</b> The top 30 words</a></li>
+<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
+<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
+<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
+<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
+<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
+<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
+<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
+<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -329,18 +335,18 @@ files have the same prefix name but each of them has a different number:
 <p>There are several ways in which you could generate a character vector with
 these names. One naive option is to manually type those names and form a
 vector with <code>c()</code></p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="kw">c</span>(<span class="st">&#39;file1.csv&#39;</span>, <span class="st">&#39;file2.csv&#39;</span>, <span class="st">&#39;file3.csv&#39;</span>)</a>
-<a class="sourceLine" id="cb163-2" data-line-number="2"><span class="co">#&gt; [1] &quot;file1.csv&quot; &quot;file2.csv&quot; &quot;file3.csv&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="basic-manipulation-examples.html#cb163-1"></a><span class="kw">c</span>(<span class="st">&#39;file1.csv&#39;</span>, <span class="st">&#39;file2.csv&#39;</span>, <span class="st">&#39;file3.csv&#39;</span>)</span>
+<span id="cb163-2"><a href="basic-manipulation-examples.html#cb163-2"></a><span class="co">#&gt; [1] &quot;file1.csv&quot; &quot;file2.csv&quot; &quot;file3.csv&quot;</span></span></code></pre></div>
 <p>But that’s not very efficient. Just think about the time it would take you
 to create a vector with 100 files. A better alternative is to use the
 vectorized nature of <code>paste()</code></p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="kw">paste</span>(<span class="st">&#39;file&#39;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="st">&#39;.csv&#39;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb164-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;file1.csv&quot;  &quot;file2.csv&quot;  &quot;file3.csv&quot;  &quot;file4.csv&quot;  &quot;file5.csv&quot; </span></a>
-<a class="sourceLine" id="cb164-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;file6.csv&quot;  &quot;file7.csv&quot;  &quot;file8.csv&quot;  &quot;file9.csv&quot;  &quot;file10.csv&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="basic-manipulation-examples.html#cb164-1"></a><span class="kw">paste</span>(<span class="st">&#39;file&#39;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="st">&#39;.csv&#39;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb164-2"><a href="basic-manipulation-examples.html#cb164-2"></a><span class="co">#&gt;  [1] &quot;file1.csv&quot;  &quot;file2.csv&quot;  &quot;file3.csv&quot;  &quot;file4.csv&quot;  &quot;file5.csv&quot; </span></span>
+<span id="cb164-3"><a href="basic-manipulation-examples.html#cb164-3"></a><span class="co">#&gt;  [6] &quot;file6.csv&quot;  &quot;file7.csv&quot;  &quot;file8.csv&quot;  &quot;file9.csv&quot;  &quot;file10.csv&quot;</span></span></code></pre></div>
 <p>Or similarly with <code>paste0()</code></p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="kw">paste0</span>(<span class="st">&#39;file&#39;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="st">&#39;.csv&#39;</span>)</a>
-<a class="sourceLine" id="cb165-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;file1.csv&quot;  &quot;file2.csv&quot;  &quot;file3.csv&quot;  &quot;file4.csv&quot;  &quot;file5.csv&quot; </span></a>
-<a class="sourceLine" id="cb165-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;file6.csv&quot;  &quot;file7.csv&quot;  &quot;file8.csv&quot;  &quot;file9.csv&quot;  &quot;file10.csv&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="basic-manipulation-examples.html#cb165-1"></a><span class="kw">paste0</span>(<span class="st">&#39;file&#39;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="st">&#39;.csv&#39;</span>)</span>
+<span id="cb165-2"><a href="basic-manipulation-examples.html#cb165-2"></a><span class="co">#&gt;  [1] &quot;file1.csv&quot;  &quot;file2.csv&quot;  &quot;file3.csv&quot;  &quot;file4.csv&quot;  &quot;file5.csv&quot; </span></span>
+<span id="cb165-3"><a href="basic-manipulation-examples.html#cb165-3"></a><span class="co">#&gt;  [6] &quot;file6.csv&quot;  &quot;file7.csv&quot;  &quot;file8.csv&quot;  &quot;file9.csv&quot;  &quot;file10.csv&quot;</span></span></code></pre></div>
 </div>
 <div id="example-valid-color-names" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> Example: Valid Color Names</h3>
@@ -349,32 +355,32 @@ vectorized nature of <code>paste()</code></p>
 <code>is_color()</code> to test if a given name—in English—is a valid R color.
 If the provided name is a valid R color, <code>is_color()</code> should return <code>TRUE</code>.
 If the provided name is not a valid R color <code>is_color()</code> should return <code>FALSE</code>.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1">is_color &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb166-2" data-line-number="2">  x <span class="op">%in%</span><span class="st"> </span><span class="kw">colors</span>()</a>
-<a class="sourceLine" id="cb166-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="basic-manipulation-examples.html#cb166-1"></a>is_color &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb166-2"><a href="basic-manipulation-examples.html#cb166-2"></a>  x <span class="op">%in%</span><span class="st"> </span><span class="kw">colors</span>()</span>
+<span id="cb166-3"><a href="basic-manipulation-examples.html#cb166-3"></a>}</span></code></pre></div>
 <p>Lets test it:</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1"><span class="kw">is_color</span>(<span class="st">&#39;yellow&#39;</span>)  <span class="co"># TRUE</span></a>
-<a class="sourceLine" id="cb167-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb167-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb167-4" data-line-number="4"><span class="kw">is_color</span>(<span class="st">&#39;blu&#39;</span>)     <span class="co"># FALSE</span></a>
-<a class="sourceLine" id="cb167-5" data-line-number="5"><span class="co">#&gt; [1] FALSE</span></a>
-<a class="sourceLine" id="cb167-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb167-7" data-line-number="7"><span class="kw">is_color</span>(<span class="st">&#39;turkuiose&#39;</span>) <span class="co"># FALSE</span></a>
-<a class="sourceLine" id="cb167-8" data-line-number="8"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="basic-manipulation-examples.html#cb167-1"></a><span class="kw">is_color</span>(<span class="st">&#39;yellow&#39;</span>)  <span class="co"># TRUE</span></span>
+<span id="cb167-2"><a href="basic-manipulation-examples.html#cb167-2"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb167-3"><a href="basic-manipulation-examples.html#cb167-3"></a></span>
+<span id="cb167-4"><a href="basic-manipulation-examples.html#cb167-4"></a><span class="kw">is_color</span>(<span class="st">&#39;blu&#39;</span>)     <span class="co"># FALSE</span></span>
+<span id="cb167-5"><a href="basic-manipulation-examples.html#cb167-5"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb167-6"><a href="basic-manipulation-examples.html#cb167-6"></a></span>
+<span id="cb167-7"><a href="basic-manipulation-examples.html#cb167-7"></a><span class="kw">is_color</span>(<span class="st">&#39;turkuiose&#39;</span>) <span class="co"># FALSE</span></span>
+<span id="cb167-8"><a href="basic-manipulation-examples.html#cb167-8"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 <p>Another possible way to write <code>is_color()</code> is comparing if <code>any()</code> element
 of <code>colors()</code> equals the provided name:</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1">is_color2 &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb168-2" data-line-number="2">  <span class="kw">any</span>(<span class="kw">colors</span>() <span class="op">==</span><span class="st"> </span>x)</a>
-<a class="sourceLine" id="cb168-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="basic-manipulation-examples.html#cb168-1"></a>is_color2 &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb168-2"><a href="basic-manipulation-examples.html#cb168-2"></a>  <span class="kw">any</span>(<span class="kw">colors</span>() <span class="op">==</span><span class="st"> </span>x)</span>
+<span id="cb168-3"><a href="basic-manipulation-examples.html#cb168-3"></a>}</span></code></pre></div>
 <p>Test it:</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="kw">is_color2</span>(<span class="st">&#39;yellow&#39;</span>)  <span class="co"># TRUE</span></a>
-<a class="sourceLine" id="cb169-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb169-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb169-4" data-line-number="4"><span class="kw">is_color2</span>(<span class="st">&#39;blu&#39;</span>)     <span class="co"># FALSE</span></a>
-<a class="sourceLine" id="cb169-5" data-line-number="5"><span class="co">#&gt; [1] FALSE</span></a>
-<a class="sourceLine" id="cb169-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb169-7" data-line-number="7"><span class="kw">is_color2</span>(<span class="st">&#39;turkuiose&#39;</span>) <span class="co"># FALSE</span></a>
-<a class="sourceLine" id="cb169-8" data-line-number="8"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="basic-manipulation-examples.html#cb169-1"></a><span class="kw">is_color2</span>(<span class="st">&#39;yellow&#39;</span>)  <span class="co"># TRUE</span></span>
+<span id="cb169-2"><a href="basic-manipulation-examples.html#cb169-2"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb169-3"><a href="basic-manipulation-examples.html#cb169-3"></a></span>
+<span id="cb169-4"><a href="basic-manipulation-examples.html#cb169-4"></a><span class="kw">is_color2</span>(<span class="st">&#39;blu&#39;</span>)     <span class="co"># FALSE</span></span>
+<span id="cb169-5"><a href="basic-manipulation-examples.html#cb169-5"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb169-6"><a href="basic-manipulation-examples.html#cb169-6"></a></span>
+<span id="cb169-7"><a href="basic-manipulation-examples.html#cb169-7"></a><span class="kw">is_color2</span>(<span class="st">&#39;turkuiose&#39;</span>) <span class="co"># FALSE</span></span>
+<span id="cb169-8"><a href="basic-manipulation-examples.html#cb169-8"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
 </div>
 <div id="example-me-and-you-plot" class="section level3">
 <h3><span class="header-section-number">8.1.3</span> Example: Me and You plot</h3>
@@ -389,42 +395,42 @@ other, adding a touch of randomness in the location of the text, the sizes, and
 the colors.</p>
 <p>First we generate the x-y coordinates. We’ll use 100 points, and set the
 random seed to 333:</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1"><span class="co"># random seed</span></a>
-<a class="sourceLine" id="cb170-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">333</span>)</a>
-<a class="sourceLine" id="cb170-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb170-4" data-line-number="4"><span class="co"># x-y coordinates</span></a>
-<a class="sourceLine" id="cb170-5" data-line-number="5">n &lt;-<span class="st"> </span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb170-6" data-line-number="6">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
-<a class="sourceLine" id="cb170-7" data-line-number="7">y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">1</span>, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="basic-manipulation-examples.html#cb170-1"></a><span class="co"># random seed</span></span>
+<span id="cb170-2"><a href="basic-manipulation-examples.html#cb170-2"></a><span class="kw">set.seed</span>(<span class="dv">333</span>)</span>
+<span id="cb170-3"><a href="basic-manipulation-examples.html#cb170-3"></a></span>
+<span id="cb170-4"><a href="basic-manipulation-examples.html#cb170-4"></a><span class="co"># x-y coordinates</span></span>
+<span id="cb170-5"><a href="basic-manipulation-examples.html#cb170-5"></a>n &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb170-6"><a href="basic-manipulation-examples.html#cb170-6"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
+<span id="cb170-7"><a href="basic-manipulation-examples.html#cb170-7"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div>
 <p>The first step is to produce a very basic-raw plot (nothing fancy). We use
 <code>plot()</code> for this purpose:</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="kw">plot</span>(x, y)</a></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="basic-manipulation-examples.html#cb171-1"></a><span class="kw">plot</span>(x, y)</span></code></pre></div>
 <p>This just produces a scatter diagram with a 100 points on it. The following
 step consists of replacing the dots by some text: your name and the one of your
-significant other. To hide the dots, we set the parameter <code>type = &quot;n&quot;</code>, which
+significant other. To hide the dots, we set the parameter <code>type = "n"</code>, which
 means that we don’t want anything to be plotted. To show the text, we use the
 low level plotting function <code>text()</code>. We use the same coordinates, but this
 time we specify the displayed <code>labels</code>:</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1"><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)</a>
-<a class="sourceLine" id="cb172-2" data-line-number="2"><span class="kw">text</span>(x, y, <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="basic-manipulation-examples.html#cb172-1"></a><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb172-2"><a href="basic-manipulation-examples.html#cb172-2"></a><span class="kw">text</span>(x, y, <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>)</span></code></pre></div>
 <p>Again, this is a very preliminary plot; something basic that allows us to
 start getting a feeling of how the chart looks like. The second step is to
 change the background color. One way to do this is by specifying the <code>bg</code>
 graphical parameter inside the <code>par()</code> function:</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1"><span class="co"># graphical parameters</span></a>
-<a class="sourceLine" id="cb173-2" data-line-number="2">op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">&quot;gray10&quot;</span>)</a>
-<a class="sourceLine" id="cb173-3" data-line-number="3"><span class="co"># plot text</span></a>
-<a class="sourceLine" id="cb173-4" data-line-number="4"><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)</a>
-<a class="sourceLine" id="cb173-5" data-line-number="5"><span class="kw">text</span>(x, y, </a>
-<a class="sourceLine" id="cb173-6" data-line-number="6">     <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>,</a>
-<a class="sourceLine" id="cb173-7" data-line-number="7">     <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</a>
-<a class="sourceLine" id="cb173-8" data-line-number="8"><span class="co"># reset default parameters</span></a>
-<a class="sourceLine" id="cb173-9" data-line-number="9"><span class="kw">par</span>(op)</a></code></pre></div>
-<p><img src="_main_files/figure-html4/me-and-you2-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="basic-manipulation-examples.html#cb173-1"></a><span class="co"># graphical parameters</span></span>
+<span id="cb173-2"><a href="basic-manipulation-examples.html#cb173-2"></a>op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">&quot;gray10&quot;</span>)</span>
+<span id="cb173-3"><a href="basic-manipulation-examples.html#cb173-3"></a><span class="co"># plot text</span></span>
+<span id="cb173-4"><a href="basic-manipulation-examples.html#cb173-4"></a><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb173-5"><a href="basic-manipulation-examples.html#cb173-5"></a><span class="kw">text</span>(x, y, </span>
+<span id="cb173-6"><a href="basic-manipulation-examples.html#cb173-6"></a>     <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>,</span>
+<span id="cb173-7"><a href="basic-manipulation-examples.html#cb173-7"></a>     <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</span>
+<span id="cb173-8"><a href="basic-manipulation-examples.html#cb173-8"></a><span class="co"># reset default parameters</span></span>
+<span id="cb173-9"><a href="basic-manipulation-examples.html#cb173-9"></a><span class="kw">par</span>(op)</span></code></pre></div>
+<p><img src="_main_files/figure-html/me-and-you2-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><code>par()</code> has default settings. Everytime you call <code>par()</code> and change
 one of the associated parameters, the subsequent plots will be displayed with
 those values. To set parameters in a temporary way, you can assign them to
-an object: i.e. <code>op</code>. After the plot is produced, we reset the default
+an object: i.e. <code>op</code>. After the plot is produced, we reset the default
 graphical parameters with the instruction <code>par(op)</code>.</p>
 <p>We are getting closer to the desired look of the postcard. The final stage is
 to add some color to the text, and change their size. The size of the labels
@@ -435,43 +441,43 @@ parameters: hue (color), saturation, and value. Hues are specified with a range
 from 0 to 1. We generate some random numbers in the interval 0.85 - 0.95 to get
 some hues red, pink, fuchsia colors. <code>hsv()</code> also takes the optional
 parameters <code>alpha</code> to determined the alpha transparency.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1"><span class="co"># text size</span></a>
-<a class="sourceLine" id="cb174-2" data-line-number="2">sizes &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="fl">0.5</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb174-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb174-4" data-line-number="4"><span class="co"># text color</span></a>
-<a class="sourceLine" id="cb174-5" data-line-number="5">hues &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="fl">0.85</span>, <span class="fl">0.95</span>)</a>
-<a class="sourceLine" id="cb174-6" data-line-number="6">alphas &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="fl">0.1</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb174-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb174-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb174-9" data-line-number="9">op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">&quot;gray10&quot;</span>, <span class="dt">mar =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb174-10" data-line-number="10"><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb174-11" data-line-number="11">     <span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>)</a>
-<a class="sourceLine" id="cb174-12" data-line-number="12"><span class="kw">text</span>(x, y, </a>
-<a class="sourceLine" id="cb174-13" data-line-number="13">     <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>, </a>
-<a class="sourceLine" id="cb174-14" data-line-number="14">     <span class="dt">font =</span> <span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb174-15" data-line-number="15">     <span class="dt">col =</span> <span class="kw">hsv</span>(hues, <span class="dv">1</span>, <span class="dv">1</span>, alphas),</a>
-<a class="sourceLine" id="cb174-16" data-line-number="16">     <span class="dt">cex =</span> sizes)</a>
-<a class="sourceLine" id="cb174-17" data-line-number="17"><span class="kw">par</span>(op)</a></code></pre></div>
-<p><img src="_main_files/figure-html4/unnamed-chunk-59-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="basic-manipulation-examples.html#cb174-1"></a><span class="co"># text size</span></span>
+<span id="cb174-2"><a href="basic-manipulation-examples.html#cb174-2"></a>sizes &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="fl">0.5</span>, <span class="dv">3</span>)</span>
+<span id="cb174-3"><a href="basic-manipulation-examples.html#cb174-3"></a></span>
+<span id="cb174-4"><a href="basic-manipulation-examples.html#cb174-4"></a><span class="co"># text color</span></span>
+<span id="cb174-5"><a href="basic-manipulation-examples.html#cb174-5"></a>hues &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="fl">0.85</span>, <span class="fl">0.95</span>)</span>
+<span id="cb174-6"><a href="basic-manipulation-examples.html#cb174-6"></a>alphas &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="fl">0.1</span>, <span class="dv">1</span>)</span>
+<span id="cb174-7"><a href="basic-manipulation-examples.html#cb174-7"></a></span>
+<span id="cb174-8"><a href="basic-manipulation-examples.html#cb174-8"></a></span>
+<span id="cb174-9"><a href="basic-manipulation-examples.html#cb174-9"></a>op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">&quot;gray10&quot;</span>, <span class="dt">mar =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb174-10"><a href="basic-manipulation-examples.html#cb174-10"></a><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb174-11"><a href="basic-manipulation-examples.html#cb174-11"></a>     <span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb174-12"><a href="basic-manipulation-examples.html#cb174-12"></a><span class="kw">text</span>(x, y, </span>
+<span id="cb174-13"><a href="basic-manipulation-examples.html#cb174-13"></a>     <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>, </span>
+<span id="cb174-14"><a href="basic-manipulation-examples.html#cb174-14"></a>     <span class="dt">font =</span> <span class="dv">3</span>, </span>
+<span id="cb174-15"><a href="basic-manipulation-examples.html#cb174-15"></a>     <span class="dt">col =</span> <span class="kw">hsv</span>(hues, <span class="dv">1</span>, <span class="dv">1</span>, alphas),</span>
+<span id="cb174-16"><a href="basic-manipulation-examples.html#cb174-16"></a>     <span class="dt">cex =</span> sizes)</span>
+<span id="cb174-17"><a href="basic-manipulation-examples.html#cb174-17"></a><span class="kw">par</span>(op)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>To save the image, call <code>pdf()</code>. To give the image the dimensions of a
 standard postcard, you can specify <code>width = 5</code> and <code>height = 3.5</code>, that is,
 5 inches wide and 3.5 inches tall (you can choose other dimensions if you want):</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1"><span class="kw">pdf</span>(<span class="dt">file =</span> <span class="st">&quot;figure/me-and-you3.pdf&quot;</span>, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="fl">3.5</span>)</a>
-<a class="sourceLine" id="cb175-2" data-line-number="2">op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">&quot;gray10&quot;</span>, </a>
-<a class="sourceLine" id="cb175-3" data-line-number="3">          <span class="dt">mar =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb175-4" data-line-number="4"><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb175-5" data-line-number="5">     <span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>)</a>
-<a class="sourceLine" id="cb175-6" data-line-number="6"><span class="kw">text</span>(x, y, </a>
-<a class="sourceLine" id="cb175-7" data-line-number="7">     <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>, </a>
-<a class="sourceLine" id="cb175-8" data-line-number="8">     <span class="dt">font =</span> <span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb175-9" data-line-number="9">     <span class="dt">col =</span> <span class="kw">hsv</span>(hues, <span class="dv">1</span>, <span class="dv">1</span>, alphas),</a>
-<a class="sourceLine" id="cb175-10" data-line-number="10">     <span class="dt">cex =</span> sizes)</a>
-<a class="sourceLine" id="cb175-11" data-line-number="11"><span class="kw">par</span>(op)</a>
-<a class="sourceLine" id="cb175-12" data-line-number="12"><span class="kw">dev.off</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="basic-manipulation-examples.html#cb175-1"></a><span class="kw">pdf</span>(<span class="dt">file =</span> <span class="st">&quot;figure/me-and-you3.pdf&quot;</span>, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="fl">3.5</span>)</span>
+<span id="cb175-2"><a href="basic-manipulation-examples.html#cb175-2"></a>op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">bg =</span> <span class="st">&quot;gray10&quot;</span>, </span>
+<span id="cb175-3"><a href="basic-manipulation-examples.html#cb175-3"></a>          <span class="dt">mar =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb175-4"><a href="basic-manipulation-examples.html#cb175-4"></a><span class="kw">plot</span>(x, y, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb175-5"><a href="basic-manipulation-examples.html#cb175-5"></a>     <span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb175-6"><a href="basic-manipulation-examples.html#cb175-6"></a><span class="kw">text</span>(x, y, </span>
+<span id="cb175-7"><a href="basic-manipulation-examples.html#cb175-7"></a>     <span class="dt">labels =</span> <span class="st">&quot;me &amp; you&quot;</span>, </span>
+<span id="cb175-8"><a href="basic-manipulation-examples.html#cb175-8"></a>     <span class="dt">font =</span> <span class="dv">3</span>, </span>
+<span id="cb175-9"><a href="basic-manipulation-examples.html#cb175-9"></a>     <span class="dt">col =</span> <span class="kw">hsv</span>(hues, <span class="dv">1</span>, <span class="dv">1</span>, alphas),</span>
+<span id="cb175-10"><a href="basic-manipulation-examples.html#cb175-10"></a>     <span class="dt">cex =</span> sizes)</span>
+<span id="cb175-11"><a href="basic-manipulation-examples.html#cb175-11"></a><span class="kw">par</span>(op)</span>
+<span id="cb175-12"><a href="basic-manipulation-examples.html#cb175-12"></a><span class="kw">dev.off</span>()</span></code></pre></div>
 <p>If you save the image in png format, you could also use it as a wallpaper for your
 computer:</p>
 <div class="figure">
-<img src="images/me-you-wallpaper.png" alt="A wallpaper chart for your significant other" />
+<img src="images/me-you-wallpaper.png" alt="" />
 <p class="caption">A wallpaper chart for your significant other</p>
 </div>
 <hr />
@@ -504,11 +510,13 @@ computer:</p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -516,12 +524,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -531,6 +538,14 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/gastonstat/r4strings/edit/master/basic-examples.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -546,9 +561,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
