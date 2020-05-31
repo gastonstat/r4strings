@@ -1,0 +1,49 @@
+# Boundaries {#boundaries}
+
+Boundaries are metacharacters too and match based on what preceeds or follows current position. Let's understand this through some examples after reviewing common boundaries.
+
+| Boundary | Description | Example    |
+|:---------|:------------|:-----------|
+| `\\b`    | Matches a word boundary, i.e., when a side is not `[A-z0-9_]` | `\\bHi \\bHi\\b` |
+| `\\B`    | Matches when not a word boundary, i.e., when a side is `[A-z0-9_]` | `\\BHi` |
+
+In the following example, we would try these cases:
+
+- Case 1: Extract words that exactly match with `hi`
+
+- Case 2: Extract words that contain `hi` in between characters
+
+- Case 3: Extract words that start with `hi`
+
+```{r}
+some_text <- c("Hi there, its high time we learn shiny apps")
+```
+
+**Case 1:** Extract words that exactly match with `hi`.
+Note the use of `ignore_case` argument to regex()
+
+```{r}
+str_extract_all(some_text, regex("\\bhi\\b", ignore_case = TRUE))
+```
+
+
+**Case 2:** Extract words that contain `hi` in between characters
+
+- We include `[A-z]*` on either side of `\\Bhi\\B` to match the entire word,
+otherwise the pattern `\\Bhi\\B` will only match `hi` from `shiny`. 
+
+- We used `[A-z]*` instead of `[A-z]+` to specifically showcase that no other 
+`hi` got matched as `*` denotes 0 or any.
+
+```{r}
+str_extract_all(some_text, regex("[A-z]*\\Bhi\\B[A-z]*", ignore_case = TRUE))
+```
+
+**Case 3:** Extract words that start with `hi`
+
+Note that `shiny` is not matched since it starts with `s` and not `hi`.
+
+```{r}
+str_extract_all(some_text, regex("\\bhi[A-z]*", ignore_case = TRUE))
+```
+
