@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1598926143749.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "155446403",
+    "id" : "E1BFE2D9",
+    "lastKnownWriteTime" : 1598972817,
+    "last_content_update" : 1598972817160,
+    "path" : "~/Dropbox/r4strings/logical.Rmd",
+    "project_path" : "logical.Rmd",
+    "properties" : {
+        "cursorPosition" : "162,0",
+        "scrollLine" : "145",
+        "tempName" : "Untitled2"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

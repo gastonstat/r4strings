@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1598972040827.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2913796216",
+    "id" : "6CED7EE4",
+    "lastKnownWriteTime" : 1598972730,
+    "last_content_update" : 1598972730356,
+    "path" : "~/Dropbox/r4strings/anchors.Rmd",
+    "project_path" : "anchors.Rmd",
+    "properties" : {
+        "cursorPosition" : "136,0",
+        "scrollLine" : "113"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

@@ -1,0 +1,31 @@
+rmd_files: [
+  "index.rmd",
+  "introduction.Rmd",
+
+  "characters.Rmd",
+
+  "printing.Rmd",
+  "sprintf.Rmd",
+  "input-output.Rmd",
+
+  "basic-manipulations.Rmd",
+  "stringr-basics.Rmd",
+  "basic-examples.Rmd",
+  
+  "regex1.Rmd",
+  "literal.Rmd",
+  "metacharacters.Rmd",
+  "character-sets.Rmd",
+  "anchors.Rmd",
+  "quantifiers.Rmd",
+  "boundaries.Rmd",
+
+  "applications.Rmd",
+  "reversing.Rmd",
+  "html-tags.Rmd",
+  "data-cleaning.Rmd",
+  "logs.Rmd",
+  "biomed.Rmd"
+]
+
+before_chapter_script: "_common.R"
