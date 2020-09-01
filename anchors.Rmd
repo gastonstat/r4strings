@@ -1,6 +1,6 @@
 # Anchors {#anchors}
 
-__Contributor: Chitra Venkatesh__
+#### by Chitra Venkatesh {-}
 
 Anchors are metacharacters that help us assert the position, say, the beginning 
 or end of the string.

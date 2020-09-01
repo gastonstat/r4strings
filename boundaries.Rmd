@@ -1,7 +1,7 @@
 # Boundaries {#boundaries}
 
-__Contributor: Chitra Venkatesh__
-s
+#### by Chitra Venkatesh {-}
+
 Boundaries are metacharacters too and match based on what preceeds or follows current position. Let's understand this through some examples after reviewing common boundaries.
 
 | Boundary | Description | Example    |

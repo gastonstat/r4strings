@@ -1,6 +1,6 @@
 # Quantifiers {#quantifiers}
 
-__Contributor: Chitra Venkatesh__
+#### by Chitra Venkatesh {-}
 
 Quantifiers quantify the number of instances of a character, group or character
 class, denoted as `P` in the table below. Your quantifier should be placed after 
