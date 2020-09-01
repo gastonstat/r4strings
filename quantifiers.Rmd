@@ -1,5 +1,7 @@
 # Quantifiers {#quantifiers}
 
+__Contributor: Chitra Venkatesh__
+
 Quantifiers quantify the number of instances of a character, group or character
 class, denoted as `P` in the table below. Your quantifier should be placed after 
 the character/group/character class that is being quantified. We will also 
@@ -72,6 +74,10 @@ student_names <- c(
   "George Smith ")
 
 str_extract(student_names, regex("([A-z]+[ ]){2}"))
+```
+
+```{r echo=FALSE, out.width='55%'}
+knitr::include_graphics('images/Quantifier_groups.png')
 ```
 
 We could also use pre-built class `[:alpha:]` in the above example.
