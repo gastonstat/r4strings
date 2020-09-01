@@ -1,20 +1,22 @@
 # Anchors {#anchors}
 
+__Contributor: Chitra Venkatesh__
+
 Anchors are metacharacters that help us assert the position, say, the beginning 
 or end of the string.
 
 | Anchor   | Description | Example | 
 |:---------|:------------|:--------|
 | `^` | Matches a line starting with the substring.| `^New` |
-| `\\$` | Matches a line ending with the substring.| `y\$` |
-| `^ \\$` | Matches a line that starts and ends with substring, i.e., exact match.| `^Hi There\$` |
+| `\\$` | Matches a line ending with the substring.| `y$` |
+| `^ \\$` | Matches a line that starts and ends with substring, i.e., exact match.| `^Hi There$` |
 | `\\A` | Matches input starting with the substring.| `\\AHello` |
 | `\\Z` and `\\z` | Matches input ending with the substring. `\\Z` also matches if there is a newline after the substring.| `End\\Z` |
 
 Lets try to detect university names that begin with `University`. Note that
 `str_detect()` is from the `"stringr"` package. 
 
-> We use `regex()` inside `str_detect()` to let R know that we are going to 
+We use `regex()` inside `str_detect()` to let R know that we are going to 
 pass a regex pattern. This is also the default setting so you may choose to 
 skip it.
 
@@ -26,6 +28,10 @@ university <- c(
   "University of California, Berkeley")
 
 str_detect(university, regex("^University"))
+```
+
+```{r echo=FALSE, out.width='60%'}
+knitr::include_graphics('images/Anchors_1.png')
 ```
 
 Similarly we could detect university names that end with `University`. 
@@ -51,11 +57,15 @@ university <- c(
 str_extract_all(university, regex("[A-z ]*University$", multiline = TRUE))
 ```
 
+```{r echo=FALSE, out.height='25%'}
+knitr::include_graphics('images/Anchors_2.png')
+```
+
 Lastly, lets try to extract the last word of our input from previous example. 
 
-> Using `str_extract()` or `str_extract_all()` does not matter anymore. While we 
-> get a single output for both, the former returns a list and the latter 
-> returns a list of list.
+Using `str_extract()` or `str_extract_all()` does not matter anymore. While we 
+get a single output for both, the former returns a list and the latter 
+returns a list of lists.
 
 ```{r}
 str_extract(university, regex("[A-z]+\\Z", multiline = TRUE))
@@ -64,6 +74,10 @@ str_extract(university, regex("[A-z]+\\Z", multiline = TRUE))
 Notice that `\\Z` works even in presence of a terminating newline `\n`. 
 However, when we use `\\z`, this won't work until we remove the terminating 
 `\n`.
+
+```{r echo=FALSE, out.height='25%'}
+knitr::include_graphics('images/Anchors_3.png')
+```
 
 ```{r}
 str_extract(university, regex("[A-z ]+\\z", multiline = TRUE))
