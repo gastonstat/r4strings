@@ -76,7 +76,7 @@ student_names <- c(
 str_extract(student_names, regex("([A-z]+[ ]){2}"))
 ```
 
-```{r echo=FALSE, out.width='55%'}
+```{r echo=FALSE, out.width='65%'}
 knitr::include_graphics('images/Quantifier_groups.png')
 ```
 
