@@ -100,7 +100,7 @@ The following table contains the `stringr` functions for basic string operations
 | `str_trim()`   | removes leading and trailing whitespace | _none_        |
 | `str_pad()`    | pads a string                           | _none_        |
 | `str_wrap()`   | wraps a string paragraph                | `strwrap()`   |
-| `str_trim()`   | trims a string                          | _none_        |
+| `str_trim()`   | trims a string                          | `trimws()`    |
 
 
 Notice that all functions in `stringr` start with `"str_"` followed by a term 
