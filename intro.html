@@ -4,24 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Introduction | Handling Strings with R</title>
+  <title>1 Introductory Appetizer | Handling Strings With R</title>
   <meta name="description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Introduction | Handling Strings with R" />
+  <meta property="og:title" content="1 Introductory Appetizer | Handling Strings With R" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://gastonsanchez.com/r4strings/" />
-  
+  <meta property="og:url" content="https://leanpub.com/r4strings" />
+  <meta property="og:image" content="https://leanpub.com/r4stringsimages/cover.png" />
   <meta property="og:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
   <meta name="github-repo" content="gastonstat/r4strings" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction | Handling Strings with R" />
+  <meta name="twitter:title" content="1 Introductory Appetizer | Handling Strings With R" />
   
   <meta name="twitter:description" content="This book aims to provide a panoramic perspective of the wide array of string manipulations that you can perform with R. If you are new to R, or lack experience working with character data, this book will help you get started with the basics of handling strings. Likewise, if you are already familiar with R, you will find material that shows you how to do more advanced string and text processing operations." />
-  
+  <meta name="twitter:image" content="https://leanpub.com/r4stringsimages/cover.png" />
 
-<meta name="author" content="Gaston Sanchez with contributions from Chitra Venkatesh" />
+<meta name="author" content="Gaston Sanchez" />
 
 
 
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
+<link rel="prev" href="preface.html"/>
 <link rel="next" href="chars.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -129,182 +129,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Handling Strings with R</a></li>
+<li><a href="./">Handling Strings With R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#give-now"><i class="fa fa-check"></i>Give Now</a></li>
+<li><a href="index.html#r4strings"><code>r4strings</code></a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Full Edition</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#preview-edition"><i class="fa fa-check"></i>Preview Edition</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#about-this-book"><i class="fa fa-check"></i><b>1.1</b> About this book</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="intro.html"><a href="intro.html#structure-of-the-book"><i class="fa fa-check"></i><b>1.1.1</b> Structure of the book</a></li>
-<li class="chapter" data-level="1.1.2" data-path="intro.html"><a href="intro.html#main-resources"><i class="fa fa-check"></i><b>1.1.2</b> Main Resources</a></li>
-<li class="chapter" data-level="1.1.3" data-path="intro.html"><a href="intro.html#acknowledgements"><i class="fa fa-check"></i><b>1.1.3</b> Acknowledgements</a></li>
-<li class="chapter" data-level="1.1.4" data-path="intro.html"><a href="intro.html#colophon"><i class="fa fa-check"></i><b>1.1.4</b> Colophon</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#text-is-omnipresent"><i class="fa fa-check"></i>Text Is Omnipresent</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#about-this-book"><i class="fa fa-check"></i>About This Book</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#about-the-reader"><i class="fa fa-check"></i>About the Reader</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#main-resources"><i class="fa fa-check"></i>Main Resources</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#citation"><i class="fa fa-check"></i>Citation</a></li>
+</ul></li>
+<li class="part"><span><b>I Characters and Strings in R</b></span></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introductory Appetizer</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#a-toy-example"><i class="fa fa-check"></i><b>1.1</b> A Toy Example</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="intro.html"><a href="intro.html#abbreviating-strings"><i class="fa fa-check"></i><b>1.1.1</b> Abbreviating strings</a></li>
+<li class="chapter" data-level="1.1.2" data-path="intro.html"><a href="intro.html#getting-the-longest-name"><i class="fa fa-check"></i><b>1.1.2</b> Getting the longest name</a></li>
+<li class="chapter" data-level="1.1.3" data-path="intro.html"><a href="intro.html#selecting-states"><i class="fa fa-check"></i><b>1.1.3</b> Selecting States</a></li>
+<li class="chapter" data-level="1.1.4" data-path="intro.html"><a href="intro.html#some-computations"><i class="fa fa-check"></i><b>1.1.4</b> Some computations</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>I Characters</b></span></li>
 <li class="chapter" data-level="2" data-path="chars.html"><a href="chars.html"><i class="fa fa-check"></i><b>2</b> Character Strings in R</a><ul>
 <li class="chapter" data-level="2.1" data-path="chars.html"><a href="chars.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
-<li class="chapter" data-level="2.2" data-path="chars.html"><a href="chars.html#common-use-of-strings-in-r"><i class="fa fa-check"></i><b>2.2</b> Common use of strings in R</a></li>
-<li class="chapter" data-level="2.3" data-path="chars.html"><a href="chars.html#creating-character-strings"><i class="fa fa-check"></i><b>2.3</b> Creating Character Strings</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="chars.html"><a href="chars.html#empty-string"><i class="fa fa-check"></i><b>2.3.1</b> Empty string</a></li>
-<li class="chapter" data-level="2.3.2" data-path="chars.html"><a href="chars.html#empty-character-vector"><i class="fa fa-check"></i><b>2.3.2</b> Empty character vector</a></li>
-<li class="chapter" data-level="2.3.3" data-path="chars.html"><a href="chars.html#function-c"><i class="fa fa-check"></i><b>2.3.3</b> Function <code>c()</code></a></li>
-<li class="chapter" data-level="2.3.4" data-path="chars.html"><a href="chars.html#is.character-and-as.character"><i class="fa fa-check"></i><b>2.3.4</b> <code>is.character()</code> and <code>as.character()</code></a></li>
+<li class="chapter" data-level="2.2" data-path="chars.html"><a href="chars.html#characters-in-r"><i class="fa fa-check"></i><b>2.2</b> Characters in R</a></li>
+<li class="chapter" data-level="2.3" data-path="chars.html"><a href="chars.html#getting-started-with-strings"><i class="fa fa-check"></i><b>2.3</b> Getting Started with Strings</a></li>
+<li class="chapter" data-level="2.4" data-path="chars.html"><a href="chars.html#creating-character-strings"><i class="fa fa-check"></i><b>2.4</b> Creating Character Strings</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="chars.html"><a href="chars.html#empty-string"><i class="fa fa-check"></i><b>2.4.1</b> Empty string</a></li>
+<li class="chapter" data-level="2.4.2" data-path="chars.html"><a href="chars.html#empty-character-vector"><i class="fa fa-check"></i><b>2.4.2</b> Empty character vector</a></li>
+<li class="chapter" data-level="2.4.3" data-path="chars.html"><a href="chars.html#function-c"><i class="fa fa-check"></i><b>2.4.3</b> Function <code>c()</code></a></li>
+<li class="chapter" data-level="2.4.4" data-path="chars.html"><a href="chars.html#is.character-and-as.character"><i class="fa fa-check"></i><b>2.4.4</b> <code>is.character()</code> and <code>as.character()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="chars.html"><a href="chars.html#behavior-of-r-objects-with-character-strings"><i class="fa fa-check"></i><b>2.4</b> Behavior of R objects with character strings</a></li>
-<li class="chapter" data-level="2.5" data-path="chars.html"><a href="chars.html#the-workhorse-function-paste"><i class="fa fa-check"></i><b>2.5</b> The workhorse function <code>paste()</code></a></li>
-<li class="chapter" data-level="2.6" data-path="chars.html"><a href="chars.html#exercises"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+<li class="chapter" data-level="2.5" data-path="chars.html"><a href="chars.html#strings-and-r-objects"><i class="fa fa-check"></i><b>2.5</b> Strings and R Objects</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="chars.html"><a href="chars.html#behavior-of-r-objects-with-character-strings"><i class="fa fa-check"></i><b>2.5.1</b> Behavior of R objects with character strings</a></li>
 </ul></li>
-<li class="part"><span><b>II Formatting</b></span></li>
-<li class="chapter" data-level="3" data-path="formatting.html"><a href="formatting.html"><i class="fa fa-check"></i><b>3</b> Formatting Text and Numbers</a><ul>
-<li class="chapter" data-level="3.1" data-path="formatting.html"><a href="formatting.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="formatting.html"><a href="formatting.html#printing-and-formatting"><i class="fa fa-check"></i><b>3.2</b> Printing and formatting</a></li>
-<li class="chapter" data-level="3.3" data-path="formatting.html"><a href="formatting.html#generic-printing"><i class="fa fa-check"></i><b>3.3</b> Generic printing</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="formatting.html"><a href="formatting.html#when-to-use-print"><i class="fa fa-check"></i><b>3.3.1</b> When to use <code>print()</code>?</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="formatting.html"><a href="formatting.html#concatenate-and-print-with-cat"><i class="fa fa-check"></i><b>3.4</b> Concatenate and print with <code>cat()</code></a></li>
-<li class="chapter" data-level="3.5" data-path="formatting.html"><a href="formatting.html#encoding-strings-with-format"><i class="fa fa-check"></i><b>3.5</b> Encoding strings with <code>format()</code></a></li>
-<li class="chapter" data-level="3.6" data-path="formatting.html"><a href="formatting.html#exercises-1"><i class="fa fa-check"></i><b>3.6</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="c-style-formatting.html"><a href="c-style-formatting.html"><i class="fa fa-check"></i><b>4</b> C-style Formatting</a><ul>
-<li class="chapter" data-level="4.1" data-path="c-style-formatting.html"><a href="c-style-formatting.html#c-style-formatting-options"><i class="fa fa-check"></i><b>4.1</b> C-style formatting options</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="c-style-formatting.html"><a href="c-style-formatting.html#format-slot-syntax"><i class="fa fa-check"></i><b>4.1.1</b> Format Slot Syntax</a></li>
-<li class="chapter" data-level="4.1.2" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-basic-sprintf"><i class="fa fa-check"></i><b>4.1.2</b> Example: basic <code>sprintf()</code></a></li>
-<li class="chapter" data-level="4.1.3" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-file-names"><i class="fa fa-check"></i><b>4.1.3</b> Example: File Names</a></li>
-<li class="chapter" data-level="4.1.4" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-fahrenheit-to-celsius"><i class="fa fa-check"></i><b>4.1.4</b> Example: Fahrenheit to Celsius</a></li>
-<li class="chapter" data-level="4.1.5" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-car-traveled-distance"><i class="fa fa-check"></i><b>4.1.5</b> Example: Car Traveled Distance</a></li>
-<li class="chapter" data-level="4.1.6" data-path="c-style-formatting.html"><a href="c-style-formatting.html#example-coffee-prices"><i class="fa fa-check"></i><b>4.1.6</b> Example: Coffee Prices</a></li>
+<li class="chapter" data-level="2.6" data-path="chars.html"><a href="chars.html#the-workhorse-function-paste"><i class="fa fa-check"></i><b>2.6</b> The Workhorse Function <code>paste()</code></a></li>
+<li class="chapter" data-level="2.7" data-path="chars.html"><a href="chars.html#getting-text-into-r"><i class="fa fa-check"></i><b>2.7</b> Getting Text into R</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="chars.html"><a href="chars.html#reading-tables"><i class="fa fa-check"></i><b>2.7.1</b> Reading tables</a></li>
+<li class="chapter" data-level="2.7.2" data-path="chars.html"><a href="chars.html#reading-raw-text"><i class="fa fa-check"></i><b>2.7.2</b> Reading raw text</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="input-and-output.html"><a href="input-and-output.html"><i class="fa fa-check"></i><b>5</b> Input and Output</a><ul>
-<li class="chapter" data-level="5.1" data-path="input-and-output.html"><a href="input-and-output.html#output"><i class="fa fa-check"></i><b>5.1</b> Output</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="input-and-output.html"><a href="input-and-output.html#concatenating-output"><i class="fa fa-check"></i><b>5.1.1</b> Concatenating output</a></li>
-<li class="chapter" data-level="5.1.2" data-path="input-and-output.html"><a href="input-and-output.html#sinking-output"><i class="fa fa-check"></i><b>5.1.2</b> Sinking output</a></li>
+<li class="chapter" data-level="3" data-path="basics1.html"><a href="basics1.html"><i class="fa fa-check"></i><b>3</b> Basic Manipulations with <code>"base"</code> Functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="basics1.html"><a href="basics1.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="basics1.html"><a href="basics1.html#basic-string-manipulations"><i class="fa fa-check"></i><b>3.2</b> Basic String Manipulations</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="basics1.html"><a href="basics1.html#count-number-of-characters-with-nchar"><i class="fa fa-check"></i><b>3.2.1</b> Count number of characters with <code>nchar()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="basics1.html"><a href="basics1.html#convert-to-lower-case-with-tolower"><i class="fa fa-check"></i><b>3.2.2</b> Convert to lower case with <code>tolower()</code></a></li>
+<li class="chapter" data-level="3.2.3" data-path="basics1.html"><a href="basics1.html#convert-to-upper-case-with-toupper"><i class="fa fa-check"></i><b>3.2.3</b> Convert to upper case with <code>toupper()</code></a></li>
+<li class="chapter" data-level="3.2.4" data-path="basics1.html"><a href="basics1.html#upper-or-lower-case-conversion-with-casefold"><i class="fa fa-check"></i><b>3.2.4</b> Upper or lower case conversion with <code>casefold()</code></a></li>
+<li class="chapter" data-level="3.2.5" data-path="basics1.html"><a href="basics1.html#character-translation-with-chartr"><i class="fa fa-check"></i><b>3.2.5</b> Character translation with <code>chartr()</code></a></li>
+<li class="chapter" data-level="3.2.6" data-path="basics1.html"><a href="basics1.html#abbreviate-strings-with-abbreviate"><i class="fa fa-check"></i><b>3.2.6</b> Abbreviate strings with <code>abbreviate()</code></a></li>
+<li class="chapter" data-level="3.2.7" data-path="basics1.html"><a href="basics1.html#replace-substrings-with-substr"><i class="fa fa-check"></i><b>3.2.7</b> Replace substrings with <code>substr()</code></a></li>
+<li class="chapter" data-level="3.2.8" data-path="basics1.html"><a href="basics1.html#replace-substrings-with-substring"><i class="fa fa-check"></i><b>3.2.8</b> Replace substrings with <code>substring()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="input-and-output.html"><a href="input-and-output.html#exporting-tables"><i class="fa fa-check"></i><b>5.2</b> Exporting tables</a></li>
-</ul></li>
-<li class="part"><span><b>III Manipulations</b></span></li>
-<li class="chapter" data-level="6" data-path="manip.html"><a href="manip.html"><i class="fa fa-check"></i><b>6</b> Basic String Manipulations</a><ul>
-<li class="chapter" data-level="6.1" data-path="manip.html"><a href="manip.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="manip.html"><a href="manip.html#basic-manipulations"><i class="fa fa-check"></i><b>6.2</b> Basic Manipulations</a></li>
-<li class="chapter" data-level="6.3" data-path="manip.html"><a href="manip.html#counting-characters"><i class="fa fa-check"></i><b>6.3</b> Counting characters</a></li>
-<li class="chapter" data-level="6.4" data-path="manip.html"><a href="manip.html#casefolding"><i class="fa fa-check"></i><b>6.4</b> Casefolding</a></li>
-<li class="chapter" data-level="6.5" data-path="manip.html"><a href="manip.html#translating-characters"><i class="fa fa-check"></i><b>6.5</b> Translating characters</a></li>
-<li class="chapter" data-level="6.6" data-path="manip.html"><a href="manip.html#abbreviating-strings"><i class="fa fa-check"></i><b>6.6</b> Abbreviating strings</a></li>
-<li class="chapter" data-level="6.7" data-path="manip.html"><a href="manip.html#replacing-strings"><i class="fa fa-check"></i><b>6.7</b> Replacing strings</a></li>
-<li class="chapter" data-level="6.8" data-path="manip.html"><a href="manip.html#set-operations"><i class="fa fa-check"></i><b>6.8</b> Set Operations</a><ul>
-<li class="chapter" data-level="6.8.1" data-path="manip.html"><a href="manip.html#set-union-with-union"><i class="fa fa-check"></i><b>6.8.1</b> Set union with <code>union()</code></a></li>
-<li class="chapter" data-level="6.8.2" data-path="manip.html"><a href="manip.html#set-intersection-with-intersect"><i class="fa fa-check"></i><b>6.8.2</b> Set intersection with <code>intersect()</code></a></li>
-<li class="chapter" data-level="6.8.3" data-path="manip.html"><a href="manip.html#set-difference-with-setdiff"><i class="fa fa-check"></i><b>6.8.3</b> Set difference with <code>setdiff()</code></a></li>
-<li class="chapter" data-level="6.8.4" data-path="manip.html"><a href="manip.html#set-equality-with-setequal"><i class="fa fa-check"></i><b>6.8.4</b> Set equality with <code>setequal()</code></a></li>
-<li class="chapter" data-level="6.8.5" data-path="manip.html"><a href="manip.html#exact-equality-with-identical"><i class="fa fa-check"></i><b>6.8.5</b> Exact equality with <code>identical()</code></a></li>
-<li class="chapter" data-level="6.8.6" data-path="manip.html"><a href="manip.html#element-contained-with-is.element"><i class="fa fa-check"></i><b>6.8.6</b> Element contained with <code>is.element()</code></a></li>
-<li class="chapter" data-level="6.8.7" data-path="manip.html"><a href="manip.html#sorting-with-sort"><i class="fa fa-check"></i><b>6.8.7</b> Sorting with <code>sort()</code></a></li>
+<li class="chapter" data-level="3.3" data-path="basics1.html"><a href="basics1.html#set-operations"><i class="fa fa-check"></i><b>3.3</b> Set Operations</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="basics1.html"><a href="basics1.html#set-union-with-union"><i class="fa fa-check"></i><b>3.3.1</b> Set union with <code>union()</code></a></li>
+<li class="chapter" data-level="3.3.2" data-path="basics1.html"><a href="basics1.html#set-intersection-with-intersect"><i class="fa fa-check"></i><b>3.3.2</b> Set intersection with <code>intersect()</code></a></li>
+<li class="chapter" data-level="3.3.3" data-path="basics1.html"><a href="basics1.html#set-difference-with-setdiff"><i class="fa fa-check"></i><b>3.3.3</b> Set difference with <code>setdiff()</code></a></li>
+<li class="chapter" data-level="3.3.4" data-path="basics1.html"><a href="basics1.html#set-equality-with-setequal"><i class="fa fa-check"></i><b>3.3.4</b> Set equality with <code>setequal()</code></a></li>
+<li class="chapter" data-level="3.3.5" data-path="basics1.html"><a href="basics1.html#exact-equality-with-identical"><i class="fa fa-check"></i><b>3.3.5</b> Exact equality with <code>identical()</code></a></li>
+<li class="chapter" data-level="3.3.6" data-path="basics1.html"><a href="basics1.html#element-contained-with-is.element"><i class="fa fa-check"></i><b>3.3.6</b> Element contained with <code>is.element()</code></a></li>
+<li class="chapter" data-level="3.3.7" data-path="basics1.html"><a href="basics1.html#sorting-with-sort"><i class="fa fa-check"></i><b>3.3.7</b> Sorting with <code>sort()</code></a></li>
+<li class="chapter" data-level="3.3.8" data-path="basics1.html"><a href="basics1.html#repetition-with-pasterep"><i class="fa fa-check"></i><b>3.3.8</b> Repetition with <code>paste(rep())</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="stringr-basics.html"><a href="stringr-basics.html"><i class="fa fa-check"></i><b>7</b> Stringr Basics</a><ul>
-<li class="chapter" data-level="7.1" data-path="stringr-basics.html"><a href="stringr-basics.html#introduction-3"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
-<li class="chapter" data-level="7.2" data-path="stringr-basics.html"><a href="stringr-basics.html#package-stringr"><i class="fa fa-check"></i><b>7.2</b> Package <code>stringr</code></a></li>
-<li class="chapter" data-level="7.3" data-path="stringr-basics.html"><a href="stringr-basics.html#basic-string-operations"><i class="fa fa-check"></i><b>7.3</b> Basic String Operations</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="stringr-basics.html"><a href="stringr-basics.html#concatenating-with-str_c"><i class="fa fa-check"></i><b>7.3.1</b> Concatenating with <code>str_c()</code></a></li>
-<li class="chapter" data-level="7.3.2" data-path="stringr-basics.html"><a href="stringr-basics.html#number-of-characters-with-str_length"><i class="fa fa-check"></i><b>7.3.2</b> Number of characters with <code>str_length()</code></a></li>
-<li class="chapter" data-level="7.3.3" data-path="stringr-basics.html"><a href="stringr-basics.html#substring-with-str_sub"><i class="fa fa-check"></i><b>7.3.3</b> Substring with <code>str_sub()</code></a></li>
-<li class="chapter" data-level="7.3.4" data-path="stringr-basics.html"><a href="stringr-basics.html#duplication-with-str_dup"><i class="fa fa-check"></i><b>7.3.4</b> Duplication with <code>str_dup()</code></a></li>
-<li class="chapter" data-level="7.3.5" data-path="stringr-basics.html"><a href="stringr-basics.html#padding-with-str_pad"><i class="fa fa-check"></i><b>7.3.5</b> Padding with <code>str_pad()</code></a></li>
-<li class="chapter" data-level="7.3.6" data-path="stringr-basics.html"><a href="stringr-basics.html#wrapping-with-str_wrap"><i class="fa fa-check"></i><b>7.3.6</b> Wrapping with <code>str_wrap()</code></a></li>
-<li class="chapter" data-level="7.3.7" data-path="stringr-basics.html"><a href="stringr-basics.html#trimming-with-str_trim"><i class="fa fa-check"></i><b>7.3.7</b> Trimming with <code>str_trim()</code></a></li>
-<li class="chapter" data-level="7.3.8" data-path="stringr-basics.html"><a href="stringr-basics.html#word-extraction-with-word"><i class="fa fa-check"></i><b>7.3.8</b> Word extraction with <code>word()</code></a></li>
+<li class="chapter" data-level="4" data-path="basics2.html"><a href="basics2.html"><i class="fa fa-check"></i><b>4</b> Basic Manipulations with <code>"stringr"</code> Functions</a><ul>
+<li class="chapter" data-level="4.1" data-path="basics2.html"><a href="basics2.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="basics2.html"><a href="basics2.html#package-stringr"><i class="fa fa-check"></i><b>4.2</b> Package <code>"stringr"</code></a></li>
+<li class="chapter" data-level="4.3" data-path="basics2.html"><a href="basics2.html#basic-string-operations"><i class="fa fa-check"></i><b>4.3</b> Basic String Operations</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="basics2.html"><a href="basics2.html#concatenating-with-str_c"><i class="fa fa-check"></i><b>4.3.1</b> Concatenating with <code>str_c()</code></a></li>
+<li class="chapter" data-level="4.3.2" data-path="basics2.html"><a href="basics2.html#number-of-characters-with-str_length"><i class="fa fa-check"></i><b>4.3.2</b> Number of characters with <code>str_length()</code></a></li>
+<li class="chapter" data-level="4.3.3" data-path="basics2.html"><a href="basics2.html#substring-with-str_sub"><i class="fa fa-check"></i><b>4.3.3</b> Substring with <code>str_sub()</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="basics2.html"><a href="basics2.html#duplication-with-str_dup"><i class="fa fa-check"></i><b>4.3.4</b> Duplication with <code>str_dup()</code></a></li>
+<li class="chapter" data-level="4.3.5" data-path="basics2.html"><a href="basics2.html#padding-with-str_pad"><i class="fa fa-check"></i><b>4.3.5</b> Padding with <code>str_pad()</code></a></li>
+<li class="chapter" data-level="4.3.6" data-path="basics2.html"><a href="basics2.html#wrapping-with-str_wrap"><i class="fa fa-check"></i><b>4.3.6</b> Wrapping with <code>str_wrap()</code></a></li>
+<li class="chapter" data-level="4.3.7" data-path="basics2.html"><a href="basics2.html#trimming-with-str_trim"><i class="fa fa-check"></i><b>4.3.7</b> Trimming with <code>str_trim()</code></a></li>
+<li class="chapter" data-level="4.3.8" data-path="basics2.html"><a href="basics2.html#word-extraction-with-word"><i class="fa fa-check"></i><b>4.3.8</b> Word extraction with <code>word()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html"><i class="fa fa-check"></i><b>8</b> Basic Manipulation Examples</a><ul>
-<li class="chapter" data-level="8.1" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#introduction-4"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-names-of-files"><i class="fa fa-check"></i><b>8.1.1</b> Example: Names of files</a></li>
-<li class="chapter" data-level="8.1.2" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-valid-color-names"><i class="fa fa-check"></i><b>8.1.2</b> Example: Valid Color Names</a></li>
-<li class="chapter" data-level="8.1.3" data-path="basic-manipulation-examples.html"><a href="basic-manipulation-examples.html#example-me-and-you-plot"><i class="fa fa-check"></i><b>8.1.3</b> Example: Me and You plot</a></li>
-</ul></li>
-</ul></li>
-<li class="part"><span><b>IV Regex</b></span></li>
-<li class="chapter" data-level="9" data-path="regex1.html"><a href="regex1.html"><i class="fa fa-check"></i><b>9</b> Regular Expressions</a><ul>
-<li class="chapter" data-level="9.1" data-path="regex1.html"><a href="regex1.html#introduction-5"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
-<li class="chapter" data-level="9.2" data-path="regex1.html"><a href="regex1.html#what-are-regular-expressions"><i class="fa fa-check"></i><b>9.2</b> What are Regular Expressions?</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="regex1.html"><a href="regex1.html#what-are-regular-expressions-used-for"><i class="fa fa-check"></i><b>9.2.1</b> What are Regular Expressions used for?</a></li>
-<li class="chapter" data-level="9.2.2" data-path="regex1.html"><a href="regex1.html#a-word-of-caution-about-regex"><i class="fa fa-check"></i><b>9.2.2</b> A word of caution about regex</a></li>
-<li class="chapter" data-level="9.2.3" data-path="regex1.html"><a href="regex1.html#regular-expressions-in-r"><i class="fa fa-check"></i><b>9.2.3</b> Regular Expressions in R</a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="regex1.html"><a href="regex1.html#regex-basics"><i class="fa fa-check"></i><b>9.3</b> Regex Basics</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="literal.html"><a href="literal.html"><i class="fa fa-check"></i><b>10</b> Literal Characters</a><ul>
-<li class="chapter" data-level="10.1" data-path="literal.html"><a href="literal.html#matching-literal-characters"><i class="fa fa-check"></i><b>10.1</b> Matching Literal Characters</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="metacharacters.html"><a href="metacharacters.html"><i class="fa fa-check"></i><b>11</b> Metacharacters</a><ul>
-<li class="chapter" data-level="11.1" data-path="metacharacters.html"><a href="metacharacters.html#about-metacharacters"><i class="fa fa-check"></i><b>11.1</b> About Metacharacters</a></li>
-<li class="chapter" data-level="11.2" data-path="metacharacters.html"><a href="metacharacters.html#the-wild-metacharacter"><i class="fa fa-check"></i><b>11.2</b> The Wild Metacharacter</a></li>
-<li class="chapter" data-level="11.3" data-path="metacharacters.html"><a href="metacharacters.html#escaping-metacharacters"><i class="fa fa-check"></i><b>11.3</b> Escaping metacharacters</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="character-sets.html"><a href="character-sets.html"><i class="fa fa-check"></i><b>12</b> Character Sets</a><ul>
-<li class="chapter" data-level="12.1" data-path="character-sets.html"><a href="character-sets.html#defining-character-sets"><i class="fa fa-check"></i><b>12.1</b> Defining character sets</a></li>
-<li class="chapter" data-level="12.2" data-path="character-sets.html"><a href="character-sets.html#character-ranges"><i class="fa fa-check"></i><b>12.2</b> Character ranges</a></li>
-<li class="chapter" data-level="12.3" data-path="character-sets.html"><a href="character-sets.html#negative-character-sets"><i class="fa fa-check"></i><b>12.3</b> Negative Character Sets</a></li>
-<li class="chapter" data-level="12.4" data-path="character-sets.html"><a href="character-sets.html#metacharacters-inside-character-sets"><i class="fa fa-check"></i><b>12.4</b> Metacharacters inside character sets</a></li>
-<li class="chapter" data-level="12.5" data-path="character-sets.html"><a href="character-sets.html#character-classes"><i class="fa fa-check"></i><b>12.5</b> Character Classes</a></li>
-<li class="chapter" data-level="12.6" data-path="character-sets.html"><a href="character-sets.html#posix-character-classes"><i class="fa fa-check"></i><b>12.6</b> POSIX Character Classes</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>13</b> Anchors</a></li>
-<li class="chapter" data-level="14" data-path="quantifiers.html"><a href="quantifiers.html"><i class="fa fa-check"></i><b>14</b> Quantifiers</a><ul>
-<li class="chapter" data-level="14.0.1" data-path="quantifiers.html"><a href="quantifiers.html#what-do-groups-mean-in-regex"><i class="fa fa-check"></i><b>14.0.1</b> What do groups mean in Regex?</a></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="boundaries.html"><a href="boundaries.html"><i class="fa fa-check"></i><b>15</b> Boundaries and Look Arounds</a><ul>
-<li class="chapter" data-level="15.1" data-path="boundaries.html"><a href="boundaries.html#look-arounds"><i class="fa fa-check"></i><b>15.1</b> Look Arounds</a><ul>
-<li class="chapter" data-level="15.1.1" data-path="boundaries.html"><a href="boundaries.html#look-aheads"><i class="fa fa-check"></i><b>15.1.1</b> Look Aheads</a></li>
-<li class="chapter" data-level="15.1.2" data-path="boundaries.html"><a href="boundaries.html#look-behinds"><i class="fa fa-check"></i><b>15.1.2</b> Look Behinds</a></li>
-</ul></li>
-</ul></li>
-<li class="part"><span><b>V Applications</b></span></li>
-<li class="chapter" data-level="16" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>16</b> Practical Applications</a><ul>
-<li class="chapter" data-level="16.1" data-path="applications.html"><a href="applications.html#introduction-6"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="reversing.html"><a href="reversing.html"><i class="fa fa-check"></i><b>17</b> Reversing Strings</a><ul>
-<li class="chapter" data-level="17.1" data-path="reversing.html"><a href="reversing.html#introduction-7"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
-<li class="chapter" data-level="17.2" data-path="reversing.html"><a href="reversing.html#reversing-characters"><i class="fa fa-check"></i><b>17.2</b> Reversing Characters</a></li>
-<li class="chapter" data-level="17.3" data-path="reversing.html"><a href="reversing.html#reversing-words"><i class="fa fa-check"></i><b>17.3</b> Reversing Words</a></li>
-</ul></li>
-<li class="chapter" data-level="18" data-path="html.html"><a href="html.html"><i class="fa fa-check"></i><b>18</b> Matching HTML Tags</a><ul>
-<li class="chapter" data-level="18.1" data-path="html.html"><a href="html.html#introduction-8"><i class="fa fa-check"></i><b>18.1</b> Introduction</a></li>
-<li class="chapter" data-level="18.2" data-path="html.html"><a href="html.html#attributes-href"><i class="fa fa-check"></i><b>18.2</b> Attributes <code>href</code></a><ul>
-<li class="chapter" data-level="18.2.1" data-path="html.html"><a href="html.html#getting-sig-links"><i class="fa fa-check"></i><b>18.2.1</b> Getting SIG links</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="19" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>19</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="19.1" data-path="cleaning.html"><a href="cleaning.html#introduction-9"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
-<li class="chapter" data-level="19.2" data-path="cleaning.html"><a href="cleaning.html#import-data"><i class="fa fa-check"></i><b>19.2</b> Import Data</a></li>
-<li class="chapter" data-level="19.3" data-path="cleaning.html"><a href="cleaning.html#extracting-meters"><i class="fa fa-check"></i><b>19.3</b> Extracting Meters</a></li>
-<li class="chapter" data-level="19.4" data-path="cleaning.html"><a href="cleaning.html#extracting-country"><i class="fa fa-check"></i><b>19.4</b> Extracting Country</a></li>
-<li class="chapter" data-level="19.5" data-path="cleaning.html"><a href="cleaning.html#cleaning-dates"><i class="fa fa-check"></i><b>19.5</b> Cleaning Dates</a></li>
-<li class="chapter" data-level="19.6" data-path="cleaning.html"><a href="cleaning.html#month-and-day"><i class="fa fa-check"></i><b>19.6</b> Month and Day</a></li>
-<li class="chapter" data-level="19.7" data-path="cleaning.html"><a href="cleaning.html#extracting-year"><i class="fa fa-check"></i><b>19.7</b> Extracting Year</a><ul>
-<li class="chapter" data-level="19.7.1" data-path="cleaning.html"><a href="cleaning.html#athletes-name"><i class="fa fa-check"></i><b>19.7.1</b> Athlete’s Name</a></li>
-</ul></li>
-<li class="chapter" data-level="19.8" data-path="cleaning.html"><a href="cleaning.html#athlete-names"><i class="fa fa-check"></i><b>19.8</b> Athlete Names</a></li>
-</ul></li>
-<li class="chapter" data-level="20" data-path="logs.html"><a href="logs.html"><i class="fa fa-check"></i><b>20</b> Data Log File</a><ul>
-<li class="chapter" data-level="20.1" data-path="logs.html"><a href="logs.html#reading-the-text-file"><i class="fa fa-check"></i><b>20.1</b> Reading the text file</a><ul>
-<li class="chapter" data-level="20.1.1" data-path="logs.html"><a href="logs.html#jpg-file-requests"><i class="fa fa-check"></i><b>20.1.1</b> JPG File Requests</a></li>
-<li class="chapter" data-level="20.1.2" data-path="logs.html"><a href="logs.html#extracting-file-extensions"><i class="fa fa-check"></i><b>20.1.2</b> Extracting file extensions</a></li>
-<li class="chapter" data-level="20.1.3" data-path="logs.html"><a href="logs.html#image-files"><i class="fa fa-check"></i><b>20.1.3</b> Image files</a></li>
-<li class="chapter" data-level="20.1.4" data-path="logs.html"><a href="logs.html#how-to-match-image-files-with-one-regex-pattern"><i class="fa fa-check"></i><b>20.1.4</b> How to match image files with one regex pattern?</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="21" data-path="biomed.html"><a href="biomed.html"><i class="fa fa-check"></i><b>21</b> BMC Journals Data</a><ul>
-<li class="chapter" data-level="21.1" data-path="biomed.html"><a href="biomed.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
-<li class="chapter" data-level="21.2" data-path="biomed.html"><a href="biomed.html#analyzing-journal-names"><i class="fa fa-check"></i><b>21.2</b> Analyzing Journal Names</a><ul>
-<li class="chapter" data-level="21.2.1" data-path="biomed.html"><a href="biomed.html#preprocessing"><i class="fa fa-check"></i><b>21.2.1</b> Preprocessing</a></li>
-</ul></li>
-<li class="chapter" data-level="21.3" data-path="biomed.html"><a href="biomed.html#summary-statistics"><i class="fa fa-check"></i><b>21.3</b> Summary statistics</a></li>
-<li class="chapter" data-level="21.4" data-path="biomed.html"><a href="biomed.html#common-words"><i class="fa fa-check"></i><b>21.4</b> Common words</a></li>
-<li class="chapter" data-level="21.5" data-path="biomed.html"><a href="biomed.html#the-top-30-words"><i class="fa fa-check"></i><b>21.5</b> The top 30 words</a></li>
-</ul></li>
+<li class="part"><span><b>II Printing and Formatting</b></span></li>
+<li class="part"><span><b>III Regular Expressions</b></span></li>
+<li class="part"><span><b>IV Applications</b></span></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -317,7 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Handling Strings with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Handling Strings With R</a>
           </h1>
         </div>
 
@@ -326,189 +232,221 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="intro" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p>At its heart, computing involves working with numbers. That’s the main reason
-why computers were invented: to facilitate mathematical operations around
-numbers; from basic arithmetic to more complex operations (e.g. trigonometry,
-algebra, calculus, etc.) Nowadays, however, we use computers to work with
-data that are not just numbers. We use them to write a variety of documents,
-we use them to create and edit images and videos, to manipulate sound, among
-many other tasks. Learning to manipulate those data types is fundamental to
-programming.</p>
-<p>Today, there is a considerable amount of information and data in the form
-of text. Look at any website: pretty much the contents are text and images,
-with some videos here and there, and maybe some tables and/or a list of numbers.</p>
-<p>Likewise, most of the times you are going to be working with text files:
-script files, reports, data files, source code files, etc.
-All the R script files that you use are essentially plain text files.
-I bet you have a csv file or any other field delimited format
-(or even in HTML, XML, JSON, etc), with some fields containing characters.
-In all of these cases what you are working with is essentially
-a bunch of characters.</p>
-<p>At the end of the day all the data that is passed to the computer is converted
-to binary format (zeros and ones) so computers can process it. But no one can
-deny the fact that a lot of what we do with computers is working with text and
-character strings.</p>
-<p>And then inside R you also have text. Things like row
-names and column names of matrices, data frames, tables, and any other
-rectangular data structure. Lists and vectors may also contain names.
-And what about the text in graphics? Things like titles, subtitles,
-axis labels, legends, colors, displayed text in a plot, etc.
-Text is omnipresent: whether you are we are surrounded by it.</p>
-<div id="about-this-book" class="section level2">
-<h2><span class="header-section-number">1.1</span> About this book</h2>
-<p>This book aims to help you get started with handling strings in R. It provides
-an overview of several resources that you can use for string manipulation. It
-covers useful functions, general topics, common operations, and other tricks.</p>
-<p>This book is NOT about textual data analysis, linguistic analysis, text mining,
-or natural language processing (NLP). For those purposes, I highly recommend
-taking a look at the CRAN Task View on Natural Language Processing (NLP):</p>
-<p><a href="http://cran.r-project.org/web/views/NaturalLanguageProcessing.html">http://cran.r-project.org/web/views/NaturalLanguageProcessing.html</a></p>
-<p>However, even if you don’t plan to do text analysis, text mining, or natural
-language processing, I bet you have some dataset that contains data as
-characters: names of rows, names of columns, dates, monetary quantities,
-longitude and latitude, etc. I’m sure that you have encountered one or more of
-the following cases:</p>
-<ul>
-<li>You want to remove a given character in the names of your variables</li>
-<li>You want to replace a given character in your data</li>
-<li>Maybe you wanted to convert labels to upper case (or lower case)</li>
-<li>You’ve been struggling with xml (or html) files</li>
-<li>You’ve been modifying text files in excel changing labels, categories, one cell at a time, or doing one thousand copy-paste operations</li>
-</ul>
-<p>Hopefully after reading this book, you will have the necessary tools in your
-toolbox for dealing with these (and many) other situations that involve
-handling and processing strings in R.</p>
-<div id="structure-of-the-book" class="section level3">
-<h3><span class="header-section-number">1.1.1</span> Structure of the book</h3>
-<p>The content of the book is divided in five major parts:</p>
-<ol style="list-style-type: decimal">
-<li>Getting started with character strings</li>
-<li>Formatting and printing text and numbers</li>
-<li>Input and output</li>
-<li>Basic string manipulations</li>
-<li>Working with Regular Expressions</li>
-</ol>
-<p>If you have minimal or none experience with R, the best place to start is
-<a href="chars.html#chars">Chapter 2: Characters</a>. If you are already familiar with the basics
-of vectors and character objects, you can quickly skim this chapter, or skip it,
-and then go to another chapter of your interest.</p>
-<p>Chapter 2 describes different ways to format text and numbers. These are
-useful tools for when you want to produce output that will either be displayed
-on screen, or that will be exported to a file.</p>
-<p>The third major component of the book has to do with reading in information from
-text files, as well as exporting output to text to files.</p>
-<p>The fourth part of the book deals with <em>basic</em> string manipulations. By “basic”
-I mean any type of manipulation and transformation that does not require
-the use of regular expressions.</p>
-<p>The fifth part comprises working with regular expressions. Here you will learn
-about the basic concepts around regular expressions (regex), the intricacies
-when working with regex in R, and becoming familiar with the regex functions
-in the R package <strong>stringr</strong>.</p>
-<p>Last but not least, the last chapters of the book present a couple of case
-studies and extended practical examples that cover the main topics covered
-in the book.</p>
+<h1><span class="header-section-number">1</span> Introductory Appetizer</h1>
+<p>To give you an idea of some of the things we can do in R with string
+processing, let’s play a bit with a simple example.</p>
+<div id="a-toy-example" class="section level2">
+<h2><span class="header-section-number">1.1</span> A Toy Example</h2>
+<p>For this crash informal introduction, we’ll use the data frame <code>USArrests</code>
+that already comes with R. Use the function <code>head()</code> to get a peek of
+the data:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1"></a><span class="co"># take a peek of USArrests</span></span>
+<span id="cb1-2"><a href="intro.html#cb1-2"></a><span class="kw">head</span>(USArrests)</span>
+<span id="cb1-3"><a href="intro.html#cb1-3"></a><span class="co">#&gt;            Murder Assault UrbanPop Rape</span></span>
+<span id="cb1-4"><a href="intro.html#cb1-4"></a><span class="co">#&gt; Alabama      13.2     236       58 21.2</span></span>
+<span id="cb1-5"><a href="intro.html#cb1-5"></a><span class="co">#&gt; Alaska       10.0     263       48 44.5</span></span>
+<span id="cb1-6"><a href="intro.html#cb1-6"></a><span class="co">#&gt; Arizona       8.1     294       80 31.0</span></span>
+<span id="cb1-7"><a href="intro.html#cb1-7"></a><span class="co">#&gt; Arkansas      8.8     190       50 19.5</span></span>
+<span id="cb1-8"><a href="intro.html#cb1-8"></a><span class="co">#&gt; California    9.0     276       91 40.6</span></span>
+<span id="cb1-9"><a href="intro.html#cb1-9"></a><span class="co">#&gt; Colorado      7.9     204       78 38.7</span></span></code></pre></div>
+<p>The labels on the rows such as <code>Alabama</code> or <code>Alaska</code> are displayed
+strings. Likewise, the labels of the columns—<code>Murder</code>, <code>Assault</code>,
+<code>UrbanPop</code> and <code>Rape</code>—are also strings.</p>
+<div id="abbreviating-strings" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Abbreviating strings</h3>
+<p>Suppose we want to abbreviate the names of the States. Furthermore, suppose we
+want to abbreviate the names using the first four characters of each name. One
+way to do that is by using the function <code>substr()</code> which substrings a
+character vector. We just need to indicate the <code>start=1</code> and <code>stop=4</code>
+positions:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1"></a><span class="co"># names of states</span></span>
+<span id="cb2-2"><a href="intro.html#cb2-2"></a>states &lt;-<span class="st"> </span><span class="kw">rownames</span>(USArrests)</span>
+<span id="cb2-3"><a href="intro.html#cb2-3"></a></span>
+<span id="cb2-4"><a href="intro.html#cb2-4"></a><span class="co"># substr</span></span>
+<span id="cb2-5"><a href="intro.html#cb2-5"></a><span class="kw">substr</span>(<span class="dt">x =</span> states, <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">stop =</span> <span class="dv">4</span>)</span>
+<span id="cb2-6"><a href="intro.html#cb2-6"></a><span class="co">#&gt;  [1] &quot;Alab&quot; &quot;Alas&quot; &quot;Ariz&quot; &quot;Arka&quot; &quot;Cali&quot; &quot;Colo&quot; &quot;Conn&quot; &quot;Dela&quot; &quot;Flor&quot; &quot;Geor&quot;</span></span>
+<span id="cb2-7"><a href="intro.html#cb2-7"></a><span class="co">#&gt; [11] &quot;Hawa&quot; &quot;Idah&quot; &quot;Illi&quot; &quot;Indi&quot; &quot;Iowa&quot; &quot;Kans&quot; &quot;Kent&quot; &quot;Loui&quot; &quot;Main&quot; &quot;Mary&quot;</span></span>
+<span id="cb2-8"><a href="intro.html#cb2-8"></a><span class="co">#&gt; [21] &quot;Mass&quot; &quot;Mich&quot; &quot;Minn&quot; &quot;Miss&quot; &quot;Miss&quot; &quot;Mont&quot; &quot;Nebr&quot; &quot;Neva&quot; &quot;New &quot; &quot;New &quot;</span></span>
+<span id="cb2-9"><a href="intro.html#cb2-9"></a><span class="co">#&gt; [31] &quot;New &quot; &quot;New &quot; &quot;Nort&quot; &quot;Nort&quot; &quot;Ohio&quot; &quot;Okla&quot; &quot;Oreg&quot; &quot;Penn&quot; &quot;Rhod&quot; &quot;Sout&quot;</span></span>
+<span id="cb2-10"><a href="intro.html#cb2-10"></a><span class="co">#&gt; [41] &quot;Sout&quot; &quot;Tenn&quot; &quot;Texa&quot; &quot;Utah&quot; &quot;Verm&quot; &quot;Virg&quot; &quot;Wash&quot; &quot;West&quot; &quot;Wisc&quot; &quot;Wyom&quot;</span></span></code></pre></div>
+<p>This may not be the best solution. Note that there are four states with the same
+abbreviation <code>"New "</code> (New Hampshire, New Jersey, New Mexico, New York).
+Likewise, North Carolina and North Dakota share the same name <code>"Nort"</code>.
+In turn, South Carolina and South Dakota got the same abbreviation <code>"Sout"</code>.</p>
+<p>A better way to abbreviate the names of the states can be performed by using
+the function <code>abbreviate()</code> like so:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1"></a><span class="co"># abbreviate state names</span></span>
+<span id="cb3-2"><a href="intro.html#cb3-2"></a>states2 &lt;-<span class="st"> </span><span class="kw">abbreviate</span>(states)</span>
+<span id="cb3-3"><a href="intro.html#cb3-3"></a></span>
+<span id="cb3-4"><a href="intro.html#cb3-4"></a><span class="co"># remove vector names (for convenience)</span></span>
+<span id="cb3-5"><a href="intro.html#cb3-5"></a><span class="kw">names</span>(states2) &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb3-6"><a href="intro.html#cb3-6"></a>states2</span>
+<span id="cb3-7"><a href="intro.html#cb3-7"></a><span class="co">#&gt;  [1] &quot;Albm&quot; &quot;Alsk&quot; &quot;Arzn&quot; &quot;Arkn&quot; &quot;Clfr&quot; &quot;Clrd&quot; &quot;Cnnc&quot; &quot;Dlwr&quot; &quot;Flrd&quot; &quot;Gerg&quot;</span></span>
+<span id="cb3-8"><a href="intro.html#cb3-8"></a><span class="co">#&gt; [11] &quot;Hawa&quot; &quot;Idah&quot; &quot;Illn&quot; &quot;Indn&quot; &quot;Iowa&quot; &quot;Knss&quot; &quot;Kntc&quot; &quot;Losn&quot; &quot;Main&quot; &quot;Mryl&quot;</span></span>
+<span id="cb3-9"><a href="intro.html#cb3-9"></a><span class="co">#&gt; [21] &quot;Mssc&quot; &quot;Mchg&quot; &quot;Mnns&quot; &quot;Msss&quot; &quot;Mssr&quot; &quot;Mntn&quot; &quot;Nbrs&quot; &quot;Nevd&quot; &quot;NwHm&quot; &quot;NwJr&quot;</span></span>
+<span id="cb3-10"><a href="intro.html#cb3-10"></a><span class="co">#&gt; [31] &quot;NwMx&quot; &quot;NwYr&quot; &quot;NrtC&quot; &quot;NrtD&quot; &quot;Ohio&quot; &quot;Oklh&quot; &quot;Orgn&quot; &quot;Pnns&quot; &quot;RhdI&quot; &quot;SthC&quot;</span></span>
+<span id="cb3-11"><a href="intro.html#cb3-11"></a><span class="co">#&gt; [41] &quot;SthD&quot; &quot;Tnns&quot; &quot;Texs&quot; &quot;Utah&quot; &quot;Vrmn&quot; &quot;Vrgn&quot; &quot;Wshn&quot; &quot;WstV&quot; &quot;Wscn&quot; &quot;Wymn&quot;</span></span></code></pre></div>
+<p>If we decide to try an abbreviation with five letters we just simply change the
+argument <code>minlength = 5</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1"></a><span class="co"># abbreviate state names with 5 letters</span></span>
+<span id="cb4-2"><a href="intro.html#cb4-2"></a><span class="kw">abbreviate</span>(states, <span class="dt">minlength =</span> <span class="dv">5</span>)</span>
+<span id="cb4-3"><a href="intro.html#cb4-3"></a><span class="co">#&gt;        Alabama         Alaska        Arizona       Arkansas     California </span></span>
+<span id="cb4-4"><a href="intro.html#cb4-4"></a><span class="co">#&gt;        &quot;Alabm&quot;        &quot;Alask&quot;        &quot;Arizn&quot;        &quot;Arkns&quot;        &quot;Clfrn&quot; </span></span>
+<span id="cb4-5"><a href="intro.html#cb4-5"></a><span class="co">#&gt;       Colorado    Connecticut       Delaware        Florida        Georgia </span></span>
+<span id="cb4-6"><a href="intro.html#cb4-6"></a><span class="co">#&gt;        &quot;Colrd&quot;        &quot;Cnnct&quot;        &quot;Delwr&quot;        &quot;Flord&quot;        &quot;Georg&quot; </span></span>
+<span id="cb4-7"><a href="intro.html#cb4-7"></a><span class="co">#&gt;         Hawaii          Idaho       Illinois        Indiana           Iowa </span></span>
+<span id="cb4-8"><a href="intro.html#cb4-8"></a><span class="co">#&gt;        &quot;Hawai&quot;        &quot;Idaho&quot;        &quot;Illns&quot;        &quot;Indin&quot;         &quot;Iowa&quot; </span></span>
+<span id="cb4-9"><a href="intro.html#cb4-9"></a><span class="co">#&gt;         Kansas       Kentucky      Louisiana          Maine       Maryland </span></span>
+<span id="cb4-10"><a href="intro.html#cb4-10"></a><span class="co">#&gt;        &quot;Kanss&quot;        &quot;Kntck&quot;        &quot;Lousn&quot;        &quot;Maine&quot;        &quot;Mryln&quot; </span></span>
+<span id="cb4-11"><a href="intro.html#cb4-11"></a><span class="co">#&gt;  Massachusetts       Michigan      Minnesota    Mississippi       Missouri </span></span>
+<span id="cb4-12"><a href="intro.html#cb4-12"></a><span class="co">#&gt;        &quot;Mssch&quot;        &quot;Mchgn&quot;        &quot;Mnnst&quot;        &quot;Mssss&quot;        &quot;Missr&quot; </span></span>
+<span id="cb4-13"><a href="intro.html#cb4-13"></a><span class="co">#&gt;        Montana       Nebraska         Nevada  New Hampshire     New Jersey </span></span>
+<span id="cb4-14"><a href="intro.html#cb4-14"></a><span class="co">#&gt;        &quot;Montn&quot;        &quot;Nbrsk&quot;        &quot;Nevad&quot;        &quot;NwHmp&quot;        &quot;NwJrs&quot; </span></span>
+<span id="cb4-15"><a href="intro.html#cb4-15"></a><span class="co">#&gt;     New Mexico       New York North Carolina   North Dakota           Ohio </span></span>
+<span id="cb4-16"><a href="intro.html#cb4-16"></a><span class="co">#&gt;        &quot;NwMxc&quot;        &quot;NwYrk&quot;        &quot;NrthC&quot;        &quot;NrthD&quot;         &quot;Ohio&quot; </span></span>
+<span id="cb4-17"><a href="intro.html#cb4-17"></a><span class="co">#&gt;       Oklahoma         Oregon   Pennsylvania   Rhode Island South Carolina </span></span>
+<span id="cb4-18"><a href="intro.html#cb4-18"></a><span class="co">#&gt;        &quot;Oklhm&quot;        &quot;Oregn&quot;        &quot;Pnnsy&quot;        &quot;RhdIs&quot;        &quot;SthCr&quot; </span></span>
+<span id="cb4-19"><a href="intro.html#cb4-19"></a><span class="co">#&gt;   South Dakota      Tennessee          Texas           Utah        Vermont </span></span>
+<span id="cb4-20"><a href="intro.html#cb4-20"></a><span class="co">#&gt;        &quot;SthDk&quot;        &quot;Tnnss&quot;        &quot;Texas&quot;         &quot;Utah&quot;        &quot;Vrmnt&quot; </span></span>
+<span id="cb4-21"><a href="intro.html#cb4-21"></a><span class="co">#&gt;       Virginia     Washington  West Virginia      Wisconsin        Wyoming </span></span>
+<span id="cb4-22"><a href="intro.html#cb4-22"></a><span class="co">#&gt;        &quot;Virgn&quot;        &quot;Wshng&quot;        &quot;WstVr&quot;        &quot;Wscns&quot;        &quot;Wymng&quot;</span></span></code></pre></div>
 </div>
-<div id="main-resources" class="section level3">
-<h3><span class="header-section-number">1.1.2</span> Main Resources</h3>
-<p>Documentation on how to manipulate strings and text data in R is very scarce.
-This is mostly because R is not perceived as a scripting language (like Python
-or Java, among others). However, I seriously think that we need to have more
-available resources about this indispensable topic.</p>
-<p>There is not much documentation on how to manipulate character strings and text
-data in R. There are great R books for an enormous variety of statistical
-methods, graphics and data visualization, as well as applications in a wide
-range of fields such as ecology, genetics, psychology, finance, economics, etc.
-But not for manipulating strings and text data.</p>
-<p>Perhaps the main reason for this lack of resources is that R is not considered
-to be qualified as a “scripting” language: R is primarily perceived as a
-language for computing and programming with (mostly numeric) data. Quoting
-<a href="http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Wickham.pdf">Hadley Wickham</a></p>
-<blockquote>
-<p>“R provides a solid set of string operations, but because they have grown
-organically over time, they can be inconsistent and a little hard to learn.
-Additionally, they lag behind the string operations in other programming
-languages, so that some things that are easy to do in languages like Ruby or
-Python are rather hard to do in R”</p>
-</blockquote>
-<p>Most introductory books about R have small sections that briefly cover string
-manipulation without going further down. That is why I don’t have many books
-for recommendation, if anything the book by Phil Spector
-<strong>Data Manipulation with R</strong>.</p>
-<p>If published material is not abundant, we still have the online world. The good
-news is that the web is full of hundreds of references about processing
-character strings. The bad news is that they are very spread and uncategorized.</p>
-<p>For specific topics and tasks, a good place to start with is <em>Stack Overflow</em>.
-This is a questions-and-answers site for programmers that has a lot of
-questions related with R. Just look for those questions tagged with <code>"r"</code>:
-<a href="http://stackoverflow.com/questions/tagged/r">http://stackoverflow.com/questions/tagged/r</a>.
-There is a good number of posts related with handling characters and text, and
-they can give you a hint on how to solve a particular problem. There is also
-<em>R-bloggers</em>, <a href="http://www.r-bloggers.com">http://www.r-bloggers.com</a>, a blog
-aggregator for R enthusiasts in which is also possible to find contributed
-material about processing strings as well as text data analysis.</p>
-<p>You can also check the following resources that have to do with string
-manipulations. It is a very short list of resources but I’ve found them very
-useful:</p>
-<ul>
-<li><p><strong>R Wikibook: Programming and Text Processing</strong>
-<a href="http://en.wikibooks.org/wiki/R_Programming/Text_Processing">http://en.wikibooks.org/wiki/R_Programming/Text_Processing</a>
-R wikibook has a section dedicated to text processing that is worth check it out.</p></li>
-<li><p><strong>stringr: modern, consisting string processing</strong> by Hadley Wickham
-<a href="http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Wickham.pdf">http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Wickham.pdf</a>
-Article from the R journal introducing the package <code>"stringr"</code> by Hadley Wickham.</p></li>
-<li><p><strong>Introduction to String Matching and Modification in R Using Regular Expressions</strong> by Svetlana Eden
-<a href="http://biostat.mc.vanderbilt.edu/wiki/pub/Main/SvetlanaEdenRFiles/regExprTalk.pdf">http://biostat.mc.vanderbilt.edu/wiki/pub/Main/SvetlanaEdenRFiles/regExprTalk.pdf</a></p></li>
-</ul>
+<div id="getting-the-longest-name" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Getting the longest name</h3>
+<p>Now let’s imagine that we need to find the longest name. This implies that we need to count the number of letters in each name. The function <code>nchar()</code> comes handy for that purpose. Here’s how we could do it:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1"></a><span class="co"># size (in characters) of each name</span></span>
+<span id="cb5-2"><a href="intro.html#cb5-2"></a>state_chars =<span class="st"> </span><span class="kw">nchar</span>(states)</span>
+<span id="cb5-3"><a href="intro.html#cb5-3"></a>state_chars</span>
+<span id="cb5-4"><a href="intro.html#cb5-4"></a><span class="co">#&gt;  [1]  7  6  7  8 10  8 11  8  7  7  6  5  8  7  4  6  8  9  5  8 13  8  9 11  8</span></span>
+<span id="cb5-5"><a href="intro.html#cb5-5"></a><span class="co">#&gt; [26]  7  8  6 13 10 10  8 14 12  4  8  6 12 12 14 12  9  5  4  7  8 10 13  9  7</span></span>
+<span id="cb5-6"><a href="intro.html#cb5-6"></a></span>
+<span id="cb5-7"><a href="intro.html#cb5-7"></a><span class="co"># longest name</span></span>
+<span id="cb5-8"><a href="intro.html#cb5-8"></a>states[<span class="kw">which</span>(state_chars <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(state_chars))]</span>
+<span id="cb5-9"><a href="intro.html#cb5-9"></a><span class="co">#&gt; [1] &quot;North Carolina&quot; &quot;South Carolina&quot;</span></span></code></pre></div>
 </div>
-<div id="acknowledgements" class="section level3">
-<h3><span class="header-section-number">1.1.3</span> Acknowledgements</h3>
-<p>This book is a major iteration on a previous ebook that I wrote in 2013:
-<em>Handling and Processing Strings in R</em>. As you can tell, I’ve shorten the
-title to just <strong>Handling Strings with R</strong>. I’ve also expanded the content to
-include many more examples, code snippets, and material about regular
-expressions.</p>
-<p>As always, many thanks to Jessica who patiently accepted my occupying of the
-dinning table as my workbench (<del>that’s over now</del>).</p>
+<div id="selecting-states" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> Selecting States</h3>
+<p>To make things more interesting, let’s assume that we wish to select those states containing the letter <code>"k"</code>. How can we do that? Very simple, we just need to use the function <code>grep()</code> for working with regular expressions. Simply indicate the <code>pattern = "k"</code> as follows:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1"></a><span class="co"># get states names with &#39;k&#39;</span></span>
+<span id="cb6-2"><a href="intro.html#cb6-2"></a><span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&quot;k&quot;</span>, <span class="dt">x =</span> states, <span class="dt">value =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb6-3"><a href="intro.html#cb6-3"></a><span class="co">#&gt; [1] &quot;Alaska&quot;       &quot;Arkansas&quot;     &quot;Kentucky&quot;     &quot;Nebraska&quot;     &quot;New York&quot;    </span></span>
+<span id="cb6-4"><a href="intro.html#cb6-4"></a><span class="co">#&gt; [6] &quot;North Dakota&quot; &quot;Oklahoma&quot;     &quot;South Dakota&quot;</span></span></code></pre></div>
+<p>Instead of grabbing those names containing <code>"k"</code>, say we wish to select those states containing the letter <code>"w"</code>. Again, this can be done with <code>grep()</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="intro.html#cb7-1"></a><span class="co"># get states names with &#39;w&#39;</span></span>
+<span id="cb7-2"><a href="intro.html#cb7-2"></a><span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&quot;w&quot;</span>, <span class="dt">x =</span> states, <span class="dt">value =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb7-3"><a href="intro.html#cb7-3"></a><span class="co">#&gt; [1] &quot;Delaware&quot;      &quot;Hawaii&quot;        &quot;Iowa&quot;          &quot;New Hampshire&quot;</span></span>
+<span id="cb7-4"><a href="intro.html#cb7-4"></a><span class="co">#&gt; [5] &quot;New Jersey&quot;    &quot;New Mexico&quot;    &quot;New York&quot;</span></span></code></pre></div>
+<p>Notice that we only selected those states with lowercase <code>"w"</code>. But what
+about those states with uppercase <code>"W"</code>? There are several options to find
+a solution for this question. One option is to specify the searched pattern as
+a character class <code>"[wW]"</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro.html#cb8-1"></a><span class="co"># get states names with &#39;w&#39; or &#39;W&#39;</span></span>
+<span id="cb8-2"><a href="intro.html#cb8-2"></a><span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&quot;[wW]&quot;</span>, <span class="dt">x =</span> states, <span class="dt">value =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-3"><a href="intro.html#cb8-3"></a><span class="co">#&gt;  [1] &quot;Delaware&quot;      &quot;Hawaii&quot;        &quot;Iowa&quot;          &quot;New Hampshire&quot;</span></span>
+<span id="cb8-4"><a href="intro.html#cb8-4"></a><span class="co">#&gt;  [5] &quot;New Jersey&quot;    &quot;New Mexico&quot;    &quot;New York&quot;      &quot;Washington&quot;   </span></span>
+<span id="cb8-5"><a href="intro.html#cb8-5"></a><span class="co">#&gt;  [9] &quot;West Virginia&quot; &quot;Wisconsin&quot;     &quot;Wyoming&quot;</span></span></code></pre></div>
+<p>Another solution is to first convert the state names to lower case, and then
+look for the character <code>"w"</code>, like so:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="intro.html#cb9-1"></a><span class="co"># get states names with &#39;w&#39;</span></span>
+<span id="cb9-2"><a href="intro.html#cb9-2"></a><span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&quot;w&quot;</span>, <span class="dt">x =</span> <span class="kw">tolower</span>(states), <span class="dt">value =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb9-3"><a href="intro.html#cb9-3"></a><span class="co">#&gt;  [1] &quot;delaware&quot;      &quot;hawaii&quot;        &quot;iowa&quot;          &quot;new hampshire&quot;</span></span>
+<span id="cb9-4"><a href="intro.html#cb9-4"></a><span class="co">#&gt;  [5] &quot;new jersey&quot;    &quot;new mexico&quot;    &quot;new york&quot;      &quot;washington&quot;   </span></span>
+<span id="cb9-5"><a href="intro.html#cb9-5"></a><span class="co">#&gt;  [9] &quot;west virginia&quot; &quot;wisconsin&quot;     &quot;wyoming&quot;</span></span></code></pre></div>
+<p>Alternatively, instead of converting the state names to lower case we could do
+the opposite (convert to upper case), and then look for the character
+<code>"W"</code>, like so:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="intro.html#cb10-1"></a><span class="co"># get states names with &#39;W&#39;</span></span>
+<span id="cb10-2"><a href="intro.html#cb10-2"></a><span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&quot;W&quot;</span>, <span class="dt">x =</span> <span class="kw">toupper</span>(states), <span class="dt">value =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb10-3"><a href="intro.html#cb10-3"></a><span class="co">#&gt;  [1] &quot;DELAWARE&quot;      &quot;HAWAII&quot;        &quot;IOWA&quot;          &quot;NEW HAMPSHIRE&quot;</span></span>
+<span id="cb10-4"><a href="intro.html#cb10-4"></a><span class="co">#&gt;  [5] &quot;NEW JERSEY&quot;    &quot;NEW MEXICO&quot;    &quot;NEW YORK&quot;      &quot;WASHINGTON&quot;   </span></span>
+<span id="cb10-5"><a href="intro.html#cb10-5"></a><span class="co">#&gt;  [9] &quot;WEST VIRGINIA&quot; &quot;WISCONSIN&quot;     &quot;WYOMING&quot;</span></span></code></pre></div>
+<p>A third solution involves specifying the argument
+<code>ignore.case=TRUE</code> inside <code>grep()</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1"></a><span class="co"># get states names with &#39;w&#39;</span></span>
+<span id="cb11-2"><a href="intro.html#cb11-2"></a><span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&quot;w&quot;</span>, <span class="dt">x =</span> states, <span class="dt">value =</span> <span class="ot">TRUE</span>, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb11-3"><a href="intro.html#cb11-3"></a><span class="co">#&gt;  [1] &quot;Delaware&quot;      &quot;Hawaii&quot;        &quot;Iowa&quot;          &quot;New Hampshire&quot;</span></span>
+<span id="cb11-4"><a href="intro.html#cb11-4"></a><span class="co">#&gt;  [5] &quot;New Jersey&quot;    &quot;New Mexico&quot;    &quot;New York&quot;      &quot;Washington&quot;   </span></span>
+<span id="cb11-5"><a href="intro.html#cb11-5"></a><span class="co">#&gt;  [9] &quot;West Virginia&quot; &quot;Wisconsin&quot;     &quot;Wyoming&quot;</span></span></code></pre></div>
 </div>
-<div id="colophon" class="section level3">
-<h3><span class="header-section-number">1.1.4</span> Colophon</h3>
-<p>The source of the book is available in the github repository:</p>
-<p><a href="https://github.com/gastonstat/r4strings">https://github.com/gastonstat/r4strings</a>.</p>
-<p>The book is powered by <a href="https://bookdown.org">https://bookdown.org</a>.</p>
-<p>This book was built with:</p>
-<pre><code>#&gt; R version 3.6.1 (2019-07-05)
-#&gt; Platform: x86_64-apple-darwin15.6.0 (64-bit)
-#&gt; Running under: macOS High Sierra 10.13.6
-#&gt; 
-#&gt; Matrix products: default
-#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
-#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
-#&gt; 
-#&gt; locale:
-#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-#&gt; 
-#&gt; attached base packages:
-#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     
-#&gt; 
-#&gt; loaded via a namespace (and not attached):
-#&gt;  [1] compiler_3.6.1  magrittr_1.5    bookdown_0.16   htmltools_0.4.0
-#&gt;  [5] tools_3.6.1     rstudioapi_0.10 yaml_2.2.0      Rcpp_1.0.3     
-#&gt;  [9] stringi_1.4.3   rmarkdown_1.17  knitr_1.26      stringr_1.4.0  
-#&gt; [13] digest_0.6.22   xfun_0.11       rlang_0.4.1     evaluate_0.14</code></pre>
+<div id="some-computations" class="section level3">
+<h3><span class="header-section-number">1.1.4</span> Some computations</h3>
+<p>Besides manipulating strings and performing pattern matching operations, we can
+also do some computations. For instance, we could ask for the distribution of
+the State names’ length. To find the answer we can use <code>nchar()</code>.
+Furthermore, we can plot a histogram of such distribution:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro.html#cb12-1"></a><span class="kw">summary</span>(<span class="kw">nchar</span>(states))</span>
+<span id="cb12-2"><a href="intro.html#cb12-2"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb12-3"><a href="intro.html#cb12-3"></a><span class="co">#&gt;    4.00    7.00    8.00    8.44   10.00   14.00</span></span>
+<span id="cb12-4"><a href="intro.html#cb12-4"></a></span>
+<span id="cb12-5"><a href="intro.html#cb12-5"></a><span class="co"># histogram</span></span>
+<span id="cb12-6"><a href="intro.html#cb12-6"></a><span class="kw">hist</span>(<span class="kw">nchar</span>(states), <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;gray80&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Histogram&quot;</span>, </span>
+<span id="cb12-7"><a href="intro.html#cb12-7"></a>     <span class="dt">xlab =</span> <span class="st">&quot;number of characters in US State names&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/USArrests_hist-1.png" width="65%" style="display: block; margin: auto;" /></p>
+<p>Let’s ask a more interesting question. What is the distribution of the vowels
+in the names of the States? For instance, let’s start with the number of
+<code>a</code>’s in each name. There’s a very useful function for this purpose:
+<code>regexpr()</code>. We can use <code>regexpr()</code> to get the number of times that a
+searched pattern is found in a character vector. When there is no match, we get
+a value -1.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="intro.html#cb13-1"></a><span class="co"># position of a&#39;s</span></span>
+<span id="cb13-2"><a href="intro.html#cb13-2"></a>positions_a &lt;-<span class="st"> </span><span class="kw">gregexpr</span>(<span class="dt">pattern=</span><span class="st">&quot;a&quot;</span>, <span class="dt">text=</span>states, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb13-3"><a href="intro.html#cb13-3"></a></span>
+<span id="cb13-4"><a href="intro.html#cb13-4"></a><span class="co"># how many a&#39;s?</span></span>
+<span id="cb13-5"><a href="intro.html#cb13-5"></a>num_a &lt;-<span class="st"> </span><span class="kw">sapply</span>(positions_a, <span class="cf">function</span>(x) <span class="kw">ifelse</span>(x[<span class="dv">1</span>]<span class="op">&gt;</span><span class="dv">0</span>, <span class="kw">length</span>(x), <span class="dv">0</span>))</span>
+<span id="cb13-6"><a href="intro.html#cb13-6"></a>num_a</span>
+<span id="cb13-7"><a href="intro.html#cb13-7"></a><span class="co">#&gt;  [1] 4 3 2 3 2 1 0 2 1 1 2 1 0 2 1 2 0 2 1 2 2 1 1 0 0 2 2 2 1 0 0 0 2 2 0 2 0 2</span></span>
+<span id="cb13-8"><a href="intro.html#cb13-8"></a><span class="co">#&gt; [39] 1 2 2 0 1 1 0 1 1 1 0 0</span></span></code></pre></div>
+<p>If you inspect <code>positions_a</code> you’ll see that it contains some negative
+numbers <code>-1</code>. This means there are no letters <code>a</code> in that name. To
+get the number of occurrences of <code>a</code>’s we are taking a shortcut with
+<code>sapply()</code>.</p>
+<p>The same operation can be performed by using the function
+<code>str_count()</code> from the package <code>"stringr"</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="intro.html#cb14-1"></a><span class="co"># load stringr (remember to install it first)</span></span>
+<span id="cb14-2"><a href="intro.html#cb14-2"></a><span class="kw">library</span>(stringr)</span>
+<span id="cb14-3"><a href="intro.html#cb14-3"></a></span>
+<span id="cb14-4"><a href="intro.html#cb14-4"></a><span class="co"># total number of a&#39;s</span></span>
+<span id="cb14-5"><a href="intro.html#cb14-5"></a><span class="kw">str_count</span>(states, <span class="st">&quot;a&quot;</span>)</span>
+<span id="cb14-6"><a href="intro.html#cb14-6"></a><span class="co">#&gt;  [1] 3 2 1 2 2 1 0 2 1 1 2 1 0 2 1 2 0 2 1 2 2 1 1 0 0 2 2 2 1 0 0 0 2 2 0 2 0 2</span></span>
+<span id="cb14-7"><a href="intro.html#cb14-7"></a><span class="co">#&gt; [39] 1 2 2 0 1 1 0 1 1 1 0 0</span></span></code></pre></div>
+<p>Notice that we are only getting the number of <code>a</code>’s in lower case. Since
+<code>str_count()</code> does not contain the argument <code>ignore.case</code>, we need
+to transform all letters to lower case, and then count the number of <code>a</code>’s
+like this:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="intro.html#cb15-1"></a><span class="co"># total number of a&#39;s</span></span>
+<span id="cb15-2"><a href="intro.html#cb15-2"></a><span class="kw">str_count</span>(<span class="kw">tolower</span>(states), <span class="st">&quot;a&quot;</span>)</span>
+<span id="cb15-3"><a href="intro.html#cb15-3"></a><span class="co">#&gt;  [1] 4 3 2 3 2 1 0 2 1 1 2 1 0 2 1 2 0 2 1 2 2 1 1 0 0 2 2 2 1 0 0 0 2 2 0 2 0 2</span></span>
+<span id="cb15-4"><a href="intro.html#cb15-4"></a><span class="co">#&gt; [39] 1 2 2 0 1 1 0 1 1 1 0 0</span></span></code></pre></div>
+<p>Once we know how to do it for one vowel, we can do the same for all the vowels:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="intro.html#cb16-1"></a><span class="co"># calculate number of vowels in each name</span></span>
+<span id="cb16-2"><a href="intro.html#cb16-2"></a>vowels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;u&quot;</span>)</span>
+<span id="cb16-3"><a href="intro.html#cb16-3"></a>num_vowels &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;integer&quot;</span>, <span class="dt">length =</span> <span class="dv">5</span>)</span>
+<span id="cb16-4"><a href="intro.html#cb16-4"></a></span>
+<span id="cb16-5"><a href="intro.html#cb16-5"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="kw">seq_along</span>(vowels)) {</span>
+<span id="cb16-6"><a href="intro.html#cb16-6"></a>  num_aux &lt;-<span class="st"> </span><span class="kw">str_count</span>(<span class="kw">tolower</span>(states), vowels[j])</span>
+<span id="cb16-7"><a href="intro.html#cb16-7"></a>  num_vowels[j] &lt;-<span class="st"> </span><span class="kw">sum</span>(num_aux)</span>
+<span id="cb16-8"><a href="intro.html#cb16-8"></a>}</span>
+<span id="cb16-9"><a href="intro.html#cb16-9"></a></span>
+<span id="cb16-10"><a href="intro.html#cb16-10"></a><span class="co"># sort them in decreasing order</span></span>
+<span id="cb16-11"><a href="intro.html#cb16-11"></a><span class="kw">names</span>(num_vowels) &lt;-<span class="st"> </span>vowels</span>
+<span id="cb16-12"><a href="intro.html#cb16-12"></a><span class="kw">sort</span>(num_vowels, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb16-13"><a href="intro.html#cb16-13"></a><span class="co">#&gt;  a  i  o  e  u </span></span>
+<span id="cb16-14"><a href="intro.html#cb16-14"></a><span class="co">#&gt; 61 44 36 28  8</span></span>
+<span id="cb16-15"><a href="intro.html#cb16-15"></a></span>
+<span id="cb16-16"><a href="intro.html#cb16-16"></a><span class="co"># barplot</span></span>
+<span id="cb16-17"><a href="intro.html#cb16-17"></a><span class="kw">barplot</span>(num_vowels, <span class="dt">main =</span> <span class="st">&quot;Number of vowels in USA States names&quot;</span>, </span>
+<span id="cb16-18"><a href="intro.html#cb16-18"></a>        <span class="dt">border =</span> <span class="ot">NA</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">80</span>), <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/USArrests_vowels-1.png" width="60%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="preface.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="chars.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -540,7 +478,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/gastonstat/r4strings/edit/master/introduction.Rmd",
+"link": "https://github.com/gastonstat/r4strings/edit/master/01-introduction.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -559,20 +497,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
