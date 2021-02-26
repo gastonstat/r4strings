@@ -32,22 +32,22 @@ https://leanpub.com/r4strings
 
 This is now a preview of the first four chapters:
 
-- __Characters and Strings in R__
+- __I Characters and Strings in R__
   1) [Introductory Appetizer](#intro)
   2) [Character Strings in R](#chars)
   3) [Basic Manipulations With "base" Functions](#basics1)
   4) [Basic Manipulations With "stringr" Functions](#basics2)
-- __Characters and Strings in R__
+- __II Printing and Formatting__
   5) Formatting Text and Numbers
   6) C-Style Formatting
   7) Input and Output
-- __Characters and Strings in R__
+- __III Regular Expressions__
   8) Getting Started with Regular Expressions
   9) Character Sets
   10) Anchors and Quantifiers
   11) Boundaries and Look Arounds
   12) Regex Functions in R
-- __Characters and Strings in R__
+- __IV Applications__
   13) Plots
   14) Basic Examples
   15) Matching HTML Tags
