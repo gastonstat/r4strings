@@ -2,7 +2,7 @@
 
 This repository contains the text and code of the book __[Handling Strings with R](https://leanpub.com/r4strings)__.
 
-<a href="https://www.gastonsanchez.com/r4strings" target="_blank"><img src="images/cover-image.png" alt="cover image" height="375" width="300"></a>
+<a href="https://leanpub.com/r4strings" target="_blank"><img src="images/cover-image.png" alt="cover image" height="450" width="360"></a>
 
 ## Author
 
