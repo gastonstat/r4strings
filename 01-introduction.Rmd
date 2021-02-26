@@ -1,0 +1,215 @@
+# (PART) Characters and Strings in R {-}
+
+
+# Introductory Appetizer {#intro}
+
+
+To give you an idea of some of the things we can do in R with string 
+processing, let's play a bit with a simple example. 
+
+
+## A Toy Example
+
+For this crash informal introduction, we'll use the data frame `USArrests` 
+that already comes with R. Use the function `head()` to get a peek of 
+the data:
+
+```{r USArrests}
+# take a peek of USArrests
+head(USArrests)
+```
+
+The labels on the rows such as `Alabama` or `Alaska` are displayed 
+strings. Likewise, the labels of the columns---`Murder`, `Assault`,
+`UrbanPop` and `Rape`---are also strings.
+
+
+### Abbreviating strings
+
+Suppose we want to abbreviate the names of the States. Furthermore, suppose we 
+want to abbreviate the names using the first four characters of each name. One 
+way to do that is by using the function `substr()` which substrings a 
+character vector. We just need to indicate the `start=1` and `stop=4`
+positions:
+
+```{r USArrests_strsplit}
+# names of states
+states <- rownames(USArrests)
+
+# substr
+substr(x = states, start = 1, stop = 4)
+```
+
+This may not be the best solution. Note that there are four states with the same 
+abbreviation `"New "` (New Hampshire, New Jersey, New Mexico, New York). 
+Likewise, North Carolina and North Dakota share the same name `"Nort"`. 
+In turn, South Carolina and South Dakota got the same abbreviation `"Sout"`.
+
+A better way to abbreviate the names of the states can be performed by using 
+the function `abbreviate()` like so:
+
+```{r USArrests_abbreviate}
+# abbreviate state names
+states2 <- abbreviate(states)
+
+# remove vector names (for convenience)
+names(states2) <- NULL
+states2
+```
+
+If we decide to try an abbreviation with five letters we just simply change the 
+argument `minlength = 5`
+
+```{r USArrests_abbreviate_ex2}
+# abbreviate state names with 5 letters
+abbreviate(states, minlength = 5)
+```
+
+
+
+### Getting the longest name
+
+Now let's imagine that we need to find the longest name. This implies that we need to count the number of letters in each name. The function `nchar()` comes handy for that purpose. Here's how we could do it:
+
+```{r USArrests_longest}
+# size (in characters) of each name
+state_chars = nchar(states)
+state_chars
+
+# longest name
+states[which(state_chars == max(state_chars))]
+```
+
+
+
+### Selecting States
+
+To make things more interesting, let's assume that we wish to select those states containing the letter `"k"`. How can we do that? Very simple, we just need to use the function `grep()` for working with regular expressions. Simply indicate the `pattern = "k"` as follows:
+
+```{r USArrests_k}
+# get states names with 'k'
+grep(pattern = "k", x = states, value = TRUE)
+```
+
+Instead of grabbing those names containing `"k"`, say we wish to select those states containing the letter `"w"`. Again, this can be done with `grep()`:
+
+```{r USArrests_w}
+# get states names with 'w'
+grep(pattern = "w", x = states, value = TRUE)
+```
+
+Notice that we only selected those states with lowercase `"w"`. But what 
+about those states with uppercase `"W"`? There are several options to find 
+a solution for this question. One option is to specify the searched pattern as 
+a character class `"[wW]"`:
+
+```{r USArrests_wW}
+# get states names with 'w' or 'W'
+grep(pattern = "[wW]", x = states, value = TRUE)
+```
+
+Another solution is to first convert the state names to lower case, and then 
+look for the character `"w"`, like so:
+
+```{r USArrests_tolower_w}
+# get states names with 'w'
+grep(pattern = "w", x = tolower(states), value = TRUE)
+```
+
+Alternatively, instead of converting the state names to lower case we could do 
+the opposite (convert to upper case), and then look for the character 
+`"W"`, like so:
+
+```{r USArrests_toupper_W}
+# get states names with 'W'
+grep(pattern = "W", x = toupper(states), value = TRUE)
+```
+
+A third solution involves specifying the argument 
+`ignore.case=TRUE` inside `grep()`:
+
+```{r USArrests_w_case}
+# get states names with 'w'
+grep(pattern = "w", x = states, value = TRUE, ignore.case = TRUE)
+```
+
+
+
+### Some computations
+
+Besides manipulating strings and performing pattern matching operations, we can 
+also do some computations. For instance, we could ask for the distribution of 
+the State names' length. To find the answer we can use `nchar()`. 
+Furthermore, we can plot a histogram of such distribution:
+
+```{r USArrests_hist, out.width='65%', fig.align='center', tidy=FALSE}
+summary(nchar(states))
+
+# histogram
+hist(nchar(states), las = 1, col = "gray80", main = "Histogram", 
+     xlab = "number of characters in US State names")
+```
+
+Let's ask a more interesting question. What is the distribution of the vowels 
+in the names of the States? For instance, let's start with the number of 
+`a`'s in each name. There's a very useful function for this purpose: 
+`regexpr()`. We can use `regexpr()` to get the number of times that a 
+searched pattern is found in a character vector. When there is no match, we get 
+a value -1.
+
+```{r USArrests_vowel_a_ex1}
+# position of a's
+positions_a <- gregexpr(pattern="a", text=states, ignore.case = TRUE)
+
+# how many a's?
+num_a <- sapply(positions_a, function(x) ifelse(x[1]>0, length(x), 0))
+num_a
+```
+
+If you inspect `positions_a` you'll see that it contains some negative 
+numbers `-1`. This means there are no letters `a` in that name. To 
+get the number of occurrences of `a`'s we are taking a shortcut with 
+`sapply()`. 
+
+The same operation can be performed by using the function 
+`str_count()` from the package `"stringr"`.
+
+```{r USArrests_vowel_a_ex2, message=FALSE}
+# load stringr (remember to install it first)
+library(stringr)
+
+# total number of a's
+str_count(states, "a")
+```
+
+Notice that we are only getting the number of `a`'s in lower case. Since 
+`str_count()` does not contain the argument `ignore.case`, we need 
+to transform all letters to lower case, and then count the number of `a`'s 
+like this:
+
+```{r USArrests_vowel_a_ex3}
+# total number of a's
+str_count(tolower(states), "a")
+```
+
+Once we know how to do it for one vowel, we can do the same for all the vowels:
+
+```{r USArrests_vowels, out.width='60%', fig.align='center', tidy=FALSE}
+# calculate number of vowels in each name
+vowels <- c("a", "e", "i", "o", "u")
+num_vowels <- vector(mode = "integer", length = 5)
+
+for (j in seq_along(vowels)) {
+  num_aux <- str_count(tolower(states), vowels[j])
+  num_vowels[j] <- sum(num_aux)
+}
+
+# sort them in decreasing order
+names(num_vowels) <- vowels
+sort(num_vowels, decreasing = TRUE)
+
+# barplot
+barplot(num_vowels, main = "Number of vowels in USA States names", 
+        border = NA, xlim = c(0, 80), las = 1, horiz = TRUE)
+```
+
