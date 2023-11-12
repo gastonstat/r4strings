@@ -185,7 +185,7 @@ chartr("ai", "X", "This is a bad example")
 
 Here's a more interesting example with `old = "aei"` and `new = "\#!?"`. 
 This implies that any `'a'` in `'x'` will be replaced by `'\#'`, any `'e'` in 
-`'x'` will be replaced by `'?'`, and any `'i'` in `'x'` will be replaced by 
+`'x'` will be replaced by `'!'`, and any `'i'` in `'x'` will be replaced by 
 `'?'`:
 
 ```{r chartr_ex3}
